@@ -92,7 +92,7 @@ function printMessage(message) {
 	var printLetter = function(message, index) {
 		if(index < message.length) {
 			var timeoutLength;
-			if(message[index] == '\\') {
+			if(message[index] == '/') {
 				location.innerHTML = location.innerHTML + '<br>';
 				timeoutLength = 200;
 			} else if(message[index] == "|") {
@@ -127,7 +127,7 @@ function printMessage(message) {
 function addBreaks(message) {
 	messageHeight = 0;
 	message = message.split("...").join(". . .");
-	var lineSplit = message.split("\\");
+	var lineSplit = message.split("/");
 	for(var j = 0; j < lineSplit.length; j++) {
 		ghost.text("");
 		var affectedIndexes = [];
@@ -148,5 +148,5 @@ function addBreaks(message) {
 	}
 	console.log(messageHeight);
 	$("#message").css("padding-top", (($(window).height() - messageHeight) / 2 - 12) + "px")
-	return lineSplit.join("\\");
+	return lineSplit.join("/");
 }

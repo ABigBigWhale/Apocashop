@@ -1,6 +1,6 @@
 var profiles = {
 	dayOne : [
-		"Oh, is that the rhyming guy? \\@@Hard to believe he's our hero.",
+		"Oh, is that the rhyming guy? /@@Hard to believe he's our hero.",
 		"Oh yeah, I love that guy! He's always rhyming and singing.",
 		"I hate that guy, with his @@rhymes.",
 		"How does he always come up with so many rhymes?"
@@ -33,7 +33,7 @@ var profiles = {
 		"Don't remind me.",
 		"Terrifying.",
 		"D@o@ @n@o@t@ @w@a@n@t@.",
-		"~Crying sounds~"
+		"*Crying sounds*"
 	],
 	default : [
 		"I don't know them",

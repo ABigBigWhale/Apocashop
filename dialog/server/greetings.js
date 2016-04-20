@@ -10,8 +10,8 @@ var greetings = [
 var preGreetings = [
 	"Hiya! ",
 	"Howdy! ",
-	"How's it going?\\",
-	"Nice day out!\\"
+	"How's it going?/",
+	"Nice day out!/"
 ];
 
 function generateGreeting(item, gold) {

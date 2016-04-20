@@ -1,16 +1,16 @@
 var heroes = {
 	"jeff" : {
 		intro : [
-			"Hey pal, I'm Jeff!\\Jeff the Magic Anvil!\\@@@No, seriously. That's what I am.",
+			"Hey pal, I'm Jeff!/Jeff the Magic Anvil!/@@@No, seriously. That's what I am.",
 			"I'm here to help you run this shop!",
-			"If you give me five minutes, I can make any item you want\\...\\@@@for a price.",
-			"YOUR @S@O@U@L@ . @ .@ .@\\But for you kid, @I'll also accept gold pieces.",
+			"If you give me five minutes, I can make any item you want/.../@@@for a price.",
+			"YOUR @S@O@U@L@ . @ .@ .@/But for you kid, @I'll also accept gold pieces.",
 			"You've got a lot of responsibility to this town.",
-			"Stay sharp kiddo, but don't worry. I've got your back.\\@@I'll let you know if you take a wrong turn."
+			"Stay sharp kiddo, but don't worry. I've got your back./@@I'll let you know if you take a wrong turn."
 		],
 		seer : [
 			"Alright, we're going to need to help out our local heroes if we don't want to get robbed again.",
-			"Don't worry, I know a pretty good fortune teller.\\Maybe she can give us some clues."
+			"Don't worry, I know a pretty good fortune teller./Maybe she can give us some clues."
 		],
 		stocking : [
 			"Alrighty, what do you want me to make for you?",
@@ -19,14 +19,14 @@ var heroes = {
 			"Use the buttons on the left side to adjust our stock."
 		],
 		positive : {
-			gotHero : "Good eye, kid. @Would have taken me half the time to spot the hero though.\\@@Not to brag or anything.",
+			gotHero : "Good eye, kid. @Would have taken me half the time to spot the hero though./@@Not to brag or anything.",
 			gotFalse : "Nice work pal. That was a terrible hero disguise.",
 			bargain : "Proud of you, kiddo. Shake that money right out of their pockets.",
 			default : ""
 		},
 		negative : {
 			missedHero : "You should probably make sure the hero gets what they need.",
-			soldFalse : "Kid ...\\You're sure you want to be giving them a discount?",
+			soldFalse : "Kid .../You're sure you want to be giving them a discount?",
 			badDeal : "Come on kiddo, this is a business. You might want to haggle a bit.",
 			default : ""
 		},
@@ -56,46 +56,46 @@ var heroes = {
 	"seer" : {
 		firstDay : "For many moons have I seen your coming, humble shopkeeper.",
 		explanation : "Revealing all the matching cards shall make your path clear.",
-		congratsOne : "Congratulations youngling, you've managed to match two cards.\\@@Songs will be sung of this day.",
-		congratsGeneral : "Well done, youngling!\\This effort shall make your burden much lighter.",
+		congratsOne : "Congratulations youngling, you've managed to match two cards./@@Songs will be sung of this day.",
+		congratsGeneral : "Well done, youngling!/This effort shall make your burden much lighter.",
 		match1 : "Nicely done!",
 		match2 : "Ooh!"
 	},
 	"dog" : {
-		greeting : "Arf!\\@(The dog is eyeing one of your chickens. He doesn't appear to have any gold.)",
-		success : "Arf!\\@(The dog lays at your feet, gorging itself on chicken.)",
-		fail : "Arf!\\@(The dog stumbles away dejectedly, eyeing a group of pigeons.)",
+		greeting : "Arf!/@(The dog is eyeing one of your chickens. He doesn't appear to have any gold.)",
+		success : "Arf!/@(The dog lays at your feet, gorging itself on chicken.)",
+		fail : "Arf!/@(The dog stumbles away dejectedly, eyeing a group of pigeons.)",
 		default : "Arf!"
 	},
 	"dayOne" : {
-		greeting : "Hello shopkeeper, I hope you're not bored.\\For five gold, I would like to buy a sword!",
-		success : "Thank you sir!\\Were I a cat, I would purr!",
-		fail : "I do not have the cash,\\my apologies for being brash!",
+		greeting : "Hello shopkeeper, I hope you're not bored./For five gold, I would like to buy a sword!",
+		success : "Thank you sir!/Were I a cat, I would purr!",
+		fail : "I do not have the cash,/my apologies for being brash!",
 		questions : {
-			color : "Though it may fill some with dread,\\I must say, my favorite color is red!",
-			day : "My day has been fun, not too short not too long.\\If this takes much longer, I may break out in song!",
-			default : "Of that, I have not been taught,\\and thus I sadly know naught."
+			color : "Though it may fill some with dread,/I must say, my favorite color is red!",
+			day : "My day has been fun, not too short not too long./If this takes much longer, I may break out in song!",
+			default : "Of that, I have not been taught,/and thus I sadly know naught."
 		},
 		items : {
-			sword : "Swords are great for stabbing.\\Note: they are not meant for grabbing!",
-			default : "I do not know what to make of that,\\but I am glad to have had this chat!"
+			sword : "Swords are great for stabbing./Note: they are not meant for grabbing!",
+			default : "I do not know what to make of that,/but I am glad to have had this chat!"
 		},
 		profiles : {
-			goblin : "Ah, my mortal enemy is that.\\I wish to engage one in single combat.",
-			default : "What a face, what a smile!\\And what dashing style!"
+			goblin : "Ah, my mortal enemy is that./I wish to engage one in single combat.",
+			default : "What a face, what a smile!/And what dashing style!"
 		}
 	},
 	"falseDayOne" : {
-		greeting : "Ahoy there friend, this is a good month.\\I'd like a sword for two gold please.\\@Urm, @@@dunth?",
+		greeting : "Ahoy there friend, this is a good month./I'd like a sword for two gold please./@Urm, @@@dunth?",
 		success : "Thank you my friend!",
 		fail : "Fine, I'll go elsewhere.",
 		questions : {
-			color : "Though I love many colors, my favorite is orange.\\It's the greatest of colors, because it's so ... @@@@florange?",
+			color : "Though I love many colors, my favorite is orange./It's the greatest of colors, because it's so ... @@@@florange?",
 			day : "Good.",
 			default : "What?"
 		},
 		items : {
-			sword : "Swords are the best, I need one. @@@@Um.@@@@@\\Rhyming is hard, and I've run out of rhymes.",
+			sword : "Swords are the best, I need one. @@@@Um.@@@@@/Rhyming is hard, and I've run out of rhymes.",
 			default : "Erm, @@cool?"
 		},
 		profiles : {
@@ -158,9 +158,9 @@ var heroes = {
 		}
 	},
 	"salesman" : {
-		greeting : "Hey, want a new item? Word is, it'll be useful ...\\I'll part with it for ten gold.",
+		greeting : "Hey, want a new item? Word is, it'll be useful .../I'll part with it for ten gold.",
 		success : "Pleasure doing business.",
-		fail : "Alright, alright, I'll get out of your hair.\\@@You'll regret this.",
+		fail : "Alright, alright, I'll get out of your hair./@@You'll regret this.",
 		questions : {
 			color : "Money.",
 			number : "The highest you can think of.",
@@ -194,7 +194,7 @@ var heroes = {
 		}
 	},
 	"falseDayThree" : {
-		greeting : "Normally, I don't ask for odd shields.\\Three gold on?",
+		greeting : "Normally, I don't ask for odd shields./Three gold on?",
 		success : "Heh, thanks!",
 		fail : "Darn.",
 		questions : {
@@ -212,7 +212,7 @@ var heroes = {
 		}
 	},
 	"scaredMan" : {
-		greeting : "I need to hide here. He's after me.\\Please, @@he'll kill me if he finds me.",
+		greeting : "I need to hide here. He's after me./Please, @@he'll kill me if he finds me.",
 		success : "Thank you.",
 		fail : "Oh no.",
 		questions : {
@@ -230,9 +230,9 @@ var heroes = {
 		}
 	},
 	"tracker" : {
-		greeting : "A very dangerous man is loose and I need to find him.\\I'll pay you ten gold for any information.",
+		greeting : "A very dangerous man is loose and I need to find him./I'll pay you ten gold for any information.",
 		success : "You won't get away this time!",
-		fail : "Very well,@@ I hope you've been honest with me.\\@@@@For your sake.",
+		fail : "Very well,@@ I hope you've been honest with me./@@@@For your sake.",
 		questions : {
 			day : "Busy.",
 			news : "I just told you the news.",
@@ -249,7 +249,7 @@ var heroes = {
 		}
 	},
 	"beggar" : {
-		greeting : "Please, I need a bucket of water ...\\@@Please.",
+		greeting : "Please, I need a bucket of water .../@@Please.",
 		success : "Thank you, thank you.",
 		fail : "...",
 		questions : {
@@ -268,9 +268,9 @@ var heroes = {
 		}
 	},
 	"hardHero" : {
-		greeting : "Hiya! I'm going to need a fireproof shield.\\@Two gold.",
-		greetingOff : "Hi! I'm going to need a fireproof shield.\\@Two gold.",
-		greetingBad : "Hiya! I'm going to need a fireproof shield.\\@Four gold.",
+		greeting : "Hiya! I'm going to need a fireproof shield./@Two gold.",
+		greetingOff : "Hi! I'm going to need a fireproof shield./@Two gold.",
+		greetingBad : "Hiya! I'm going to need a fireproof shield./@Four gold.",
 		haggleGood : "Alright, fine. Three gold.",
 		haggleBad : "Alright, fine. Four gold.",
 		success : "Thanks pal! Now to go for that dragon.",
