@@ -1,11 +1,33 @@
 var heroes = {
 	"jeff" : {
-		greeting : "Hey pal, I'm Jeff!\\Jeff the Magic Anvil!\\No, seriously. That's what I am.",
-		greeting2 : "I'm here to help you run this shop!",
-		greeting3 : "If you give me five minutes, I can make any item you want\\...\\for a price.",
-		greeting4 : "Y@O@U@R@ @S@O@U@L@ . @ .@ .@\\But for you kid, I'll also accept gold pieces.",
-		greeting5 : "You've got a lot of responsibility to this town. If you don't sell to the right people, things may get bad.",
-		greeting6 : "Stay sharp kiddo, but don't worry, I've got your back.\\I'll let you know if you take a wrong turn.",
+		intro : {
+			1 : "Hey pal, I'm Jeff!\\Jeff the Magic Anvil!\\@@@No, seriously. That's what I am.",
+			2 : "I'm here to help you run this shop!",
+			3 : "If you give me five minutes, I can make any item you want\\...\\@@@for a price.",
+			4 : "YOUR @S@O@U@L@ . @ .@ .@\\But for you kid, @I'll also accept gold pieces.",
+			5 : "You've got a lot of responsibility to this town.",
+			6 : "Stay sharp kiddo, but don't worry. I've got your back.\\@@I'll let you know if you take a wrong turn.",
+		},
+		positive : {
+			gotHero : "Good eye, kid.\\@@Probably would have taken me half the time to spot the hero though.",
+			gotFalse : "Nice work pal. That was a terrible hero disguise.",
+			bargain : "Proud of you, kiddo. Shake that money right out of their pockets.",
+			default : ""
+		},
+		negative : {
+			missedHero : "You should probably make sure the hero gets what they need.",
+			soldFalse : "Kid ...\\You're sure you want to be giving them a discount?",
+			badDeal : "Come on kiddo, this is a business. You might want to haggle a bit.",
+			default : ""
+		},
+		dog : {
+			keep : "Oh, can we keep him? Can we keep him?",
+			please : "Please please please please please please please please please.",
+			yes : "YES, this is the best day. Dogs are one of the few things I can't create.",
+			yes2 : "Well, I can, but I can only make dead ones.",
+			no : ":(",
+			default : ""
+		}
 	},
 	"seer" : {
 		firstDay : "For many moons have I seen your coming, humble shopkeeper.",
@@ -223,17 +245,20 @@ var heroes = {
 	},
 	"hardHero" : {
 		greeting : "Hiya! I'm going to need a fireproof shield, please.\\@Two gold.",
-		success : "Thank you, thank you.",
-		fail : "...",
+		greetingOff : "Hiya! I'm going to need a fireproof shield, please.\\@Two gold."
+		haggleGood : "Alright, fine. Three gold.",
+		haggleBad : "Alright, fine. Four gold.",
+		success : "Thanks pal! Now to go for that dragon.",
+		fail : "I hope you've got a fireproof store.",
 		questions : {
-			day : "Very,@@ very,@@ very bad.",
-			news : "Fire. @@@So much fire.",
+			day : "Pretty busy, been doing a lot of heroing.",
+			news : "There's a dragon. Not sure if you've heard.",
 			default : "..."
 		},
 		items : {
-			shield : "Wish I had that yesterday.",
-			water : "Please...",
-			default : "..."
+			shield : "Yup, that's what I need.",
+			water : "Not really thirsty.",
+			default : "Thanks, but I've got plenty of those."
 		},
 		profiles : {
 			dragon : "... ... ...",
