@@ -6,6 +6,9 @@ var rl = require('readline').createInterface({
 
 var npc = require('./npc');
 
+var port = parseInt(process.argv[2]);
+console.log("Listening on port " + port);
+
 //var connections = [];
 var connection = false;
 
@@ -19,7 +22,7 @@ var server = ws.createServer(function (conn) {
 	})
 
 	connection = conn;
-}).listen(8001)
+}).listen(port)
 
 function sendMessage(message) {
 	console.log("Sending: " + message);

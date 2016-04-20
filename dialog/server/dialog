@@ -1,4 +1,4 @@
 #!/bin/bash
 # Launch dialog server
 
-node dialog.js
+node dialog.js $@

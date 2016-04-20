@@ -45,7 +45,7 @@ var heroes = {
 				"Hey, I can magic you up a chicken right now, but it'll cost you a bit more than it would have in the morning.",
 				"Let's say five gold."
 			],
-			yes : "*Huff* @@~@@ Aren't you lucky you have me?@ Not many shopkeepers have an anvil that makes chicken.",
+			yes : "@*@H@u@f@f@* @@~@@ Aren't you lucky you have me?@ Not many shopkeepers have an anvil that makes chicken.",
 			no : "Alrighty, your funeral.",
 			explanation : [
 				"I can magic out items for you whenever you're out of stock.",
