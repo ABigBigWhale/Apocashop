@@ -5,26 +5,34 @@ cont.hide();
 
 //var exampleSocket = new WebSocket("ws://192.168.0.106:8001");
 
-var oldHost = localStorage.getItem("host");
+function init() {
+	var oldHost = localStorage.getItem("host");
 
-oldHost = oldHost || "localhost:8001";
+	oldHost = oldHost || "localhost:8001";
 
-var address = prompt("Enter address", oldHost);
+	var address = prompt("Enter address", oldHost);
 
-localStorage.setItem("host", address);
+	localStorage.setItem("host", address);
 
-var exampleSocket = new WebSocket("ws://" + address);
+	var exampleSocket = new WebSocket("ws://" + address);
 
-exampleSocket.onopen = function() {
+	exampleSocket.onopen = function() {
 
-	exampleSocket.onmessage = function(event) {
-		//printMessage(event.data);
-		parseMessage(event.data);
-	}
+		exampleSocket.onmessage = function(event) {
+			//printMessage(event.data);
+			parseMessage(event.data);
+		}
 
-	exampleSocket.send("sup");
+		exampleSocket.send("sup");
 
-};
+	};
+
+	exampleSocket.onclose = function() {
+		init();
+	};
+}
+
+init();
 
 var messageBuffer = [];
 
