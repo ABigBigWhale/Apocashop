@@ -359,6 +359,7 @@ function query(hero) {
 	return retString + "\n";
 }
 
+
 module.exports = {
 	list : list,
 	getMessage : getMessage,
