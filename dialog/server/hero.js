@@ -1,22 +1,25 @@
 var heroes = {
 	"jeff" : {
-		intro : {
-			1 : "Hey pal, I'm Jeff!\\Jeff the Magic Anvil!\\@@@No, seriously. That's what I am.",
-			2 : "I'm here to help you run this shop!",
-			3 : "If you give me five minutes, I can make any item you want\\...\\@@@for a price.",
-			4 : "YOUR @S@O@U@L@ . @ .@ .@\\But for you kid, @I'll also accept gold pieces.",
-			5 : "You've got a lot of responsibility to this town.",
-			6 : "Stay sharp kiddo, but don't worry. I've got your back.\\@@I'll let you know if you take a wrong turn.",
-			seer : "Alright, we're going to need to help out our local heroes if we don't want to get robbed again.",
-			seer2 : "Don't worry, I know a pretty good fortune teller.\\Maybe she can give us some clues."
-		},
-		stocking : {
-			1 : "Alrighty, what do you want me to make for you?\\@@Use the buttons on the left side to adjust our stock.",
-			2 : "For now, we only have storefront space for one item, so if you've got big dreams, ignore them for now.",
-			3 : "Don't forget, I can make you items later, but I'll give you a morning discount because I'm super nice."
-		},
+		intro : [
+			"Hey pal, I'm Jeff!\\Jeff the Magic Anvil!\\@@@No, seriously. That's what I am.",
+			"I'm here to help you run this shop!",
+			"If you give me five minutes, I can make any item you want\\...\\@@@for a price.",
+			"YOUR @S@O@U@L@ . @ .@ .@\\But for you kid, @I'll also accept gold pieces.",
+			"You've got a lot of responsibility to this town.",
+			"Stay sharp kiddo, but don't worry. I've got your back.\\@@I'll let you know if you take a wrong turn."
+		],
+		seer : [
+			"Alright, we're going to need to help out our local heroes if we don't want to get robbed again.",
+			"Don't worry, I know a pretty good fortune teller.\\Maybe she can give us some clues."
+		],
+		stocking : [
+			"Alrighty, what do you want me to make for you?",
+			"For now, we only have storefront space for one item, so if you've got big dreams, ignore them for now.",
+			"Don't forget, I can make you items later, but I'll give you a morning discount because I'm super nice.",
+			"Use the buttons on the left side to adjust our stock."
+		],
 		positive : {
-			gotHero : "Good eye, kid.\\@@Probably would have taken me half the time to spot the hero though.",
+			gotHero : "Good eye, kid. @Would have taken me half the time to spot the hero though.\\@@Not to brag or anything.",
 			gotFalse : "Nice work pal. That was a terrible hero disguise.",
 			bargain : "Proud of you, kiddo. Shake that money right out of their pockets.",
 			default : ""
@@ -30,18 +33,24 @@ var heroes = {
 		dog : {
 			keep : "Oh, can we keep him? Can we keep him?",
 			please : "Please please please please please please please please please please please please please please please.",
-			yes : "YES, this is the best day. Dogs are one of the few things I can't create.",
-			yes2 : "Well, I can, but I can only make dead ones.",
-			no : ":(",
+			yes : [
+				"YES, this is the best day. Dogs are one of the few things I can't create.",
+				"Well, I can, but I can only make dead ones."
+			],
+			no : ":( Very unhappy face.",
 			default : ""
 		},
 		chicken : {
-			make : "Hey, I can magic you up a chicken right now, but it'll cost you a bit more than it would have in the morning.",
-			make2 : "Let's say five gold."
+			make : [
+				"Hey, I can magic you up a chicken right now, but it'll cost you a bit more than it would have in the morning.",
+				"Let's say five gold."
+			],
 			yes : "*Huff* @@~@@ Aren't you lucky you have me?@ Not many shopkeepers have an anvil that makes chicken.",
 			no : "Alrighty, your funeral.",
-			explanation : "I can magic out items for you whenever you're out of stock.",
-			explanation2 : "Just remember, it'll cost you more than if I make them in the morning."
+			explanation : [
+				"I can magic out items for you whenever you're out of stock.",
+				"Just remember, it'll cost you more than if I make them in the morning."
+			]
 		}
 	},
 	"seer" : {
@@ -54,13 +63,13 @@ var heroes = {
 	},
 	"dog" : {
 		greeting : "Arf!\\@(The dog is eyeing one of your chickens. He doesn't appear to have any gold.)",
-		success : "Arf!\\@(The dog trots off triumphantly, chicken in mouth.)",
+		success : "Arf!\\@(The dog lays at your feet, gorging itself on chicken.)",
 		fail : "Arf!\\@(The dog stumbles away dejectedly, eyeing a group of pigeons.)",
 		default : "Arf!"
 	},
 	"dayOne" : {
-		greeting : "Hello shopkeeper, I hope you're not bored,\\for five gold, I would like to buy a sword!",
-		success : "Thank you sir,\\were I a cat, I would purr!",
+		greeting : "Hello shopkeeper, I hope you're not bored.\\For five gold, I would like to buy a sword!",
+		success : "Thank you sir!\\Were I a cat, I would purr!",
 		fail : "I do not have the cash,\\my apologies for being brash!",
 		questions : {
 			color : "Though it may fill some with dread,\\I must say, my favorite color is red!",
@@ -68,7 +77,7 @@ var heroes = {
 			default : "Of that, I have not been taught,\\and thus I sadly know naught."
 		},
 		items : {
-			sword : "Swords are great for stabbing,\\Note: they are not meant for grabbing!",
+			sword : "Swords are great for stabbing.\\Note: they are not meant for grabbing!",
 			default : "I do not know what to make of that,\\but I am glad to have had this chat!"
 		},
 		profiles : {
@@ -77,7 +86,7 @@ var heroes = {
 		}
 	},
 	"falseDayOne" : {
-		greeting : "Ahoy there friend, this is a good month,\\I'd like a sword for two gold please.\\@Urm, @@@dunth?",
+		greeting : "Ahoy there friend, this is a good month.\\I'd like a sword for two gold please.\\@Urm, @@@dunth?",
 		success : "Thank you my friend!",
 		fail : "Fine, I'll go elsewhere.",
 		questions : {
@@ -86,7 +95,7 @@ var heroes = {
 			default : "What?"
 		},
 		items : {
-			sword : "Swords are the best, I need one. @@@@Um.@@@@@ Rhyming is hard, and I've run out of rhymes.",
+			sword : "Swords are the best, I need one. @@@@Um.@@@@@\\Rhyming is hard, and I've run out of rhymes.",
 			default : "Erm, @@cool?"
 		},
 		profiles : {
@@ -151,7 +160,7 @@ var heroes = {
 	"salesman" : {
 		greeting : "Hey, want a new item? Word is, it'll be useful ...\\I'll part with it for ten gold.",
 		success : "Pleasure doing business.",
-		fail : "Alright, alright, I'll get out of your hair.\\You'll regret this.",
+		fail : "Alright, alright, I'll get out of your hair.\\@@You'll regret this.",
 		questions : {
 			color : "Money.",
 			number : "The highest you can think of.",
@@ -278,8 +287,8 @@ var heroes = {
 			default : "Thanks, but I've got plenty of those."
 		},
 		profiles : {
-			dragon : "... ... ...",
-			default : "..."
+			dragon : "Fear not, that dragon shall soon be history.",
+			default : "I'm not sure who that is."
 		}
 	}
 }
@@ -299,10 +308,24 @@ function getMessage(hero, term, subTerm) {
 	}
 	if(typeof message === 'string') {
 		return message;
+	} else if(message instanceof Array) {
+		return concatMessage(message);
 	} else {
 		subTerm = subTerm || "default";
-		return message[subTerm] || message.default;
+		message = message[subTerm];
+		if(message instanceof Array) {
+			return concatMessage(message);
+		}
+		return message || "ERROR";
 	}
+}
+
+function concatMessage(message) {
+	var concat = message[0];
+	for(var i = 1; i < message.length; i++) {
+		concat += "^" + message[i];
+	}
+	return concat;
 }
 
 function query(hero, category) {
@@ -329,7 +352,7 @@ function query(hero) {
 	var retString = "Commands: " + keys;
 	for(var i = 0; i < keys.length; i++) {
 		var key = keys[i];
-		if(typeof heroData[key] === 'object') {
+		if(typeof heroData[key] === 'object' && !(heroData[key] instanceof Array)) {
 			retString += "\n" + key + ": " + Object.keys(heroData[key]);
 		}
 	}

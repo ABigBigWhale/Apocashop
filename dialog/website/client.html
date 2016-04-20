@@ -10,6 +10,8 @@
 			position: fixed;
 			font-family: 'yoster_islandregular';
 			font-size: 4.5em;
+			width: 100%;
+			height: 100%;
 		}
 		#message,#ghostMessage {
 			padding-left: 25px;
@@ -24,11 +26,20 @@
 		br {
 			line-height: 1px;
 		}
+		#continue {
+			position: absolute;
+			font-size: 0.75em;
+			right: 30px;
+			bottom: 30px;
+			color: #F0EAD6;
+			text-align: right;
+		}
 	</style>
 </head>
 <body>
 <p id='message'></p>
 <p id='ghostMessage'>a</p>
+<p id='continue'>></p>
 <script src='jquery-2.2.3.min.js'></script>
 <script src='test.js'></script>
 </body>

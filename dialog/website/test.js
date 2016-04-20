@@ -1,4 +1,6 @@
 var ghost = $("#ghostMessage");
+var cont = $("#continue");
+cont.hide();
 //ghost.hide();
 
 //var exampleSocket = new WebSocket("ws://192.168.0.106:8001");
@@ -16,14 +18,69 @@ var exampleSocket = new WebSocket("ws://" + address);
 exampleSocket.onopen = function() {
 
 	exampleSocket.onmessage = function(event) {
-		printMessage(event.data);
+		//printMessage(event.data);
+		parseMessage(event.data);
 	}
 
 	exampleSocket.send("sup");
 
 };
 
+var messageBuffer = [];
+
+function parseMessage(message) {
+
+	var isImmediate = (messageBuffer.length === 0);
+
+	var splitMessage = message.split("^");
+	for(var i = 0; i < splitMessage.length; i++) {
+		messageBuffer.push(splitMessage[i]);
+	}
+
+	if(isImmediate) {
+		printMessage(messageBuffer.shift());
+	}
+
+}
+
+var blinkTimeout = false;
+
+function startBlink() {
+
+	var blinkOn = function() {
+		cont.show();
+		blinkTimeout = setTimeout(blinkOff, 500);
+	};
+
+	var blinkOff = function() {
+		cont.hide();
+		blinkTimeout = setTimeout(blinkOn, 500);
+	};
+
+	blinkOn();
+
+}
+
+function stopBlink() {
+	cont.hide();
+	clearTimeout(blinkTimeout);
+	blinkTimeout = false;
+}
+
+$("body").click(function() {
+	if(messageBuffer.length > 0 && !isPrinting) {
+		printMessage(messageBuffer.shift());
+	}
+});
+
+var isPrinting = false;
+
 function printMessage(message) {
+
+	isPrinting = true;
+
+	stopBlink();
+
 	var location = document.getElementById('message');
 
 	location.innerHTML = "";
@@ -54,6 +111,13 @@ function printMessage(message) {
 			setTimeout(function() {
 				printLetter(message, index + 1);
 			}, timeoutLength);
+		} else {
+			isPrinting = false;
+			if(messageBuffer.length > 0) {
+				startBlink();
+			} else {
+				stopBlink();
+			}
 		}
 	}
 
