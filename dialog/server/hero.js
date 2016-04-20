@@ -7,6 +7,13 @@ var heroes = {
 			4 : "YOUR @S@O@U@L@ . @ .@ .@\\But for you kid, @I'll also accept gold pieces.",
 			5 : "You've got a lot of responsibility to this town.",
 			6 : "Stay sharp kiddo, but don't worry. I've got your back.\\@@I'll let you know if you take a wrong turn.",
+			seer : "Alright, we're going to need to help out our local heroes if we don't want to get robbed again.",
+			seer2 : "Don't worry, I know a pretty good fortune teller.\\Maybe she can give us some clues."
+		},
+		stocking : {
+			1 : "Alrighty, what do you want me to make for you?\\@@Use the buttons on the left side to adjust our stock.",
+			2 : "For now, we only have storefront space for one item, so if you've got big dreams, ignore them for now.",
+			3 : "Don't forget, I can make you items later, but I'll give you a morning discount because I'm super nice."
 		},
 		positive : {
 			gotHero : "Good eye, kid.\\@@Probably would have taken me half the time to spot the hero though.",
@@ -22,11 +29,19 @@ var heroes = {
 		},
 		dog : {
 			keep : "Oh, can we keep him? Can we keep him?",
-			please : "Please please please please please please please please please.",
+			please : "Please please please please please please please please please please please please please please please.",
 			yes : "YES, this is the best day. Dogs are one of the few things I can't create.",
 			yes2 : "Well, I can, but I can only make dead ones.",
 			no : ":(",
 			default : ""
+		},
+		chicken : {
+			make : "Hey, I can magic you up a chicken right now, but it'll cost you a bit more than it would have in the morning.",
+			make2 : "Let's say five gold."
+			yes : "*Huff* @@~@@ Aren't you lucky you have me?@ Not many shopkeepers have an anvil that makes chicken.",
+			no : "Alrighty, your funeral.",
+			explanation : "I can magic out items for you whenever you're out of stock.",
+			explanation2 : "Just remember, it'll cost you more than if I make them in the morning."
 		}
 	},
 	"seer" : {
@@ -244,11 +259,13 @@ var heroes = {
 		}
 	},
 	"hardHero" : {
-		greeting : "Hiya! I'm going to need a fireproof shield, please.\\@Two gold.",
-		greetingOff : "Hiya! I'm going to need a fireproof shield, please.\\@Two gold."
+		greeting : "Hiya! I'm going to need a fireproof shield.\\@Two gold.",
+		greetingOff : "Hi! I'm going to need a fireproof shield.\\@Two gold.",
+		greetingBad : "Hiya! I'm going to need a fireproof shield.\\@Four gold.",
 		haggleGood : "Alright, fine. Three gold.",
 		haggleBad : "Alright, fine. Four gold.",
 		success : "Thanks pal! Now to go for that dragon.",
+		failGood : "Meh, fine.",
 		fail : "I hope you've got a fireproof store.",
 		questions : {
 			day : "Pretty busy, been doing a lot of heroing.",
