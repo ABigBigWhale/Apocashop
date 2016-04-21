@@ -1,16 +1,45 @@
 var heroes = {
+	"status" : {
+		endOfDayZero : [
+			"END OF DAY STATUS:",
+			"You pay three gold in taxes.",
+			"Your store is robbed in the night by goblins./A local hero tried to stop them, but could not get a sword.",
+			"He claims that if you had just given him a discount on the sword, your store could have been saved."
+		],
+		endOfDayZeroUnexpected : [
+			"END OF DAY STATUS:",
+			"You pay three gold in taxes.",
+			"Your store was almost robbed in the night by goblins, but a local hero stopped them.",
+			"He claimed he was only able to defeat them because you gave him a discount on his sword."
+		],
+		endOfDayGood : [
+			"END OF DAY STATUS:",
+			"You pay three gold in taxes.",
+			"Thanks to your help, the hero defeated this week's threat."
+		],
+		endOfDayBad : [
+			"END OF DAY STATUS:",
+			"You pay three gold in taxes.",
+			"Unfortunately, without your help, the hero was unable to defeat this weeks threat. You lose five gold."
+		],
+		dog : "Jeff and Dog are getting along swimmingly."
+	},
 	"jeff" : {
 		intro : [
 			"Hey pal, I'm Jeff!/Jeff the Magic Anvil!/@@@No, seriously. That's what I am.",
 			"I'm here to help you run this shop!",
 			"If you give me five minutes, I can make any item you want/.../@@@for a price.",
 			"YOUR @S@O@U@L@ . @ .@ .@/But for you kid, @I'll also accept gold pieces.",
-			"You've got a lot of responsibility to this town.",
+			"It looks like you've got 20 gold./I'll whip you up four swords for that and we'll see what you can do with them.",
 			"Stay sharp kiddo, but don't worry. I've got your back./@@I'll let you know if you take a wrong turn."
 		],
 		seer : [
 			"Alright, we're going to need to help out our local heroes if we don't want to get robbed again.",
-			"Don't worry, I know a pretty good fortune teller./Maybe she can give us some clues."
+			"Don't worry, I know a pretty good fortune teller./Maybe she can give us some clues so we know who to sell to."
+		],
+		seerUnexpected : [
+			"Alright kid, we got lucky spotting that hero, but we're going to need a more foolproof system to find them.",
+			"Don't worry, I know a pretty good fortune teller./Maybe she can give us some clues so we know who to sell to."
 		],
 		stocking : [
 			"Alrighty, what do you want me to make for you?",
@@ -26,7 +55,7 @@ var heroes = {
 		},
 		negative : {
 			missedHero : "You should probably make sure the hero gets what they need.",
-			soldFalse : "Kid .../You're sure you want to be giving them a discount?",
+			soldFalse : "Kid .../You're sure you want to be giving them a discount? I'm not sure that was the hero.",
 			badDeal : "Come on kiddo, this is a business. You might want to haggle a bit.",
 			default : ""
 		},
@@ -51,18 +80,36 @@ var heroes = {
 				"I can magic out items for you whenever you're out of stock.",
 				"Just remember, it'll cost you more than if I make them in the morning."
 			]
+		},
+		items : {
+			"sword" : "Out of swords?/I'll magic up one for eight gold.",
+			"bow" : "Out of bows?/I'll magic up one for nine gold.",
+			"chicken" : "Out of chicken?/I'll magic up one for five gold.",
+			"water" : "Out of water?/I'll magic one up for three gold.",
+			"shield" : "Out of shields?/I'll magic one up for eleven gold."
 		}
 	},
 	"seer" : {
 		firstDay : "For many moons have I seen your coming, humble shopkeeper.",
-		explanation : "Revealing all the matching cards shall make your path clear.",
-		congratsOne : "Congratulations youngling, you've managed to match two cards./@@Songs will be sung of this day.",
-		congratsGeneral : "Well done, youngling!/This effort shall make your burden much lighter.",
-		match1 : "Nicely done!",
-		match2 : "Ooh!"
+		explanation : "If you give me a moment, I can make your path clear.",
+		clueOne : [
+			"The hero speaks only in rhyme, and only with real words.",
+			"The hero has spiky hair and perpetually closed eyes.",
+			"(Don't worry, I'll write all this down for you.)"
+		],
+		clueTwo : [
+			"The hero knows only four words.",
+			"The hero has pursed lips, and two blades."
+		],
+		clueThree : [
+			"The thirtieth letter the hero says will be 'i'",
+			"The hero's first offer will be a prime number.",
+			"The hero's second offer will be the same as the previous customer's first offer."
+		],
+		thankyou : "Thank you, youngling. May you have a profitable day.",
 	},
 	"dog" : {
-		greeting : "Arf!/@(The dog is eyeing one of your chickens. He doesn't appear to have any gold.)",
+		greeting : "Arf!/@(The dog is eyeing your chicken display. He doesn't appear to have any gold.)",
 		success : "Arf!/@(The dog lays at your feet, gorging itself on chicken.)",
 		fail : "Arf!/@(The dog stumbles away dejectedly, eyeing a group of pigeons.)",
 		default : "Arf!"
