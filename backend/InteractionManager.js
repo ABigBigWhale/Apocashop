@@ -24,6 +24,7 @@ function InteractionManager(game) {
 					conditionManager.set(sellConditions[i]);
 				}
 			}
+			game.eventManager.notify(game.Events.INVENTORY.SOLD, currentNPC.item, currentNPC.offers[offerIndex]);
 			game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "success"));
 			currentNPC = false;
 		});
@@ -127,17 +128,17 @@ function InteractionManager(game) {
 		if(typeof dialog === 'object') {
 			for(var name in dialog) {
 				if(conditionManager.get(name)) {
-					game.eventManager.notify(game.Events.INTERACT.OFFER, offer, dialog[name]);
+					game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog[name]);
 					return;
 				}
 			}
 			if(dialog.default) {
-				game.eventManager.notify(game.Events.INTERACT.OFFER, offer, dialog.default);
+				game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog.default);
 			} else {
-				game.eventManager.notify(game.Events.INTERACT.OFFER, offer, "ERROR, NO DIALOG AVAILABLE");
+				game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, "ERROR, NO DIALOG AVAILABLE");
 			}
 		} else if(typeof dialog === 'string') {
-			game.eventManager.notify(game.Events.INTERACT.OFFER, offer, dialog);
+			game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog);
 		}
 	}
 

@@ -17,6 +17,9 @@ function EventManager(game) {
 			NEW : [],
 			DIALOG : [],
 			OFFER : []
+		},
+		INVENTORY : {
+			SOLD : []
 		}
 	}
 
@@ -57,9 +60,7 @@ function EventManager(game) {
 			}
 			return false;
 		}
-		if(DEBUG_FLAG) {
-			console.log("Registering callback for: " + lookup(arr));
-		}
+		printDebug("REGISTERING CB FOR: " + lookup(arr))
 		arr.push(newCB);
 		return true;
 	};
@@ -71,9 +72,7 @@ function EventManager(game) {
 			}
 			return false;
 		}
-		if(DEBUG_FLAG) {
-			console.log("Removing callback for: " + lookup(arr));
-		}
+		printDebug("REMOVING CB FOR: " + lookup(arr))
 		var index = arr.indexOf(oldCB);
 		if(index > -1) {
 			arr.splice(index, 1);
@@ -91,9 +90,7 @@ function EventManager(game) {
 		for(var i = 1; i < arguments.length; i++) {
 			args.push(arguments[i]);
 		}
-		if(DEBUG_FLAG) {
-			console.log("Notifying callbacks for: " + lookup(arr) + ", with args: " + JSON.stringify(args));
-		}
+		printDebug("NOTIFYING CB(s) FOR: " + lookup(arr) + ", with args: " + JSON.stringify(args))
 		for(var j = 0; j < arr.length; j++) {
 			arr[j].apply(window, args);
 		}
