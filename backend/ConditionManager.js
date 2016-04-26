@@ -51,6 +51,8 @@ function ConditionManager(game) {
 					printDebug("SETTING LONGTERM CONDITION: " + name);
 					persistentConditions.push(name);
 				}
+			} else {
+				printDebug("DROPPING COMPOUND CONDITION: " + name);
 			}
 			delete compoundConditions[name];
 		}
