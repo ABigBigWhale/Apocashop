@@ -149,4 +149,9 @@ document.getElementById('continue').onclick = function() {
 
 document.getElementById('start').onclick = function() {
 	game.interactionManager.startDay();
+	document.getElementById('start').style.display = 'none';
 };
+
+document.getElementById('yes').style.display = 'none';
+document.getElementById('no').style.display = 'none';
+document.getElementById('continue').style.display = 'none';
