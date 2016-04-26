@@ -1,19 +1,53 @@
 function EventManager(game) {
 
 	game.Events = {
-		GAME : {
+		DAY : {
 			START : [],
 			END : []
 		},
 		INPUT : {
 			YES : [],
 			NO : [],
-			QUESTION : {
-				OPEN : [],
-				ONE : [],
-				TWO : []
+			CONTINUE : [],
+			QUESTION : [],
+			ITEM : [],
+			PROFILE : []
+		},
+		INTERACT : {
+			NEW : [],
+			DIALOG : [],
+			OFFER : []
+		}
+	}
+
+	var reverseEvents;
+	var lookup;
+
+	if(DEBUG_FLAG) {
+
+		reverseEvents = {};
+
+		lookup = function(arr) {
+			for(var key in reverseEvents) {
+				if(reverseEvents[key] === arr) {
+					return key;
+				}
+			}
+			return false;
+		}
+
+		function buildReverse(obj, str) {
+			if(obj instanceof Array) {
+				reverseEvents[str] = obj;
+			} else {
+				for(var key in obj) {
+					buildReverse(obj[key], str + "." + key);
+				}
 			}
 		}
+
+		buildReverse(game.Events, "Events");
+
 	}
 
 	this.register = function(arr, newCB) {
@@ -22,6 +56,9 @@ function EventManager(game) {
 				alert("REGISTERING INVALID CALLBACK");
 			}
 			return false;
+		}
+		if(DEBUG_FLAG) {
+			console.log("Registering callback for: " + lookup(arr));
 		}
 		arr.push(newCB);
 		return true;
@@ -33,6 +70,9 @@ function EventManager(game) {
 				alert("REMOVING INVALID CALLBACK");
 			}
 			return false;
+		}
+		if(DEBUG_FLAG) {
+			console.log("Removing callback for: " + lookup(arr));
 		}
 		var index = arr.indexOf(oldCB);
 		if(index > -1) {
@@ -51,8 +91,11 @@ function EventManager(game) {
 		for(var i = 1; i < arguments.length; i++) {
 			args.push(arguments[i]);
 		}
+		if(DEBUG_FLAG) {
+			console.log("Notifying callbacks for: " + lookup(arr) + ", with args: " + JSON.stringify(args));
+		}
 		for(var j = 0; j < arr.length; j++) {
-			arr[j].apply(args, window);
+			arr[j].apply(window, args);
 		}
 	};
 

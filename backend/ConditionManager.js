@@ -24,7 +24,10 @@ function ConditionManager(game) {
 			for(var i = 0; i < condition.length; i++) {
 				var isCondition = conditions.indexOf(condition[i]) > -1;
 				// var isStateCondition = game.playerState.conditions.indexOf(condition[i]) > -1;
-				if(!isCondition && !isStateCondition) {
+				// if(!isCondition && !isStateCondition) {
+				// 	return false;
+				// }
+				if(!isCondition) {
 					return false;
 				}
 			}
