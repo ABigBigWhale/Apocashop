@@ -39,6 +39,10 @@ function EventManager(game) {
 
 		reverseEvents = {};
 
+		// Looks up the given array in the reverse lookup table. Unfortunately,
+		// we can't map the arrays to the names and just do a simple object lookup
+		// in reverseEvents because arrays hash based on contents, not reference.
+		// Thus, we have to use the names as the keys and the arrays as the values.
 		lookup = function(arr) {
 			for(var key in reverseEvents) {
 				if(reverseEvents[key] === arr) {
@@ -48,6 +52,9 @@ function EventManager(game) {
 			return false;
 		}
 
+		// Recursively builds a lookup table from programmer-used
+		// event name to the callback array. This allows us to view
+		// the event being notified / registered / removed when debugging.
 		function buildReverse(obj, str) {
 			if(obj instanceof Array) {
 				reverseEvents[str] = obj;

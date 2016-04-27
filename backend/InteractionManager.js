@@ -1,6 +1,6 @@
 function InteractionManager(game) {
 
-	var DAY_LENGTH = 10000;
+	var DAY_LENGTH = 100000;
 
 	var conditionManager = new ConditionManager(game);
 
@@ -23,10 +23,14 @@ function InteractionManager(game) {
 	var offerIndex;
 
 	function init() {
+
+		// When continue is pushed, send out a new NPC
 		game.eventManager.register(game.Events.INPUT.CONTINUE, function() {
 			pushNPC();
 		});
 
+		// When yes is selected, trip sellConditions if they exist. Check if the item
+		// can be sold. If so, sell it and send success dialog. Otherwise, fail.
 		game.eventManager.register(game.Events.INPUT.YES, function() {
 			var sellConditions = currentNPC.sellConditions;
 			if(sellConditions) {
@@ -43,6 +47,8 @@ function InteractionManager(game) {
 			currentNPC = false;
 		});
 
+		// When no is selected, if there is an unsent offer, send it. Otherwise, trip refuse
+		// Conditions and send fail dialog.
 		game.eventManager.register(game.Events.INPUT.NO, function() {
 			var offers = currentNPC.offers;
 			offerIndex++;
@@ -60,23 +66,23 @@ function InteractionManager(game) {
 			}
 		});
 
+		// Send dialog for the requested question
 		game.eventManager.register(game.Events.INPUT.QUESTION, function(name) {
 			game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC.questions, name));
 		});
 
+		// Send dialog for the requested item
 		game.eventManager.register(game.Events.INPUT.ITEM, function(name) {
 			game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC.items, name));
 		});
 
+		// Send dialog for the requested profile
 		game.eventManager.register(game.Events.INPUT.PROFILE, function(name) {
 			game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC.profiles, name));
 		});
 	}
 
-	function getDialog(obj, name) {
-		return obj[name] || obj.default || "ERROR: NO DIALOG SET";
-	}
-
+	// Begin the day, set the day timer, and send our first NPC.
 	this.startDay = function() {
 		var day = days[dayIndex];
 		conditionManager.init(day.conditions);
@@ -90,6 +96,8 @@ function InteractionManager(game) {
 		}, DAY_LENGTH);
 	}
 
+	// Smudge NPC order using fuzz values and initialize the npc
+	// manifest for the current day.
 	function initNPCs() {
 		npcs = {};
 		var sequence = days[dayIndex].sequence;
@@ -103,6 +111,8 @@ function InteractionManager(game) {
 		}
 	}
 
+	// Returns the next planned NPC if we're at their index, a randomly
+	// generated NPC for this day, or false if the day has ended.
 	function getNextNPC() {
 		var npc = npcs[npcIndex];
 		npcIndex++;
@@ -124,6 +134,8 @@ function InteractionManager(game) {
 		}
 	}
 
+	// Sets our current NPC to the next NPC. If the day has ended and there is no next
+	// NPC, sends the day end event instead.
 	function pushNPC() {
 		do {
 			currentNPC = getNextNPC();
@@ -144,6 +156,7 @@ function InteractionManager(game) {
 		}
 	}
 
+	// Sends the next offer for the current NPC.
 	function pushOffer(data, index) {
 		var dialog = (typeof data.offerText === 'string') ? data.offerText : data.offerText[index];
 		var offer = data.offers[index] || 0;
@@ -162,6 +175,11 @@ function InteractionManager(game) {
 		} else if(typeof dialog === 'string') {
 			game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog);
 		}
+	}
+
+	// Get the prewritten dialog, default dialog, or generic error dialog.
+	function getDialog(obj, name) {
+		return obj[name] || obj.default || "ERROR: NO DIALOG SET";
 	}
 
 	init();

@@ -146,6 +146,7 @@ game.eventManager = new EventManager(game);
 game.interactionManager = new InteractionManager(game);
 game.playerState = new PlayerState(game);
 game.stock = new Stock(game);
+game.jeff = new Jeff(game);
 
 // function crier(arg1, arg2) {
 // 	console.log("HEY CRIER ARG1 is: " + arg1 + ", ARG2 is: " + arg2);

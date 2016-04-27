@@ -1,15 +1,23 @@
 function ConditionManager(game) {
 
+	// Conditions that persist between days
 	var persistentConditions = [];
 
+	// Conditions for today, including a copy of the persistent conditions.
+	// Cleared between days
 	var conditions;
+
+	// Contains the conditions and probabilities for compound conditions.
 	var compoundConditions;
 
+	// Clears our daily conditions and takes in a new set of compound condition properties.
 	this.init = function(compound) {
 		compoundConditions = compound;
 		conditions = persistentConditions.slice();
 	};
 
+	// Trips the condition, if it hasn't already been tripped.
+	// Checks all compound conditions to see if any of them have been tripped.
 	this.set = function(condition) {
 		if(conditions.indexOf(condition) === -1) {
 			conditions.push(condition);
@@ -20,6 +28,9 @@ function ConditionManager(game) {
 		}
 	};
 
+	// Returns true if the condition was tripped, false if not.
+	// Can accept an array of conditions, in which case it will return false
+	// if any condition is false, or a single condition.
 	this.get = function(condition) {
 		if(condition instanceof Array) {
 			for(var i = 0; i < condition.length; i++) {
@@ -41,6 +52,9 @@ function ConditionManager(game) {
 		}
 	};
 
+	// Helper for set. If the compound condition was tripped, rolls a dice based
+	// on the chance value for that compound condition. If the dice roll passes,
+	// trips the condition. Deletes the compound condition from consideration regardless.
 	function handleCompound(name) {
 		var compound = compoundConditions[name];
 		if(checkCompound(compound)) {
@@ -58,6 +72,8 @@ function ConditionManager(game) {
 		}
 	}
 
+	// Helper for handleCompound. Checks if the compound condition has
+	// been tripped.
 	function checkCompound(compound) {
 		var components = compound.components;
 		for(var i = 0; i < components.length; i++) {
