@@ -20,6 +20,15 @@ function EventManager(game) {
 		},
 		INVENTORY : {
 			SOLD : []
+		},
+		UPDATE : {
+			GOLD : [],
+			ITEMS : []
+		},
+		STOCK : {
+			ADD : [],
+			REMOVE : [],
+			COMMIT : []
 		}
 	}
 

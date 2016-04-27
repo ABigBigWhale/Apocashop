@@ -3,6 +3,24 @@
 
 var game = {};
 
+var items = {
+	"sword" : {
+		price : 5,
+		jPrice : 7 
+	}, 
+	"chicken" : {
+		price : 3,
+		jPrice : 5,
+	},
+	"bow" : {
+		price : 4,
+		jPrice : 6
+	},
+	"water" : {
+		price : 2,
+		jPrice : 3
+	}
+}
 var heroes = {
 	"man" : {
 		type : "interact",
@@ -117,6 +135,8 @@ var days = [
 
 game.eventManager = new EventManager(game);
 game.interactionManager = new InteractionManager(game);
+game.playerState = new PlayerState(game);
+game.stock = new Stock(game);
 
 // function crier(arg1, arg2) {
 // 	console.log("HEY CRIER ARG1 is: " + arg1 + ", ARG2 is: " + arg2);
@@ -165,6 +185,18 @@ game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, of
 	document.getElementById('no').style.display = '';
 	document.getElementById('continue').style.display = 'none';
 	document.getElementById('dialog').innerHTML = ("OFFER: " + offer);
+});
+
+game.eventManager.register(game.Events.UPDATE.GOLD, function(gold) {
+	document.getElementById('gold').innerHTML = ("Gold: " + gold);
+});
+
+game.eventManager.register(game.Events.UPDATE.ITEMS, function(items) {
+	var string = "";
+	for (var key in items) {
+		string += key + ": " + items[key] + " ";
+	}
+	document.getElementById('items').innerHTML = ("Items: " + string);
 });
 
 game.eventManager.register(game.Events.INTERACT.DIALOG, function(dialog) {
