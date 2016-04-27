@@ -79,17 +79,17 @@ var heroes = {
 	}
 }
 
-function generateNPC(day) {
-	return {
-		type : "interact",
-		appearanceInfo : "APPEARANCE INFO",
-		item : "sword",
-		offers : [10],
-		offerText : "SUP IM A RANDOM. TEN GOLD SWORD?",
-		success : "YEYE THANKS BOI",
-		fail : "POO."
-	};
-}
+// function generateNPC(day) {
+// 	return {
+// 		type : "interact",
+// 		appearanceInfo : "APPEARANCE INFO",
+// 		item : "sword",
+// 		offers : [10],
+// 		offerText : "SUP IM A RANDOM. TEN GOLD SWORD?",
+// 		success : "YEYE THANKS BOI",
+// 		fail : "POO."
+// 	};
+// }
 
 var days = [
 	{
@@ -97,12 +97,12 @@ var days = [
 			sword : {
 				min : 2,
 				max : 9,
-				priority : 5
+				priority : 1
 			},
 			chicken : {
 				min : 1,
 				max : 7,
-				priority : 2
+				priority : 10
 			}
 		},
 		sequence : {
@@ -138,6 +138,10 @@ var days = [
 				"Look out for goblins",
 				"Scary business, look out."
 			]
+		},
+		questions : {
+			day : "How was your day?",
+			color : "What's your favorite color?"
 		}
 	}
 ];

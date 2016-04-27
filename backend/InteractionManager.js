@@ -42,6 +42,7 @@ function InteractionManager(game) {
 				game.eventManager.notify(game.Events.INVENTORY.SOLD, currentNPC.item, currentNPC.offers[offerIndex]);
 				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "success"));
 			} else {
+				game.eventManager.notify(game.Events.INVENTORY.NOTSOLD, currentNPC.item, currentNPC.offers[offerIndex]);
 				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "fail"))
 			}
 			currentNPC = false;
@@ -61,6 +62,7 @@ function InteractionManager(game) {
 						conditionManager.set(refuseConditions[i]);
 					}
 				}
+				game.eventManager.notify(game.Events.INVENTORY.NOTSOLD, currentNPC.item, currentNPC.offers[offerIndex]);
 				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "fail"))
 				currentNPC = false;
 			}

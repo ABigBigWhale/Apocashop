@@ -45,13 +45,18 @@ function Stock(game) {
 	}
 
 	function sellItem(item, price) {
+		if(item === "none") {
+			game.playerState.addsubGold(price);
+			game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
+			return;
+		}
 		if (items[item] === undefined) {
 			return -1;
 		}
 		var currItems = game.playerState.getItems();
 		if (currItems[item] <= 0) {
-			//game.playerState.addsubGold(-items[item].jPrice);
-			return -1;
+			game.playerState.addsubGold(-items[item].jPrice);
+			//return -1;
 		}
 		game.playerState.addsubGold(price);
 		game.playerState.decrementItem(item);

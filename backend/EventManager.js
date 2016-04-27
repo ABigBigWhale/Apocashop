@@ -19,7 +19,8 @@ function EventManager(game) {
 			OFFER : []
 		},
 		INVENTORY : {
-			SOLD : []
+			SOLD : [],
+			NOTSOLD : []
 		},
 		UPDATE : {
 			GOLD : [],
@@ -106,9 +107,13 @@ function EventManager(game) {
 		for(var i = 1; i < arguments.length; i++) {
 			args.push(arguments[i]);
 		}
+		// There's a chance one of the callbacks will modify arr by
+		// removing itself or some other callback. Thus, we need to
+		// deep copy the array to protect this loop from modification.
+		var tempArr = arr.slice();
 		printDebug("NOTIFYING CB(s) FOR: " + lookup(arr) + ", with args: " + JSON.stringify(args))
-		for(var j = 0; j < arr.length; j++) {
-			arr[j].apply(window, args);
+		for(var j = 0; j < tempArr.length; j++) {
+			tempArr[j].apply(window, args);
 		}
 	};
 
