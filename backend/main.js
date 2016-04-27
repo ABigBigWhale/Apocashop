@@ -22,6 +22,10 @@ var items = {
 	}
 }
 var heroes = {
+	"jeff" : {
+		type : "dialog",
+		dialog : "Sup, I'm Jeff!"
+	},
 	"man" : {
 		type : "interact",
 		item : "none",
@@ -102,9 +106,14 @@ var days = [
 			}
 		},
 		sequence : {
-			1 : {
+			0 : {
+				hero : "jeff",
+				fuzz : 0,
+				force : true
+			},
+			2 : {
 				hero : "man",
-				fuzz : 1,
+				fuzz : 2,
 				force : true
 			},
 			5 : {

@@ -1,15 +1,25 @@
 function InteractionManager(game) {
 
-	var DAY_LENGTH = 60000;
+	var DAY_LENGTH = 10000;
 
 	var conditionManager = new ConditionManager(game);
 
+	// The index of the current day
 	var dayIndex = 0;
+
+	// Trips when the day ends
 	var isEnd = false;
 
+	// The listing of planned NPCs for today
 	var npcs;
+
+	// The index of the NPC we're currently at
 	var npcIndex;
+
+	// The current NPC we're interacting with
 	var currentNPC;
+
+	// The index of the offer the current NPC is currently giving
 	var offerIndex;
 
 	function init() {
@@ -24,8 +34,12 @@ function InteractionManager(game) {
 					conditionManager.set(sellConditions[i]);
 				}
 			}
-			game.eventManager.notify(game.Events.INVENTORY.SOLD, currentNPC.item, currentNPC.offers[offerIndex]);
-			game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "success"));
+			if(game.playerState.checkPrice(currentNPC.item, currentNPC.offers[offerIndex])) {
+				game.eventManager.notify(game.Events.INVENTORY.SOLD, currentNPC.item, currentNPC.offers[offerIndex]);
+				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "success"));
+			} else {
+				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "fail"))
+			}
 			currentNPC = false;
 		});
 
@@ -44,7 +58,6 @@ function InteractionManager(game) {
 				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "fail"))
 				currentNPC = false;
 			}
-			// deal with potential haggle text, or tripping failConditions and incrementing NPC
 		});
 
 		game.eventManager.register(game.Events.INPUT.QUESTION, function(name) {
@@ -72,6 +85,7 @@ function InteractionManager(game) {
 		initNPCs();
 		pushNPC();
 		setTimeout(function() {
+			printDebug("DAY ENDING TIMER");
 			isEnd = true;
 		}, DAY_LENGTH);
 	}
@@ -90,11 +104,19 @@ function InteractionManager(game) {
 	}
 
 	function getNextNPC() {
-		if(isEnd) {
-			return false;
-		}
 		var npc = npcs[npcIndex];
 		npcIndex++;
+		if(isEnd) {
+			var max = Math.max.apply(this, Object.keys(npcs));
+			while(!npc || !npc.force) {
+				if(npcIndex > max) {
+					return false;
+				}
+				npc = npcs[npcIndex];
+				npcIndex++;
+			}
+			return heroes[npc.hero];
+		}
 		if(npc && heroes[npc.hero]) {
 			return heroes[npc.hero];
 		} else {
@@ -117,8 +139,8 @@ function InteractionManager(game) {
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
-			game.eventManager.notify(game.Events.EXPOSIT.NEW, currentNPC.appearanceInfo);
-			game.eventManager.notify(game.Events.EXPOSIT.DIALOG, currentNPC.dialog);
+			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
+			game.eventManager.notify(game.Events.INTERACT.DIALOG, currentNPC.dialog);
 		}
 	}
 

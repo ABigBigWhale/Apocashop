@@ -29,6 +29,11 @@ function PlayerState(game) {
 		return Items;
 	}
 
+	this.checkPrice = function(item, goldOffset) {
+		var price = (Items[item] || !items[item]) ? 0 : items[item].jPrice;
+		return(Gold + goldOffset) >= price;
+	}
+
 	this.update = function(gold, items) {
 		Gold = gold;
 		Items = items;

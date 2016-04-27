@@ -50,7 +50,8 @@ function Stock(game) {
 		}
 		var currItems = game.playerState.getItems();
 		if (currItems[item] <= 0) {
-			return -1;
+			game.playerState.addsubGold(-items[item].jPrice);
+			//return -1;
 		}
 		game.playerState.addsubGold(price);
 		game.playerState.decrementItem(item);
