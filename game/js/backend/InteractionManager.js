@@ -87,7 +87,10 @@ function InteractionManager(game) {
 	// Begin the day, set the day timer, and send our first NPC.
 	this.startDay = function(day) {
 		conditionManager.init(day.conditions);
-		game.eventManager.notify(game.Events.DAY.START, day.clues);
+		game.eventManager.notify(game.Events.DAY.START, {
+			clues : day.clues,
+			questions : day.questions
+		});
 		npcIndex = 0;
 		initNPCs();
 		pushNPC();
