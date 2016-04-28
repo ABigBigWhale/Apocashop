@@ -1,7 +1,5 @@
 function DialogManager(game) {
 
-	var self = this;
-
 	game.dialog = {
 		main : {
 			box : game.add.text(250, 427, "", { font: "24px yoster_islandregular"} ),
@@ -11,13 +9,16 @@ function DialogManager(game) {
 
 	game.dialog.main.box.defaultY = 427;
 
+	// Prints the message to the main text box.
 	this.printMain = function(message) {
 		var brokenMessage = formatMessage(game.dialog.main.box, game.dialog.main.ghost, 383, 5, 30, message);
-		self.printMessage(game.dialog.main.box, brokenMessage);
+		printMessage(game.dialog.main.box, brokenMessage, function() {
+			console.log("MESSAGE IN MAIN TEXTBOX FINISHED PRINTING");
+		});
 	}
 
-	var isPrinting = false;
-
+	// Adds line breaks into the message, and nudges the text box vertically to
+	// center it in the text area.
 	function formatMessage(box, ghostBox, maxWidth, numLines, lineHeight, message) {
 		box.position.y = box.defaultY;
 		var lineCount = 0;
@@ -40,7 +41,8 @@ function DialogManager(game) {
 		return lines.join("/").split("| ").join("|");
 	}
 
-	this.printMessage = function(box, message) {
+	// Prints the message into the text box, one character at a time.
+	function printMessage(box, message, onFinish) {
 
 		isPrinting = true;
 
@@ -70,7 +72,7 @@ function DialogManager(game) {
 					printLetter(message, index + 1);
 				}, timeoutLength);
 			} else {
-				isPrinting = false;
+				onFinish();
 			}
 		}
 
