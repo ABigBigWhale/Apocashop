@@ -26,7 +26,11 @@ function InteractionManager(game) {
 
 		// When continue is pushed, send out a new NPC
 		game.eventManager.register(game.Events.INPUT.CONTINUE, function() {
-			pushNPC();
+			if(currentNPC && currentNPC.type === 'interact') {
+				pushOffer(currentNPC, offerIndex);
+			} else {
+				pushNPC();
+			}
 		});
 
 		// When yes is selected, trip sellConditions if they exist. Check if the item

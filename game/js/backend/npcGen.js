@@ -13,7 +13,7 @@ function initNPCGen(game) {
 			offerText : generateOfferText(item, offers),
 			success : generateThanks(),
 			fail : generateLeave(),
-			questions : generateQuestions(day)
+			//questions : generateQuestions(day)
 		}
 	};
 
