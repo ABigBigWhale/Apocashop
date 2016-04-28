@@ -5,15 +5,17 @@ function AssetManager(game) {
     this.assetFolder = 'assets/';
 
     // Paths of asset files, without extensions
-    this.assetPaths = {
+    this.assets = {
         '': ['background'],
 
         'ui': [
-            'ui_itemslot', 'ui_dialog', 
-            'ui_button_accept', 'ui_button_accept_hover', 'ui_button_accept_pressed',
-            'ui_button_reject', 'ui_button_reject_hover', 'ui_button_reject_pressed',
-            'ui_button_question', 'ui_button_question_hover', 'ui_button_question_pressed',
-            'ui_button_continue', 'ui_coins'
+            'ui_itemslot', 
+            'ui_dialog', 
+            'ui_button_accept', 
+            'ui_button_reject', 
+            'ui_button_question', 
+            'ui_button_continue', 
+            'ui_coins'
         ],
         
         'items' : [
@@ -27,26 +29,26 @@ function AssetManager(game) {
  * Iterate over paths and load the asset files
  */
 AssetManager.prototype.load = function() {
-    for (var path in this.assetPaths) {
-        if (this.assetPaths.hasOwnProperty(path)) {
-            
-            for (var i = 0; i < this.assetPaths[path].length; i++) {
-                var assetId = this.assetPaths[path][i];
+    for (var path in this.assets) {
+        if (this.assets.hasOwnProperty(path)) {
+            console.log('path:' + path + '\n');
+            for (var i = 0; i < this.assets[path].length; i++) {
+                var assetId = this.assets[path][i];
                 if (assetId.indexOf('button') < 0) { // single image
-                    this.game.load.image(assetId, path + assetId + 'png');
+                    this.game.load.image(assetId, this.assetFolder + path + '/' + assetId + '.png');
                 } else {    // TODO: spritesheet
                     var spriteSize = [63, 22];
                     if (assetId.indexOf('continue') > 0) {
                         spriteSize = [128, 128]
                     }
-                    this.game.load.spritesheet(assetId, path + assetId + 'png');
+                    this.game.load.spritesheet(assetId, this.assetFolder + path + '/' + assetId + '.png', spriteSize[0], spriteSize[1]);
                 }
             }   
             
         }
     }
     
-    this.game.load.image(assets.image.background.id, assets.image.background.url);
+    //this.game.load.image(this.assets.image.background.id, assets.image.background.url);
 };
 
 /*
