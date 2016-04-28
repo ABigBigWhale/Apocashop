@@ -4,22 +4,27 @@ function DialogManager(game) {
 		main : {
 			box : game.add.text(250, 427, "", { font: "24px yoster_islandregular", fill: "#4d372c"} ),
 			ghost : game.add.text(999, 999, "", { font: "24px yoster_islandregular"} )
+		},
+		jeff : {
+			box : game.add.text(500, 130, "SUP, I'M JEFF. How's it?", { font : "16px yoster_islandregular" }),
+			ghost : game.add.text(999, 999, "", { font : "16px yoster_islandregular" })
 		}
 	};
 
 	game.dialog.main.box.defaultY = 427;
+	game.dialog.jeff.box.defaultY = 130;
 
 	// Prints the message to the main text box.
-	this.printMain = function(message) {
+	this.printMain = function(message, doneCB) {
+		doneCB = doneCB || function() {};
 		var brokenMessage = formatMessage(game.dialog.main.box, game.dialog.main.ghost, 383, 5, 30, message);
-		printMessage(game.dialog.main.box, brokenMessage, function() {
-			console.log("MESSAGE IN MAIN TEXTBOX FINISHED PRINTING");
-		});
+		printMessage(game.dialog.main.box, brokenMessage, 25, 200, game.audio.bip, doneCB);
 	}
 
-	this.clearMain = function() {
-		game.dialog.main.box.destroy();
-		game.dialog.main.box = game.add.text(250, 427, "", { font: "24px yoster_islandregular", fill: "#4d372c"} );
+	this.printJeff = function(message, doneCB) {
+		doneCB = doneCB || function() {};
+		var brokenMessage = formatMessage(game.dialog.jeff.box, game.dialog.jeff.ghost, 230, 4, 23, message);
+		printMessage(game.dialog.jeff.box, brokenMessage, 15, 100, false, doneCB);
 	}
 
 	// Adds line breaks into the message, and nudges the text box vertically to
@@ -47,7 +52,7 @@ function DialogManager(game) {
 	}
 
 	// Prints the message into the text box, one character at a time.
-	function printMessage(box, message, onFinish) {
+	function printMessage(box, message, letterDelay, pauseDelay, letterSound, onFinish) {
 
 		isPrinting = true;
 
@@ -59,18 +64,22 @@ function DialogManager(game) {
 
 				if(message[index] === '/') {
 					box.text = box.text + '\n';
-					timeoutLength = 200;
+					timeoutLength = pauseDelay;
 				} else if(message[index] === "|") {
 					box.text = box.text + "\n";
 					timeoutLength = 0;
 				} else if(message[index] === '@') {
-					timeoutLength = 200;
+					timeoutLength = pauseDelay;
 				} else {
 					box.text = box.text + message[index];
+					if(letterSound) {
+						letterSound.stop();
+						letterSound.play();
+					}
 					if(message[index] == ',' || message[index] == '.' || message[index] == '?') {
-						timeoutLength = 200;
+						timeoutLength = pauseDelay;
 					} else {
-						timeoutLength = 25;
+						timeoutLength = letterDelay;
 					}
 				}
 				setTimeout(function() {

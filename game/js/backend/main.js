@@ -102,7 +102,7 @@ var days = [
 			chicken : {
 				min : 1,
 				max : 7,
-				priority : 2
+				priority : 5
 			}
 		},
 		sequence : {

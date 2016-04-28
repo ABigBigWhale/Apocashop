@@ -34,6 +34,8 @@ var gameConfig = {
 
         game.load.image(assets.image.items.sword.id, assets.image.items.sword.url);
         game.load.image(assets.image.items.bow.id, assets.image.items.bow.url);
+    
+        game.load.audio('bip', 'assets/sounds/sfx-bip.wav');
     }
 
     // TODO: Lots of hard-coding right now
@@ -86,10 +88,16 @@ var gameConfig = {
         uiButtonReject.smoothed = false;
         uiButtonQuestion.smoothed = false;
 
-        function switchButtons() {
-            uiButtonAccept.visible = uiButtonAccept.visible ? false : true;
-            uiButtonReject.visible = uiButtonReject.visible ? false : true;
-            uiButtonContinue.visible = uiButtonContinue.visible ? false : true;
+        function switchButtons(isInteract) {
+            uiButtonAccept.visible = isInteract;
+            uiButtonReject.visible = isInteract;
+            uiButtonContinue.visible = !isInteract;
+        }
+
+        function toggleButtons(isEnabled) {
+            uiButtonAccept.inputEnabled = isEnabled;
+            uiButtonReject.inputEnabled = isEnabled;
+            uiButtonContinue.inputEnabled = isEnabled;
         }
 
         // TODO: demo use only
@@ -117,9 +125,12 @@ var gameConfig = {
         game.interactionManager.startDay(days[0]);
 
         game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, offer) {
-            switchButtons();
+            switchButtons(true);
             //game.dialogManager.clearMain();
-            game.dialogManager.printMain("OFFER: " + offer);
+            toggleButtons(false);
+            game.dialogManager.printMain(offer, function() {
+                toggleButtons(true);
+            });
         });
 
         game.eventManager.register(game.Events.UPDATE.GOLD, function(gold) {
@@ -135,11 +146,18 @@ var gameConfig = {
         });
 
         game.eventManager.register(game.Events.INTERACT.DIALOG, function(dialog) {
-            switchButtons();
+            switchButtons(false);
             //game.dialogManager.clearMain();
-            game.dialogManager.printMain("DIALOG: " + dialog);
+            toggleButtons(false);
+            game.dialogManager.printMain(dialog, function() {
+                toggleButtons(true);
+            });
             //game.dialogManager.clearMain();
         });
+
+        game.audio = {
+            bip : game.add.audio('bip')
+        }
 
     }
 
