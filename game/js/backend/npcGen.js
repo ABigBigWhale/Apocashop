@@ -1,6 +1,6 @@
 var generateNPC;
 
-(function() {
+function initNPCGen(game) {
 
 	generateNPC = function(day) {
 		var item = generateItem(day.itemData);
@@ -90,6 +90,7 @@ var generateNPC;
 	(function() {
 
 		generateAppearance = function(item, offers) {
+			var maxOffer = Math.max.apply(this, offers);
 			return "APPEARANCE INFO";
 		};
 
@@ -388,4 +389,4 @@ var generateNPC;
 
 	})();
 
-})();
+}

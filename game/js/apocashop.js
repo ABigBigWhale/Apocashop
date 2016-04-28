@@ -124,6 +124,7 @@ var gameConfig = {
         game.playerState = new PlayerState(game);
         game.stock = new Stock(game);
         game.jeff = new Jeff(game);
+        initNPCGen(game);
 
         uiButtonAccept.visible = false;
         uiButtonReject.visible = false;
