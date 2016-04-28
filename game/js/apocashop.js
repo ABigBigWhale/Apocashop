@@ -7,7 +7,7 @@ var gameConfig = {
     var game = new Phaser.Game(
         gameConfig.RESOLUTION[0], 
         gameConfig.RESOLUTION[1],               // Resolution
-        Phaser.AUTO,                            // Rendering context
+        Phaser.CANVAS,                            // Rendering context
         'gameDiv',                              // DOM object to insert canvas
         { preload: preload, create: create }    // Function references
     );

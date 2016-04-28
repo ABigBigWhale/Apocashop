@@ -7,7 +7,7 @@ var generateNPC;
 		var offers = generateOffers(day.itemData, item);
 		return {
 			type : "interact",
-			appearanceInfo : "APPEARANCE INFO",
+			appearanceInfo : generateAppearance(item, offers),
 			item : item,
 			offers : offers,
 			offerText : generateOfferText(item, offers),
@@ -16,6 +16,7 @@ var generateNPC;
 		}
 	};
 
+	var generateAppearance;
 	var generateGreeting;
 	var generateHaggle;
 	var generateItemResponse;
@@ -85,6 +86,14 @@ var generateNPC;
 		}
 		return textArr;
 	}
+
+	(function() {
+
+		generateAppearance = function(item, offers) {
+			return "APPEARANCE INFO";
+		};
+
+	})();
 
 	(function() {
 
