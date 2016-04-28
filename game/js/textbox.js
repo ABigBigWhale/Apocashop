@@ -9,30 +9,38 @@ function DialogManager(game) {
 		}
 	};
 
-	var messageBuffer = [];
-
-	function parseMessage(message) {
-
-		var isImmediate = (messageBuffer.length === 0);
-
-		var splitMessage = message.split("^");
-		for(var i = 0; i < splitMessage.length; i++) {
-			messageBuffer.push(splitMessage[i]);
-		}
-
-		if(isImmediate) {
-			printMessage(messageBuffer.shift());
-		}
-
-	}
+	game.dialog.main.box.defaultY = 427;
 
 	this.printMain = function(message) {
-		self.printMessage(game.dialog.main.box, game.dialog.main.ghost, 375, message);
+		var brokenMessage = formatMessage(game.dialog.main.box, game.dialog.main.ghost, 383, 5, 30, message);
+		self.printMessage(game.dialog.main.box, brokenMessage);
 	}
 
 	var isPrinting = false;
 
-	this.printMessage = function(box, ghostBox, maxWidth, message) {
+	function formatMessage(box, ghostBox, maxWidth, numLines, lineHeight, message) {
+		box.position.y = box.defaultY;
+		var lineCount = 0;
+		var lines = message.split("/");
+		lineCount += lines.length;
+		for(var i = 0; i < lines.length; i++) {
+			ghostBox.text = "";
+			var splitMessage = lines[i].split(" ");
+			for(var j = 0; j < splitMessage.length; j++) {
+				ghostBox.text += splitMessage[j] + " ";
+				if(ghostBox.width > maxWidth) {
+					splitMessage[j - 1] += "|";
+					lineCount++;
+					ghostBox.text = splitMessage[j] + " ";
+				}
+			}
+			lines[i] = splitMessage.join(" ");
+		}
+		box.position.y += (numLines - lineCount) * (lineHeight / 2);
+		return lines.join("/").split("| ").join("|");
+	}
+
+	this.printMessage = function(box, message) {
 
 		isPrinting = true;
 
@@ -42,32 +50,11 @@ function DialogManager(game) {
 			if(index < message.length) {
 				var timeoutLength;
 
-				if(index === 0) {
-					ghostBox.text = message.split(" ")[0];
-				}
-
-				if(message[index] === " ") {
-					var ghostWord = " ";
-					for(var i = index + 1; i < message.length; i++) {
-						if(message[i] === ' ') {
-							break;
-						}
-						ghostWord += message[i];
-					}
-					ghostBox.text += ghostWord;
-					if(ghostBox.width > maxWidth) {
-						box.text = box.text + "\n";
-						ghostBox.text = ghostWord.slice(1);
-					} else {
-						box.text = box.text + " ";
-					}
-				} else if(message[index] === '/') {
+				if(message[index] === '/') {
 					box.text = box.text + '\n';
-					ghostBox.text = "";
 					timeoutLength = 200;
 				} else if(message[index] === "|") {
 					box.text = box.text + "\n";
-					ghostBox.text = "";
 					timeoutLength = 0;
 				} else if(message[index] === '@') {
 					timeoutLength = 200;
