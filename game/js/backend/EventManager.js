@@ -30,6 +30,10 @@ function EventManager(game) {
 			ADD : [],
 			REMOVE : [],
 			COMMIT : []
+		},
+		LEVEL : {
+			LEVELUP : [],
+			EXPUP : []
 		}
 	};
 

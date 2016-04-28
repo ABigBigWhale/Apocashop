@@ -45,6 +45,7 @@ function Stock(game) {
 	}
 
 	function sellItem(item, price) {
+		var profit = price;
 		if(item === "none") {
 			game.playerState.addsubGold(price);
 			game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
@@ -54,12 +55,16 @@ function Stock(game) {
 			return -1;
 		}
 		var currItems = game.playerState.getItems();
-		if (currItems[item] <= 0) {
+		if (currItems[item] <= 0 || !currItems[item]) {
 			game.playerState.addsubGold(-items[item].jPrice);
+			profit -= items[item].jPrice;
 			//return -1;
+		} else {
+			game.playerState.decrementItem(item);
+			profit -= items[item].price;
 		}
 		game.playerState.addsubGold(price);
-		game.playerState.decrementItem(item);
+		game.playerState.updateProfit(profit);
 		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
 		game.eventManager.notify(game.Events.UPDATE.ITEMS, game.playerState.getItems());
 	}
