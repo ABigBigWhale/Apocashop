@@ -187,7 +187,7 @@ document.getElementById('continue').onclick = function() {
 };
 
 document.getElementById('start').onclick = function() {
-	game.interactionManager.startDay();
+	game.interactionManager.startDay(days[0]);
 	document.getElementById('start').style.display = 'none';
 };
 

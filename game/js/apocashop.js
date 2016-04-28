@@ -71,7 +71,7 @@ var gameConfig = {
         uiButtonQuestion.smoothed = false;
 
         game.dialog = {};
-        game.dialog.mainBox = game.add.text(250, 430, "", { font: "24px yoster_islandregular"} );
+        game.dialog.mainBox = game.add.text(250, 427, "", { font: "24px yoster_islandregular"} );
         game.dialog.mainGhost = game.add.text(999, 999, "", { font: "24px yoster_islandregular"} );
 
     }
