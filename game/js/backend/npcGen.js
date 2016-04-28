@@ -13,7 +13,7 @@ function initNPCGen(game) {
 			offerText : generateOfferText(item, offers),
 			success : generateThanks(),
 			fail : generateLeave(),
-			//questions : generateQuestions(day)
+			questions : generateQuestions(day)
 		}
 	};
 
@@ -22,7 +22,7 @@ function initNPCGen(game) {
 	var generateHaggle;
 	var generateItemResponse;
 	var generateProfile;
-	var generateAnswer;
+	var generateQuestions;
 	var generateThanks;
 	var generateLeave;
 
@@ -343,7 +343,16 @@ function initNPCGen(game) {
 			],
 		}
 
-		generateAnswer = function(question) {
+		generateQuestions = function(day) {
+			var questions = day.questions;
+			var answers = {};
+			for(var question in questions) {
+				answers[question] = generateAnswer(question);
+			}
+			return answers;
+		}
+
+		function generateAnswer(question) {
 			var options = questions[question];
 			if(!options) {
 				return "ERROR";

@@ -15,10 +15,14 @@ function DialogManager(game) {
 	game.dialog.jeff.box.defaultY = 130;
 
 	// Prints the message to the main text box.
-	this.printMain = function(message, doneCB) {
+	this.printMain = function(message, isAlreadyRead, doneCB) {
 		doneCB = doneCB || function() {};
 		var brokenMessage = formatMessage(game.dialog.main.box, game.dialog.main.ghost, 383, 5, 30, message);
-		printMessage(game.dialog.main.box, brokenMessage, 25, 200, false, doneCB);
+		if(isAlreadyRead) {
+			printMessage(game.dialog.main.box, brokenMessage, 0, 0, false, doneCB);
+		} else {
+			printMessage(game.dialog.main.box, brokenMessage, 25, 200, false, doneCB);
+		}
 	}
 
 	this.printJeff = function(message, doneCB) {

@@ -27,7 +27,7 @@ function InteractionManager(game) {
 		// When continue is pushed, send out a new NPC
 		game.eventManager.register(game.Events.INPUT.CONTINUE, function() {
 			if(currentNPC && currentNPC.type === 'interact') {
-				pushOffer(currentNPC, offerIndex);
+				pushOffer(currentNPC, offerIndex, true);
 			} else {
 				pushNPC();
 			}
@@ -165,23 +165,23 @@ function InteractionManager(game) {
 	}
 
 	// Sends the next offer for the current NPC.
-	function pushOffer(data, index) {
+	function pushOffer(data, index, isRepeat) {
 		var dialog = (typeof data.offerText === 'string') ? data.offerText : data.offerText[index];
 		var offer = data.offers[index] || 0;
 		if(typeof dialog === 'object') {
 			for(var name in dialog) {
 				if(conditionManager.get(name)) {
-					game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog[name]);
+					game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog[name], isRepeat);
 					return;
 				}
 			}
 			if(dialog.default) {
-				game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog.default);
+				game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog.default, isRepeat);
 			} else {
-				game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, "ERROR, NO DIALOG AVAILABLE");
+				game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, "ERROR, NO DIALOG AVAILABLE", isRepeat);
 			}
 		} else if(typeof dialog === 'string') {
-			game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog);
+			game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog, isRepeat);
 		}
 	}
 

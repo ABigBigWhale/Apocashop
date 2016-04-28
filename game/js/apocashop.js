@@ -132,11 +132,11 @@ var gameConfig = {
 
         game.interactionManager.startDay(days[0]);
 
-        game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, offer) {
+        game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, offer, isRepeat) {
             switchButtons(true);
             //game.dialogManager.clearMain();
             toggleButtons(false);
-            game.dialogManager.printMain(offer, function() {
+            game.dialogManager.printMain(offer, isRepeat, function() {
                 toggleButtons(true);
             });
         });
@@ -157,7 +157,7 @@ var gameConfig = {
             switchButtons(false);
             //game.dialogManager.clearMain();
             toggleButtons(false);
-            game.dialogManager.printMain(dialog, function() {
+            game.dialogManager.printMain(dialog, false, function() {
                 toggleButtons(true);
             });
             //game.dialogManager.clearMain();
