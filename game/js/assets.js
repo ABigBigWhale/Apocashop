@@ -1,3 +1,26 @@
+/*function AssetManager(game) {
+
+    this.game = game;
+
+    // Paths of asset files, without extensions
+    this.assetPaths = {
+        interface: ['background'],
+
+        ui: [
+            'ui_itemslot', 'ui_dialog', 
+            'ui_button_accept', 'ui_button_accept_hover', 'ui_button_accept_pressed',
+            'ui_button_reject', 'ui_button_reject_hover', 'ui_button_reject_pressed',
+            'ui_button_question', 'ui_button_question_hover', 'ui_button_question_pressed'
+        ]
+    };
+
+}
+
+AssetManager.prototype.load = function() {
+    this.game.load.image(assets.image.background.id, assets.image.background.url);
+};*/
+
+
 var assets = {
 
     image : {
@@ -22,51 +45,45 @@ var assets = {
             button: {
 
                 accept: {
-                    idle: {
-                        id : 'ui_button_accept',
-                        url: 'assets/ui_button_accept.png'
-                    },
-                    hover: {
-                        id : 'ui_button_accept_hover',
-                        url: 'assets/ui_button_accept_hover.png'
-                    },
-                    pressed: {
-                        id : 'ui_button_accept_pressed',
-                        url: 'assets/ui_button_accept_pressed.png'
-                    }
+                    id : 'ui_button_accept',
+                    url: 'assets/ui/ui_button_accept.png'
                 },
 
                 reject: {
-                    idle: {
-                        id : 'ui_button_reject',
-                        url: 'assets/ui_button_reject.png'
-                    },
-                    hover: {
-                        id : 'ui_button_reject_hover',
-                        url: 'assets/ui_button_reject_hover.png'
-                    },
-                    pressed: {
-                        id : 'ui_button_reject_pressed',
-                        url: 'assets/ui_button_reject_pressed.png'
-                    }
+                    id : 'ui_button_reject',
+                    url: 'assets/ui/ui_button_reject.png'
                 },
 
                 question: {
-                    idle: {
-                        id : 'ui_button_question',
-                        url: 'assets/ui_button_question.png'
-                    },
-                    hover: {
-                        id : 'ui_button_question_hover',
-                        url: 'assets/ui_button_question_hover.png'
-                    },
-                    pressed: {
-                        id : 'ui_button_question_pressed',
-                        url: 'assets/ui_button_question_pressed.png'
-                    }
-                }
+                    id : 'ui_button_question',
+                    url: 'assets/ui/ui_button_question.png'
+                },
+
+                continue: {
+                    id : 'ui_button_continue',
+                    url: 'assets/ui/ui_button_continue.png'
+                },
+            },
+            
+            coins: {
+                id : 'ui_coins',
+                url: 'assets/ui/ui_coins.png'
             }
         },
+
+        items : {
+        
+            sword: {
+                id : 'item_sword',
+                url: 'assets/items/sword.png'
+            },
+            
+            bow: {
+                id : 'item_bow',
+                url: 'assets/items/bow.png'
+            }
+            
+        }
 
     },
 

@@ -8,10 +8,32 @@
         <script src="js/phaser.js"></script>
         <script src="js/apocashop.js"></script>
         <script src="js/assets.js" type="text/javascript"></script>
-        <script src="js/textbox.js"></script>
+        <script type="text/javascript">
+            // Appends backend js files
+            var scripts = [
+                "resources.js",
+                "utility.js",
+                "EventManager.js",
+                "ConditionManager.js",
+                "npcGen.js",
+                "DialogManager.js",
+                "InteractionManager.js",
+                "PlayerState.js",
+                "Stock.js",
+                "Jeff.js"
+            ];
+            var head = document.getElementsByTagName("head")[0];
+            for (i in scripts) {
+                var s = document.createElement("script");
+                s.type = "text/javascript";
+                s.src = "js/backend/" + scripts[i];
+                head.appendChild(s);
+            }
+        </script>
     </head>
-    
+
     <body>
-    <div id="gameDiv"> </div>
+        <div id="gameDiv"> </div>
+        <p id="jeff"></p>
     </body>
 </html>

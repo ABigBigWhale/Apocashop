@@ -2,7 +2,7 @@ function DialogManager(game) {
 
 	game.dialog = {
 		main : {
-			box : game.add.text(250, 427, "", { font: "24px yoster_islandregular"} ),
+			box : game.add.text(250, 427, "", { font: "24px yoster_islandregular", fill: "#4d372c"} ),
 			ghost : game.add.text(999, 999, "", { font: "24px yoster_islandregular"} )
 		}
 	};
@@ -15,6 +15,11 @@ function DialogManager(game) {
 		printMessage(game.dialog.main.box, brokenMessage, function() {
 			console.log("MESSAGE IN MAIN TEXTBOX FINISHED PRINTING");
 		});
+	}
+
+	this.clearMain = function() {
+		game.dialog.main.box.destroy();
+		game.dialog.main.box = game.add.text(250, 427, "", { font: "24px yoster_islandregular", fill: "#4d372c"} );
 	}
 
 	// Adds line breaks into the message, and nudges the text box vertically to
@@ -46,7 +51,7 @@ function DialogManager(game) {
 
 		isPrinting = true;
 
-		box.text = "";
+		box.text = '';
 
 		var printLetter = function(message, index) {
 			if(index < message.length) {

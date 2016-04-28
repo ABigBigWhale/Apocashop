@@ -31,7 +31,7 @@ function EventManager(game) {
 			REMOVE : [],
 			COMMIT : []
 		}
-	}
+	};
 
 	var reverseEvents;
 	var lookup = function() {};

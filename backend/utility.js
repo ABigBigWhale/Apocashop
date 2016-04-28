@@ -11,7 +11,11 @@ function printDebug(message) {
 }
 
 function numToStr(num) {
-	var numArray = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
+	var numArray = ["zero", "one", "two", "three", "four", "five", 
+                    "six", "seven", "eight", "nine", "ten", 
+                    "eleven", "twelve", "thirteen", "fourteen", "fifteen", 
+                    "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
+    
 	if(typeof num === 'number' && num < numArray.length) {
 		return numArray[num];
 	} else {
