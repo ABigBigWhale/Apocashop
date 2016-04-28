@@ -16,6 +16,7 @@ var gameConfig = {
 
     function preload() {
         ///////////////////////////// Assets ///////////////////////////
+        /*
         game.load.image(assets.image.background.id, assets.image.background.url);
         game.load.image(assets.image.ui.itemslot.id, assets.image.ui.itemslot.url);
         game.load.image(assets.image.ui.dialog.id, assets.image.ui.dialog.url);
@@ -34,6 +35,9 @@ var gameConfig = {
 
         game.load.image(assets.image.items.sword.id, assets.image.items.sword.url);
         game.load.image(assets.image.items.bow.id, assets.image.items.bow.url);
+        */
+        game.assetManager = new AssetManager(game);
+        assetManager.load();
     }
 
     // TODO: Lots of hard-coding right now
@@ -67,7 +71,7 @@ var gameConfig = {
         var uiCoins = game.add.sprite(0, 520, assets.image.ui.coins.id);
         var textCoins = game.add.text(80, 540, "20", // TODO: hardcoded
                                       { font: "30px yoster_islandregular", fill: "#ebc36f"} );
-
+        
         var uiButtonAccept = game.add.button(660, 420, assets.image.ui.button.accept.id, 
                                              uiButtonAcceptCB, this, 1, 0, 2);
         var uiButtonReject = game.add.button(660, 480, assets.image.ui.button.reject.id, 
