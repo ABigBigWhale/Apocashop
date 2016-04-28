@@ -85,8 +85,7 @@ function InteractionManager(game) {
 	}
 
 	// Begin the day, set the day timer, and send our first NPC.
-	this.startDay = function() {
-		var day = days[dayIndex];
+	this.startDay = function(day) {
 		conditionManager.init(day.conditions);
 		game.eventManager.notify(game.Events.DAY.START, day.clues);
 		npcIndex = 0;
@@ -95,7 +94,7 @@ function InteractionManager(game) {
 		setTimeout(function() {
 			printDebug("DAY ENDING TIMER");
 			isEnd = true;
-		}, DAY_LENGTH);
+		}, day.length);
 	}
 
 	// Smudge NPC order using fuzz values and initialize the npc

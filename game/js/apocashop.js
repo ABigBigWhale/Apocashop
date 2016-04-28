@@ -9,7 +9,7 @@ var gameConfig = {
         gameConfig.RESOLUTION[1],               // Resolution
         Phaser.AUTO,                            // Rendering context
         'gameDiv',                              // DOM object to insert canvas
-        { preload: preload, create: create }    // Function references
+        { preload: preload, create: create, update : update }    // Function references
     );
 
     if (gameConfig.DEBUG_MODE) window.game = game;
@@ -69,6 +69,17 @@ var gameConfig = {
         uiButtonAccept.smoothed = false;
         uiButtonReject.smoothed = false;
         uiButtonQuestion.smoothed = false;
+
+        game.dialog = {};
+        game.dialog.mainBox = game.add.text(250, 430, "", { font: "24px yoster_islandregular"} );
+        game.dialog.mainGhost = game.add.text(999, 999, "", { font: "24px yoster_islandregular"} );
+
+    }
+
+    function update() {
+
+        //text.setText('Bitmap Fonts!\nx: ' + Date.now());
+
     }
 
 })();

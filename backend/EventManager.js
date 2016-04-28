@@ -34,7 +34,7 @@ function EventManager(game) {
 	}
 
 	var reverseEvents;
-	var lookup;
+	var lookup = function() {};
 
 	if(DEBUG_FLAG) {
 

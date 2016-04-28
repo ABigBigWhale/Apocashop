@@ -97,12 +97,12 @@ var days = [
 			sword : {
 				min : 2,
 				max : 9,
-				priority : 1
+				priority : 5
 			},
 			chicken : {
 				min : 1,
 				max : 7,
-				priority : 10
+				priority : 2
 			}
 		},
 		sequence : {
@@ -142,7 +142,8 @@ var days = [
 		questions : {
 			day : "How was your day?",
 			color : "What's your favorite color?"
-		}
+		},
+		length : 60000
 	}
 ];
 
