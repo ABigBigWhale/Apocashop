@@ -18,7 +18,7 @@ function DialogManager(game) {
 	this.printMain = function(message, doneCB) {
 		doneCB = doneCB || function() {};
 		var brokenMessage = formatMessage(game.dialog.main.box, game.dialog.main.ghost, 383, 5, 30, message);
-		printMessage(game.dialog.main.box, brokenMessage, 25, 200, game.audio.bip, doneCB);
+		printMessage(game.dialog.main.box, brokenMessage, 25, 200, false, doneCB);
 	}
 
 	this.printJeff = function(message, doneCB) {
@@ -72,10 +72,6 @@ function DialogManager(game) {
 					timeoutLength = pauseDelay;
 				} else {
 					box.text = box.text + message[index];
-					if(letterSound) {
-						letterSound.stop();
-						letterSound.play();
-					}
 					if(message[index] == ',' || message[index] == '.' || message[index] == '?') {
 						timeoutLength = pauseDelay;
 					} else {

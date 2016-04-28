@@ -162,10 +162,6 @@ var gameConfig = {
             //game.dialogManager.clearMain();
         });
 
-        game.audio = {
-            bip : game.add.audio('bip')
-        }
-
     }
 
 })();
