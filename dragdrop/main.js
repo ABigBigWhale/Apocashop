@@ -12,6 +12,7 @@ var blue;
 var yellow;
 var red;
 var button;
+var money;
 
 var loadSpace = 30;
 var itemSpace = 30;
@@ -38,6 +39,9 @@ function create() {
     load3	= game.add.sprite(30, 250, 'target');
     load4	= game.add.sprite(30, 350, 'target');
     allLoad = [load1, load2, load3, load4];
+    money = 15;
+    gold = game.add.text(game.width - 300, 100, "Gold: " + money);
+    gold.fill = 'yellow';
     //TODO: callget all items in global item Manager
     green	= game.add.sprite(350, 250, 'green');
     blue	= game.add.sprite(300, 250, 'blue');
@@ -49,6 +53,11 @@ function create() {
 
     initAllItems(allBox);
     initAllLoad(allLoad);
+}
+
+function updateGold(amount) {
+    money += amount;
+    gold.text = "Gold: " + money;
 }
 
 function initAllItems(boxes) {
@@ -63,6 +72,7 @@ function initAllItems(boxes) {
         boxes[i].position.x = itemInit[0] + ((i % numberMod) * (itemSpace + itemSize));
         boxes[i].position.y = itemInit[1] + Math.floor(i / numberMod); 
         boxes[i].originalPosition = boxes[i].position.clone();
+        boxes[i].price = 2;
     }
 }
 function initAllLoad(loads) {
@@ -86,16 +96,23 @@ function initAllLoad(loads) {
     }
 }
 
+function showPrice(item, pointer) {
+
+}
+
 function decreaseItem(minus, pointer) {
     if (minus.loader != null && minus.loader.loaded != null && minus.loader.loaded.num > 0) {
         minus.loader.loaded.num = minus.loader.loaded.num - 1;
+        updateGold(minus.loader.loaded.price);
         minus.loader.num.text = minus.loader.loaded.num + "";
+
     }
 }
 
 function increaseItem(plus, pointer) {  
-    if (plus.loader != null && plus.loader.loaded != null) {
+    if (plus.loader != null && plus.loader.loaded != null && money >= plus.loader.loaded.price) {
         plus.loader.loaded.num = plus.loader.loaded.num + 1;
+        updateGold(-plus.loader.loaded.price);
         plus.loader.num.text = plus.loader.loaded.num + "";
     }
 }
@@ -120,6 +137,7 @@ function onDragStop(sprite, pointer) {
         loader.loaded = sprite;
     } else {
         sprite.position.copyFrom(sprite.originalPosition);
+        updateGold(sprite.price * sprite.num);
         sprite.num = 0;
     }
 }
