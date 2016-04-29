@@ -4,6 +4,12 @@ function rollDice(chance) {
 	return Math.random() <= chance; 
 }
 
+function randomIntInRange(min, max) {
+	var range = max - min;
+	return min + Math.floor(Math.random() * range);
+}
+
+
 function printDebug(message) {
 	if(DEBUG_FLAG) {
 		console.log(message);

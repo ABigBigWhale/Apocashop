@@ -2,9 +2,9 @@ var generateNPC;
 
 function initNPCGen(game) {
 
-	generateNPC = function(day) {
-		var item = generateItem(day.itemData);
-		var offers = generateOffers(day.itemData, item);
+	generateNPC = function(day, item, offers) {
+		var item = item || generateItem(day.itemData);
+		var offers = offers || generateOffers(day.itemData, item);
 		return {
 			type : "interact",
 			appearanceInfo : generateAppearance(item, offers),
@@ -43,16 +43,11 @@ function initNPCGen(game) {
 		return "INVALID ITEM";
 	}
 
-	function randomIntInRange(min, max) {
-		var range = max - min + 1;
-		return min + Math.floor(Math.random() * range);
-	}
-
 	function generateOffers(itemData, item) {
 		var offers = [];
 
 		var min = itemData[item].min;
-		var max = itemData[item].max;
+		var max = itemData[item].max + 1;
 		var avg = Math.ceil((min + max) / 2);
 		var highAvg = Math.ceil((avg + max) / 2);
 
@@ -68,9 +63,13 @@ function initNPCGen(game) {
 
 		while(offers[offers.length - 1] < max) {
 			var chance = (max - offers[offers.length - 1]) / (max - min);
-			chance = Math.min(0.8, Math.pow(chance, 3) * 3);
+			chance = Math.min(0.6, Math.pow(chance, 3) * 3);
 			if(rollDice(chance)) {
-				offers.push(randomIntInRange(avg, max));
+				if(rollDice(0.7)) {
+					offers.push(randomIntInRange(offers[offers.length - 1] + 1, highAvg));
+				} else {
+					offers.push(randomIntInRange(offers[offers.length - 1] + 1, max));
+				}
 			} else {
 				break;
 			}
@@ -385,11 +384,11 @@ function initNPCGen(game) {
 	(function() {
 
 		var angrys = [
-			"Heh, good luck with that.",
-			"Seriously?@ No way.",
+			"Heh, good luck getting more than that.",
+			"Seriously, more? No way.",
 			"You just lost my business.",
-			"There's no way I can afford that.",
-			"Terrible experience.@@ Zero stars."
+			"There's no way I can afford more.",
+			"Terrible experience. Zero stars."
 		]
 
 		generateLeave = function() {
