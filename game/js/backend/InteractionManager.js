@@ -4,8 +4,8 @@ function InteractionManager(game) {
 
 	var conditionManager = new ConditionManager(game);
 
-	// The index of the current day
-	var dayIndex = 0;
+	// The current day
+	var currentDay;
 
 	// Trips when the day ends
 	var isEnd = false;
@@ -90,13 +90,14 @@ function InteractionManager(game) {
 
 	// Begin the day, set the day timer, and send our first NPC.
 	this.startDay = function(day) {
+		currentDay = day;
 		conditionManager.init(day.conditions);
 		game.eventManager.notify(game.Events.DAY.START, {
 			clues : day.clues,
 			questions : day.questions
 		});
 		npcIndex = 0;
-		initNPCs();
+		initNPCs(day);
 		pushNPC();
 		setTimeout(function() {
 			printDebug("DAY ENDING TIMER");
@@ -106,9 +107,9 @@ function InteractionManager(game) {
 
 	// Smudge NPC order using fuzz values and initialize the npc
 	// manifest for the current day.
-	function initNPCs() {
+	function initNPCs(day) {
 		npcs = {};
-		var sequence = days[dayIndex].sequence;
+		var sequence = day.sequence;
 		for(var index in sequence) {
 			var newIndex;
 			do {
@@ -133,12 +134,18 @@ function InteractionManager(game) {
 				npc = npcs[npcIndex];
 				npcIndex++;
 			}
-			return heroes[npc.hero];
+			if(typeof npc.hero === 'object') {
+				return generateNPC(currentDay, npc.hero.item, npc.hero.offers);
+			} else {
+				return heroes[npc.hero];
+			}
 		}
 		if(npc && heroes[npc.hero]) {
 			return heroes[npc.hero];
+		} else if(npc && typeof npc.hero === 'object') {
+			return generateNPC(currentDay, npc.hero.item, npc.hero.offers);
 		} else {
-			return generateNPC(days[dayIndex]);
+			return generateNPC(currentDay);
 		}
 	}
 

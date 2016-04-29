@@ -95,6 +95,14 @@ var days = [
 				fuzz : 0,
 				force : true
 			},
+			1 : {
+				hero : {
+					item : "sword",
+					offers : [1, 8]
+				},
+				fuzz : 0,
+				force : true
+			},
 			2 : {
 				hero : "man",
 				fuzz : 2,
