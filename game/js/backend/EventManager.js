@@ -1,5 +1,7 @@
 function EventManager(game) {
 
+	var self = this;
+
 	game.Events = {
 		DAY : {
 			START : [],
@@ -34,45 +36,9 @@ function EventManager(game) {
 		LEVEL : {
 			LEVELUP : [],
 			EXPUP : []
-		}
+		},
+		TEST : []
 	};
-
-	var reverseEvents;
-	var lookup = function() {};
-
-	if(DEBUG_FLAG) {
-
-		reverseEvents = {};
-
-		// Looks up the given array in the reverse lookup table. Unfortunately,
-		// we can't map the arrays to the names and just do a simple object lookup
-		// in reverseEvents because arrays hash based on contents, not reference.
-		// Thus, we have to use the names as the keys and the arrays as the values.
-		lookup = function(arr) {
-			for(var key in reverseEvents) {
-				if(reverseEvents[key] === arr) {
-					return key;
-				}
-			}
-			return false;
-		}
-
-		// Recursively builds a lookup table from programmer-used
-		// event name to the callback array. This allows us to view
-		// the event being notified / registered / removed when debugging.
-		function buildReverse(obj, str) {
-			if(obj instanceof Array) {
-				reverseEvents[str] = obj;
-			} else {
-				for(var key in obj) {
-					buildReverse(obj[key], str + "." + key);
-				}
-			}
-		}
-
-		buildReverse(game.Events, "Events");
-
-	}
 
 	this.register = function(arr, newCB) {
 		if(!(arr instanceof Array) || !(typeof newCB === 'function')) {
@@ -120,5 +86,43 @@ function EventManager(game) {
 			tempArr[j].apply(window, args);
 		}
 	};
+
+	this.notifyByName = function(name) {
+		var args = [reverseEvents[name]];
+		for(var i = 1; i < arguments.length; i++) {
+			args.push(arguments[i]);
+		}
+		return self.notify.apply(this, args);
+	};
+
+	var reverseEvents = {};
+
+	// Looks up the given array in the reverse lookup table. Unfortunately,
+	// we can't map the arrays to the names and just do a simple object lookup
+	// in reverseEvents because arrays hash based on contents, not reference.
+	// Thus, we have to use the names as the keys and the arrays as the values.
+	function lookup(arr) {
+		for(var key in reverseEvents) {
+			if(reverseEvents[key] === arr) {
+				return key;
+			}
+		}
+		return false;
+	}
+
+	// Recursively builds a lookup table from programmer-used
+	// event name to the callback array. This allows us to view
+	// the event being notified / registered / removed when debugging.
+	function buildReverse(obj, str) {
+		if(obj instanceof Array) {
+			reverseEvents[str] = obj;
+		} else {
+			for(var key in obj) {
+				buildReverse(obj[key], str + "." + key);
+			}
+		}
+	}
+
+	buildReverse(game.Events, "Events");
 
 }

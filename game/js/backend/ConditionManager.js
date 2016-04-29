@@ -61,6 +61,11 @@ function ConditionManager(game) {
 			if(rollDice(compound.chance)) {
 				printDebug("SETTING COMPOUND CONDITION: " + name);
 				conditions.push(name);
+				if(compound.events) {
+					for(var i = 0; i < compound.events.length; i++) {
+						game.eventManager.notifyByName(compound.events[i]);
+					}
+				}
 				if(compound.isLongTerm) {
 					printDebug("SETTING LONGTERM CONDITION: " + name);
 					persistentConditions.push(name);
