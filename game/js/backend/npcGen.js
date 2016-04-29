@@ -2,18 +2,22 @@ var generateNPC;
 
 function initNPCGen(game) {
 
-	generateNPC = function(day, item, offers) {
-		var item = item || generateItem(day.itemData);
-		var offers = offers || generateOffers(day.itemData, item);
+	generateNPC = function(day, prePop) {
+		prePop = prePop || {};
+		var item = prePop.item || generateItem(day.itemData);
+		var offers = prePop.offers || generateOffers(day.itemData, item);
 		return {
 			type : "interact",
-			appearanceInfo : generateAppearance(item, offers),
+			appearanceInfo : prePop.appearanceInfo || generateAppearance(item, offers),
 			item : item,
 			offers : offers,
-			offerText : generateOfferText(item, offers),
-			success : generateThanks(),
-			fail : generateLeave(),
-			questions : generateQuestions(day)
+			offerText : prePop.offerText || generateOfferText(item, offers),
+			success : prePop.success || generateThanks(),
+			fail : prePop.fail || generateLeave(),
+			questions : prePop.questions || generateQuestions(day),
+			appearConditions : prePop.appearConditions || false,
+			sellConditions : prePop.sellConditions || false,
+			refuseConditions : prePop.refuseConditions || false
 		}
 	};
 

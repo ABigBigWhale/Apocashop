@@ -98,14 +98,15 @@ var days = [
 			1 : {
 				hero : {
 					item : "sword",
-					offers : [1, 8]
+					offers : [1, 8],
+					sellConditions : ["tutorialPerson"]
 				},
 				fuzz : 0,
 				force : true
 			},
 			2 : {
 				hero : "man",
-				fuzz : 2,
+				fuzz : 3,
 				force : true
 			},
 			5 : {
@@ -115,6 +116,12 @@ var days = [
 			}
 		},
 		conditions : {
+			eventTrigger : {
+				components : ["tutorialPerson"],
+				chance : 1.0,
+				events : ["Events.TEST"],
+				isLongTerm : false
+			},
 			hidPoorly : {
 				components : ["hidMan"],
 				chance : 0.5,

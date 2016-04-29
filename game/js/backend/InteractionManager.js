@@ -135,7 +135,7 @@ function InteractionManager(game) {
 				npcIndex++;
 			}
 			if(typeof npc.hero === 'object') {
-				return generateNPC(currentDay, npc.hero.item, npc.hero.offers);
+				return generateNPC(currentDay, npc.hero);
 			} else {
 				return heroes[npc.hero];
 			}
@@ -143,7 +143,7 @@ function InteractionManager(game) {
 		if(npc && heroes[npc.hero]) {
 			return heroes[npc.hero];
 		} else if(npc && typeof npc.hero === 'object') {
-			return generateNPC(currentDay, npc.hero.item, npc.hero.offers);
+			return generateNPC(currentDay, npc.hero);
 		} else {
 			return generateNPC(currentDay);
 		}
