@@ -11,11 +11,13 @@ function AssetManager(game) {
         'ui': [
             'ui_itemslot', 
             'ui_dialog', 
+			'ui_table',
+			'ui_table_background',
             'ui_button_accept', 
             'ui_button_reject', 
             'ui_button_question', 
             'ui_button_continue', 
-            'ui_coins'
+            'ui_coins',
         ],
         
         'items' : [

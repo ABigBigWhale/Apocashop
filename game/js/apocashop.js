@@ -57,11 +57,23 @@ var gameConfig = {
 
         ///////////////////////////// UI elems ///////////////////////////
         for (var i = 0; i < 4; i++) {
-            var uiItemslot = game.add.sprite(10, 10 + 90 * i, 'ui_itemslot');
+            var uiItemslot = game.add.sprite(10, 10 + 50 * i, 'ui_itemslot');
             uiItemslot.anchor.setTo(0, 0);
+			// TODO: demo use only
+			var itemSword = game.add.sprite(14, 14, 'item_sword');
+			var itemBow = game.add.sprite(14, 14 + 50, 'item_bow');
+			itemSword.scale.setTo(2, 2);
+			itemBow.scale.setTo(2, 2);
+			itemSword.smoothed = false;
+			itemBow.smoothed = false;
         }
 
         var uiDialog = game.add.sprite(0, 400, 'ui_dialog');
+		
+		var uiDeskBg = game.add.sprite(0, 600, 'ui_table_background');
+		var uiDesk = game.add.sprite(0, 600, 'ui_table');
+		uiDesk.anchor.setTo(0, 1);
+		uiDeskBg.anchor.setTo(0, 1);
 
         var uiButtonAcceptCB = function() {
             game.eventManager.notify(game.Events.INPUT.YES)
@@ -73,8 +85,8 @@ var gameConfig = {
             game.eventManager.notify(game.Events.INPUT.CONTINUE)
         };
 
-        var uiCoins = game.add.sprite(0, 520, 'ui_coins');
-        var textCoins = game.add.text(80, 540, "20", // TODO: hardcoded
+        //var uiCoins = game.add.sprite(0, 520, 'ui_coins');
+        var textCoins = game.add.text(60, 540, "20", // TODO: hardcoded
                                       { font: "30px yoster_islandregular", fill: "#ebc36f"} );
         
         var uiButtonAccept = game.add.button(660, 420, 'ui_button_accept', 
@@ -107,13 +119,7 @@ var gameConfig = {
             uiButtonContinue.inputEnabled = isEnabled;
         }
 
-        // TODO: demo use only
-        var itemSword = game.add.sprite(16, 16, 'item_sword');
-        var itemBow = game.add.sprite(16, 106, 'item_bow');
-        itemSword.scale.setTo(2, 2);
-        itemBow.scale.setTo(2, 2);
-        itemSword.smoothed = false;
-        itemBow.smoothed = false;
+        
         
         var shopkeeper = game.add.sprite(500, 272, 'sk');
 
