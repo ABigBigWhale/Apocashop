@@ -2,8 +2,14 @@ function PlayerState(game) {
 	var Items;
 	var Gold;
 
+	var Level;
+	var EXP;
+
 	function init() {
 		Gold = 10;
+
+		Level = 1;
+		EXP = 0;
 	}
 
 	this.updateItem = function(item, count) {
@@ -30,7 +36,7 @@ function PlayerState(game) {
 	}
 
 	this.checkStock = function(item) {
-		return !items[item] || Items[item];
+		return !items[item] || Items[item] || item === 'none';
 	}
 
 	this.checkPrice = function(item, goldOffset) {
@@ -41,6 +47,20 @@ function PlayerState(game) {
 	this.update = function(gold, items) {
 		Gold = gold;
 		Items = items;
+	}
+
+	this.updateProfit = function(profit) {
+		if(profit <= 0) {
+			return;
+		}
+		printDebug("ADDING " + profit + " TO EXP");
+		EXP += profit;
+		if(EXP >= Level * 10) {
+			game.eventManager.notify(game.Events.LEVEL.LEVELUP, Level + 1);
+			EXP = profit %= (Level * 10);
+			Level++;
+		}
+		game.eventManager.notify(game.Events.LEVEL.EXPUP, EXP / (Level * 10));
 	}
 
 	init();
