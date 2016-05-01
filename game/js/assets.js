@@ -27,7 +27,7 @@ function AssetManager(game) {
 		// 'part' : #of files
 		'npc' : {
 			'face' : 3,
-			'body' : 1,
+			'body' : 2,
 			'hair' : 6,
 			'eye' : 8,
 			'nose' : 11,
