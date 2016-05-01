@@ -92,10 +92,19 @@ function initNPCGen(game) {
 	}
 
 	(function() {
+		
+		var apprCategory = game.assetManager.assets['npc'];
 
 		generateAppearance = function(item, offers) {
 			var maxOffer = Math.max.apply(this, offers);
-			return "APPEARANCE INFO";
+			var apprQuery = '';
+			
+			for (var apprPart in apprCategory) {
+				var partCount = game.assetManager.assets['npc'][apprPart];
+				apprQuery += apprPart + '|' + game.rnd.integerInRange(1, partCount) + ',';
+			}
+			
+			return apprQuery.substring(0, apprQuery.length - 1);
 		};
 
 	})();
