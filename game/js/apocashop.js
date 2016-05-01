@@ -48,7 +48,7 @@ var gameConfig = {
 		var uiAvatarLayer = game.add.group();
 		var uiDeskLayer = game.add.group();
 		var uiDialogLayer = game.add.group();
-		
+
 		var uiDialog = uiDialogLayer.create(800, 600, 'ui_dialog');
 		var uiDeskBg = uiDeskBgLayer.create(0, 600, 'ui_table_background');
 		var uiDesk = uiDeskLayer.create(0, 600, 'ui_table');
@@ -68,6 +68,20 @@ var gameConfig = {
 
 		var textCoins = game.add.text(60, 540, "20", // TODO: hardcoded
 									  { font: "30px yoster_islandregular", fill: "#ebc36f"} );
+		var coinDrop = function(offer) {
+			var coins = game.add.group();
+			for (var i = 0; i < offer; i ++) {
+				coins.create(20 + Math.random() * 50, 450 + Math.random() * 30, 'ui_coin');
+			}
+			var coidDropTweenPos = game.add.tween(coins.position).to( {y: coins.y + 100}, 800, Phaser.Easing.Quadratic.Out);
+			var coidDropTweenAlp = game.add.tween(coins.alpha).to( {alpha: 0.5}, 500);
+			coidDropTweenAlp.onComplete.add(function() {
+				coins.destroy();
+			});
+			
+			coidDropTweenPos.start();
+			coidDropTweenAlp.start();
+		}
 
 		var uiButtonAccept = game.add.button(660, 420, 'ui_button_accept', 
 											 uiButtonAcceptCB, this, 1, 0, 2);
@@ -107,8 +121,14 @@ var gameConfig = {
 		var currNPCOut;
 
 		var setNPCTween = function() {
-			currNPCIn = game.add.tween(currNPC).to({x:20, y:360},550, 'Quart.easeOut');
-			currNPCOut = game.add.tween(currNPC).to({x:320, y:660},550, 'Quart.easeOut');
+			var npcPos = {x: 20, y: 360};
+			currNPCIn = game.add.tween(currNPC).from({x: currNPC.x - 300, y: currNPC.y + 300}, 550, Phaser.Easing.Quadratic.Out);
+			currNPCOut = game.add.tween(currNPC).to({x: 320, y: 660},550);
+			currNPCHit = game.add.tween(currNPC).to({x: currNPC.x + 10}, 30)
+				.to({x:currNPC.x - 10, y:currNPC.y}, 60)
+				.to({x:currNPC.x + 10, y:currNPC.y}, 60)
+				.to({x:currNPC.x, y:currNPC.y}, 30);
+
 			currNPCOut.onComplete.add(function() {
 				currNPC.destroy();
 			}, this);
@@ -136,6 +156,19 @@ var gameConfig = {
 			game.dialogManager.printMain(offer, isRepeat, function() {
 				toggleButtons(true);
 			});
+		});
+
+		game.eventManager.register(game.Events.INPUT.NO, function() {
+			if (currNPC) {
+				printDebug('currNPC.x: ' + currNPC.x);
+				currNPCHit.start();
+				printDebug('currNPC.x: ' + currNPC.x);
+				printDebug(currNPC);
+			}
+		});
+		
+		game.eventManager.register(game.Events.INVENTORY.SOLD, function (item, offer){
+			coinDrop(offer);
 		});
 
 		game.eventManager.register(game.Events.UPDATE.GOLD, function(gold) {
@@ -176,7 +209,7 @@ var gameConfig = {
 
 			// NOTE: position at (20, 360)
 			var showNPC = function() {
-				currNPC = uiAvatarLayer.create(-280, 660, drawRandomNPC(game, appearanceInfo));
+				currNPC = uiAvatarLayer.create(20, 360, drawRandomNPC(game, appearanceInfo));
 				setNPCTween();
 				currNPC.scale.setTo(3, 3);
 				currNPCIn.start();

@@ -17,6 +17,7 @@ function AssetManager(game) {
 			'ui_button_reject', 
 			'ui_button_question', 
 			'ui_button_continue', 
+			'ui_coin',
 			'ui_coins',
 		],
 
@@ -31,7 +32,8 @@ function AssetManager(game) {
 			'hair' : 6,
 			'eye' : 8,
 			'nose' : 11,
-			'mouth' : 11
+			'mouth' : 11,
+			'misc' : 7
 		}
 
 	};
