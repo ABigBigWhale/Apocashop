@@ -3,7 +3,8 @@ function DialogManager(game) {
 	game.dialog = {
 		main : {
 			box : game.add.text(250, 427, "", { font: "24px yoster_islandregular", fill: "#4d372c"} ),
-			ghost : game.add.text(999, 999, "", { font: "24px yoster_islandregular"} )
+			ghost : game.add.text(999, 999, "", { font: "24px yoster_islandregular"} ),
+			isPrinting : false
 		},
 		jeff : {
 			box : game.add.text(500, 130, "SUP, I'M JEFF. How's it?", { font : "16px yoster_islandregular" }),
@@ -14,10 +15,16 @@ function DialogManager(game) {
 	game.dialog.main.box.defaultY = 427;
 	game.dialog.jeff.box.defaultY = 130;
 
+	var mainTimeout = false;
+	var mainMessage = false;
+	var mainCallback = false;
+
 	// Prints the message to the main text box.
 	this.printMain = function(message, isAlreadyRead, doneCB) {
 		doneCB = doneCB || function() {};
 		var brokenMessage = formatMessage(game.dialog.main.box, game.dialog.main.ghost, 383, 5, 30, message);
+		mainMessage = brokenMessage;
+		mainCallback = doneCB;
 		if(isAlreadyRead) {
 			printMessage(game.dialog.main.box, brokenMessage, 0, 0, false, doneCB);
 		} else {
@@ -25,11 +32,18 @@ function DialogManager(game) {
 		}
 	}
 
+	this.jumpMain = function() {
+		var splitMessage = mainMessage.split("@").join("").split(/\/|\|/);
+		clearTimeout(mainTimeout);
+		game.dialog.main.box.text = splitMessage.join("\n");
+		mainCallback();
+	};
+
 	this.printJeff = function(message, doneCB) {
 		doneCB = doneCB || function() {};
 		var brokenMessage = formatMessage(game.dialog.jeff.box, game.dialog.jeff.ghost, 230, 4, 23, message);
 		printMessage(game.dialog.jeff.box, brokenMessage, 15, 100, false, doneCB);
-	}
+	};
 
 	// Adds line breaks into the message, and nudges the text box vertically to
 	// center it in the text area.
@@ -82,7 +96,7 @@ function DialogManager(game) {
 						timeoutLength = letterDelay;
 					}
 				}
-				setTimeout(function() {
+				mainTimeout = setTimeout(function() {
 					printLetter(message, index + 1);
 				}, timeoutLength);
 			} else {

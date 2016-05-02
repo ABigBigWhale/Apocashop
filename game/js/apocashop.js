@@ -14,7 +14,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		{ preload: preload, create: create }    // Function references
 	);
 
-	//if (gameConfig.DEBUG_MODE) window.game = game;
+	if (gameConfig.DEBUG_MODE) window.debugGame = game;
 
 	function preload() {
 		///////////////////////////// Assets ///////////////////////////
@@ -60,13 +60,25 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		var uiNote = game.add.sprite(145, 535, 'ui_note');
 
 		var uiButtonAcceptCB = function() {
-			game.eventManager.notify(game.Events.INPUT.YES)
+			if(game.dialog.main.isPrinting) {
+				game.dialogManager.jumpMain();
+			} else {
+				game.eventManager.notify(game.Events.INPUT.YES)
+			}
 		};
 		var uiButtonRejectCB = function() {
-			game.eventManager.notify(game.Events.INPUT.NO)
+			if(game.dialog.main.isPrinting) {
+				game.dialogManager.jumpMain();
+			} else {
+				game.eventManager.notify(game.Events.INPUT.NO)
+			}
 		};
 		var uiButtonContinueCB = function() {
-			game.eventManager.notify(game.Events.INPUT.CONTINUE)
+			if(game.dialog.main.isPrinting) {
+				game.dialogManager.jumpMain();
+			} else {
+				game.eventManager.notify(game.Events.INPUT.CONTINUE)
+			}
 		};
 
 		var textCoins = game.add.text(60, 540, "20", // TODO: hardcoded
@@ -151,12 +163,13 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		uiButtonAccept.visible = false;
 		uiButtonReject.visible = false;
 		uiButtonQuestion.visible = false;
+		uiNote.visible = false;
 
 		game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, offer, isRepeat) {
 			switchButtons(true);
-			toggleButtons(false);
+			game.dialog.main.isPrinting = true;
 			game.dialogManager.printMain(offer, isRepeat, function() {
-				toggleButtons(true);
+				game.dialog.main.isPrinting = false;
 			});
 		});
 
@@ -186,10 +199,16 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		game.eventManager.register(game.Events.INTERACT.DIALOG, function(dialog) {
 			switchButtons(false);
-			toggleButtons(false);
+			//toggleButtons(false);
+			game.dialog.main.isPrinting = true;
 			game.dialogManager.printMain(dialog, false, function() {
-				toggleButtons(true);
+				game.dialog.main.isPrinting = false;
+				//toggleButtons(true);
 			});
+		});
+
+		game.eventManager.register(game.Events.TUTORIAL.BEGIN, function() {
+			uiNote.visible = true;
 		});
 
 		game.eventManager.register(game.Events.INTERACT.NEW, function (appearanceInfo) {

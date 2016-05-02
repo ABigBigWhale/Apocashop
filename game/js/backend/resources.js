@@ -145,7 +145,7 @@ var days = [
 		itemData : {
 			sword : {
 				min : 2,
-				max : 9,
+				max : 11,
 				priority : 5
 			}
 		},
