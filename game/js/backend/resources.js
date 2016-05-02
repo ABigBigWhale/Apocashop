@@ -78,6 +78,15 @@ var heroes = {
 		sellConditions : ["soldCousin"],
 		refuseConditions : ["refuseCousin"]
 	},
+	endOfTutorialJeff : {
+		type : 'dialog',
+		appearanceInfo : "SUP",
+		dialog : [
+			"Nicely done, kid. We're still in business!/Against all odds.",
+			"We got lucky to get that tip about the cousin./I'll make sure we don't have to again.",
+			"I'll research who we should and shouldn't sell to, and put it in that notebook."
+		]
+	},
 	"man" : {
 		type : "interact",
 		item : "none",
@@ -189,6 +198,11 @@ var days = [
 				},
 				fuzz : 1,
 				force : true
+			},
+			9999 : {
+				hero : "endOfTutorialJeff",
+				fuzz : 0,
+				force : true
 			}
 		},
 		conditions : {
@@ -201,12 +215,10 @@ var days = [
 		},
 		clues : {
 			hero : [
-				"Hero is this person",
-				"Hero looks like this"
+				"My cousin's favorite color is 'Mac and Cheese'"
 			],
 			crisis : [
-				"Look out for goblins",
-				"Scary business, look out."
+				"If anybody sees this text, something went wrong."
 			]
 		},
 		questions : {
