@@ -119,12 +119,14 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		function switchButtons(isInteract) {
 			uiButtonAccept.visible = isInteract;
 			uiButtonReject.visible = isInteract;
+			uiButtonQuestion.visible = isInteract;
 			uiButtonContinue.visible = !isInteract;
 		}
 
 		function toggleButtons(isEnabled) {
 			uiButtonAccept.inputEnabled = isEnabled;
 			uiButtonReject.inputEnabled = isEnabled;
+			uiButtonQuestion.inputEnabled = isEnabled;
 			uiButtonContinue.inputEnabled = isEnabled;
 		}
 
@@ -209,12 +211,16 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		game.eventManager.register(game.Events.TUTORIAL.BEGIN, function() {
 			uiNote.visible = true;
+			uiButtonQuestion.visible = true;
 		});
 
 		game.eventManager.register(game.Events.INTERACT.NEW, function (appearanceInfo) {
 			// This function returns a BitmapData generated with the given indices of 
 			// body part images.
 			/** NOTE: The size of the avatar frame is 168x198 **/
+			game.dialog.main.freeze(true);
+			toggleButtons(false);
+
 			printDebug("GENERATING NPC IMG: " + appearanceInfo);
 			var isRandom = false;
 			switch (appearanceInfo) {
@@ -254,6 +260,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 					currNPC.scale.setTo(2, 2);
 					currNPC.smoothed = false;
 				}
+				currNPCIn.onComplete.add(function() {
+					toggleButtons(true);
+					game.dialog.main.freeze(false);
+				})
 				currNPCIn.start();
 			}
 
