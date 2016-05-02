@@ -2,15 +2,31 @@ function Stock(game) {
 	var Items;
 	var totalGold;
 	function init() {
-		totalGold = -64;
+		totalGold = 0;
 		Items = {};
-		addItem("bow");
-		addItems("sword", 10);
-		adjustPlayer();
 		game.eventManager.register(game.Events.INVENTORY.SOLD, sellItem);
-		game.eventManager.register(game.Events.STOCK.ADD, addItem);
-		game.eventManager.register(game.Events.STOCK.REMOVE, removeItem);
+		game.eventManager.register(game.Events.STOCK.ADD, addItems);
+		game.eventManager.register(game.Events.STOCK.REMOVE, removeItems);
 		game.eventManager.register(game.Events.STOCK.COMMIT, adjustPlayer);
+		game.eventManager.register(game.Events.STOCK.OUTSTOCK, returnStock);
+		game.eventManager.register(game.Events.STOCK.INIT, initStock);
+	}
+
+	function initStock() {
+		game.eventManager.notify(game.Events.UPDATE.ITEMS, Items);
+		game.eventManager.notify(game.Events.UPDATE.STOCKGOLD, game.playerState.getGold() - totalGold);
+	}
+
+	function returnStock(item) {
+		if (items[item] === undefined) {
+			alert("Trying to remove an item that doesn't exist");
+		}
+		playerItems = game.playerState.getItems();
+		var diff = ((Items[item] || playerItems[item]) - playerItems[item]) || 0;
+		Items[item] = playerItems[item] || 0;
+		totalGold -= diff * items[item].price;
+		game.eventManager.notify(game.Events.UPDATE.ITEMS, Items);
+		game.eventManager.notify(game.Events.UPDATE.STOCKGOLD, game.playerState.getGold() - totalGold);
 	}
 
 	function addItem(item) {
@@ -24,6 +40,8 @@ function Stock(game) {
 			Items[item] = (Items[item] || 0) + amount;
 			totalGold += items[item].price * amount;
 		}
+		game.eventManager.notify(game.Events.UPDATE.ITEMS, Items);
+		game.eventManager.notify(game.Events.UPDATE.STOCKGOLD, game.playerState.getGold() - totalGold);
 	}
 
 	function removeItem(item) {
@@ -31,46 +49,39 @@ function Stock(game) {
 	}
 
 	function removeItems(item, amount) {
-		if (items.item === undefined) {
+		if (items[item] === undefined) {
 			alert("Trying to remove an item that doesn't exist");
 		} else if (Items[item] === undefined) {
 			alert("Trying to remove an item that we dont have!");
 		} else if (Items[item] < amount) {
 			alert("Trying to remove too many items!");
-			this.Items[item] = 0;
+			Items[item] = 0;
 		} else {
-			this.Items[item] = this.Items[item] - amount;
+			Items[item] = Items[item] - amount;
 			totalGold -= items[item].price * amount;
 		}
+		game.eventManager.notify(game.Events.UPDATE.ITEMS, Items);
+		game.eventManager.notify(game.Events.UPDATE.STOCKGOLD, game.playerState.getGold() - totalGold);
 	}
 
 	function sellItem(item, price) {
-		var profit = price;
-		if(item === "none") {
-			game.playerState.addsubGold(price);
-			game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
-			return;
-		}
 		if (items[item] === undefined) {
 			return -1;
 		}
 		var currItems = game.playerState.getItems();
-		if (currItems[item] <= 0 || !currItems[item]) {
-			game.playerState.addsubGold(-items[item].jPrice);
-			profit -= items[item].jPrice;
-			//return -1;
-		} else {
-			game.playerState.decrementItem(item);
-			profit -= items[item].price;
+		if (currItems[item] <= 0) {
+			//game.playerState.addsubGold(-items[item].jPrice);
+			return -1;
 		}
 		game.playerState.addsubGold(price);
-		game.playerState.updateProfit(profit);
+		game.playerState.decrementItem(item);
 		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
 		game.eventManager.notify(game.Events.UPDATE.ITEMS, game.playerState.getItems());
 	}
 
 	function adjustPlayer() {
 		var newGold = game.playerState.getGold() - totalGold;
+		totalGold = 0;
 		game.playerState.update(newGold, Items);
 	}
 

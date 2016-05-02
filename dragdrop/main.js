@@ -14,12 +14,21 @@ var red;
 var button;
 var money;
 
+var typeArr = ["bow", "sword", "water", "chicken"];
 var loadSpace = 30;
 var itemSpace = 30;
 var itemSize = 50;
 var itemDistanceFromSide = 100;
 var loadInit = [30, 150];
 var itemInit = [300, 150];
+
+function init() {
+    game.eventManager = new EventManager(game);
+    game.eventManager.register(game.Events.UPDATE.STOCKGOLD, updateGold);
+    game.eventManager.register(game.Events.UPDATE.ITEMS, updateItems);
+    game.playerState = new PlayerState(game);
+    game.Stock = new Stock(game);
+}
 
 function preload() {
     game.load.image('red', 'assets/red.png');
@@ -29,6 +38,7 @@ function preload() {
     game.load.image('target', 'assets/load.png');
     game.load.image('plus', 'assets/plus.png'); // 25 x 25
     game.load.image('minus', 'assets/minus.png');
+    init();
 }
 
 function create() {
@@ -39,40 +49,48 @@ function create() {
     load3	= game.add.sprite(30, 250, 'target');
     load4	= game.add.sprite(30, 350, 'target');
     allLoad = [load1, load2, load3, load4];
-    money = 15;
-    gold = game.add.text(game.width - 300, 100, "Gold: " + money);
+    gold = game.add.text(game.width - 300, 100, "Gold: ");
     gold.fill = 'yellow';
-    //TODO: callget all items in global item Manager
-    green	= game.add.sprite(350, 250, 'green');
-    blue	= game.add.sprite(300, 250, 'blue');
-    red		= game.add.sprite(300, 200, 'red');
-    yellow	= game.add.sprite(350, 200, 'yellow');
-    allBox = [green, blue, red, yellow]; 
+    allBox = createItemSprites(items, game.playerState.getItems());
 
     //button = game.add.button(700, 500, 'button', actionOnClick, this, 2, 1, 0);
 
     initAllItems(allBox);
     initAllLoad(allLoad);
+    game.eventManager.notify(game.Events.STOCK.ADD, "sword", 3);
+    game.eventManager.notify(game.Events.STOCK.ADD, "bow", 2);
+    game.eventManager.notify(game.Events.STOCK.COMMIT);
+
+
+
 }
 
-function updateGold(amount) {
-    money += amount;
-    gold.text = "Gold: " + money;
+function createItemSprites(items, playerItems) {
+    var sprites = {};
+    for (var key in items) {
+        // get graphics to load for correct boxes
+        var sprite = game.add.sprite(0, 0, key);
+        sprite.itemType = key;
+        sprite.num = (playerItems === undefined) ? 0 : playerItems[key] + 0;
+        sprites[key] = sprite;
+    }
+    return sprites;
 }
 
 function initAllItems(boxes) {
     var numberMod = Math.floor((game.width - 2 * itemDistanceFromSide)/ (itemSpace + itemSize)); 
-    for (var i = 0; i < boxes.length; i++) {
-        boxes[i].num = 0;
-        game.physics.arcade.enable(boxes[i]);
-        boxes[i].inputEnabled = true;
-        boxes[i].input.enableDrag();
-        boxes[i].events.onDragStop.add(onDragStop, this);
-        boxes[i].events.onDragStart.add(onDragStart, this);
-        boxes[i].position.x = itemInit[0] + ((i % numberMod) * (itemSpace + itemSize));
-        boxes[i].position.y = itemInit[1] + Math.floor(i / numberMod); 
-        boxes[i].originalPosition = boxes[i].position.clone();
-        boxes[i].price = 2;
+    var curr = -1;
+    for (var key in boxes) {
+        curr++;
+        game.physics.arcade.enable(boxes[key]);
+        boxes[key].inputEnabled = true;
+        boxes[key].input.enableDrag();
+        boxes[key].events.onDragStop.add(onDragStop, this);
+        boxes[key].events.onDragStart.add(onDragStart, this);
+        boxes[key].position.x = itemInit[0] + ((curr % numberMod) * (itemSpace + itemSize));
+        boxes[key].position.y = itemInit[1] + Math.floor(curr / numberMod); 
+        boxes[key].originalPosition = boxes[key].position.clone();
+        boxes[key].price = items[key].price;
     }
 }
 function initAllLoad(loads) {
@@ -96,24 +114,30 @@ function initAllLoad(loads) {
     }
 }
 
-function showPrice(item, pointer) {
 
+function updateGold(amount) {
+    gold.text = "Gold: " + amount;
 }
 
-function decreaseItem(minus, pointer) {
-    if (minus.loader != null && minus.loader.loaded != null && minus.loader.loaded.num > 0) {
-        minus.loader.loaded.num = minus.loader.loaded.num - 1;
-        updateGold(minus.loader.loaded.price);
-        minus.loader.num.text = minus.loader.loaded.num + "";
+function updateItems(Items) {
+    for (var key in Items) {
+        // do shallow copy of each item number
+        allBox[key].num = Items[key] + 0;
+    }
+}
 
+
+function decreaseItem(minus, pointer) {
+    if (minus.loader != null && minus.loader.loaded != null) {
+        game.eventManager.notify(game.Events.STOCK.REMOVE, minus.loader.loaded.itemType, 1);
+        minus.loader.num.text = minus.loader.loaded.num;
     }
 }
 
 function increaseItem(plus, pointer) {  
-    if (plus.loader != null && plus.loader.loaded != null && money >= plus.loader.loaded.price) {
-        plus.loader.loaded.num = plus.loader.loaded.num + 1;
-        updateGold(-plus.loader.loaded.price);
-        plus.loader.num.text = plus.loader.loaded.num + "";
+    if (plus.loader != null && plus.loader.loaded != null) {
+        game.eventManager.notify(game.Events.STOCK.ADD, plus.loader.loaded.itemType, 1);
+        plus.loader.num.text = plus.loader.loaded.num;
     }
 }
 
@@ -137,8 +161,7 @@ function onDragStop(sprite, pointer) {
         loader.loaded = sprite;
     } else {
         sprite.position.copyFrom(sprite.originalPosition);
-        updateGold(sprite.price * sprite.num);
-        sprite.num = 0;
+        game.eventManager.notify(game.Events.STOCK.OUTSTOCK, sprite.itemType);
     }
 }
 

@@ -6,8 +6,7 @@ function PlayerState(game) {
 	var EXP;
 
 	function init() {
-		Gold = 10;
-
+		Gold = 40;
 		Level = 1;
 		EXP = 0;
 	}
@@ -32,7 +31,7 @@ function PlayerState(game) {
 	}
 
 	this.getItems = function() {
-		return Items;
+		return (Items === undefined) ? {} : Object.assign({}, Items);
 	}
 
 	this.checkStock = function(item) {
@@ -46,7 +45,7 @@ function PlayerState(game) {
 
 	this.update = function(gold, items) {
 		Gold = gold;
-		Items = items;
+		Items = Object.assign({}, items);
 	}
 
 	this.updateProfit = function(profit) {

@@ -26,12 +26,15 @@ function EventManager(game) {
 		},
 		UPDATE : {
 			GOLD : [],
-			ITEMS : []
+			ITEMS : [],
+			STOCKGOLD : []
 		},
 		STOCK : {
 			ADD : [],
 			REMOVE : [],
-			COMMIT : []
+			COMMIT : [],
+			OUTSTOCK : [],
+			INIT : []
 		},
 		LEVEL : {
 			LEVELUP : [],
