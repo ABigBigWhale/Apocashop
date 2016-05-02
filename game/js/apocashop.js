@@ -18,7 +18,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 	function preload() {
 		///////////////////////////// Assets ///////////////////////////
-		game.load.image('sk', 'assets/gameplay/gp_shopkeeper.png');
 		game.assetManager = new AssetManager(game);
 		game.assetManager.load();
 	}
