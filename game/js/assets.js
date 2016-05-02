@@ -17,6 +17,7 @@ function AssetManager(game) {
 			'ui_itemslot', 
 			'ui_dialog',
 			'ui_note',
+			'ui_note_big',
 			'ui_table',
 			'ui_table_background',
 			'ui_button_accept', 
