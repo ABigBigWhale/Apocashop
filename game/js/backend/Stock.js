@@ -67,13 +67,17 @@ function Stock(game) {
 	}
 
 	function sellItem(item, price) {
+		if(item === "None") {
+			game.playerState.addsubGold(price);
+			game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
+			game.eventManager.notify(game.Events.UPDATE.ITEMS, game.playerState.getItems());
+		}
 		if (items[item] === undefined) {
 			return -1;
 		}
 		var currItems = game.playerState.getItems();
-		if (currItems[item] <= 0) {
-			//game.playerState.addsubGold(-items[item].jPrice);
-			return -1;
+		if (currItems[item] === undefined || currItems[item] <= 0) {
+			game.playerState.addsubGold(-items[item].jPrice);
 		}
 		game.playerState.addsubGold(price);
 		game.playerState.decrementItem(item);

@@ -22,13 +22,29 @@ function InteractionManager(game) {
 	// The index of the offer the current NPC is currently giving
 	var offerIndex;
 
+	// The index of the dialog the current NPC is giving
+	var dialogIndex;
+
 	function init() {
 
 		// When continue is pushed, send out a new NPC
 		game.eventManager.register(game.Events.INPUT.CONTINUE, function() {
 			if(currentNPC && currentNPC.type === 'interact') {
 				pushOffer(currentNPC, offerIndex, true);
+			} else if(currentNPC && currentNPC.type === 'dialog' && (((typeof currentNPC.dialog === 'string') && dialogIndex == 0) || ((currentNPC.dialog instanceof Array) && dialogIndex < currentNPC.dialog.length))) {
+				pushDialog(currentNPC, dialogIndex);
+				dialogIndex++;
 			} else {
+				if(currentNPC) {
+					if(currentNPC.finishConditions) {
+						for(var i = 0; i < currentNPC.finishConditions.length; i++) {
+							conditionManager.set(currentNPC.finishConditions[i]);
+						}
+					}
+					if(currentNPC.endMoney) {
+						game.eventManager.notify(game.Events.INVENTORY.SOLD, "None", currentNPC.endMoney);
+					}
+				}
 				pushNPC();
 			}
 		});
@@ -161,13 +177,15 @@ function InteractionManager(game) {
 		} while(currentNPC.appearConditions && !conditionManager.get(currentNPC.appearConditions));
 
 		offerIndex = 0;
+		dialogIndex = 0;
 
 		if(currentNPC.type === "interact") {
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
-			game.eventManager.notify(game.Events.INTERACT.DIALOG, currentNPC.dialog);
+			pushDialog(currentNPC, dialogIndex);
+			dialogIndex++;
 		}
 	}
 
@@ -190,6 +208,11 @@ function InteractionManager(game) {
 		} else if(typeof dialog === 'string') {
 			game.eventManager.notify(game.Events.INTERACT.OFFER, offer, data.item, dialog, isRepeat);
 		}
+	}
+
+	function pushDialog(data, index) {
+		var dialog = (currentNPC.dialog instanceof Array) ? currentNPC.dialog[index] : currentNPC.dialog;
+		game.eventManager.notify(game.Events.INTERACT.DIALOG, dialog);
 	}
 
 	// Get the prewritten dialog, default dialog, or generic error dialog.

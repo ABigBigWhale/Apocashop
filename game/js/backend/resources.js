@@ -26,9 +26,57 @@ var items = {
 };
 
 var heroes = {
-	"jeff" : {
+	"introJeff" : {
 		type : "dialog",
-		dialog : "Sup, I'm Jeff!"
+		appearanceInfo : "SUP",
+		dialog : [
+			"Hey kiddo, I'm Jeff the Magic Anvil!@@/Just accept it. We don't have time for questions.",
+			"It looks like you've got five swords there to sell./The going rate for those is five gold.",
+			"Let's see how you do selling them!/Don't worry kid, I'll be right here if you need me."
+		]
+	},
+	tutorialWoman : {
+		type : "dialog",
+		appearanceInfo : "SUP",
+		dialog : [
+			"I don't have much time. My cousin's on his way. He wants a sword./@@Please don't sell him one.",
+			"I wrote clues to help you find him./If you turn him away, I'll make sure you're paid."
+		],
+		finishConditions : ["tutorialBegin"]
+	},
+	tutorialWomanHappy : {
+		type : "dialog",
+		appearanceInfo : "SUP",
+		appearConditions : ["refuseCousin"],
+		dialog : "Thank you so much. Here's a little something for the help.",
+		endMoney : 10
+	},
+	tutorialWomanAngry : {
+		type : "dialog",
+		appearanceInfo : "SUP",
+		appearConditions : ["soldCousin"],
+		dialog : "I can't believe you sold to him."
+	},
+	"badCousin" : {
+		type : "interact",
+		item : "sword",
+		appearanceInfo : "BAD",
+		offers : [10],
+		offerText : "Give me a sword and you can have ten gold instead of a mouth full of teeth.",
+		success : "Heh, thanks.",
+		fail : "I'll be back.",
+		questions : {
+			color : "Mac and cheese.",
+			default : "I don't care."
+		},
+		items : {
+			default : "I don't care."
+		},
+		profiles : {
+			default : "I don't care."
+		},
+		sellConditions : ["soldCousin"],
+		refuseConditions : ["refuseCousin"]
 	},
 	"man" : {
 		type : "interact",
@@ -90,6 +138,89 @@ var days = [
 				min : 2,
 				max : 9,
 				priority : 5
+			}
+		},
+		sequence : {
+			0 : {
+				hero : "introJeff",
+				fuzz : 0,
+				force : true
+			},
+			1 : {
+				hero : {
+					item : "sword",
+					offers : [7]
+				},
+				fuzz : 0,
+				force : true
+			},
+			2 : {
+				hero : {
+					item : "sword",
+					offers : [1, 8]
+				},
+				fuzz : 0,
+				force : true
+			},
+			3 : {
+				hero : "tutorialWoman",
+				fuzz : 0,
+				force : true
+			},
+			6 : {
+				hero : "badCousin",
+				fuzz : 3,
+				force : true
+			},
+			8 : {
+				hero : "tutorialWomanAngry",
+				fuzz : 0,
+				force : true
+			},
+			10 : {
+				hero : "tutorialWomanHappy",
+				fuzz : 3,
+				force : true
+			},
+			13 : {
+				hero : {
+					item : "chicken",
+					offers : [3, 6]
+				},
+				fuzz : 1,
+				force : true
+			}
+		},
+		conditions : {
+			tutorialItemGive : {
+				components : ["tutorialBegin"],
+				chance : 1.0,
+				events : ["Events.TUTORIAL.BEGIN"],
+				isLongTerm : false
+			}
+		},
+		clues : {
+			hero : [
+				"Hero is this person",
+				"Hero looks like this"
+			],
+			crisis : [
+				"Look out for goblins",
+				"Scary business, look out."
+			]
+		},
+		questions : {
+			day : "How was your day?",
+			color : "What's your favorite color?"
+		},
+		length : 60000
+	},
+	{
+		itemData : {
+			sword : {
+				min : 2,
+				max : 9,
+				priority : 5
 			},
 			chicken : {
 				min : 1,
@@ -98,12 +229,12 @@ var days = [
 			}
 		},
 		sequence : {
-			0 : {
+			1 : {
 				hero : "jeff",
 				fuzz : 0,
 				force : true
 			},
-			1 : {
+			2 : {
 				hero : {
 					item : "sword",
 					offers : [1, 8],
@@ -112,12 +243,12 @@ var days = [
 				fuzz : 0,
 				force : true
 			},
-			2 : {
+			4 : {
 				hero : "man",
 				fuzz : 3,
 				force : true
 			},
-			5 : {
+			7 : {
 				hero : "tracker",
 				fuzz : 0,
 				force : true

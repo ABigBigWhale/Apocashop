@@ -3,7 +3,9 @@ var gameConfig = {
 	RESOLUTION: [800, 600]
 };
 
-(function() {
+document.addEventListener( 'DOMContentLoaded', function () {
+    // Do stuff...
+
 	var game = new Phaser.Game(
 		gameConfig.RESOLUTION[0], 
 		gameConfig.RESOLUTION[1],               // Resolution
@@ -148,8 +150,6 @@ var gameConfig = {
 		uiButtonReject.visible = false;
 		uiButtonQuestion.visible = false;
 
-		game.interactionManager.startDay(days[0]);
-
 		game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, offer, isRepeat) {
 			switchButtons(true);
 			toggleButtons(false);
@@ -224,7 +224,9 @@ var gameConfig = {
 
 		});
 
+		game.interactionManager.startDay(days[0]);
+
 	}
 
-})();
+}, false );
 
