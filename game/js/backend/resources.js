@@ -31,7 +31,7 @@ var heroes = {
 		appearanceInfo : "SUP",
 		dialog : [
 			"Hey kiddo, I'm Jeff the Magic Anvil!@@/Just accept it. We don't have time for questions.",
-			"It looks like you've got five swords there to sell./The going rate for those is five gold.",
+			"It looks like you've got five swords there to sell./The going rate for those is five gold a piece.",
 			"Let's see how you do selling them!/Don't worry kid, I'll be right here if you need me."
 		]
 	},
@@ -55,7 +55,7 @@ var heroes = {
 		type : "dialog",
 		appearanceInfo : "SUP",
 		appearConditions : ["soldCousin"],
-		dialog : "I can't believe you sold to him."
+		dialog : "I can't believe you sold to him. Did you even ask him about his favorite color?"
 	},
 	"badCousin" : {
 		type : "interact",
@@ -66,7 +66,7 @@ var heroes = {
 		success : "Heh, thanks.",
 		fail : "I'll be back.",
 		questions : {
-			color : "Mac and cheese.",
+			color : "Mac and Cheese.",
 			default : "I don't care."
 		},
 		items : {
@@ -145,7 +145,7 @@ var days = [
 		itemData : {
 			sword : {
 				min : 2,
-				max : 9,
+				max : 11,
 				priority : 5
 			}
 		},

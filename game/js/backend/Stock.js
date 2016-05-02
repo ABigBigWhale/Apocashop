@@ -3,7 +3,9 @@ function Stock(game) {
 	var totalGold;
 	function init() {
 		totalGold = 0;
-		Items = {};
+		Items = {
+			sword : 5
+		};
 		game.eventManager.register(game.Events.INVENTORY.SOLD, sellItem);
 		game.eventManager.register(game.Events.STOCK.ADD, addItems);
 		game.eventManager.register(game.Events.STOCK.REMOVE, removeItems);
@@ -67,20 +69,22 @@ function Stock(game) {
 	}
 
 	function sellItem(item, price) {
-		if(item === "None") {
-			game.playerState.addsubGold(price);
-			game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
-			game.eventManager.notify(game.Events.UPDATE.ITEMS, game.playerState.getItems());
-		}
-		if (items[item] === undefined) {
-			return -1;
-		}
-		var currItems = game.playerState.getItems();
-		if (currItems[item] === undefined || currItems[item] <= 0) {
-			game.playerState.addsubGold(-items[item].jPrice);
+		var profit = price;
+		if(item !== "None") {
+			if (items[item] === undefined) {
+				return -1;
+			}
+			var currItems = game.playerState.getItems();
+			if (currItems[item] === undefined || currItems[item] <= 0) {
+				price -= items[item].jPrice;
+				profit -= items[item].jPrice
+			} else {
+				profit -= items[item].price;
+			}
+			game.playerState.decrementItem(item);
 		}
 		game.playerState.addsubGold(price);
-		game.playerState.decrementItem(item);
+		game.playerState.updateProfit(profit);
 		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
 		game.eventManager.notify(game.Events.UPDATE.ITEMS, game.playerState.getItems());
 	}
