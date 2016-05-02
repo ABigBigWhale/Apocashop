@@ -24,6 +24,9 @@ function AssetManager(game) {
 		'items' : [
 			'item_sword', 'item_bow'
 		],
+		'gameplay' : [
+			'gp_shopkeeper', 'upgrade_jeff', 'upgrade_shop'
+		],
 		
 		// 'part' : #of files
 		'npc' : {
