@@ -218,7 +218,21 @@ function InteractionManager(game) {
 
 	function pushDialog(data, index) {
 		var dialog = (currentNPC.dialog instanceof Array) ? currentNPC.dialog[index] : currentNPC.dialog;
-		game.eventManager.notify(game.Events.INTERACT.DIALOG, dialog);
+		if(typeof dialog === 'object') {
+			for(var name in dialog) {
+				if(conditionManager.get(name)) {
+					game.eventManager.notify(game.Events.INTERACT.DIALOG, dialog[name]);
+					return;
+				}
+			}
+			if(dialog.default) {
+				game.eventManager.notify(game.Events.INTERACT.DIALOG, dialog.default);
+			} else {
+				game.eventManager.notify(game.Events.INTERACT.DIALOG, "ERROR, NO DIALOG AVAILABLE");
+			}
+		} else {
+			game.eventManager.notify(game.Events.INTERACT.DIALOG, dialog);
+		}
 	}
 
 	// Get the prewritten dialog, default dialog, or generic error dialog.

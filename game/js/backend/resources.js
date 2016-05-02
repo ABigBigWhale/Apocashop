@@ -81,11 +81,14 @@ var heroes = {
 	chickenJeff : {
 		type : "dialog",
 		appearanceInfo : "jeff",
-		appearConditions : ["soldChicken"],
 		dialog : [
 			"Oh, I forgot to mention. I can make you anything that the people want and you don't have, for a price.",
 			"YOUR SOUL.@ But for you kid, I'll also accept gold pieces.",
-			"If I see that you're out of what the customer wants, I'll be sure to shout my price at you."
+			"If I see that you're out of what the customer wants, I'll be sure to shout my price at you.",
+			{
+				soldChicken : "You're pretty lucky to have me, kid. @@Find me another anvil that can make cooked chicken.",
+				default : "You might want to try haggling and selling more next time."
+			}
 		]
 	},
 	endOfTutorialJeff : {
