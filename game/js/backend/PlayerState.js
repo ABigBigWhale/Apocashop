@@ -6,6 +6,9 @@ function PlayerState(game) {
 	var EXP;
 
 	function init() {
+		Items = {
+			sword : 5
+		};
 		Gold = 40;
 		Level = 1;
 		EXP = 0;

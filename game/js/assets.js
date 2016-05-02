@@ -6,11 +6,17 @@ function AssetManager(game) {
 
 	// Paths of asset files, without extensions
 	this.assets = {
-		'': ['background'],
+		'gameplay': [
+			'gp_background',
+			'gp_shopkeeper',
+			'gp_jeff',
+			'gp_jeff_big'
+		],
 
 		'ui': [
 			'ui_itemslot', 
-			'ui_dialog', 
+			'ui_dialog',
+			'ui_note',
 			'ui_table',
 			'ui_table_background',
 			'ui_button_accept', 

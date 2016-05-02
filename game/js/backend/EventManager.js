@@ -40,7 +40,9 @@ function EventManager(game) {
 			LEVELUP : [],
 			EXPUP : []
 		},
-		TEST : []
+		TUTORIAL : {
+			BEGIN : []
+		}
 	};
 
 	this.register = function(arr, newCB) {

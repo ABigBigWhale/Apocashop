@@ -57,7 +57,7 @@ function DialogManager(game) {
 
 	// Prints the message into the text box, one character at a time.
 	function printMessage(box, message, letterDelay, pauseDelay, letterSound, onFinish) {
-
+		
 		isPrinting = true;
 
 		box.text = '';
