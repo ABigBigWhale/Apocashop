@@ -28,7 +28,7 @@ var items = {
 var heroes = {
 	"introJeff" : {
 		type : "dialog",
-		appearanceInfo : "SUP",
+		appearanceInfo : "jeff",
 		dialog : [
 			"Hey kiddo, I'm Jeff the Magic Anvil!@@/Just accept it. We don't have time for questions.",
 			"It looks like you've got five swords there to sell./The going rate for those is five gold a piece.",
@@ -78,13 +78,24 @@ var heroes = {
 		sellConditions : ["soldCousin"],
 		refuseConditions : ["refuseCousin"]
 	},
+	chickenJeff : {
+		type : "dialog",
+		appearanceInfo : "jeff",
+		appearConditions : ["soldChicken"],
+		dialog : [
+			"Oh, I forgot to mention. I can make you anything that the people want and you don't have, for a price.",
+			"YOUR SOUL.@ But for you kid, I'll also accept gold pieces.",
+			"If I see that you're out of what the customer wants, I'll be sure to shout my price at you."
+		]
+	},
 	endOfTutorialJeff : {
 		type : 'dialog',
-		appearanceInfo : "SUP",
+		appearanceInfo : "jeff",
 		dialog : [
-			"Nicely done, kid. We're still in business!/Against all odds.",
-			"We got lucky to get that tip about the cousin./I'll make sure we don't have to again.",
-			"I'll research who we should and shouldn't sell to, and put it in that notebook."
+			"Nicely done, kid. We're still in business!/@@Against all odds.",
+			"We got lucky to get that tip about the cousin./I'll make sure we don't have to rely on luck again.",
+			"I'll research who we should and shouldn't sell to, and put it in that notebook.",
+			"Now let's get some sleep. We've got a long day ahead of us."
 		]
 	},
 	"man" : {
@@ -194,9 +205,15 @@ var days = [
 			13 : {
 				hero : {
 					item : "chicken",
-					offers : [3, 6]
+					offers : [3, 6],
+					sellConditions : ["soldChicken"]
 				},
-				fuzz : 1,
+				fuzz : 0,
+				force : true
+			},
+			14 : {
+				hero : "chickenJeff",
+				fuzz : 0,
 				force : true
 			},
 			9999 : {

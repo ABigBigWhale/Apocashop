@@ -269,7 +269,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			printDebug("GENERATING NPC IMG: " + appearanceInfo);
 			var isRandom = false;
 			switch (appearanceInfo) {
-				case 'SUP':
+				case 'jeff':
 					appearanceInfo = 'gp_jeff_big';
 					break;
 				default:
@@ -291,7 +291,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			}
 
 			// NOTE: position at (20, 360)
-			var showNPC = function(isRandom) {
+			var showNPC = function() {
 				var npcAssetId;
 				if (isRandom) {
 					npcAssetId = drawRandomNPC(game, appearanceInfo);
