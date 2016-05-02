@@ -128,9 +128,15 @@ function InteractionManager(game) {
 		var sequence = day.sequence;
 		for(var index in sequence) {
 			var newIndex;
+			var escapeCounter = 0;
 			do {
+				if(escapeCounter >= sequence[index].fuzz * 2) {
+					sequence[index].fuzz++;
+					escapeCounter = 0
+				}
 				index = parseInt(index);
 				newIndex = index + Math.floor(Math.random() * sequence[index].fuzz);
+				escapeCounter++;
 			} while(npcs[newIndex]);
 			npcs[newIndex] = sequence[index];
 		}
