@@ -14,6 +14,14 @@ var items = {
 	"water" : {
 		price : 2,
 		jPrice : 3
+	}, 
+	"staff" : {
+		price : 8,
+		jPrice : 11
+	}, 
+	"bone_sword" : {
+		price : 12,
+		jPrice : 15
 	}
 };
 

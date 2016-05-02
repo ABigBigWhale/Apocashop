@@ -18,7 +18,7 @@ var typeArr = ["bow", "sword", "water", "chicken"];
 var loadSpace = 30;
 var itemSpace = 30;
 var itemSize = 50;
-var itemDistanceFromSide = 100;
+var itemDistanceFromSide = 50;
 var loadInit = [30, 150];
 var itemInit = [300, 150];
 
@@ -31,6 +31,8 @@ function init() {
 }
 
 function preload() {
+    game.load.image('item_sword', 'assets/item_sword.png');
+    game.load.image('item_bow', 'assets/item_bow.png');
     game.load.image('red', 'assets/red.png');
     game.load.image('green', 'assets/green.png');
     game.load.image('yellow', 'assets/yellow.png');
@@ -69,7 +71,7 @@ function createItemSprites(items, playerItems) {
     var sprites = {};
     for (var key in items) {
         // get graphics to load for correct boxes
-        var sprite = game.add.sprite(0, 0, key);
+        var sprite = game.add.sprite(0, 0, "item_" + key);
         sprite.itemType = key;
         sprite.num = (playerItems === undefined) ? 0 : playerItems[key] + 0;
         sprites[key] = sprite;
@@ -78,17 +80,19 @@ function createItemSprites(items, playerItems) {
 }
 
 function initAllItems(boxes) {
-    var numberMod = Math.floor((game.width - 2 * itemDistanceFromSide)/ (itemSpace + itemSize)); 
+    var numberMod = Math.floor((game.width - itemDistanceFromSide - itemInit[0])/ (itemSpace + itemSize)); 
     var curr = -1;
     for (var key in boxes) {
         curr++;
         game.physics.arcade.enable(boxes[key]);
+        boxes[key].width = 45;
+        boxes[key].height = 45;
         boxes[key].inputEnabled = true;
         boxes[key].input.enableDrag();
         boxes[key].events.onDragStop.add(onDragStop, this);
         boxes[key].events.onDragStart.add(onDragStart, this);
         boxes[key].position.x = itemInit[0] + ((curr % numberMod) * (itemSpace + itemSize));
-        boxes[key].position.y = itemInit[1] + Math.floor(curr / numberMod); 
+        boxes[key].position.y = itemInit[1] + Math.floor(curr / numberMod) * (itemSpace + itemSize); 
         boxes[key].originalPosition = boxes[key].position.clone();
         boxes[key].price = items[key].price;
     }
@@ -156,6 +160,8 @@ function onDragStop(sprite, pointer) {
     var loader = findCollision(sprite, allLoad);
     if (loader != undefined && !(loader.loaded === undefined) && loader.loaded == null) {
         sprite.position.copyFrom(loader.position);
+        sprite.position.x += Math.abs(loader.width - sprite.width) / 2;
+        sprite.position.y += Math.abs(loader.height - sprite.height) / 2;
         result = sprite.key + " is on " + loader.name;
         loader.num.text = sprite.num + "";
         loader.loaded = sprite;

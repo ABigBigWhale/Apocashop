@@ -56,6 +56,8 @@ function Stock(game) {
 		} else if (Items[item] < amount) {
 			alert("Trying to remove too many items!");
 			Items[item] = 0;
+		} else if (Items[item] - amount < (game.playerState.getItems()[item] || 0)) {
+			Items[item] = (game.playerState.getItems()[item] || 0);
 		} else {
 			Items[item] = Items[item] - amount;
 			totalGold -= items[item].price * amount;
