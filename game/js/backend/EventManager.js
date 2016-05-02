@@ -38,7 +38,8 @@ function EventManager(game) {
 		},
 		LEVEL : {
 			LEVELUP : [],
-			EXPUP : []
+			EXPUP : [],
+			ACCEPT : []
 		},
 		TUTORIAL : {
 			BEGIN : []

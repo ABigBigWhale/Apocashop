@@ -116,8 +116,48 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			uiButtonContinue.inputEnabled = isEnabled;
 		}
 
+		function toggleUpgrades() {
+			var isEnabled = uiButtonContinue.inputEnabled;
+			toggleButtons(!isEnabled);
+			for (var i = 0; i < upgrades.length; i++) {
+				upgrades[i].inputEnabled = isEnabled;
+				upgrades[i].visible = isEnabled;
+			}
+		}
+
 		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
 		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
+
+		//TODO: ADD rock animation
+		var shop = game.add.sprite(0, 0, '');
+		shop.visible = false;
+		setPositionLowerMiddle(shop, shopkeeper);
+
+		//TODO: make this create based off of upgrades taken from stock.nextUpgrades
+		var upgradeNames = ['upgrade_shop'];
+
+		var upgrades = [];
+		createUpgrades(upgrades, upgradeNames);
+
+		function createUpgrades(ups, names) {	
+			for (var i = 0; i < names.length; i++) {
+				var but = game.add.button(game.world.centerX, game.world.centerY, names[i], acceptUpgrade, this, 1, 0, 2);
+				but.visible = false;
+				but.inputEnabled = false;
+				ups.push(but);
+			}
+		}
+
+		function acceptUpgrade(sprite, pointer) {
+			game.eventManager.notify(game.Events.LEVEL.ACCEPT, sprite.key);
+			toggleUpgrades();
+		}
+
+		function setPositionLowerMiddle(shop, player) {
+			shop.position.copyFrom(player);
+			shop.position.y -= player.height - shop.height;
+			shop.position.x += (player.width / 2) - (shop.width / 2);
+		}
 
 		//--------------------- Current NPC ----------------------//
 		var currNPC;
@@ -159,6 +199,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				toggleButtons(true);
 			});
 		});
+
+		game.eventManager.register(game.Events.LEVEL.LEVELUP, toggleUpgrades);
 
 		game.eventManager.register(game.Events.INPUT.NO, function() {
 			if (currNPC) {

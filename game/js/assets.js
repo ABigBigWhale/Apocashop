@@ -10,7 +10,9 @@ function AssetManager(game) {
 			'gp_background',
 			'gp_shopkeeper',
 			'gp_jeff',
-			'gp_jeff_big'
+			'gp_jeff_big',
+			'upgrade_jeff',
+			'upgrade_shop'
 		],
 
 		'ui': [
