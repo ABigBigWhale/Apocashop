@@ -3,7 +3,9 @@ function Stock(game) {
 	var totalGold;
 	function init() {
 		totalGold = 0;
-		Items = {};
+		Items = {
+			sword : 5
+		};
 		game.eventManager.register(game.Events.INVENTORY.SOLD, sellItem);
 		game.eventManager.register(game.Events.STOCK.ADD, addItems);
 		game.eventManager.register(game.Events.STOCK.REMOVE, removeItems);

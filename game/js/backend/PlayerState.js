@@ -7,7 +7,7 @@ function PlayerState(game) {
 
 	function init() {
 		Items = {
-			sword : 1
+			sword : 5
 		};
 		Gold = 40;
 		Level = 1;
