@@ -4,7 +4,7 @@ var gameConfig = {
 };
 
 document.addEventListener( 'DOMContentLoaded', function () {
-    // Do stuff...
+	// Do stuff...
 
 	var game = new Phaser.Game(
 		gameConfig.RESOLUTION[0], 
@@ -31,7 +31,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		game.stage.backgroundColor = '#447474';
 
-		var imgBackground = game.add.image(0, 0, 'background');
+		var imgBackground = game.add.image(0, 0, 'gp_background');
 
 		///////////////////////////// UI elems ///////////////////////////
 		for (var i = 0; i < 4; i++) {
@@ -58,6 +58,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		uiDesk.anchor.setTo(0, 1);
 		uiDeskBg.anchor.setTo(0, 1);
 
+		var uiNote = game.add.sprite(145, 535, 'ui_note');
+
 		var uiButtonAcceptCB = function() {
 			game.eventManager.notify(game.Events.INPUT.YES)
 		};
@@ -80,7 +82,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			coidDropTweenAlp.onComplete.add(function() {
 				coins.destroy();
 			});
-			
+
 			coidDropTweenPos.start();
 			coidDropTweenAlp.start();
 		}
@@ -115,7 +117,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			uiButtonContinue.inputEnabled = isEnabled;
 		}
 
-		var shopkeeper = game.add.sprite(500, 272, 'sk');
+		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
+		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
 
 		//--------------------- Current NPC ----------------------//
 		var currNPC;
@@ -166,7 +169,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				printDebug(currNPC);
 			}
 		});
-		
+
 		game.eventManager.register(game.Events.INVENTORY.SOLD, function (item, offer){
 			coinDrop(offer);
 		});
@@ -194,6 +197,17 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			// This function returns a BitmapData generated with the given indices of 
 			// body part images.
 			/** NOTE: The size of the avatar frame is 168x198 **/
+			printDebug("GENERATING NPC IMG: " + appearanceInfo);
+			var isRandom = false;
+			switch (appearanceInfo) {
+				case 'SUP':
+					appearanceInfo = 'gp_jeff_big';
+					break;
+				default:
+					isRandom = true;
+					break;
+			}
+
 			var drawRandomNPC = function(game, appearanceInfo) {
 				var npcBmd = game.add.bitmapData(60, 70);
 				var parts = appearanceInfo.split(',');
@@ -208,10 +222,20 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			}
 
 			// NOTE: position at (20, 360)
-			var showNPC = function() {
-				currNPC = uiAvatarLayer.create(20, 360, drawRandomNPC(game, appearanceInfo));
+			var showNPC = function(isRandom) {
+				var npcAssetId;
+				if (isRandom) {
+					npcAssetId = drawRandomNPC(game, appearanceInfo);
+				} else {
+					npcAssetId = appearanceInfo;
+				}
+				currNPC = uiAvatarLayer.create(20, 360, npcAssetId);
 				setNPCTween();
-				currNPC.scale.setTo(3, 3);
+				if (isRandom) currNPC.scale.setTo(3, 3);
+				else {
+					currNPC.scale.setTo(2, 2);
+					currNPC.smoothed = false;
+				}
 				currNPCIn.start();
 			}
 
@@ -219,7 +243,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				currNPCOut.start();
 				currNPCOut.onComplete.add(showNPC);
 			} else {
-				showNPC();
+				showNPC(isRandom);
 			}
 
 		});
