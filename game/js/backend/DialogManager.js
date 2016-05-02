@@ -22,7 +22,7 @@ function DialogManager(game) {
 			unfreezeCallback : false
 		},
 		jeff : {
-			box : game.add.text(500, 130, "SUP, I'M JEFF. How's it?", { font : "16px yoster_islandregular" }),
+			box : game.add.text(500, 130, "", { font : "16px yoster_islandregular" }),
 			ghost : game.add.text(999, 999, "", { font : "16px yoster_islandregular" })
 		}
 	};

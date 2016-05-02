@@ -49,7 +49,7 @@ var heroes = {
 		appearanceInfo : "SUP",
 		appearConditions : ["refuseCousin"],
 		dialog : "Thank you so much. Here's a little something for the help.",
-		endMoney : 10
+		endMoney : 7
 	},
 	tutorialWomanAngry : {
 		type : "dialog",

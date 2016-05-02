@@ -94,28 +94,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		uiNote.inputEnabled = true;
 		uiNote.events.onInputDown.add(toggleNoteDisplay, this);
 
-		var uiButtonAcceptCB = function() {
-			if(game.dialog.main.isPrinting) {
-				game.dialogManager.jumpMain();
-			} else {
-				game.eventManager.notify(game.Events.INPUT.YES)
-			}
-		};
-		var uiButtonRejectCB = function() {
-			if(game.dialog.main.isPrinting) {
-				game.dialogManager.jumpMain();
-			} else {
-				game.eventManager.notify(game.Events.INPUT.NO)
-			}
-		};
-		var uiButtonContinueCB = function() {
-			if(game.dialog.main.isPrinting) {
-				game.dialogManager.jumpMain();
-			} else {
-				game.eventManager.notify(game.Events.INPUT.CONTINUE)
-			}
-		};
-
 		var textCoins = game.add.text(60, 540, "20", // TODO: hardcoded
 									  { font: "30px yoster_islandregular", fill: "#ebc36f"} );
 		var coinDrop = function(offer) {
@@ -138,13 +116,25 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		//------------------------- Buttons ------------------------------
 
 		var uiButtonAcceptCB = function() {
-			game.eventManager.notify(game.Events.INPUT.YES)
+			if(game.dialog.main.isPrinting) {
+				game.dialogManager.jumpMain();
+			} else {
+				game.eventManager.notify(game.Events.INPUT.YES)
+			}
 		};
 		var uiButtonRejectCB = function() {
-			game.eventManager.notify(game.Events.INPUT.NO)
+			if(game.dialog.main.isPrinting) {
+				game.dialogManager.jumpMain();
+			} else {
+				game.eventManager.notify(game.Events.INPUT.NO)
+			}
 		};
 		var uiButtonContinueCB = function() {
-			game.eventManager.notify(game.Events.INPUT.CONTINUE)
+			if(game.dialog.main.isPrinting) {
+				game.dialogManager.jumpMain();
+			} else {
+				game.eventManager.notify(game.Events.INPUT.CONTINUE)
+			}
 		};
 
 		var uiButtonAccept = game.add.button(660, 420, 'ui_button_accept', 
