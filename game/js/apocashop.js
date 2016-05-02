@@ -119,7 +119,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		function switchButtons(isInteract) {
 			uiButtonAccept.visible = isInteract;
 			uiButtonReject.visible = isInteract;
-			uiButtonQuestion.visible = isInteract;
+			if(game.tutorial.questionVisible) {
+				uiButtonQuestion.visible = isInteract;
+			}
 			uiButtonContinue.visible = !isInteract;
 		}
 
@@ -160,6 +162,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		game.playerState = new PlayerState(game);
 		game.stock = new Stock(game);
 		game.jeff = new Jeff(game);
+		game.tutorial = {
+			questionVisible : false
+		};
 		initNPCGen(game);
 
 		uiButtonAccept.visible = false;
@@ -211,7 +216,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		game.eventManager.register(game.Events.TUTORIAL.BEGIN, function() {
 			uiNote.visible = true;
-			uiButtonQuestion.visible = true;
+			game.tutorial.questionVisible = true;
 		});
 
 		game.eventManager.register(game.Events.INTERACT.NEW, function (appearanceInfo) {
