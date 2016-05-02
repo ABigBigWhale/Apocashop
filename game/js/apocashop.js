@@ -32,6 +32,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		var imgBackground = game.add.image(0, 0, 'gp_background');
 
+		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
+		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
+
 		///////////////////////////// UI elems ///////////////////////////
 		for (var i = 0; i < 4; i++) {
 			var uiItemslot = game.add.sprite(10, 10 + 50 * i, 'ui_itemslot');
@@ -44,6 +47,16 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			itemSword.smoothed = false;
 			itemBow.smoothed = false;
 		}
+		
+		//------------------------- Notes & Clues ------------------------
+		var uiNoteLayer = game.add.group();
+		var uiNoteDisplay = uiNoteLayer.create(800, 1000, 'ui_note_big');
+		uiNoteDisplay.smoothed = false;
+		uiNoteDisplay.anchor.setTo(1, 1);
+		
+		var uiNoteDisplayShown = false;
+		
+		//------------------------- Desk & Avatar ------------------------
 
 		var uiDeskBgLayer = game.add.group();
 		var uiAvatarLayer = game.add.group();
@@ -58,17 +71,29 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		uiDeskBg.anchor.setTo(0, 1);
 
 		var uiNote = game.add.sprite(145, 535, 'ui_note');
-
-		var uiButtonAcceptCB = function() {
-			game.eventManager.notify(game.Events.INPUT.YES)
-		};
-		var uiButtonRejectCB = function() {
-			game.eventManager.notify(game.Events.INPUT.NO)
-		};
-		var uiButtonContinueCB = function() {
-			game.eventManager.notify(game.Events.INPUT.CONTINUE)
-		};
-
+		var toggleNoteDisplay = function() {
+		  printDebug("UI: note clicked; shown: " + uiNoteDisplayShown);
+		  var uiNoteDisplayTween;
+		  var uiNoteTween;
+		   
+		  if (uiNoteDisplayShown) {  // Out
+		    uiNoteDisplayTween = game.add.tween(uiNoteDisplay.position)
+		      .to( {y: '+600'}, 800, Phaser.Easing.Quadratic.Out);
+		    uiNoteTween = game.add.tween(uiNote).to( {y: '-200'}, 200, Phaser.Easing.Quadratic.Out);
+		  } else {  // In
+		    uiNoteDisplayTween = game.add.tween(uiNoteLayer.position)
+		      .to( {y: '-600'}, 500, Phaser.Easing.Quadratic.In);
+		    uiNoteTween = game.add.tween(uiNote).to( {y: '+200'}, 300, Phaser.Easing.Quadratic.Out);
+		  }
+		  uiNoteDisplayTween.start();
+		  uiNoteTween.start();
+      uiNoteDisplayShown = !uiNoteDisplayShown;
+		}
+		
+		uiNote.inputEnabled = true;
+		uiNote.events.onInputDown.add(toggleNoteDisplay, this);
+		
+		
 		var textCoins = game.add.text(60, 540, "20", // TODO: hardcoded
 									  { font: "30px yoster_islandregular", fill: "#ebc36f"} );
 		var coinDrop = function(offer) {
@@ -85,6 +110,20 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			coidDropTweenPos.start();
 			coidDropTweenAlp.start();
 		}
+		
+		//----------------------------------------------------------------
+		
+		//------------------------- Buttons ------------------------------
+
+		var uiButtonAcceptCB = function() {
+			game.eventManager.notify(game.Events.INPUT.YES)
+		};
+		var uiButtonRejectCB = function() {
+			game.eventManager.notify(game.Events.INPUT.NO)
+		};
+		var uiButtonContinueCB = function() {
+			game.eventManager.notify(game.Events.INPUT.CONTINUE)
+		};
 
 		var uiButtonAccept = game.add.button(660, 420, 'ui_button_accept', 
 											 uiButtonAcceptCB, this, 1, 0, 2);
@@ -115,9 +154,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			uiButtonReject.inputEnabled = isEnabled;
 			uiButtonContinue.inputEnabled = isEnabled;
 		}
+		
+		//----------------------------------------------------------------
 
-		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
-		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
+
 
 		//--------------------- Current NPC ----------------------//
 		var currNPC;
