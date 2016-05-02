@@ -14,7 +14,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		{ preload: preload, create: create }    // Function references
 	);
 
-	if (gameConfig.DEBUG_MODE) window.game = game;
+	//if (gameConfig.DEBUG_MODE) window.game = game;
 
 	function preload() {
 		///////////////////////////// Assets ///////////////////////////
@@ -248,7 +248,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		});
 
 		game.interactionManager.startDay(days[0]);
-
+		
 	}
 
 }, false );
