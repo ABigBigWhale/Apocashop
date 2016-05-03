@@ -19,11 +19,15 @@ function AssetManager(game) {
 			'ui_note',
 			'ui_note_big',
 			'ui_table',
+			'ui_levelup',
 			'ui_table_background',
 			'ui_button_accept', 
 			'ui_button_reject', 
 			'ui_button_question', 
 			'ui_button_continue', 
+			'shop_rock',
+			'upgrade_jeff',
+			'upgrade_shop',
 			'ui_coin',
 			'ui_coins',
 		],
@@ -65,13 +69,16 @@ function AssetManager(game) {
 					for (var i = 0; i < this.assets[path].length; i++) {
 						var assetId = this.assets[path][i];
 						var fullPath = this.assetFolder + path + '/' + assetId + '.png';
-						if (assetId.indexOf('button') < 0) { // single image
+						if (assetId.indexOf('button') < 0 && assetId.indexOf('upgrade') < 0) { // single image
 							this.game.load.image(assetId, fullPath);
-						} else {    // TODO: spritesheet
+						} else if (assetId.indexOf('upgrade') < 0) {
 							var spriteSize = [63, 22];
 							if (assetId.indexOf('continue') > 0) {
 								spriteSize = [128, 128]
 							}
+							this.game.load.spritesheet(assetId, fullPath, spriteSize[0], spriteSize[1]);
+						} else {    // TODO: spritesheet
+							var spriteSize = [100, 100];
 							this.game.load.spritesheet(assetId, fullPath, spriteSize[0], spriteSize[1]);
 						}
 						printDebug('LOADING: ' + fullPath);

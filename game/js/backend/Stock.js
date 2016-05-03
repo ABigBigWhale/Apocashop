@@ -1,6 +1,7 @@
 function Stock(game) {
 	var Items;
 	var totalGold;
+
 	function init() {
 		totalGold = 0;
 		Items = {
@@ -12,6 +13,7 @@ function Stock(game) {
 		game.eventManager.register(game.Events.STOCK.COMMIT, adjustPlayer);
 		game.eventManager.register(game.Events.STOCK.OUTSTOCK, returnStock);
 		game.eventManager.register(game.Events.STOCK.INIT, initStock);
+		game.eventManager.register(game.Events.LEVEL.ACCEPT, addUpgrade);
 	}
 
 	function initStock() {
@@ -33,6 +35,11 @@ function Stock(game) {
 
 	function addItem(item) {
 		addItems(item, 1);
+	}
+
+	//TODO case statement on upgrades
+	function addUpgrade(choice) {
+
 	}
 
 	function addItems(item, amount) {

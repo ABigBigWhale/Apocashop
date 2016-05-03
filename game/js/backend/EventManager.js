@@ -27,7 +27,8 @@ function EventManager(game) {
 		UPDATE : {
 			GOLD : [],
 			ITEMS : [],
-			STOCKGOLD : []
+			STOCKGOLD : [],
+			SHOP : []
 		},
 		STOCK : {
 			ADD : [],
@@ -38,7 +39,8 @@ function EventManager(game) {
 		},
 		LEVEL : {
 			LEVELUP : [],
-			EXPUP : []
+			EXPUP : [],
+			ACCEPT : []
 		},
 		TUTORIAL : {
 			BEGIN : []
