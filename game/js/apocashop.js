@@ -34,7 +34,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
 		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
-		
+
 		var shop = game.add.sprite(0, 0, 'shop_rock');
 		shop.alpha = 0;
 		var shop_fade_tween = game.add.tween(shop).to({ alpha : 1 }, 2000, Phaser.Easing.Linear.None, false);
@@ -59,6 +59,14 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		var uiNoteDisplay = uiNoteLayer.create(800, 1000, 'ui_note_big');
 		uiNoteDisplay.smoothed = false;
 		uiNoteDisplay.anchor.setTo(1, 1);
+
+		var crisisClueText = game.add.text(240, 650, "HELLO THERE", // TODO: hardcoded
+				{ font: "18px yoster_islandregular", fill: "#4d372c", wordWrap: true, wordWrapWidth: 250 } );
+		uiNoteLayer.add(crisisClueText);
+
+		var heroClueText = game.add.text(525, 650, "HELLO THERE", // TODO: hardcoded
+				{ font: "18px yoster_islandregular", fill: "#4d372c", wordWrap: true, wordWrapWidth: 250 } );
+		uiNoteLayer.add(heroClueText);
 		
 		var uiNoteDisplayShown = false;
 		
@@ -87,12 +95,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		  var uiNoteTween;
 		   
 		  if (uiNoteDisplayShown) {  // Out
-		    uiNoteDisplayTween = game.add.tween(uiNoteDisplay.position)
-		      .to( {y: '+600'}, 800, Phaser.Easing.Quadratic.Out);
+		    uiNoteDisplayTween = game.add.tween(uiNoteLayer.position)
+		      .to( {y: '+600'}, 300, Phaser.Easing.Quadratic.Out);
 		    uiNoteTween = game.add.tween(uiNote).to( {y: '-200'}, 200, Phaser.Easing.Quadratic.Out);
 		  } else {  // In
 		    uiNoteDisplayTween = game.add.tween(uiNoteLayer.position)
-		      .to( {y: '-600'}, 500, Phaser.Easing.Quadratic.In);
+		      .to( {y: '-600'}, 200, Phaser.Easing.Quadratic.In);
 		    uiNoteTween = game.add.tween(uiNote).to( {y: '+200'}, 300, Phaser.Easing.Quadratic.Out);
 		  }
 		  uiNoteDisplayTween.start();
@@ -328,7 +336,19 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		
 		game.eventManager.register(game.Events.DAY.START, function(data){
 			game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
+			heroClueText.text = formatClues(data.clues.hero);
+			crisisClueText.text = formatClues(data.clues.crisis);
 		});
+
+		function formatClues(clues) {
+			var retString = "";
+			for(var i = 0; i < clues.length; i++) {
+				if(clues[i] !== "") {
+					retString += "> " + clues[i] + "\n";
+				}
+			}
+			return retString;
+		}
 
 		game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, offer, isRepeat) {
 			switchButtons(true);

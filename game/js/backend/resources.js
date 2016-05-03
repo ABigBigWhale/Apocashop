@@ -235,11 +235,10 @@ var days = [
 		},
 		clues : {
 			hero : [
+				"My cousin is rather rude.",
 				"My cousin's favorite color is 'Mac and Cheese'"
 			],
-			crisis : [
-				"If anybody sees this text, something went wrong."
-			]
+			crisis : [""]
 		},
 		questions : {
 			day : "How was your day?",
@@ -247,23 +246,13 @@ var days = [
 		},
 		wrapup : [
 			{
-				text : "SUP",
-				gold : 3
-			},
-			{
-				text : [
-					"SUP 2",
-					"POTATO"
-				]
+				text : "You're forced by King Zoran to pay 3 gold in taxes.",
+				gold : -3
 			},
 			{
 				conditions : ["soldCousin"],
-				text : "SOLD TO COUSIN",
-				gold : -5
-			},
-			{
-				conditions : ["refusedCousin"],
-				text : "REFUSED COUSIN"
+				text : "Your store is robbed in the night. The robber leaves a note on Mac and Cheese colored paper.",
+				gold : -7
 			}
 		],
 		length : 45000

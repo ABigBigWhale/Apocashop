@@ -1,5 +1,9 @@
 function WrapupManager(game) {
 
+	game.eventManager.register(game.Events.WRAPUP.MESSAGE, function(message) {
+		alert(message);
+	});
+
 	this.startDay = function(day, endCB) {
 
 		for(var i = 0; i < day.wrapup.length; i++) {

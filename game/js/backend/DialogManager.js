@@ -40,7 +40,7 @@ function DialogManager(game) {
 			if(isAlreadyRead) {
 				printMessage(game.dialog.main.box, brokenMessage, 0, 0, false, doneCB);
 			} else {
-				printMessage(game.dialog.main.box, brokenMessage, 25, 200, false, doneCB);
+				printMessage(game.dialog.main.box, brokenMessage, 15, 150, false, doneCB);
 			}
 			game.dialog.main.unfreezeCallback = false;
 		};
