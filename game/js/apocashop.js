@@ -88,7 +88,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		  }
 		  uiNoteDisplayTween.start();
 		  uiNoteTween.start();
-      uiNoteDisplayShown = !uiNoteDisplayShown;
+      	  uiNoteDisplayShown = !uiNoteDisplayShown;
 		}
 		
 		uiNote.inputEnabled = true;
@@ -171,34 +171,82 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			uiButtonContinue.inputEnabled = isEnabled;
 		}
 		
-		//----------------------------------------------------------------
+		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
+		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
+		var shop = game.add.sprite(0, 0, 'shop_rock');
+		shop.alpha = 0;
+		var shop_fade_tween = game.add.tween(shop).to({ alpha : 1 }, 2000, Phaser.Easing.Linear.None, false);
+		shop.visible = false;
+		setPositionLowerMiddle(shop, shopkeeper);
+
+		function setPositionLowerMiddle(shop, player) {
+			shop.position.copyFrom(player);
+			shop.position.y += player.height - shop.height;
+			shop.position.x += (player.width / 2) - (shop.width / 2);
+		}
+
+
+		//----------------------Upgrades--------------------------
+
+		var fireworks = game.add.emitter(0, 0, 100);
+		fireworks.makeParticles('ui_coin');
+		fireworks.gravity = 200;
+
+		function makeFireworks() {
+			fireworks.x = 100;
+			fireworks.y = 100;
+			fireworks.start(true, 1500, null, 25);
+
+			fireworks.x = game.width - 100;
+			fireworks.y = 100;
+			fireworks.start(true, 1500, null, 20);
+		}
+
+		function tintAll(tintVal) {
+			uiButtonContinue.tint = tintVal;
+			uiButtonAccept.tint = tintVal;
+			uiButtonQuestion.tint = tintVal;
+			uiButtonReject.tint = tintVal;
+			uiNote.tint = tintVal;
+			uiDesk.tint = tintVal;
+			uiDialog.tint = tintVal;
+			imgBackground.tint = tintVal;
+			currNPC.tint = tintVal;
+			uiDeskBg.tint = tintVal;
+		}
 
 		function toggleUpgrades() {
 			var isEnabled = uiButtonContinue.inputEnabled;
+			if (isEnabled) {
+				makeFireworks();
+				tintAll(0xA9A9A9);
+			} else {
+				tintAll(0xFFFFFF);
+			}
 			toggleButtons(!isEnabled);
+			uiLevelUp.visible = isEnabled;
 			for (var i = 0; i < upgrades.length; i++) {
 				upgrades[i].inputEnabled = isEnabled;
 				upgrades[i].visible = isEnabled;
 			}
 		}
 
-		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
-		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
-
-		//TODO: ADD rock animation
-		var shop = game.add.sprite(0, 0, '');
-		shop.visible = false;
-		setPositionLowerMiddle(shop, shopkeeper);
-
+		// --------------------------- Upgrades -----------------------
 		//TODO: make this create based off of upgrades taken from stock.nextUpgrades
 		var upgradeNames = ['upgrade_shop'];
 
 		var upgrades = [];
 		createUpgrades(upgrades, upgradeNames);
+		var uiLevelUp = game.add.sprite(game.world.centerX, 20, 'ui_levelup');
+		uiLevelUp.scale.setTo(0.75, 0.75);
+		uiLevelUp.x -= uiLevelUp.width / 2 - 12;
+		uiLevelUp.visible = false;
 
 		function createUpgrades(ups, names) {	
 			for (var i = 0; i < names.length; i++) {
-				var but = game.add.button(game.world.centerX, game.world.centerY, names[i], acceptUpgrade, this, 1, 0, 2);
+				var but = game.add.button(game.world.centerX, game.world.centerY + 100, names[i], acceptUpgrade, this, 1, 0, 0);
+				but.x -= but.width / 2;
+				but.y -= but.height / 2;
 				but.visible = false;
 				but.inputEnabled = false;
 				ups.push(but);
@@ -207,13 +255,35 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		function acceptUpgrade(sprite, pointer) {
 			game.eventManager.notify(game.Events.LEVEL.ACCEPT, sprite.key);
+			if (sprite.key.indexOf("shop") > 0) {
+				shop_fade_tween.start();	
+				shop.visible = true;
+			}
+			fireworks.x = sprite.x + sprite.width / 2;
+			fireworks.y = sprite.y + sprite.height / 2;
+			fireworks.start(true, 1000, null, 15);
 			toggleUpgrades();
 		}
 
-		function setPositionLowerMiddle(shop, player) {
-			shop.position.copyFrom(player);
-			shop.position.y -= player.height - shop.height;
-			shop.position.x += (player.width / 2) - (shop.width / 2);
+		// ---------------------- EXP bar ------------------------
+			var exp = game.add.graphics(15, game.height / 2 - 6);
+			exp.lineStyle(1, 0x0000FF, 1);
+			exp.beginFill(0x899BC1, 0.5);
+			exp.startx = exp.x;
+			exp.starty = exp.y;
+			exp.currwidth = 0;
+			exp.barwidth = 177 - 15;
+			exp.barheight = 9;
+			exp.drawRect(exp.startx, exp.starty, 2, exp.barheight);
+			// exp bar on 15, game.height / 2 - 6 to to 177 
+
+		function drawExp(amount) {
+			exp.clear();
+			exp.lineStyle(1, 0x0000FF, 1);
+			exp.beginFill(0x899BC1, 0.5);
+			// TODO: add animation to draw exp bar
+			exp.drawRect(exp.startx, exp.starty, 
+						exp.barwidth * amount, exp.barheight);
 		}
 
 		//--------------------- Current NPC ----------------------//
@@ -258,6 +328,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			});
 		});
 
+		game.eventManager.register(game.Events.LEVEL.EXPUP, drawExp);
 		game.eventManager.register(game.Events.LEVEL.LEVELUP, toggleUpgrades);
 
 		game.eventManager.register(game.Events.INPUT.NO, function() {

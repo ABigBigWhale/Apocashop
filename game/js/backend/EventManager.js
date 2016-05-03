@@ -27,7 +27,8 @@ function EventManager(game) {
 		UPDATE : {
 			GOLD : [],
 			ITEMS : [],
-			STOCKGOLD : []
+			STOCKGOLD : [],
+			SHOP : []
 		},
 		STOCK : {
 			ADD : [],

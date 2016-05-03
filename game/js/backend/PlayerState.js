@@ -62,7 +62,7 @@ function PlayerState(game) {
 			EXP = profit %= (Level * 10);
 			Level++;
 		}
-		game.eventManager.notify(game.Events.LEVEL.EXPUP, EXP / (Level * 10));
+		game.eventManager.notify(game.Events.LEVEL.EXPUP, EXP / (Level * 10.0));
 	}
 
 	init();
