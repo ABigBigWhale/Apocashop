@@ -31,12 +31,18 @@ function Jeff(game) {
 	function stopJeff() {
 		removeAll();
 		game.eventManager.register(game.Events.INTERACT.OFFER, jeffListening);
+		game.eventManager.register(game.Events.INTERACT.NEW, clearJeff);
 	}
 
 	function removeAll() {
 		game.eventManager.remove(game.Events.INVENTORY.SOLD, jeffHappy);
 		game.eventManager.remove(game.Events.INVENTORY.NOTSOLD, jeffSad);
 		game.eventManager.remove(game.Events.INTERACT.OFFER, jeffListening);
+	}
+
+	function clearJeff() {
+		game.dialogManager.printJeff("");
+		game.eventManager.remove(game.Events.INTERACT.NEW, clearJeff);
 	}
 
 }

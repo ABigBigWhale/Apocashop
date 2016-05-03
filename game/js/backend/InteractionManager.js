@@ -1,7 +1,5 @@
 function InteractionManager(game) {
 
-	var DAY_LENGTH = 100000;
-
 	var conditionManager = game.conditionManager;
 
 	// The current day
@@ -27,6 +25,8 @@ function InteractionManager(game) {
 
 	var dayEndCallback;
 
+	var dayTimer;
+
 	function init() {
 
 		// When continue is pushed, send out a new NPC
@@ -38,6 +38,7 @@ function InteractionManager(game) {
 				dialogIndex++;
 			} else {
 				if(currentNPC) {
+					dayTimer.resume();
 					if(currentNPC.finishConditions) {
 						for(var i = 0; i < currentNPC.finishConditions.length; i++) {
 							conditionManager.set(currentNPC.finishConditions[i]);
@@ -117,11 +118,11 @@ function InteractionManager(game) {
 		});
 		npcIndex = 0;
 		initNPCs(day);
-		pushNPC();
-		setTimeout(function() {
+		dayTimer = new Timer(function() {
 			printDebug("DAY ENDING TIMER");
 			isEnd = true;
 		}, day.length);
+		pushNPC();
 	}
 
 	// Smudge NPC order using fuzz values and initialize the npc
@@ -193,6 +194,7 @@ function InteractionManager(game) {
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
+			dayTimer.pause();
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
 			pushDialog(currentNPC, dialogIndex);
 			dialogIndex++;
