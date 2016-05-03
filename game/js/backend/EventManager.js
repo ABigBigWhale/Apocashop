@@ -42,6 +42,11 @@ function EventManager(game) {
 		},
 		TUTORIAL : {
 			BEGIN : []
+		},
+		WRAPUP : {
+			START : [],
+			END : [],
+			MESSAGE : []
 		}
 	};
 

@@ -169,51 +169,51 @@ var days = [
 				fuzz : 0,
 				force : true
 			},
-			1 : {
-				hero : {
-					item : "sword",
-					offers : [7]
-				},
-				fuzz : 0,
-				force : true
-			},
-			2 : {
-				hero : {
-					item : "sword",
-					offers : [1, 8]
-				},
-				fuzz : 0,
-				force : true
-			},
-			3 : {
-				hero : "tutorialWoman",
-				fuzz : 0,
-				force : true
-			},
-			6 : {
-				hero : "badCousin",
-				fuzz : 3,
-				force : true
-			},
-			8 : {
-				hero : "tutorialWomanAngry",
-				fuzz : 0,
-				force : true
-			},
-			10 : {
-				hero : "tutorialWomanHappy",
-				fuzz : 3,
-				force : true
-			},
-			13 : {
-				hero : {
-					item : "chicken",
-					offers : [3, 6],
-					sellConditions : ["soldChicken"]
-				},
-				fuzz : 0,
-				force : true
-			},
+			// 1 : {
+			// 	hero : {
+			// 		item : "sword",
+			// 		offers : [7]
+			// 	},
+			// 	fuzz : 0,
+			// 	force : true
+			// },
+			// 2 : {
+			// 	hero : {
+			// 		item : "sword",
+			// 		offers : [1, 8]
+			// 	},
+			// 	fuzz : 0,
+			// 	force : true
+			// },
+			// 3 : {
+			// 	hero : "tutorialWoman",
+			// 	fuzz : 0,
+			// 	force : true
+			// },
+			// 6 : {
+			// 	hero : "badCousin",
+			// 	fuzz : 3,
+			// 	force : true
+			// },
+			// 8 : {
+			// 	hero : "tutorialWomanAngry",
+			// 	fuzz : 0,
+			// 	force : true
+			// },
+			// 10 : {
+			// 	hero : "tutorialWomanHappy",
+			// 	fuzz : 3,
+			// 	force : true
+			// },
+			// 13 : {
+			// 	hero : {
+			// 		item : "chicken",
+			// 		offers : [3, 6],
+			// 		sellConditions : ["soldChicken"]
+			// 	},
+			// 	fuzz : 0,
+			// 	force : true
+			// },
 			14 : {
 				hero : "chickenJeff",
 				fuzz : 0,
@@ -245,7 +245,28 @@ var days = [
 			day : "How was your day?",
 			color : "What's your favorite color?"
 		},
-		length : 60000
+		wrapup : [
+			{
+				text : "SUP",
+				gold : 3
+			},
+			{
+				text : [
+					"SUP 2",
+					"POTATO"
+				]
+			},
+			{
+				conditions : ["soldCousin"],
+				text : "SOLD TO COUSIN",
+				gold : -5
+			},
+			{
+				conditions : ["refusedCousin"],
+				text : "REFUSED COUSIN"
+			}
+		],
+		length : 0
 	},
 	{
 		itemData : {
