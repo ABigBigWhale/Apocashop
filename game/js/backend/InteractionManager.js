@@ -2,7 +2,7 @@ function InteractionManager(game) {
 
 	var DAY_LENGTH = 100000;
 
-	var conditionManager = new ConditionManager(game);
+	var conditionManager = game.conditionManager;
 
 	// The current day
 	var currentDay;
@@ -24,6 +24,8 @@ function InteractionManager(game) {
 
 	// The index of the dialog the current NPC is giving
 	var dialogIndex;
+
+	var dayEndCallback;
 
 	function init() {
 
@@ -105,8 +107,9 @@ function InteractionManager(game) {
 	}
 
 	// Begin the day, set the day timer, and send our first NPC.
-	this.startDay = function(day) {
+	this.startDay = function(day, endCallback) {
 		currentDay = day;
+		dayEndCallback = endCallback;
 		conditionManager.init(day.conditions);
 		game.eventManager.notify(game.Events.DAY.START, {
 			clues : day.clues,
@@ -177,7 +180,8 @@ function InteractionManager(game) {
 		do {
 			currentNPC = getNextNPC();
 			if(!currentNPC) {
-				game.eventManager.notify(game.Events.DAY.END);
+				//game.eventManager.notify(game.Events.DAY.END);
+				dayEndCallback();
 				return;
 			}
 		} while(currentNPC.appearConditions && !conditionManager.get(currentNPC.appearConditions));

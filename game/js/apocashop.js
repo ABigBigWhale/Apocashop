@@ -318,7 +318,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		});
 
-		game.interactionManager.startDay(days[0]);
+		beginGame(game);
 		
 	}
 
