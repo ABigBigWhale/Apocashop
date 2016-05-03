@@ -386,8 +386,13 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			var string = "";
 			for (var key in items) {
 				string += key + ": " + items[key] + " ";
-                if (key == 'sword') {
+                if (key == 'sword') {   // TODO: hard-coding!
                     itemCountSword.setText(items[key].toString());
+                    var itemDupl = game.add.sprite(14, 14, 'item_sword');
+                    itemDupl.scale.setTo(2, 2);
+                    itemDupl.smoothed = false;
+                    var itemTween = game.add.tween(itemDupl).to( {x: 200, y: 500, alpha: 0}, 550, Phaser.Easing.Quadratic.Out);
+                    itemTween.start();
                 }
 			}
 		});
