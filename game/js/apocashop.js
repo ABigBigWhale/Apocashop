@@ -56,6 +56,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		
 		var uiNoteDisplayShown = false;
 		
+		//------------------------- Question options ---------------------
+		var uiQuestionLayer = game.add.group();
+		
 		//------------------------- Desk & Avatar ------------------------
 
 		var uiDeskBgLayer = game.add.group();
@@ -92,7 +95,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		}
 		
 		uiNote.inputEnabled = true;
+		uiNoteDisplay.inputEnabled = true;
 		uiNote.events.onInputDown.add(toggleNoteDisplay, this);
+		uiNoteDisplay.events.onInputDown.add(toggleNoteDisplay, this);
 
 		var textCoins = game.add.text(60, 540, "20", // TODO: hardcoded
 									  { font: "30px yoster_islandregular", fill: "#ebc36f"} );
@@ -136,13 +141,16 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				game.eventManager.notify(game.Events.INPUT.CONTINUE)
 			}
 		};
+		var uiButtonQuestionCB = function() {
+			game.questionManager.toggleQuestions();
+		}
 
 		var uiButtonAccept = game.add.button(660, 420, 'ui_button_accept', 
 											 uiButtonAcceptCB, this, 1, 0, 2);
 		var uiButtonReject = game.add.button(660, 480, 'ui_button_reject', 
 											 uiButtonRejectCB, this, 1, 0, 2);
 		var uiButtonQuestion = game.add.button(660, 540, 'ui_button_question', 
-											   null, this, 1, 0, 2);
+											   uiButtonQuestionCB, this, 1, 0, 2);
 		var uiButtonContinue = game.add.button(660, 440,
 											   'ui_button_continue', 
 											   uiButtonContinueCB, this, 1, 0, 2);
@@ -208,6 +216,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		uiButtonReject.visible = false;
 		uiButtonQuestion.visible = false;
 		uiNote.visible = false;
+		
+		game.eventManager.register(game.Events.DAY.START, function(data){
+			game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
+		});
 
 		game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, offer, isRepeat) {
 			switchButtons(true);
@@ -315,7 +327,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			} else {
 				showNPC(isRandom);
 			}
-
 		});
 
 		beginGame(game);
