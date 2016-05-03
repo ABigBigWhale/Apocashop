@@ -34,7 +34,7 @@ function PlayerState(game) {
 	}
 
 	this.getItems = function() {
-		return (Items === undefined) ? {} : JSON.parse(JSON.stringify(Items));
+		return (typeof Items !== 'object') ? {} : JSON.parse(JSON.stringify(Items));
 	}
 
 	this.checkStock = function(item) {
