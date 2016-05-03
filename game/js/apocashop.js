@@ -43,17 +43,20 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
 
 		///////////////////////////// UI elems ///////////////////////////
+        
+        //-------------------------- Item slots --------------------------
 		for (var i = 0; i < 4; i++) {
 			var uiItemslot = game.add.sprite(10, 10 + 50 * i, 'ui_itemslot');
 			uiItemslot.anchor.setTo(0, 0);
-			// TODO: demo use only
-			var itemSword = game.add.sprite(14, 14, 'item_sword');
-			var itemBow = game.add.sprite(14, 14 + 50, 'item_bow');
-			itemSword.scale.setTo(2, 2);
-			itemBow.scale.setTo(2, 2);
-			itemSword.smoothed = false;
-			itemBow.smoothed = false;
+			
+
 		}
+        // TODO: demo use only
+        var itemSword = game.add.sprite(14, 14, 'item_sword');
+        var itemCountSword = game.add.text(64, 16, '5',     // TODO: much hard-coding...
+                                           { font: "20px yoster_islandregular", fill: '#d3af7a' });
+		itemSword.scale.setTo(2, 2);
+		itemSword.smoothed = false;
 		
 		//------------------------- Notes & Clues ------------------------
 		var uiNoteLayer = game.add.group();
@@ -383,6 +386,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			var string = "";
 			for (var key in items) {
 				string += key + ": " + items[key] + " ";
+                if (key == 'sword') {
+                    itemCountSword.setText(items[key].toString());
+                }
 			}
 		});
 
