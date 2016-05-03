@@ -2,7 +2,7 @@ function InteractionManager(game) {
 
 	var DAY_LENGTH = 100000;
 
-	var conditionManager = new ConditionManager(game);
+	var conditionManager = game.conditionManager;
 
 	// The current day
 	var currentDay;
@@ -24,6 +24,8 @@ function InteractionManager(game) {
 
 	// The index of the dialog the current NPC is giving
 	var dialogIndex;
+
+	var dayEndCallback;
 
 	function init() {
 
@@ -105,8 +107,9 @@ function InteractionManager(game) {
 	}
 
 	// Begin the day, set the day timer, and send our first NPC.
-	this.startDay = function(day) {
+	this.startDay = function(day, endCallback) {
 		currentDay = day;
+		dayEndCallback = endCallback;
 		conditionManager.init(day.conditions);
 		game.eventManager.notify(game.Events.DAY.START, {
 			clues : day.clues,
@@ -177,7 +180,8 @@ function InteractionManager(game) {
 		do {
 			currentNPC = getNextNPC();
 			if(!currentNPC) {
-				game.eventManager.notify(game.Events.DAY.END);
+				//game.eventManager.notify(game.Events.DAY.END);
+				dayEndCallback();
 				return;
 			}
 		} while(currentNPC.appearConditions && !conditionManager.get(currentNPC.appearConditions));
@@ -218,7 +222,21 @@ function InteractionManager(game) {
 
 	function pushDialog(data, index) {
 		var dialog = (currentNPC.dialog instanceof Array) ? currentNPC.dialog[index] : currentNPC.dialog;
-		game.eventManager.notify(game.Events.INTERACT.DIALOG, dialog);
+		if(typeof dialog === 'object') {
+			for(var name in dialog) {
+				if(conditionManager.get(name)) {
+					game.eventManager.notify(game.Events.INTERACT.DIALOG, dialog[name]);
+					return;
+				}
+			}
+			if(dialog.default) {
+				game.eventManager.notify(game.Events.INTERACT.DIALOG, dialog.default);
+			} else {
+				game.eventManager.notify(game.Events.INTERACT.DIALOG, "ERROR, NO DIALOG AVAILABLE");
+			}
+		} else {
+			game.eventManager.notify(game.Events.INTERACT.DIALOG, dialog);
+		}
 	}
 
 	// Get the prewritten dialog, default dialog, or generic error dialog.

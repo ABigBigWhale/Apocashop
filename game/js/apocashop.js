@@ -32,6 +32,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		var imgBackground = game.add.image(0, 0, 'gp_background');
 
+		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
+		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
+
 		///////////////////////////// UI elems ///////////////////////////
 		for (var i = 0; i < 4; i++) {
 			var uiItemslot = game.add.sprite(10, 10 + 50 * i, 'ui_itemslot');
@@ -44,6 +47,16 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			itemSword.smoothed = false;
 			itemBow.smoothed = false;
 		}
+		
+		//------------------------- Notes & Clues ------------------------
+		var uiNoteLayer = game.add.group();
+		var uiNoteDisplay = uiNoteLayer.create(800, 1000, 'ui_note_big');
+		uiNoteDisplay.smoothed = false;
+		uiNoteDisplay.anchor.setTo(1, 1);
+		
+		var uiNoteDisplayShown = false;
+		
+		//------------------------- Desk & Avatar ------------------------
 
 		var uiDeskBgLayer = game.add.group();
 		var uiAvatarLayer = game.add.group();
@@ -58,6 +71,49 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		uiDeskBg.anchor.setTo(0, 1);
 
 		var uiNote = game.add.sprite(145, 535, 'ui_note');
+
+		var toggleNoteDisplay = function() {
+		  printDebug("UI: note clicked; shown: " + uiNoteDisplayShown);
+		  var uiNoteDisplayTween;
+		  var uiNoteTween;
+		   
+		  if (uiNoteDisplayShown) {  // Out
+		    uiNoteDisplayTween = game.add.tween(uiNoteDisplay.position)
+		      .to( {y: '+600'}, 800, Phaser.Easing.Quadratic.Out);
+		    uiNoteTween = game.add.tween(uiNote).to( {y: '-200'}, 200, Phaser.Easing.Quadratic.Out);
+		  } else {  // In
+		    uiNoteDisplayTween = game.add.tween(uiNoteLayer.position)
+		      .to( {y: '-600'}, 500, Phaser.Easing.Quadratic.In);
+		    uiNoteTween = game.add.tween(uiNote).to( {y: '+200'}, 300, Phaser.Easing.Quadratic.Out);
+		  }
+		  uiNoteDisplayTween.start();
+		  uiNoteTween.start();
+      uiNoteDisplayShown = !uiNoteDisplayShown;
+		}
+		
+		uiNote.inputEnabled = true;
+		uiNote.events.onInputDown.add(toggleNoteDisplay, this);
+
+		var textCoins = game.add.text(60, 540, "20", // TODO: hardcoded
+									  { font: "30px yoster_islandregular", fill: "#ebc36f"} );
+		var coinDrop = function(offer) {
+			var coins = game.add.group();
+			for (var i = 0; i < offer; i ++) {
+				coins.create(20 + Math.random() * 50, 450 + Math.random() * 30, 'ui_coin');
+			}
+			var coidDropTweenPos = game.add.tween(coins.position).to( {y: coins.y + 100}, 800, Phaser.Easing.Quadratic.Out);
+			var coidDropTweenAlp = game.add.tween(coins.alpha).to( {alpha: 0.5}, 500);
+			coidDropTweenAlp.onComplete.add(function() {
+				coins.destroy();
+			});
+
+			coidDropTweenPos.start();
+			coidDropTweenAlp.start();
+		}
+		
+		//----------------------------------------------------------------
+		
+		//------------------------- Buttons ------------------------------
 
 		var uiButtonAcceptCB = function() {
 			if(game.dialog.main.isPrinting) {
@@ -81,23 +137,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			}
 		};
 
-		var textCoins = game.add.text(60, 540, "20", // TODO: hardcoded
-									  { font: "30px yoster_islandregular", fill: "#ebc36f"} );
-		var coinDrop = function(offer) {
-			var coins = game.add.group();
-			for (var i = 0; i < offer; i ++) {
-				coins.create(20 + Math.random() * 50, 450 + Math.random() * 30, 'ui_coin');
-			}
-			var coidDropTweenPos = game.add.tween(coins.position).to( {y: coins.y + 100}, 800, Phaser.Easing.Quadratic.Out);
-			var coidDropTweenAlp = game.add.tween(coins.alpha).to( {alpha: 0.5}, 500);
-			coidDropTweenAlp.onComplete.add(function() {
-				coins.destroy();
-			});
-
-			coidDropTweenPos.start();
-			coidDropTweenAlp.start();
-		}
-
 		var uiButtonAccept = game.add.button(660, 420, 'ui_button_accept', 
 											 uiButtonAcceptCB, this, 1, 0, 2);
 		var uiButtonReject = game.add.button(660, 480, 'ui_button_reject', 
@@ -119,14 +158,20 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		function switchButtons(isInteract) {
 			uiButtonAccept.visible = isInteract;
 			uiButtonReject.visible = isInteract;
+			if(game.tutorial.questionVisible) {
+				uiButtonQuestion.visible = isInteract;
+			}
 			uiButtonContinue.visible = !isInteract;
 		}
 
 		function toggleButtons(isEnabled) {
 			uiButtonAccept.inputEnabled = isEnabled;
 			uiButtonReject.inputEnabled = isEnabled;
+			uiButtonQuestion.inputEnabled = isEnabled;
 			uiButtonContinue.inputEnabled = isEnabled;
 		}
+		
+		//----------------------------------------------------------------
 
 		function toggleUpgrades() {
 			var isEnabled = uiButtonContinue.inputEnabled;
@@ -192,12 +237,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		//--------------------------------------------------------//
 
 		///////////////////////////// Backend ///////////////////////////
-		game.eventManager = new EventManager(game);
-		game.interactionManager = new InteractionManager(game);
-		game.dialogManager = new DialogManager(game);
-		game.playerState = new PlayerState(game);
-		game.stock = new Stock(game);
-		game.jeff = new Jeff(game);
+
+		initBackend(game);
+
+		game.tutorial = {
+			questionVisible : false
+		};
 		initNPCGen(game);
 
 		uiButtonAccept.visible = false;
@@ -251,16 +296,20 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		game.eventManager.register(game.Events.TUTORIAL.BEGIN, function() {
 			uiNote.visible = true;
+			game.tutorial.questionVisible = true;
 		});
 
 		game.eventManager.register(game.Events.INTERACT.NEW, function (appearanceInfo) {
 			// This function returns a BitmapData generated with the given indices of 
 			// body part images.
 			/** NOTE: The size of the avatar frame is 168x198 **/
+			game.dialog.main.freeze(true);
+			toggleButtons(false);
+
 			printDebug("GENERATING NPC IMG: " + appearanceInfo);
 			var isRandom = false;
 			switch (appearanceInfo) {
-				case 'SUP':
+				case 'jeff':
 					appearanceInfo = 'gp_jeff_big';
 					break;
 				default:
@@ -282,7 +331,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			}
 
 			// NOTE: position at (20, 360)
-			var showNPC = function(isRandom) {
+			var showNPC = function() {
 				var npcAssetId;
 				if (isRandom) {
 					npcAssetId = drawRandomNPC(game, appearanceInfo);
@@ -296,6 +345,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 					currNPC.scale.setTo(2, 2);
 					currNPC.smoothed = false;
 				}
+				currNPCIn.onComplete.add(function() {
+					toggleButtons(true);
+					game.dialog.main.freeze(false);
+				})
 				currNPCIn.start();
 			}
 
@@ -308,7 +361,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		});
 
-		game.interactionManager.startDay(days[0]);
+		beginGame(game);
 		
 	}
 
