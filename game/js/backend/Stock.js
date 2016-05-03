@@ -77,7 +77,7 @@ function Stock(game) {
 
 	function sellItem(item, price) {
 		var profit = price;
-		if(item !== "None") {
+		if(item !== "None" && item !== "NoneNoXP") {
 			if (items[item] === undefined) {
 				return -1;
 			}
@@ -91,7 +91,9 @@ function Stock(game) {
 			game.playerState.decrementItem(item);
 		}
 		game.playerState.addsubGold(price);
-		game.playerState.updateProfit(profit);
+		if(item !== "NoneNoXP") {
+			game.playerState.updateProfit(profit);
+		}
 		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
 		game.eventManager.notify(game.Events.UPDATE.ITEMS, game.playerState.getItems());
 	}

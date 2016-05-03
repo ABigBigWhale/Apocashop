@@ -61,13 +61,8 @@ function InteractionManager(game) {
 					conditionManager.set(sellConditions[i]);
 				}
 			}
-			if(game.playerState.checkPrice(currentNPC.item, currentNPC.offers[offerIndex])) {
-				game.eventManager.notify(game.Events.INVENTORY.SOLD, currentNPC.item, currentNPC.offers[offerIndex]);
-				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "success"));
-			} else {
-				game.eventManager.notify(game.Events.INVENTORY.NOTSOLD, currentNPC.item, currentNPC.offers[offerIndex]);
-				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "fail"))
-			}
+			game.eventManager.notify(game.Events.INVENTORY.SOLD, currentNPC.item, currentNPC.offers[offerIndex]);
+			game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "success"));
 			currentNPC = false;
 		});
 

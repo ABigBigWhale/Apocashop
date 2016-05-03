@@ -14,6 +14,12 @@ function beginGame(game) {
 
 	var currentDay = 0;
 
+	game.eventManager.register(game.Events.UPDATE.GOLD, function(amount) {
+		if(amount < 0) {
+			alert("GAME OVER, OUT OF MONEY");
+		}
+	});
+
 	var beginTitle = function() {
 		// game.eventManager.notify(game.Events.TITLE.INIT);
 		// game.eventManager.register(game.Events.TITLE.START, function() {

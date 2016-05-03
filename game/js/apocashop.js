@@ -34,6 +34,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
 		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
+		
+		var shop = game.add.sprite(0, 0, 'shop_rock');
+		shop.alpha = 0;
+		var shop_fade_tween = game.add.tween(shop).to({ alpha : 1 }, 2000, Phaser.Easing.Linear.None, false);
+		shop.visible = false;
+		setPositionLowerMiddle(shop, shopkeeper);
 
 		///////////////////////////// UI elems ///////////////////////////
 		for (var i = 0; i < 4; i++) {
@@ -99,7 +105,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		uiNote.events.onInputDown.add(toggleNoteDisplay, this);
 		uiNoteDisplay.events.onInputDown.add(toggleNoteDisplay, this);
 
-		var textCoins = game.add.text(60, 540, "20", // TODO: hardcoded
+		var textCoins = game.add.text(60, 540, "0", // TODO: hardcoded
 									  { font: "30px yoster_islandregular", fill: "#ebc36f"} );
 		var coinDrop = function(offer) {
 			var coins = game.add.group();
@@ -178,14 +184,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			uiButtonQuestion.inputEnabled = isEnabled;
 			uiButtonContinue.inputEnabled = isEnabled;
 		}
-		
-		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
-		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
-		var shop = game.add.sprite(0, 0, 'shop_rock');
-		shop.alpha = 0;
-		var shop_fade_tween = game.add.tween(shop).to({ alpha : 1 }, 2000, Phaser.Easing.Linear.None, false);
-		shop.visible = false;
-		setPositionLowerMiddle(shop, shopkeeper);
 
 		function setPositionLowerMiddle(shop, player) {
 			shop.position.copyFrom(player);
@@ -387,6 +385,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			// body part images.
 			/** NOTE: The size of the avatar frame is 168x198 **/
 			game.dialog.main.freeze(true);
+			game.questionManager.hideQuestions();
 			toggleButtons(false);
 
 			printDebug("GENERATING NPC IMG: " + appearanceInfo);

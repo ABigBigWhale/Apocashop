@@ -9,7 +9,7 @@ function PlayerState(game) {
 		Items = {
 			"sword" : 5
 		};
-		Gold = 40;
+		Gold = 0;
 		Level = 1;
 		EXP = 0;
 	}

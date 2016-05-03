@@ -80,4 +80,16 @@ function QuestionManager(game) {
 		}
 		
 	};
+
+	this.hideQuestions = function() {
+		if(questionVisible) {
+			for (var i = 0; i < options.length; i++) {
+				
+				var optTween = game.add.tween(options[i])
+					.to( {y: 800}, 500, Phaser.Easing.Quadratic.Out);
+				optTween.start();
+			}
+		}
+		questionVisible = false;
+	};
 }

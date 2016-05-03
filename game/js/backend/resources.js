@@ -243,7 +243,7 @@ var days = [
 		},
 		questions : {
 			day : "How was your day?",
-			color : "What's your favorite color?"
+			color : "Favorite color?"
 		},
 		wrapup : [
 			{
