@@ -35,6 +35,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
 
 		var shop = game.add.sprite(0, 0, 'shop_rock');
+		shop.smoothed = false;
 		shop.alpha = 0;
 		var shop_fade_tween = game.add.tween(shop).to({ alpha : 1 }, 2000, Phaser.Easing.Linear.None, false);
 		shop.visible = false;
@@ -45,7 +46,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		///////////////////////////// UI elems ///////////////////////////
         
         //-------------------------- Item slots --------------------------
-		for (var i = 0; i < 4; i++) {
+		for (var i = 0; i < 1; i++) {
 			var uiItemslot = game.add.sprite(10, 10 + 50 * i, 'ui_itemslot');
 			uiItemslot.anchor.setTo(0, 0);
 			
@@ -391,8 +392,14 @@ document.addEventListener( 'DOMContentLoaded', function () {
                     var itemDupl = game.add.sprite(14, 14, 'item_sword');
                     itemDupl.scale.setTo(2, 2);
                     itemDupl.smoothed = false;
-                    var itemTween = game.add.tween(itemDupl).to( {x: 200, y: 500, alpha: 0}, 550, Phaser.Easing.Quadratic.Out);
+                    var itemTweenScale = game.add.tween(itemDupl.scale).to( {x: 8, y: 8}, 550, Phaser.Easing.Linear.None, true);
+                    var itemTween = game.add.tween(itemDupl).to( {x: 50, y: 450, alpha: 0}, 550, Phaser.Easing.Quadratic.Out, true);
+                    
+                    itemTween.onComplete.add(function() {
+                      itemDupl.destroy();
+                    });
                     itemTween.start();
+                    itemTweenScale.start();
                 }
 			}
 		});
