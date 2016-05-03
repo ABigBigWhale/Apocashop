@@ -16,6 +16,8 @@ function QuestionManager(game) {
 		align: 'left',
 		backgroundColor: '#acacac'
 	};
+
+	var self = this;
 	
 	var questionVisible = false;
 	
@@ -37,6 +39,7 @@ function QuestionManager(game) {
 			option.events.onInputDown.add(function() {
 				printDebug('QUESTION SELECTED: ' + question);
 				game.eventManager.notify(game.Events.INPUT.QUESTION, question);
+				self.hideQuestions();
 			}, this);
 		};
 		

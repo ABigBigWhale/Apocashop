@@ -33,13 +33,14 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		var imgBackground = game.add.image(0, 0, 'gp_background');
 
 		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
-		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
 
 		var shop = game.add.sprite(0, 0, 'shop_rock');
 		shop.alpha = 0;
 		var shop_fade_tween = game.add.tween(shop).to({ alpha : 1 }, 2000, Phaser.Easing.Linear.None, false);
 		shop.visible = false;
 		setPositionLowerMiddle(shop, shopkeeper);
+
+		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
 
 		///////////////////////////// UI elems ///////////////////////////
 		for (var i = 0; i < 4; i++) {

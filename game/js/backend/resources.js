@@ -37,7 +37,7 @@ var heroes = {
 	},
 	tutorialWoman : {
 		type : "dialog",
-		appearanceInfo : "SUP",
+		appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
 		dialog : [
 			"I don't have much time. My cousin's on his way. He wants a sword./@@Please don't sell him one.",
 			"I wrote clues to help you find him./If you turn him away, I'll make sure you're paid."
@@ -46,21 +46,21 @@ var heroes = {
 	},
 	tutorialWomanHappy : {
 		type : "dialog",
-		appearanceInfo : "SUP",
+		appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
 		appearConditions : ["refuseCousin"],
 		dialog : "Thank you so much. Here's a little something for the help.",
 		endMoney : 7
 	},
 	tutorialWomanAngry : {
 		type : "dialog",
-		appearanceInfo : "SUP",
+		appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
 		appearConditions : ["soldCousin"],
 		dialog : "I can't believe you sold to him. Did you even ask him about his favorite color?"
 	},
 	"badCousin" : {
 		type : "interact",
 		item : "sword",
-		appearanceInfo : "BAD",
+		appearanceInfo : "face|1,body|1,hair|4,eye|8,nose|6,mouth|3,misc|4",
 		offers : [10],
 		offerText : "Give me a sword and you can have ten gold instead of a mouth full of teeth.",
 		success : "Heh, thanks.",
@@ -248,6 +248,9 @@ var days = [
 			{
 				text : "You're forced by King Zoran to pay 3 gold in taxes.",
 				gold : -3
+			},
+			{
+				text : "He also demands that the shop should run faster and should collect more data on its customers."
 			},
 			{
 				conditions : ["soldCousin"],
