@@ -86,7 +86,7 @@ var heroes = {
 			"YOUR SOUL.@ But for you kid, I'll also accept gold pieces.",
 			"If I see that you're out of what the customer wants, I'll be sure to shout my price at you.",
 			{
-				soldChicken : "You're pretty lucky to have me, kid. @@Find me another anvil that can make cooked chicken.",
+				soldChicken : "You're pretty lucky to have me, kid. @@Not many anvils can make a cooked chicken.",
 				default : "You might want to try haggling and selling more next time."
 			}
 		]
@@ -169,54 +169,54 @@ var days = [
 				fuzz : 0,
 				force : true
 			},
-			// 1 : {
-			// 	hero : {
-			// 		item : "sword",
-			// 		offers : [7]
-			// 	},
-			// 	fuzz : 0,
-			// 	force : true
-			// },
-			// 2 : {
-			// 	hero : {
-			// 		item : "sword",
-			// 		offers : [1, 8]
-			// 	},
-			// 	fuzz : 0,
-			// 	force : true
-			// },
-			// 3 : {
-			// 	hero : "tutorialWoman",
-			// 	fuzz : 0,
-			// 	force : true
-			// },
-			// 6 : {
-			// 	hero : "badCousin",
-			// 	fuzz : 3,
-			// 	force : true
-			// },
-			// 8 : {
-			// 	hero : "tutorialWomanAngry",
-			// 	fuzz : 0,
-			// 	force : true
-			// },
-			// 10 : {
-			// 	hero : "tutorialWomanHappy",
-			// 	fuzz : 3,
-			// 	force : true
-			// },
-			// 13 : {
-			// 	hero : {
-			// 		item : "chicken",
-			// 		offers : [3, 6],
-			// 		sellConditions : ["soldChicken"]
-			// 	},
-			// 	fuzz : 0,
-			// 	force : true
-			// },
-			14 : {
+			1 : {
+				hero : {
+					item : "sword",
+					offers : [7]
+				},
+				fuzz : 0,
+				force : true
+			},
+			2 : {
+				hero : {
+					item : "sword",
+					offers : [1, 8]
+				},
+				fuzz : 0,
+				force : true
+			},
+			3 : {
+				hero : "tutorialWoman",
+				fuzz : 0,
+				force : true
+			},
+			6 : {
+				hero : {
+					item : "chicken",
+					offers : [3, 6],
+					sellConditions : ["soldChicken"]
+				},
+				fuzz : 0,
+				force : true
+			},
+			7 : {
 				hero : "chickenJeff",
 				fuzz : 0,
+				force : true
+			},
+			8 : {
+				hero : "badCousin",
+				fuzz : 3,
+				force : true
+			},
+			11 : {
+				hero : "tutorialWomanAngry",
+				fuzz : 3,
+				force : true
+			},
+			12 : {
+				hero : "tutorialWomanHappy",
+				fuzz : 3,
 				force : true
 			},
 			9999 : {
@@ -266,7 +266,7 @@ var days = [
 				text : "REFUSED COUSIN"
 			}
 		],
-		length : 0
+		length : 45000
 	},
 	{
 		itemData : {
