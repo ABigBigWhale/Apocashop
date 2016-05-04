@@ -46,12 +46,14 @@ function create() {
     game.eventManager.notify(game.Events.STOCK.ADD, "bow", 2);
     game.eventManager.notify(game.Events.STOCK.COMMIT);
     // end debug
+    // TODO: decouple backend with front end initialization
     allBox = createItemSprites(game.playerState.getAvalItems(), game.playerState.getItems());
     //button = game.add.button(700, 500, 'button', actionOnClick, this, 2, 1, 0);
     allLoad = createLoads(game.playerState.getNumSlots());
     initAllItems(allBox);
     initAllLoad(allLoad);
-
+    var uiCoinSlot = game.add.sprite(-110, 505, 'ui_itemslot');
+    uiCoinSlot.scale.setTo(2.25, 2.25);
     var textCoins = game.add.text(60, 540, "0", // TODO: hardcoded
                                       { font: "30px yoster_islandregular", fill: "#ebc36f"} );
     var coinstack = game.add.image(20, 528, 'ui_coinstack');

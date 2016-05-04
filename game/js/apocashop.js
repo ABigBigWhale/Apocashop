@@ -259,14 +259,14 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		}
 
 		function toggleUpgrades() {
-			var isEnabled = uiButtonContinue.inputEnabled;
+			var isEnabled = uiButtonAccept.inputEnabled && uiButtonContinue.inputEnabled;
+			toggleButtons(!isEnabled);
 			if (isEnabled) {
 				makeFireworks();
 				tintAll(0xA9A9A9);
 			} else {
 				tintAll(0xFFFFFF);
 			}
-			toggleButtons(!isEnabled);
 			uiLevelUp.visible = isEnabled;
 			for (var i = 0; i < upgrades.length; i++) {
 				upgrades[i].inputEnabled = isEnabled;
