@@ -8,6 +8,7 @@ function initBackend(game) {
 	game.wrapupManager = new WrapupManager(game);
 	game.stock = new Stock(game);
 	game.jeff = new Jeff(game);
+	game.endingScreen = new EndingScreen(game);
 }
 
 function beginGame(game) {

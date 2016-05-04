@@ -6,7 +6,6 @@ function Jeff(game) {
 
 	function jeffListening(amount, item, offer) {
 		if(!game.playerState.checkStock(item)) {
-			//document.getElementById('jeff').innerHTML = "JEFF notices you're out of " + item + ". He'll make you one for: " + items[item].jPrice;
 			game.dialogManager.printJeff(generatePrompt(item, items[item].jPrice));
 			promptedItem = item;
 			primeJeff();
@@ -14,13 +13,11 @@ function Jeff(game) {
 	}
 
 	function jeffHappy() {
-		//document.getElementById('jeff').innerHTML = "JEFF is happy to have helped.";
 		game.dialogManager.printJeff(generateYes(promptedItem));
 		stopJeff();
 	}
 
 	function jeffSad() {
-		//document.getElementById('jeff').innerHTML = "JEFF is disappointed he couldn't help.";
 		game.dialogManager.printJeff(generateNo(promptedItem));
 		stopJeff();
 	}

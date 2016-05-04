@@ -1,10 +1,15 @@
 function WrapupManager(game) {
 
-	game.eventManager.register(game.Events.WRAPUP.MESSAGE, function(message) {
-		alert(message);
-	});
+	var messageIndex = 0;
+	var messages = [];
+
+	var goldDiff = 0;
+
+	var endCallback;
 
 	this.startDay = function(day, endCB) {
+
+		endCallback = endCB || function() {};
 
 		for(var i = 0; i < day.wrapup.length; i++) {
 
@@ -26,19 +31,36 @@ function WrapupManager(game) {
 			}
 
 			if(event.gold) {
-				game.playerState.addsubGold(event.gold);
-				game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
+				goldDiff += event.gold;
 			}
 
 			var text = (event.text instanceof Array) ? event.text : [event.text];
 			for(var j = 0; j < text.length; j++) {
-				game.eventManager.notify(game.Events.WRAPUP.MESSAGE, text[j]);
+				messages.push(text[j]);
 			}
 
 		}
 
-		endCB();
+		sendNext();
 
 	};
+
+	function sendNext() {
+		if(messageIndex >= messages.length) {
+			endWrapup();
+		} else {
+			game.eventManager.notify(game.Events.WRAPUP.MESSAGE, messages[messageIndex]);
+			messageIndex++;
+		}
+	}
+
+	function endWrapup() {
+		game.playerState.addsubGold(goldDiff);
+		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
+		game.eventManager.notify(game.Events.WRAPUP.END);
+		endCallback();
+	}
+
+	game.eventManager.register(game.Events.WRAPUP.NEXT, sendNext);
 
 }

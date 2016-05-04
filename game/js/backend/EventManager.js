@@ -47,6 +47,7 @@ function EventManager(game) {
 		},
 		WRAPUP : {
 			START : [],
+			NEXT : [],
 			END : [],
 			MESSAGE : []
 		}

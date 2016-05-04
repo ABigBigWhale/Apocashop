@@ -104,7 +104,10 @@ var heroes = {
 		appearanceInfo : "jeff",
 		dialog : [
 			"Nicely done, kid. We're still in business!/@@Against all odds.",
-			"We got lucky to get that tip about the cousin./I'll make sure we don't have to rely on luck again.",
+			{
+				soldCousin : "We need to keep a closer eye out for who to sell to./I have an idea on how to fix that.",
+				default : "We got lucky to get that tip about the cousin./I'll make sure we don't have to rely on luck again."
+			},
 			"I'll research who we should and shouldn't sell to, and put it in that notebook.",
 			"Now let's get some sleep. We've got a long day ahead of us."
 		]
