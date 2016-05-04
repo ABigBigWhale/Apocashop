@@ -104,7 +104,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		uiDesk.anchor.setTo(0, 1);
 		uiDeskBg.anchor.setTo(0, 1);
 
-		var uiNote = game.add.sprite(145, 535, 'ui_note');
+		var uiNote = game.add.sprite(145, 600, 'ui_note');
 
 		var toggleNoteDisplay = function() {
 		  printDebug("UI: note clicked; shown: " + uiNoteDisplayShown);
@@ -188,7 +188,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 											 uiButtonAcceptCB, this, 1, 0, 2);
 		var uiButtonReject = game.add.button(660, 480, 'ui_button_reject', 
 											 uiButtonRejectCB, this, 1, 0, 2);
-		var uiButtonQuestion = game.add.button(660, 540, 'ui_button_question', 
+		var uiButtonQuestion = game.add.button(800, 540, 'ui_button_question', 
 											   uiButtonQuestionCB, this, 1, 0, 2);
 		var uiButtonContinue = game.add.button(660, 440,
 											   'ui_button_continue', 
@@ -196,9 +196,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		uiButtonAccept.scale.setTo(2, 2);
 		uiButtonReject.scale.setTo(2, 2);
+
 		uiButtonQuestion.scale.setTo(2, 2);
 		uiButtonQuestion.alpha = 0;
 		uiButtonQuestion.fadeIn = game.add.tween(uiButtonQuestion).to( {alpha : 0.9}, 1000, Phaser.Easing.Linear.None, false, 0, 1000, true);
+		uiButtonQuestion.dragIn = game.add.tween(uiButtonQuestion).to({ x : 660 }, 1000, Phaser.Easing.Linear.None, false);
 
 		uiButtonAccept.smoothed = false;
 		uiButtonReject.smoothed = false;
@@ -440,9 +442,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			uiNote.visible = true;
 			uiNote.alpha = 0;
 			uiNote.fadeIn = game.add.tween(uiNote).to( {alpha : 0.9}, 1000, Phaser.Easing.Linear.None, false, 0, 1000, true);
+			uiNote.dragIn = game.add.tween(uiNote).to({ y : 535 }, 1000, Phaser.Easing.Linear.None, false);
 			uiNote.fadeIn.start();
+			uiNote.dragIn.start();
 			game.tutorial.questionVisible = true;
 			uiButtonQuestion.fadeIn.start();
+			uiButtonQuestion.dragIn.start();
 		});
 
 		game.eventManager.register(game.Events.INTERACT.NEW, function (appearanceInfo) {
