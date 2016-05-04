@@ -127,15 +127,6 @@ function initNPCGen(game) {
 			"Nice day out!/"
 		];
 
-		function addAn(str) {
-			var vowels = ['a', 'e', 'i', 'o', 'u'];
-			if(vowels.indexOf(str.charAt(0).toLowerCase()) !== -1) {
-				return "an " + str;
-			} else {
-				return "a " + str;
-			}
-		}
-
 		generateGreeting = function(item, gold) {
 			item = item || "ERROR";
 			gold = numToStr(gold) || "ERROR";

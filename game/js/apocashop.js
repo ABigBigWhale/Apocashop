@@ -35,6 +35,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		var imgBackground = game.add.image(0, 0, 'gp_background');
 
+		game.depthGroups = {
+			shopGroup : game.add.group()
+		};
+
 		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
 
 		var shop = game.add.sprite(0, 0, 'shop_rock');

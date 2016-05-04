@@ -55,7 +55,7 @@ var heroes = {
 		type : "dialog",
 		appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
 		appearConditions : ["soldCousin"],
-		dialog : "I can't believe you sold to him. Did you even ask him about his favorite color?"
+		dialog : "I can't believe you sold to my cousin. Did you even bother asking about his favorite color?"
 	},
 	"badCousin" : {
 		type : "interact",

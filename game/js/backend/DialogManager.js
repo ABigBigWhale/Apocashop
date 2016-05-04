@@ -27,6 +27,8 @@ function DialogManager(game) {
 		}
 	};
 
+	game.depthGroups.shopGroup.add(game.dialog.jeff.box);
+
 	game.dialog.main.box.defaultY = 427;
 	game.dialog.jeff.box.defaultY = 130;
 

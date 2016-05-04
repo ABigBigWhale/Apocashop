@@ -28,3 +28,12 @@ function numToStr(num) {
 		return num;
 	}
 }
+
+function addAn(str) {
+	var vowels = ['a', 'e', 'i', 'o', 'u'];
+	if(vowels.indexOf(str.charAt(0).toLowerCase()) !== -1) {
+		return "an " + str;
+	} else {
+		return "a " + str;
+	}
+}
