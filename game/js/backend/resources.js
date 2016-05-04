@@ -15,6 +15,14 @@ var items = {
 		price : 2,
 		jPrice : 3
 	}, 
+	"meat" : {
+		price : 3,
+		jprice : 5
+	},
+	"shield" : {
+		price : 6,
+		jprice : 8
+	},
 	"staff" : {
 		price : 8,
 		jPrice : 11

@@ -1,17 +1,22 @@
 function PlayerState(game) {
 	var Items;
 	var Gold;
-
+	var availableItems;
 	var Level;
 	var EXP;
+	var numSlots;
 
 	function init() {
 		Items = {
 			"sword" : 5
 		};
+		availableItems = [
+			"sword", "meat", "shield", "bow"
+		];
 		Gold = 0;
 		Level = 1;
 		EXP = 0;
+		numSlots = 2;
 	}
 
 	this.updateItem = function(item, count) {
@@ -33,8 +38,16 @@ function PlayerState(game) {
 		return Gold;
 	}
 
+	this.getNumSlots = function() {
+		return numSlots;
+	}
+
 	this.getItems = function() {
 		return (typeof Items !== 'object') ? {} : JSON.parse(JSON.stringify(Items));
+	}
+
+	this.getAvalItems = function() {
+		return (typeof Items !== 'object') ? {} : JSON.parse(JSON.stringify(availableItems));
 	}
 
 	this.checkStock = function(item) {

@@ -10,6 +10,7 @@ function AssetManager(game) {
 			'gp_background',
 			'gp_shopkeeper',
 			'gp_jeff',
+			'gp_stock',
 			'gp_jeff_big'
 		],
 
@@ -25,15 +26,18 @@ function AssetManager(game) {
 			'ui_button_reject', 
 			'ui_button_question', 
 			'ui_button_continue', 
+			'ui_button_add', 
+			'ui_button_sub', 
+			'ui_button_item_border',
 			'shop_rock',
 			'upgrade_jeff',
 			'upgrade_shop',
 			'ui_coin',
-			'ui_coins',
+			'ui_coins'
 		],
 
 		'items' : [
-			'item_sword', 'item_bow'
+			'item_sword', 'item_bow', 'item_meat', 'item_shield'
 		],
 		
 		// 'part' : #of files
