@@ -1,7 +1,17 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'drag-drop game', { preload: preload, create: create });
 
 var allLoad;
+var load1;
+var load2;
+var load3;
+var load4;
 var allBox;
+var green;
+var blue;
+var yellow;
+var red;
+var button;
+var money;
 
 var loadSpace = 30;
 var itemSpace = 30;
