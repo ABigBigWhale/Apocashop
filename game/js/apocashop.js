@@ -103,6 +103,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		var toggleNoteDisplay = function() {
 		  printDebug("UI: note clicked; shown: " + uiNoteDisplayShown);
+		  if (uiNote.alpha != 1) {
+		  	uiNote.fadeIn.stop();
+		  	uiNote.alpha = 1;
+		  }
 		  var uiNoteDisplayTween;
 		  var uiNoteTween;
 		   
@@ -168,6 +172,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			}
 		};
 		var uiButtonQuestionCB = function() {
+			if (uiButtonQuestion.alpha != 1) {
+				uiButtonQuestion.fadeIn.stop();
+				uiButtonQuestion.alpha = 1;
+			}
 			game.questionManager.toggleQuestions();
 		}
 
@@ -184,6 +192,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		uiButtonAccept.scale.setTo(2, 2);
 		uiButtonReject.scale.setTo(2, 2);
 		uiButtonQuestion.scale.setTo(2, 2);
+		uiButtonQuestion.alpha = 0;
+		uiButtonQuestion.fadeIn = game.add.tween(uiButtonQuestion).to( {alpha : 0.9}, 1000, Phaser.Easing.Linear.None, false, 0, 1000, true);
 
 		uiButtonAccept.smoothed = false;
 		uiButtonReject.smoothed = false;
@@ -423,7 +433,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		game.eventManager.register(game.Events.TUTORIAL.BEGIN, function() {
 			uiNote.visible = true;
+			uiNote.alpha = 0;
+			uiNote.fadeIn = game.add.tween(uiNote).to( {alpha : 0.9}, 1000, Phaser.Easing.Linear.None, false, 0, 1000, true);
+			uiNote.fadeIn.start();
 			game.tutorial.questionVisible = true;
+			uiButtonQuestion.fadeIn.start();
 		});
 
 		game.eventManager.register(game.Events.INTERACT.NEW, function (appearanceInfo) {
