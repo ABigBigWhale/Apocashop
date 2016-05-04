@@ -6,7 +6,7 @@ function InteractionManager(game) {
 	var currentDay;
 
 	// Trips when the day ends
-	var isEnd = false;
+	var isEnd;
 
 	// The listing of planned NPCs for today
 	var npcs;
@@ -104,6 +104,7 @@ function InteractionManager(game) {
 
 	// Begin the day, set the day timer, and send our first NPC.
 	this.startDay = function(day, endCallback) {
+		isEnd = false;
 		currentDay = day;
 		dayEndCallback = endCallback;
 		conditionManager.init(day.conditions);
