@@ -26,7 +26,7 @@ function Stock(game) {
 			alert("Trying to remove an item that doesn't exist");
 		}
 		playerItems = game.playerState.getItems();
-		var diff = ((Items[item] || playerItems[item]) - playerItems[item]) || 0;
+		var diff = ((Items[item] || playerItems[item]) - (playerItems[item] || 0)) || 0;
 		Items[item] = playerItems[item] || 0;
 		totalGold -= diff * items[item].price;
 		game.eventManager.notify(game.Events.UPDATE.ITEMS, Items);
