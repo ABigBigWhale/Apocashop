@@ -10,6 +10,8 @@ function AssetManager(game) {
 			'gp_background',
 			'gp_shopkeeper',
 			'gp_jeff',
+			'gp_jeff_noshadow',
+			'gp_jeff_shadow',
 			'gp_stock',
 			'gp_jeff_big'
 		],

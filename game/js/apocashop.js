@@ -48,7 +48,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 		shop.visible = false;
 		setPositionLowerMiddle(shop, shopkeeper);
 
-		var jeff = game.add.sprite(shopkeeper.x + 30, 300, 'gp_jeff');
+		var jeff = game.add.sprite(shopkeeper.x + 35, 277, 'gp_jeff_noshadow');
+		jeff.floating = game.add.tween(jeff).to({y : 260}, 2000, Phaser.Easing.Quadratic.None, true, 0, 1000, true);
+		var jeffshadow = game.add.sprite(shopkeeper.x + 43, shopkeeper.y + shopkeeper.height - 7, 'gp_jeff_shadow');
+		jeffshadow.alpha = 0.6;
+		jeffshadow.fadeIn = game.add.tween(jeffshadow).to( {alpha : 0.2}, 2000, Phaser.Easing.Quadratic.None, true, 0, 1000, true);
+
 
 		///////////////////////////// UI elems ///////////////////////////
         
@@ -217,7 +222,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 		function setPositionLowerMiddle(shop, player) {
 			shop.position.copyFrom(player);
-			shop.position.y += player.height - shop.height;
+			shop.position.y += player.height - shop.height / 2;
 			shop.position.x += (player.width / 2) - (shop.width / 2);
 		}
 
