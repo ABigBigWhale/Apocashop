@@ -33,7 +33,8 @@ function AssetManager(game) {
 			'upgrade_jeff',
 			'upgrade_shop',
 			'ui_coin',
-			'ui_coins'
+			'ui_coins',
+			'ui_coinstack'
 		],
 
 		'items' : [
@@ -73,7 +74,15 @@ function AssetManager(game) {
 					for (var i = 0; i < this.assets[path].length; i++) {
 						var assetId = this.assets[path][i];
 						var fullPath = this.assetFolder + path + '/' + assetId + '.png';
-						if (assetId.indexOf('button') < 0 && assetId.indexOf('upgrade') < 0) { // single image
+						if (assetId.indexOf('button_item_border') > 0) {
+							var spriteSize = [22, 22];
+							this.game.load.spritesheet(assetId, fullPath, spriteSize[0], spriteSize[1]);
+
+						}
+						if (assetId.indexOf('button_add') > 0 || assetId.indexOf('button_sub') > 0) {
+							var spriteSize = [11, 11];
+							this.game.load.spritesheet(assetId, fullPath, spriteSize[0], spriteSize[1]);
+						} else if (assetId.indexOf('button') < 0 && assetId.indexOf('upgrade') < 0) { // single image
 							this.game.load.image(assetId, fullPath);
 						} else if (assetId.indexOf('upgrade') < 0) {
 							var spriteSize = [63, 22];

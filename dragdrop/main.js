@@ -1,6 +1,5 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'drag-drop game', { preload: preload, create: create, render: render });
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'drag-drop game', { preload: preload, create: create });
 
-var result = 'Drag a sprite';
 var allLoad;
 var load1;
 var load2;
@@ -19,20 +18,19 @@ var itemSpace = 30;
 var itemSize = 50;
 var itemDistanceFromSide = 50;
 var loadInit = [30, 150];
-var itemInit = [300, 150];
+var itemInit = [275, 100];
 
 function init() {
     game.assetManager = new AssetManager(game);
     game.assetManager.load();
     game.eventManager = new EventManager(game);
-    game.eventManager.register(game.Events.UPDATE.STOCKGOLD, updateGold);
-    game.eventManager.register(game.Events.UPDATE.ITEMS, updateItems);
     game.playerState = new PlayerState(game);
     game.Stock = new Stock(game);
     game.renderer.renderSession.roundPixels = true;
     Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
     game.stage.smoothed = false;
     game.stage.backgroundColor = '#447474';
+    game.add.text(1000, 1000, "fix", {font:"1px yoster_islandregular", fill:"#FFFFFF"});
 }
 
 function preload() {
@@ -42,19 +40,43 @@ function preload() {
 function create() {
     var imgBackground = game.add.image(0, 0, 'gp_stock');
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    gold = game.add.text(game.width - 300, 100, "Gold: ");
-    gold.fill = 'yellow';
+    // for debugging only
+    game.playerState.update(100, {});
+    game.eventManager.notify(game.Events.STOCK.ADD, "sword", 3);
+    game.eventManager.notify(game.Events.STOCK.ADD, "bow", 2);
+    game.eventManager.notify(game.Events.STOCK.COMMIT);
+    // end debug
     allBox = createItemSprites(game.playerState.getAvalItems(), game.playerState.getItems());
     //button = game.add.button(700, 500, 'button', actionOnClick, this, 2, 1, 0);
     allLoad = createLoads(game.playerState.getNumSlots());
     initAllItems(allBox);
     initAllLoad(allLoad);
-    game.eventManager.notify(game.Events.STOCK.ADD, "sword", 3);
-    game.eventManager.notify(game.Events.STOCK.ADD, "bow", 2);
-    game.eventManager.notify(game.Events.STOCK.COMMIT);
 
+    var textCoins = game.add.text(60, 540, "0", // TODO: hardcoded
+                                      { font: "30px yoster_islandregular", fill: "#ebc36f"} );
+    var coinstack = game.add.image(20, 528, 'ui_coinstack');
+    textCoins.setText(game.playerState.getGold());
 
+    game.eventManager.register(game.Events.UPDATE.ITEMS, updateItems);
+    game.eventManager.register(game.Events.UPDATE.STOCKGOLD, function(gold) {
+         textCoins.setText(gold);
+    });
 
+}
+
+ function coinDrop(offer) {
+    var coins = game.add.group();
+    for (var i = 0; i < offer; i ++) {
+        coins.create(20 + Math.random() * 50, 450 + Math.random() * 30, 'ui_coin');
+    }
+    var coidDropTweenPos = game.add.tween(coins.position).to( {y: coins.y + 100}, 800, Phaser.Easing.Quadratic.Out);
+    var coidDropTweenAlp = game.add.tween(coins.alpha).to( {alpha: 0.5}, 500);
+    coidDropTweenAlp.onComplete.add(function() {
+        coins.destroy();
+    });
+
+    coidDropTweenPos.start();
+    coidDropTweenAlp.start();
 }
 
 function createLoads(numSlots) {
@@ -72,7 +94,7 @@ function createItemSprites(avalItems, playerItems) {
         // get graphics to load for correct boxes
         var sprite = game.add.sprite(0, 0, "item_" + avalItems[i]);
         sprite.itemType = avalItems[i];
-        sprite.num = (playerItems === undefined) ? 0 : playerItems[avalItems[i]] + 0;
+        sprite.num = (playerItems[avalItems[i]] === undefined) ? 0 : playerItems[avalItems[i]] + 0;
         sprites[avalItems[i]] = sprite;
     }
     return sprites;
@@ -91,6 +113,10 @@ function initAllItems(boxes) {
         boxes[key].events.onDragStart.add(onDragStart, this);
         boxes[key].position.x = itemInit[0] + ((curr % numberMod) * (itemSpace + itemSize));
         boxes[key].position.y = itemInit[1] + Math.floor(curr / numberMod) * (itemSpace + itemSize); 
+        boxes[key].itemborder = game.add.image(boxes[key].position.x - 6, boxes[key].position.y - 6, 
+                                                'ui_button_item_border');
+        boxes[key].itemborder.scale.setTo(2, 2);
+        game.world.bringToTop(boxes[key].itemborder);
         boxes[key].originalPosition = boxes[key].position.clone();
         boxes[key].price = items[key].price;
     }
@@ -99,26 +125,17 @@ function initAllLoad(loads) {
     for (var i = 0; i < loads.length; i++) {
     	loads[i].anchor.setTo(0, 0);
     	loads[i].name = loads[i].key + ": " + i;
-        loads[i].plus = game.add.sprite(loads[i].position.x + loads[i].width + 10, loads[i].position.y - 2, 'ui_button_add');
+        loads[i].plus = game.add.button(loads[i].position.x + loads[i].width + 10, loads[i].position.y - 2, 'ui_button_add', increaseItem, this, 1, 0, 2);
         loads[i].plus.scale.setTo(2, 2);
-        loads[i].minus = game.add.sprite(loads[i].position.x + loads[i].width + 10, loads[i].position.y + loads[i].height / 2, 'ui_button_sub');
+        loads[i].minus = game.add.button(loads[i].position.x + loads[i].width + 10, loads[i].position.y + loads[i].height / 2, 'ui_button_sub', decreaseItem, this, 1, 0, 2);
         loads[i].minus.scale.setTo(2, 2);
-        loads[i].plus.inputEnabled = true;
         loads[i].plus.loader = loads[i];
-        loads[i].minus.inputEnabled = true;
         loads[i].minus.loader = loads[i];
-        loads[i].plus.events.onInputDown.add(increaseItem, this);
-        loads[i].minus.events.onInputDown.add(decreaseItem, this);
-        loads[i].num = game.add.text(loads[i].position.x + loadSpace + (itemSize / 2), loads[i].position.y, "X");
-        loads[i].num.fill = 'red';
+        loads[i].num = game.add.text(loads[i].position.x + loads[i].width / 2, loads[i].position.y + 8, 'X',
+                                     { font: "20px yoster_islandregular", fill: '#d3af7a' });
         loads[i].loaded = null;
     	game.physics.arcade.enable(loads[i]);
     }
-}
-
-
-function updateGold(amount) {
-    gold.text = "Gold: " + amount;
 }
 
 function updateItems(Items) {
@@ -131,8 +148,11 @@ function updateItems(Items) {
 
 function decreaseItem(minus, pointer) {
     if (minus.loader != null && minus.loader.loaded != null) {
+        var currCount = minus.loader.loaded.num;
         game.eventManager.notify(game.Events.STOCK.REMOVE, minus.loader.loaded.itemType, 1);
         minus.loader.num.text = minus.loader.loaded.num;
+        if (currCount != minus.loader.loaded.num)
+            coinDrop(1);
     }
 }
 
@@ -144,7 +164,6 @@ function increaseItem(plus, pointer) {
 }
 
 function onDragStart(sprite, pointer) {
-    result = "Dragging " + sprite.key;
     game.world.bringToTop(sprite);
     for (var i = 0; i < allLoad.length; i++) {
         if (game.physics.arcade.overlap(sprite, allLoad[i])) {
@@ -160,12 +179,14 @@ function onDragStop(sprite, pointer) {
         sprite.position.copyFrom(loader.position);
         sprite.position.x += 4;
         sprite.position.y += 4;
-        result = sprite.key + " is on " + loader.name;
         loader.num.text = sprite.num + "";
         loader.loaded = sprite;
     } else {
         sprite.position.copyFrom(sprite.originalPosition);
+        game.world.bringToTop(sprite.itemborder);
+        coinDrop(sprite.num - (game.playerState.getItems()[sprite.itemType] || 0));
         game.eventManager.notify(game.Events.STOCK.OUTSTOCK, sprite.itemType);
+        coinDrop()
     }
 }
 
@@ -176,8 +197,4 @@ function findCollision(sprite, all) {
         }
     }
     return undefined;
-}
-
-function render() {
-    game.debug.text(result, 10, 20);
 }
