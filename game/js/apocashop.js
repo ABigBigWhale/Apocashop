@@ -17,6 +17,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	if (gameConfig.DEBUG_MODE) window.debugGame = game;
 
 	function preload() {
+		// Makes sure the font is loaded before we initialize any of the actual text.
+		game.add.text(1000, 1000, "fix", {font:"1px yoster_islandregular", fill:"#FFFFFF"});
+
 		///////////////////////////// Assets ///////////////////////////
 		game.assetManager = new AssetManager(game);
 		game.assetManager.load();

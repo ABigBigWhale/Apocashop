@@ -4,17 +4,21 @@
         <title>Apocashop</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="assets/fonts/stylesheet.css" rel="stylesheet" type="text/css">
-        
+        <link href="assets/fonts/stylesheet.css" rel="stylesheet" type="text/css">		
+    </head>
+
+    <body>
+        <div id="gameDiv"> </div>
+
         <script type="text/javascript">
             // Appends backend js files
             var scripts = [
-				"EventManager.js",
+                "EventManager.js",
                 "resources.js",
                 "utility.js",
                 "Timer.js",
                 "ConditionManager.js",
-				"QuestionManager.js",
+                "QuestionManager.js",
                 "npcGen.js",
                 "DialogManager.js",
                 "InteractionManager.js",
@@ -32,16 +36,10 @@
                 head.appendChild(s);
             }
         </script>
-		
-		<script src="js/phaser.js"></script>
+        
+        <script src="js/phaser.js"></script>
         <script src="js/apocashop.js"></script>
         <script src="js/assets.js" type="text/javascript"></script>
         <srcipt sec="js/palette.js" type="text/javascript"></script>
-		
-    </head>
-
-    <body>
-        <div id="gameDiv"> </div>
-        <p id="jeff"></p>
     </body>
 </html>
