@@ -68,7 +68,7 @@ var heroes = {
 	"badCousin" : {
 		type : "interact",
 		item : "sword",
-		appearanceInfo : "face|1,body|1,hair|4,eye|8,nose|6,mouth|3,misc|4",
+		appearanceInfo : "face|1,body|3,hair|6,eye|4,nose|11,mouth|5,misc|4",
 		offers : [10],
 		offerText : "Give me a sword and you can have ten gold instead of a mouth full of teeth.",
 		success : "Heh, thanks.",
