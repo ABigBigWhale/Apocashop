@@ -242,6 +242,11 @@ var days = [
 				chance : 1.0,
 				events : ["Events.TUTORIAL.BEGIN"],
 				isLongTerm : false
+			},
+			testLongTerm : {
+				components : ["soldCousin"],
+				chance : 1.0,
+				isLongTerm : true
 			}
 		},
 		clues : {
@@ -285,26 +290,26 @@ var days = [
 			}
 		},
 		sequence : {
-			1 : {
-				hero : "jeff",
-				fuzz : 0,
-				force : true
-			},
-			2 : {
+			0 : {
 				hero : {
-					item : "sword",
-					offers : [1, 8],
-					sellConditions : ["tutorialPerson"]
+					item : "None",
+					offers : [0],
+					offerText : [
+						{
+							testLongTerm : "YOU SOLD TO HIM",
+							default : "YOU DIDN'T SELL TO HIM"
+						}
+					]
 				},
 				fuzz : 0,
 				force : true
 			},
-			4 : {
+			2 : {
 				hero : "man",
 				fuzz : 3,
 				force : true
 			},
-			7 : {
+			5 : {
 				hero : "tracker",
 				fuzz : 0,
 				force : true

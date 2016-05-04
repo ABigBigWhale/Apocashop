@@ -57,7 +57,6 @@ function WrapupManager(game) {
 	function endWrapup() {
 		game.playerState.addsubGold(goldDiff);
 		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
-		game.eventManager.notify(game.Events.WRAPUP.END);
 		endCallback();
 	}
 
