@@ -33,6 +33,11 @@ function beginGame(game) {
 		game.stockUI.startDay(days[currentDay].clues.crisis, function() {
 			beginSales();
 		});
+		// game.eventManager.notify(game.Events.STOCK.BEGIN);
+		// game.stockUI.startDay(days[currentDay].clues.crisis, function() {
+		// 	game.eventManager.notify(game.Events.STOCK.END);
+		// 	beginSales();
+		// });
 	};
 
 	var beginSales = function() {
