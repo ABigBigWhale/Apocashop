@@ -118,6 +118,7 @@ function InteractionManager(game) {
 			printDebug("DAY ENDING TIMER");
 			isEnd = true;
 		}, day.length);
+		this.dayTimer = dayTimer;
 		pushNPC();
 	}
 
