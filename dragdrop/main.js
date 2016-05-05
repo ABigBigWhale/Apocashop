@@ -29,7 +29,7 @@ function preload() {
 
 function create() {
     var imgBackground = game.add.image(0, 0, 'gp_stock');
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+
     // for debugging only
     game.playerState.update(100, {});
     game.eventManager.notify(game.Events.STOCK.ADD, "sword", 3);
