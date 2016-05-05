@@ -19,12 +19,17 @@ function PlayerState(game) {
 		Level = 1;
 		EXP = 0;
 		numSlots = 1;
+		game.eventManager.register(game.Events.LEVEL.ACCEPT, updateUpgrade)
 	}
 
 	this.updateItem = function(item, count) {
 		Items[item] = count;
 	}
-
+	function updateUpgrade(key) {
+		if (key.indexOf('shop') >= 0) {
+			numSlots++;
+		}
+	}
 	this.decrementItem = function(item) {
 		if (Items[item] === undefined || Items[item] <= 0) {
 			return;
