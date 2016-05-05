@@ -78,19 +78,31 @@ function StockUI(game) {
             allLoad[i].kill();
         }
         textCoins.kill();
+        allNews.kill();
     }
 
     this.startDay = function(clues, func) {
-        update(clues);
         ui_group.visible = true;
+        game.world.bringToTop(ui_group);
+        update(clues);
         callback = func;
     }
 
     function endDay() {
         ui_group.visible = false;
         killGroup();
-        game.eventManager.notify(game.Events.STOCK.COMMIT);
+        game.eventManager.notify(game.Events.STOCK.COMMIT, currStocked());
         callback();
+    }
+
+    function currStocked() {
+        var stocked = [];
+        for(var i =  0; i < allLoad.length; i++) {
+            if(allLoad[i].loaded != null) {
+                stocked.push(allLoad[i].loaded.itemname);
+            }
+        }
+        return stocked;
     }
 
     function coinDrop(offer) {
@@ -137,6 +149,7 @@ function StockUI(game) {
         for (var key in boxes) {
             curr++;
             game.physics.arcade.enable(boxes[key]);
+            boxes[key].itemname = key;
             boxes[key].inputEnabled = true;
             boxes[key].scale.setTo(2, 2);
             boxes[key].input.enableDrag();

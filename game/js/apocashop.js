@@ -78,25 +78,27 @@ document.addEventListener('DOMContentLoaded', function() {
 		var uiItemNums = {};
 		var uiItemGroup = game.add.group();
 		var uiPutItemslots = function(numSlots, items) {
+			goup = game.add.group();
 			for (var i = 0; i < numSlots; i++) {
-				var uiItemslot = game.add.sprite(10, 10 + 50 * i, 'ui_itemslot');
+				var uiItemslot = game.add.sprite(20, 40 + 50 * i, 'ui_itemslot');
 				uiItemslot.anchor.setTo(0, 0);
-				uiItemGroup.add(uiItemslot);
+				goup.add(uiItemslot);
 			}
-
-			var j = 0;
-			for (var item in items) {
-				var itemIcon = game.add.sprite(14, 14 + 50 * j, 'item_' + item);
+			var j = -1;
+			for (var key in items) {
+				j++;
+				var itemIcon = game.add.sprite(24, 44 + 50 * j, 'item_' + key);
 				itemIcon.scale.setTo(2, 2);
 				itemIcon.smoothed = false;
-				var itemCount = game.add.text(64, 16 + 50 * j, items[item], {
+				var itemCount = game.add.text(74, 46 + 50 * j, items[key], {
 					font: "20px yoster_islandregular",
 					fill: '#d3af7a'
 				});
-				uiItemNums[item] = itemCount;
-				uiItemGroup.add(itemIcon);
-				uiItemGroup.add(itemCount);
+				uiItemNums[key] = itemCount;
+				goup.add(itemIcon);
+				goup.add(itemCount);
 			}
+			return goup;
 		};
 
 		//------------------------- Clock --------------------------------
@@ -480,10 +482,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		uiButtonQuestion.visible = false;
 		uiNote.visible = false;
 
-		uiPutItemslots(game.playerState.getNumSlots(), game.playerState.getItems());
+		itemSlots = game.add.group();
 
 		game.eventManager.register(game.Events.DAY.START, function(data) {
 			game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
+			itemSlots.callAll('kill');
+			itemSlots = uiPutItemslots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 			heroClueText.text = formatClues(data.clues.hero);
 			crisisClueText.text = formatClues(data.clues.crisis);
 		});

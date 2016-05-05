@@ -1,28 +1,35 @@
 function PlayerState(game) {
 	var Items;
-	var availableItems;
+	var AvailableItems;
+	var StockedItems;
 	var Gold;
 	var Level;
 	var EXP;
 	var numSlots;
 
 	function init() {
+		StockedItems = ["sword"];
 		Items = {
 			"sword" : 5
 		};
-		availableItems = [
+		AvailableItems = [
 			"sword", "chicken", "shield", "bow"
 		];
 		Gold = 0;
 		Level = 1;
 		EXP = 0;
-		numSlots = 2;
+		numSlots = 1;
+		game.eventManager.register(game.Events.LEVEL.ACCEPT, updateUpgrade)
 	}
 
 	this.updateItem = function(item, count) {
 		Items[item] = count;
 	}
-
+	function updateUpgrade(key) {
+		if (key.indexOf('shop') >= 0) {
+			numSlots++;
+		}
+	}
 	this.decrementItem = function(item) {
 		if (Items[item] === undefined || Items[item] <= 0) {
 			return;
@@ -46,12 +53,21 @@ function PlayerState(game) {
 		return (typeof Items !== 'object') ? {} : JSON.parse(JSON.stringify(Items));
 	}
 
+	this.getStockedItems = function() {
+		var stocked = {};
+		for(var i = 0; i < StockedItems.length; i++) {
+			stocked[StockedItems[i]] = Items[StockedItems[i]] || 0;
+		}
+		return stocked;
+	}
+
 	this.getAvalItems = function() {
-		return (typeof Items !== 'object') ? {} : JSON.parse(JSON.stringify(availableItems));
+		return (typeof Items !== 'object') ? {} : JSON.parse(JSON.stringify(AvailableItems));
 	}
 
 	this.checkStock = function(item) {
-		return !items[item] || Items[item] || item === 'none';
+		return items[item] && StockedItems.indexOf(item) >= 0 && !(Items[item] === undefined)
+			   && Items[item] > 0 && item !== 'none';
 	}
 
 	this.checkPrice = function(item, goldOffset) {
@@ -59,9 +75,10 @@ function PlayerState(game) {
 		return(Gold + goldOffset) >= price;
 	}
 
-	this.update = function(gold, items) {
+	this.update = function(gold, items, stocked) {
 		Gold = gold;
 		Items = Object.assign({}, items);
+		StockedItems = stocked
 	}
 
 	this.updateProfit = function(profit) {
