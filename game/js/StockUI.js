@@ -2,6 +2,7 @@ function StockUI(game) {
     
     var allLoad;
     var allBox;
+    var allNews;
     var coinstack;
     var textCoins;
     var uiCoinSlot;
@@ -26,10 +27,12 @@ function StockUI(game) {
         uiCoinSlot = game.add.sprite(-110, 505, 'ui_itemslot');
         uiCoinSlot.scale.setTo(2.25, 2.25);
         coinstack = game.add.image(20, 528, 'ui_coinstack');
+        endDayButton = game.add.button(700, 500, 'button', endDay, this, 2, 1, 0);
 
         ui_group.add(imgBackground); 
         ui_group.add(uiCoinSlot);
         ui_group.add(coinstack);
+        ui_group.add(endDayButton);
         
 
         game.eventManager.register(game.Events.UPDATE.ITEMS, updateItems);
@@ -39,17 +42,29 @@ function StockUI(game) {
         ui_group.visible = false;
     }
 
-    function update() {
+    function update(news) {
         allBox = createItemSprites(game.playerState.getAvalItems(), game.playerState.getItems());
         allLoad = createLoads(game.playerState.getNumSlots());
         initAllItems(allBox);
         initAllLoad(allLoad);
         textCoins = game.add.text(60, 540, "0", // TODO: hardcoded
                                           { font: "30px yoster_islandregular", fill: "#ebc36f"} );
+        allNews = game.add.text(200, 435, formatClues(news), 
+                                    { font: "20px yoster_islandregular" , fill: "#3B3B3B", wordWrap : true,
+                                       wordWrapWidth : 400});
+        
         textCoins.setText(game.playerState.getGold());
-        endDayButton = game.add.button(700, 500, 'button', endDay, this, 2, 1, 0);
     }
 
+    function formatClues(clues) {
+        var retString = "";
+        for(var i = 0; i < clues.length; i++) {
+            if(clues[i] !== "") {
+                retString += "> " + clues[i] + "\n";
+            }
+        }
+        return retString;
+    }
     function killGroup() {
         for(var key in allBox) {
             allBox[key].itemborder.kill();
@@ -65,7 +80,7 @@ function StockUI(game) {
     }
 
     this.startDay = function(clues, func) {
-        update();
+        update(clues);
         ui_group.visible = true;
         callback = func;
     }
@@ -101,6 +116,7 @@ function StockUI(game) {
         }
         return returned;
     }
+
     function createItemSprites(avalItems, playerItems) {
         var sprites = {};
         for (var i = 0; i < avalItems.length; i++) {
@@ -180,7 +196,7 @@ function StockUI(game) {
     function onDragStart(sprite, pointer) {
         game.world.bringToTop(sprite);
         for (var i = 0; i < allLoad.length; i++) {
-            if (game.physics.arcade.overlap(sprite, allLoad[i])) {
+            if (Phaser.Rectangle.intersects(sprite.getBounds(), allLoad[i].getBounds())) {
                 allLoad[i].num.text = 'X';
                 allLoad[i].loaded = null;
             }
