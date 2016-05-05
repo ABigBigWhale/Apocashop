@@ -89,6 +89,7 @@ function Stock(game) {
 				profit -= items[item].price;
 			}
 			game.playerState.decrementItem(item);
+			Items = game.playerState.getItems();
 		}
 		game.playerState.addsubGold(price);
 		if(item !== "NoneNoXP") {

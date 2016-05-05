@@ -1,7 +1,7 @@
 function PlayerState(game) {
 	var Items;
-	var Gold;
 	var availableItems;
+	var Gold;
 	var Level;
 	var EXP;
 	var numSlots;

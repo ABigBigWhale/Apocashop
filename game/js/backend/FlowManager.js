@@ -9,7 +9,7 @@ function initBackend(game) {
 	game.stock = new Stock(game);
 	game.jeff = new Jeff(game);
 	game.endingScreen = new EndingScreen(game);
-	//game.stockUI = new StockUI(game);
+	game.stockUI = new StockUI(game);
 }
 
 function beginGame(game) {
@@ -30,6 +30,9 @@ function beginGame(game) {
 	};
 
 	var beginStocking = function() {
+		game.stockUI.startDay(days[currentDay].clues.crisis, function() {
+			beginSales();
+		});
 		// game.eventManager.notify(game.Events.STOCK.BEGIN);
 		// game.stockUI.startDay(days[currentDay].clues.crisis, function() {
 		// 	game.eventManager.notify(game.Events.STOCK.END);
