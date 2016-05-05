@@ -34,83 +34,85 @@ var items = {
 };
 
 var heroes = {
-	"introJeff" : {
-		type : "dialog",
-		appearanceInfo : "jeff",
-		dialog : [
-			"Hey kiddo, I'm Jeff the Magic Anvil!@@/Just accept it. We don't have time for questions.",
-			"It looks like you've got five swords there to sell./The going rate for those is five gold a piece.",
-			"Let's see how you do selling them!/Don't worry kid, I'll be right here if you need me."
-		]
-	},
-	tutorialWoman : {
-		type : "dialog",
-		appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
-		dialog : [
-			"I don't have much time. My cousin's on his way. He wants a sword./@@Please don't sell him one.",
-			"I wrote clues to help you find him./If you turn him away, I'll make sure you're paid."
-		],
-		finishConditions : ["tutorialBegin"]
-	},
-	tutorialWomanHappy : {
-		type : "dialog",
-		appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
-		appearConditions : ["refuseCousin"],
-		dialog : "Thank you so much. Here's a little something for the help.",
-		endMoney : 7
-	},
-	tutorialWomanAngry : {
-		type : "dialog",
-		appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
-		appearConditions : ["soldCousin"],
-		dialog : "I can't believe you sold to my cousin. Did you even bother asking about his favorite color?"
-	},
-	"badCousin" : {
-		type : "interact",
-		item : "sword",
-		appearanceInfo : "face|1,body|3,hair|6,eye|4,nose|11,mouth|5,misc|4",
-		offers : [10],
-		offerText : "Give me a sword and you can have ten gold instead of a mouth full of teeth.",
-		success : "Heh, thanks.",
-		fail : "I'll be back.",
-		questions : {
-			color : "Mac and Cheese.",
-			default : "I don't care."
+	dayOne : {
+		"introJeff" : {
+			type : "dialog",
+			appearanceInfo : "jeff",
+			dialog : [
+				"Hey kiddo, I'm Jeff the Magic Anvil!@@/Just accept it. We don't have time for questions.",
+				"It looks like you've got five swords there to sell./The going rate for those is five gold a piece.",
+				"Let's see how you do selling them!/Don't worry kid, I'll be right here if you need me."
+			]
 		},
-		items : {
-			default : "I don't care."
+		tutorialWoman : {
+			type : "dialog",
+			appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
+			dialog : [
+				"I don't have much time. My cousin's on his way. He wants a sword./@@Please don't sell him one.",
+				"I wrote clues to help you find him./If you turn him away, I'll make sure you're paid."
+			],
+			finishConditions : ["tutorialBegin"]
 		},
-		profiles : {
-			default : "I don't care."
+		tutorialWomanHappy : {
+			type : "dialog",
+			appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
+			appearConditions : ["refuseCousin"],
+			dialog : "Thank you so much. Here's a little something for the help.",
+			endMoney : 7
 		},
-		sellConditions : ["soldCousin"],
-		refuseConditions : ["refuseCousin"]
-	},
-	chickenJeff : {
-		type : "dialog",
-		appearanceInfo : "jeff",
-		dialog : [
-			"Oh, I forgot to mention. I can make you anything that the people want and you don't have, for a price.",
-			"YOUR SOUL.@ But for you kid, I'll also accept gold pieces.",
-			"If I see that you're out of what the customer wants, I'll be sure to shout my price at you.",
-			{
-				soldChicken : "You're pretty lucky to have me, kid. @@Not many anvils can make a cooked chicken.",
-				default : "You might want to try haggling and selling more next time."
-			}
-		]
-	},
-	endOfTutorialJeff : {
-		type : 'dialog',
-		appearanceInfo : "jeff",
-		dialog : [
-			"Nicely done, kid. We're still in business!/@@Against all odds.",
-			{
-				soldCousin : "We need to keep a closer eye out for who to sell to./I have an idea on how to fix that.",
-				default : "We got lucky to get that tip about the cousin./I'll make sure we don't have to rely on luck again."
+		tutorialWomanAngry : {
+			type : "dialog",
+			appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
+			appearConditions : ["soldCousin"],
+			dialog : "I can't believe you sold to my cousin. Did you even bother asking about his favorite color?"
+		},
+		"badCousin" : {
+			type : "interact",
+			item : "sword",
+			appearanceInfo : "face|1,body|3,hair|6,eye|4,nose|11,mouth|5,misc|4",
+			offers : [10],
+			offerText : "Give me a sword and you can have ten gold instead of a mouth full of teeth.",
+			success : "Heh, thanks.",
+			fail : "I'll be back.",
+			questions : {
+				color : "Mac and Cheese.",
+				default : "I don't care."
 			},
-			"I'll research who we should and shouldn't sell to, and put it in that notebook.",
-			"Now let's get some sleep. We've got a long day ahead of us."
-		]
+			items : {
+				default : "I don't care."
+			},
+			profiles : {
+				default : "I don't care."
+			},
+			sellConditions : ["soldCousin"],
+			refuseConditions : ["refuseCousin"]
+		},
+		chickenJeff : {
+			type : "dialog",
+			appearanceInfo : "jeff",
+			dialog : [
+				"Oh, I forgot to mention. I can make you anything that the people want and you don't have, for a price.",
+				"YOUR SOUL.@ But for you kid, I'll also accept gold pieces.",
+				"If I see that you're out of what the customer wants, I'll be sure to shout my price at you.",
+				{
+					soldChicken : "You're pretty lucky to have me, kid. @@Not many anvils can make a cooked chicken.",
+					default : "You might want to try haggling and selling more next time."
+				}
+			]
+		},
+		endOfTutorialJeff : {
+			type : 'dialog',
+			appearanceInfo : "jeff",
+			dialog : [
+				"Nicely done, kid. We're still in business!/@@Against all odds.",
+				{
+					soldCousin : "We need to keep a closer eye out for who to sell to./I have an idea on how to fix that.",
+					default : "We got lucky to get that tip about the cousin./I'll make sure we don't have to rely on luck again."
+				},
+				"I'll research who we should and shouldn't sell to, and put it in that notebook.",
+				"Now let's get some sleep. We've got a long day ahead of us."
+			]
+		}
 	},
 	"man" : {
 		type : "interact",
@@ -172,6 +174,128 @@ var days = [
 				min : 2,
 				max : 11,
 				priority : 5
+			}
+		},
+		sequence : {
+			0 : {
+				category : "dayOne",
+				hero : "introJeff",
+				fuzz : 0,
+				force : true
+			},
+			1 : {
+				hero : {
+					item : "sword",
+					offers : [7]
+				},
+				fuzz : 0,
+				force : true
+			},
+			2 : {
+				hero : {
+					item : "sword",
+					offers : [1, 8]
+				},
+				fuzz : 0,
+				force : true
+			},
+			3 : {
+				category : "dayOne",
+				hero : "tutorialWoman",
+				fuzz : 0,
+				force : true
+			},
+			6 : {
+				hero : {
+					item : "chicken",
+					offers : [3, 6],
+					sellConditions : ["soldChicken"]
+				},
+				fuzz : 0,
+				force : true
+			},
+			7 : {
+				category : "dayOne",
+				hero : "chickenJeff",
+				fuzz : 0,
+				force : true
+			},
+			8 : {
+				category : "dayOne",
+				hero : "badCousin",
+				fuzz : 3,
+				force : true
+			},
+			11 : {
+				category : "dayOne",
+				hero : "tutorialWomanAngry",
+				fuzz : 3,
+				force : true
+			},
+			12 : {
+				category : "dayOne",
+				hero : "tutorialWomanHappy",
+				fuzz : 3,
+				force : true
+			},
+			9999 : {
+				category : "dayOne",
+				hero : "endOfTutorialJeff",
+				fuzz : 0,
+				force : true
+			}
+		},
+		conditions : {
+			tutorialItemGive : {
+				components : ["tutorialBegin"],
+				chance : 1.0,
+				events : ["Events.TUTORIAL.BEGIN"],
+				isLongTerm : false
+			},
+			testLongTerm : {
+				components : ["soldCousin"],
+				chance : 1.0,
+				isLongTerm : true
+			}
+		},
+		clues : {
+			hero : [
+				"My cousin is rather rude.",
+				"My cousin's favorite color is 'Mac and Cheese'"
+			],
+			crisis : [""]
+		},
+		questions : {
+			day : "How was your day?",
+			color : "Favorite color?"
+		},
+		wrapup : [
+			{
+				text : "You're forced by King Zoran to pay 3 gold in taxes.",
+				gold : -3
+			},
+			{
+				text : "He also demands that the shop should run faster and should collect more data on its customers."
+			},
+			{
+				conditions : ["soldCousin"],
+				text : "Your store is robbed in the night. The robber leaves a note on Mac and Cheese colored paper.",
+				gold : -7
+			}
+		],
+		length : 45000
+	},
+	{
+		itemData : {
+			sword : {
+				min : 2,
+				max : 11,
+				priority : 5
+			},
+			chicken : {
+				min : 1,
+				max : 9,
+				priority : 2
 			}
 		},
 		sequence : {
@@ -280,7 +404,7 @@ var days = [
 		itemData : {
 			sword : {
 				min : 2,
-				max : 9,
+				max : 11,
 				priority : 5
 			},
 			chicken : {

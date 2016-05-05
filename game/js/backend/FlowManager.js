@@ -9,6 +9,7 @@ function initBackend(game) {
 	game.stock = new Stock(game);
 	game.jeff = new Jeff(game);
 	game.endingScreen = new EndingScreen(game);
+	//game.stockUI = new StockUI(game);
 }
 
 function beginGame(game) {
@@ -29,13 +30,11 @@ function beginGame(game) {
 	};
 
 	var beginStocking = function() {
-		// game.eventManager.notify(game.Events.STOCK.BEGIN);
-		// game.stockingManager.startDay(days[dayIndex], function() {
-		// 	game.eventManager.notify(game.Events.STOCK.END);
-		// 	beginSales();
-		// });
-
-		alert("DONE");
+		game.eventManager.notify(game.Events.STOCK.BEGIN);
+		game.stockUI.startDay(days[dayIndex].clues.crisis, function() {
+			game.eventManager.notify(game.Events.STOCK.END);
+			beginSales();
+		});
 	};
 
 	var beginSales = function() {
@@ -46,8 +45,6 @@ function beginGame(game) {
 	};
 
 	var beginWrapup = function() {
-		game.eventManager.notify(game.Events.WRAPUP.START);
-
 		game.wrapupManager.startDay(days[currentDay], function() {
 			game.eventManager.notify(game.Events.WRAPUP.END);
 			currentDay++;
@@ -58,5 +55,7 @@ function beginGame(game) {
 	// beginTitle();
 
 	beginSales();
+
+	document.getElementById("stockChange").onclick = beginStocking;
 
 }	

@@ -41,7 +41,7 @@ function WrapupManager(game) {
 
 		}
 
-		sendNext();
+		game.eventManager.notify(game.Events.WRAPUP.START);
 
 	};
 

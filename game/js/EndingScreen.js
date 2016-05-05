@@ -31,6 +31,7 @@ function EndingScreen(game) {
 	game.eventManager.register(game.Events.WRAPUP.START, function() {
 		game.dialogManager.printWrapup("");
 		recapGroup.visible = true;
+		requestNext();
 	});
 
 	game.eventManager.register(game.Events.WRAPUP.END, function() {

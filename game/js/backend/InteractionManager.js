@@ -146,6 +146,10 @@ function InteractionManager(game) {
 	// generated NPC for this day, or false if the day has ended.
 	function getNextNPC() {
 		var npc = npcs[npcIndex];
+		var storedHero = false;
+		if(npc) {
+			storedHero = npc.category ? heroes[npc.category][npc.hero] : heroes[npc.hero];
+		}
 		npcIndex++;
 		if(isEnd) {
 			var max = Math.max.apply(this, Object.keys(npcs));
@@ -159,11 +163,11 @@ function InteractionManager(game) {
 			if(typeof npc.hero === 'object') {
 				return generateNPC(currentDay, npc.hero);
 			} else {
-				return heroes[npc.hero];
+				return storedHero;
 			}
 		}
-		if(npc && heroes[npc.hero]) {
-			return heroes[npc.hero];
+		if(npc && storedHero) {
+			return storedHero;
 		} else if(npc && typeof npc.hero === 'object') {
 			return generateNPC(currentDay, npc.hero);
 		} else {
