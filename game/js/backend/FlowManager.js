@@ -1,6 +1,7 @@
 function initBackend(game) {
 	game.conditionManager = new ConditionManager(game);
 	game.eventManager = new EventManager(game);
+	game.analytics = new AnalyticsWrapper();
 	game.interactionManager = new InteractionManager(game);
 	game.questionManager = new QuestionManager(game);
 	game.dialogManager = new DialogManager(game);
@@ -15,6 +16,7 @@ function initBackend(game) {
 function beginGame(game) {
 
 	var currentDay = 0;
+	game.analytics.map("day", currentDay, true);
 
 	game.eventManager.register(game.Events.UPDATE.GOLD, function(amount) {
 		if(amount < 0) {
@@ -46,6 +48,7 @@ function beginGame(game) {
 		game.wrapupManager.startDay(days[currentDay], function() {
 			game.eventManager.notify(game.Events.WRAPUP.END);
 			currentDay++;
+			game.analytics.map("day", currentDay, true);
 			beginStocking();
 		});
 	};

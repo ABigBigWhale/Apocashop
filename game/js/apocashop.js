@@ -269,6 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				uiButtonQuestion.fadeIn.stop();
 				uiButtonQuestion.alpha = 1;
 			}
+			game.analytics.track("questionToggled", true, ['day']);
 			game.questionManager.toggleQuestions();
 		}
 
