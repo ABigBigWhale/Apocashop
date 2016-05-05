@@ -92,11 +92,10 @@ var heroes = {
 			appearanceInfo : "jeff",
 			dialog : [
 				"Oh, I forgot to mention. I can make you anything that the people want and you don't have, for a price.",
-				"Y@O@U@R@ S@O@U@L@.@.@.@.@.@.",
-				"But for you kid, I'll also accept gold pieces.",
+				"YOUR@ S@O@U@L@@/But for you kid, I'll also accept gold pieces.",
 				"If I see that you're out of what the customer wants, I'll be sure to shout my price at you.",
 				{
-					soldChicken : "You're pretty lucky to have me, kid. @@Not many anvils can make a cooked chicken.",
+					soldChicken : "You're pretty lucky to have me, kid. @@Not many anvils can magic up a cooked chicken.",
 					default : "You might want to try haggling and selling more next time."
 				}
 			]
@@ -105,7 +104,7 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : "jeff",
 			dialog : [
-				"Nicely done, kid. We're still in business!/@@Against all odds.",
+				"Nicely done, kid. We're still in business!/. . . Against all odds.",
 				{
 					soldCousin : "We need to keep a closer eye out for who to sell to./I have an idea on how to fix that.",
 					default : "We got lucky to get that tip about the cousin./I'll make sure we don't have to rely on luck again."
@@ -161,6 +160,7 @@ var heroes = {
 				default : "What a face, what a smile!/And what dashing style!"
 			},
 			sellConditions : ["soldHero"],
+			refuseConditions : ["refusedHero"]
 		},
 		badRhymeMan : {
 			type : "interact",
@@ -171,7 +171,7 @@ var heroes = {
 			success : "Thank you my friend!",
 			fail : "Fine, I'll go elsewhere.",
 			questions : {
-				color : "Though I love many colors, my favorite is orange./It's the greatest of colors, because it's so ... @@@@florange?",
+				color : "Though I love many colors, my favorite is orange./It's the greatest of colors, because it's so . . . @@@@florange?",
 				day : "Good.",
 				default : "What?"
 			},
@@ -183,7 +183,8 @@ var heroes = {
 				goblin : "Eek! Get it away, get it away!",
 				default : "Yup, that's a person?"
 			},
-			sellConditions : ["soldFalse"]
+			sellConditions : ["soldFalse"],
+			refuseConditions : ["refusedFalse"]
 		},
 		scaredMan : {
 			type : "interact",
@@ -236,57 +237,6 @@ var heroes = {
 			appearConditions : ['hidMan'],
 			successConditions : ['soldMan']
 		}
-	},
-	"man" : {
-		type : "interact",
-		item : "none",
-		appearanceInfo : "MAN",
-		offers : [0],
-		offerText : "Yo, please hide me",
-		success : "Thanks!",
-		fail : "Well, guess I'll die then.",
-		questions : {
-			default : "Please, no time."
-		},
-		items : {
-			default : "Please, no time.."
-		},
-		profiles : {
-			default : "Please, no time."
-		},
-		sellConditions : ["hidMan"],
-		refuseConditions : ["manDied"]
-	},
-	"tracker" : {
-		type : "interact",
-		item : "none",
-		appearanceInfo : "TRACKER",
-		offers : [10, 15],
-		offerText : [
-			"A very dangerous man is loose and I need to find him./I'll pay you ten gold for any information."
-		, {
-			hidPoorly : "I know he is here. WHERE IS HE!",
-			default : "How about 15? I know you're not making enough to feed your family."
-		}],
-		success : "You won't get away this time!",
-		fail : "Very well,@@ I hope you've been honest with me./@@@@For your sake.",
-		questions : {
-			day : "Busy.",
-			news : "I just told you the news.",
-			default : "Stop wasting my time."
-		},
-		items : {
-			shield : "I have no need for that.",
-			default : "Stop wasting my time."
-		},
-		profiles : {
-			dragon : "That is not my concern, leave that to Fosado.",
-			scaredMan : "Aha, That's him!@@ W@h@e@r@e@ @i@s@ @h@e@...",
-			default : "Beneath my concern."
-		},
-		appearConditions : ["hidMan"],
-		sellConditions : ["manDead"],
-		refuseConditions : ["manLived"]
 	}
 };
 
@@ -406,7 +356,7 @@ var days = [
 				gold : -7
 			}
 		],
-		length : 70000
+		length : 60000
 	},
 	{
 		itemData : {
@@ -491,83 +441,20 @@ var days = [
 				gold : -3
 			},
 			{
-				text : "He also demands that the shop should run faster and should collect more data on its customers."
+				conditions : ["soldHero"],
+				text : "Thanks to the sword you sold to the hero, goblins are driven from the town."
 			},
 			{
-				conditions : ["soldCousin"],
-				text : "Your store is robbed in the night. The robber leaves a note on Mac and Cheese colored paper.",
-				gold : -7
+				conditions : ["refusedHero"],
+				text : "Unfortunately, the hero did not have a sword and the town was overrun by goblins. Your store was pillaged in the night.",
+				gold : -5
+			},
+			{
+				conditions : ["soldFalse"],
+				text : "After giving a discount to the fake hero, you're getting a reputation around town. You might see some more people looking for hero discounts."
 			}
 		],
-		length : 120000
-	},
-	{
-		itemData : {
-			sword : {
-				min : 2,
-				max : 11,
-				priority : 5
-			},
-			chicken : {
-				min : 1,
-				max : 7,
-				priority : 2
-			}
-		},
-		sequence : {
-			0 : {
-				hero : {
-					item : "None",
-					offers : [0],
-					offerText : [
-						{
-							testLongTerm : "YOU SOLD TO HIM",
-							default : "YOU DIDN'T SELL TO HIM"
-						}
-					]
-				},
-				fuzz : 0,
-				force : true
-			},
-			2 : {
-				hero : "man",
-				fuzz : 3,
-				force : true
-			},
-			5 : {
-				hero : "tracker",
-				fuzz : 0,
-				force : true
-			}
-		},
-		conditions : {
-			eventTrigger : {
-				components : ["tutorialPerson"],
-				chance : 1.0,
-				events : ["Events.TEST"],
-				isLongTerm : false
-			},
-			hidPoorly : {
-				components : ["hidMan"],
-				chance : 0.5,
-				isLongTerm : false
-			}
-		},
-		clues : {
-			hero : [
-				"Hero is this person",
-				"Hero looks like this"
-			],
-			crisis : [
-				"Look out for goblins",
-				"Scary business, look out."
-			]
-		},
-		questions : {
-			day : "How was your day?",
-			color : "What's your favorite color?"
-		},
-		length : 60000
+		length : 100000
 	}
 ];
 
