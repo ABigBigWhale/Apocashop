@@ -26,7 +26,7 @@ function PlayerState(game) {
 		Items[item] = count;
 	}
 	function updateUpgrade(key) {
-		if (key.indexOf('shop') >= 0) {
+		if (key.indexOf('itemslot') >= 0) {
 			numSlots++;
 		}
 	}

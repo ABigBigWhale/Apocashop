@@ -42,6 +42,7 @@ function AssetManager(game) {
 			'shop_rock',
 			'upgrade_jeff',
 			'upgrade_shop',
+			'upgrade_itemslot',
 			'ui_coin',
 			'ui_coins',
 			'ui_coinstack',
