@@ -42,8 +42,8 @@ function StockUI(game) {
     function update() {
         allBox = createItemSprites(game.playerState.getAvalItems(), game.playerState.getItems());
         allLoad = createLoads(game.playerState.getNumSlots());
-        initAllLoad(allLoad);
         initAllItems(allBox);
+        initAllLoad(allLoad);
         textCoins = game.add.text(60, 540, "0", // TODO: hardcoded
                                           { font: "30px yoster_islandregular", fill: "#ebc36f"} );
         textCoins.setText(game.playerState.getGold());
@@ -140,15 +140,12 @@ function StockUI(game) {
             loads[i].name = loads[i].key + ": " + i;
             loads[i].plus = game.add.button(loads[i].position.x + loads[i].width + 10, loads[i].position.y - 2, 'ui_button_add', increaseItem, this, 1, 0, 2);
             loads[i].plus.scale.setTo(2, 2);
-            ui_group.add(loads[i].plus);
             loads[i].minus = game.add.button(loads[i].position.x + loads[i].width + 10, loads[i].position.y + loads[i].height / 2, 'ui_button_sub', decreaseItem, this, 1, 0, 2);
             loads[i].minus.scale.setTo(2, 2);
-            ui_group.add(loads[i].minus);
             loads[i].plus.loader = loads[i];
             loads[i].minus.loader = loads[i];
             loads[i].num = game.add.text(loads[i].position.x + loads[i].width / 2, loads[i].position.y + 8, 'X',
                                          { font: "20px yoster_islandregular", fill: '#d3af7a' });
-            ui_group.add(loads[i].num);
             loads[i].loaded = null;
             game.physics.arcade.enable(loads[i]);
         }
