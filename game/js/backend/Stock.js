@@ -82,7 +82,8 @@ function Stock(game) {
 				return -1;
 			}
 			var currItems = game.playerState.getItems();
-			if (currItems[item] === undefined || currItems[item] <= 0) {
+			var currStocked = game.playerState.getStockedItems();
+			if (currItems[item] === undefined || currItems[item] <= 0 || currStocked[item] === undefined) {
 				price -= items[item].jPrice;
 				profit -= items[item].jPrice
 			} else {
@@ -99,10 +100,10 @@ function Stock(game) {
 		game.eventManager.notify(game.Events.UPDATE.ITEMS, game.playerState.getItems());
 	}
 
-	function adjustPlayer() {
+	function adjustPlayer(stocked) {
 		var newGold = game.playerState.getGold() - totalGold;
 		totalGold = 0;
-		game.playerState.update(newGold, Items);
+		game.playerState.update(newGold, Items, stocked);
 	}
 
 	init();

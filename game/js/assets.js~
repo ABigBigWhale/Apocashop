@@ -24,8 +24,6 @@ function AssetManager(game) {
 			'ui_table',
 			'ui_levelup',
 			'ui_table_background',
-			'ui_clock',
-			'ui_funnel', 'ui_funnel_sand_top', 'ui_funnel_sand_buttom',
 			'ui_button_accept', 
 			'ui_button_reject', 
 			'ui_button_question', 
@@ -38,23 +36,22 @@ function AssetManager(game) {
 			'upgrade_shop',
 			'ui_coin',
 			'ui_coins',
-			'ui_coinstack',
-			'ui_button_start'
+			'ui_coinstack'
 		],
 
 		'items' : [
-			'item_sword', 'item_bow', 'item_chicken', 'item_shield'
+			'item_sword', 'item_bow', 'item_meat', 'item_shield'
 		],
 		
 		// 'part' : #of files
 		'npc' : {
-			'face' : 5,
-			'misc' : 7,
-			'body' : 5,
-			'hair' : 11,
-			'eye' : 10,
+			'face' : 3,
+			'body' : 2,
+			'hair' : 6,
+			'eye' : 8,
 			'nose' : 11,
-			'mouth' : 11
+			'mouth' : 11,
+			'misc' : 7
 		}
 
 	};
@@ -92,9 +89,7 @@ function AssetManager(game) {
 						} else if (assetId.indexOf('upgrade') < 0) {
 							var spriteSize = [63, 22];
 							if (assetId.indexOf('continue') > 0) {
-								spriteSize = [128, 128];
-							} else if (assetId.indexOf('start') > 0) {
-								spriteSize = [160, 53];
+								spriteSize = [128, 128]
 							}
 							this.game.load.spritesheet(assetId, fullPath, spriteSize[0], spriteSize[1]);
 						} else {    // TODO: spritesheet

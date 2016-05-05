@@ -3,9 +3,9 @@ function StockUI(game) {
     var allLoad;
     var allBox;
     var allNews;
-    var coinstack;
+    //var coinstack;
     var textCoins;
-    var uiCoinSlot;
+    //var uiCoinSlot;
     var endDayButton;
     var imgBackground;
     var ui_group;
@@ -24,14 +24,14 @@ function StockUI(game) {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         ui_group = game.add.group();
         imgBackground = game.add.image(0, 0, 'gp_stock');
-        uiCoinSlot = game.add.sprite(-110, 505, 'ui_itemslot');
-        uiCoinSlot.scale.setTo(2.25, 2.25);
-        coinstack = game.add.image(20, 528, 'ui_coinstack');
-        endDayButton = game.add.button(700, 500, 'button', endDay, this, 2, 1, 0);
+        //uiCoinSlot = game.add.sprite(-110, 505, 'ui_itemslot');
+        //uiCoinSlot.scale.setTo(2.25, 2.25);
+        //coinstack = game.add.image(20, 528, 'ui_coinstack');
+        endDayButton = game.add.button(620, 538, 'ui_button_start', endDay, this, 1, 0, 2);
 
         ui_group.add(imgBackground); 
-        ui_group.add(uiCoinSlot);
-        ui_group.add(coinstack);
+        //ui_group.add(uiCoinSlot);
+        //ui_group.add(coinstack);
         ui_group.add(endDayButton);
         
 
@@ -47,8 +47,9 @@ function StockUI(game) {
         allLoad = createLoads(game.playerState.getNumSlots());
         initAllItems(allBox);
         initAllLoad(allLoad);
-        textCoins = game.add.text(60, 540, "0", // TODO: hardcoded
-                                          { font: "30px yoster_islandregular", fill: "#ebc36f"} );
+        textCoins = game.add.text(60, 520, "0", // TODO: hardcoded
+                                          { font: "30px yoster_islandregular", fill: "#c67520"} );
+		textCoins.anchor.setTo(0.5, 0);
         allNews = game.add.text(200, 435, formatClues(news), 
                                     { font: "20px yoster_islandregular" , fill: "#3B3B3B", wordWrap : true,
                                        wordWrapWidth : 400});
@@ -77,19 +78,31 @@ function StockUI(game) {
             allLoad[i].kill();
         }
         textCoins.kill();
+        allNews.kill();
     }
 
     this.startDay = function(clues, func) {
-        update(clues);
         ui_group.visible = true;
+        game.world.bringToTop(ui_group);
+        update(clues);
         callback = func;
     }
 
     function endDay() {
         ui_group.visible = false;
         killGroup();
-        game.eventManager.notify(game.Events.STOCK.COMMIT);
+        game.eventManager.notify(game.Events.STOCK.COMMIT, currStocked());
         callback();
+    }
+
+    function currStocked() {
+        var stocked = [];
+        for(var i =  0; i < allLoad.length; i++) {
+            if(allLoad[i].loaded != null) {
+                stocked.push(allLoad[i].loaded.itemname);
+            }
+        }
+        return stocked;
     }
 
     function coinDrop(offer) {
@@ -124,6 +137,7 @@ function StockUI(game) {
             var sprite = game.add.sprite(0, 0, "item_" + avalItems[i]);
             sprite.itemType = avalItems[i];
             sprite.num = (playerItems[avalItems[i]] === undefined) ? 0 : playerItems[avalItems[i]] + 0;
+			sprite.smoothed = false;
             sprites[avalItems[i]] = sprite;
         }
         return sprites;
@@ -135,6 +149,7 @@ function StockUI(game) {
         for (var key in boxes) {
             curr++;
             game.physics.arcade.enable(boxes[key]);
+            boxes[key].itemname = key;
             boxes[key].inputEnabled = true;
             boxes[key].scale.setTo(2, 2);
             boxes[key].input.enableDrag();

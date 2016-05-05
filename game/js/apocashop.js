@@ -74,19 +74,31 @@ document.addEventListener('DOMContentLoaded', function() {
 		///////////////////////////// UI elems ///////////////////////////
 
 		//-------------------------- Item slots --------------------------
-		for (var i = 0; i < 1; i++) {
-			var uiItemslot = game.add.sprite(10, 10 + 50 * i, 'ui_itemslot');
-			uiItemslot.anchor.setTo(0, 0);
-		}
-		// TODO: demo use only
-		var itemSword = game.add.sprite(14, 14, 'item_sword');
-		var itemCountSword = game.add.text(64, 16, '5', // TODO: much hard-coding...
-										   {
-			font: "20px yoster_islandregular",
-			fill: '#d3af7a'
-		});
-		itemSword.scale.setTo(2, 2);
-		itemSword.smoothed = false;
+		var uiItemNums = {};
+		var uiItemGroup = game.add.group();
+		var uiPutItemslots = function(numSlots, items) {
+			goup = game.add.group();
+			for (var i = 0; i < numSlots; i++) {
+				var uiItemslot = game.add.sprite(20, 40 + 50 * i, 'ui_itemslot');
+				uiItemslot.anchor.setTo(0, 0);
+				goup.add(uiItemslot);
+			}
+			var j = -1;
+			for (var key in items) {
+				j++;
+				var itemIcon = game.add.sprite(24, 44 + 50 * j, 'item_' + key);
+				itemIcon.scale.setTo(2, 2);
+				itemIcon.smoothed = false;
+				var itemCount = game.add.text(74, 46 + 50 * j, items[key], {
+					font: "20px yoster_islandregular",
+					fill: '#d3af7a'
+				});
+				uiItemNums[key] = itemCount;
+				goup.add(itemIcon);
+				goup.add(itemCount);
+			}
+			return goup;
+		};
 
 		//------------------------- Clock --------------------------------
 		var uiFunnelPos = {
@@ -105,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		var uiFunnel = game.add.sprite(uiFunnelPos.x, uiFunnelPos.y, 'ui_funnel');
 
-		
+
 
 		var th = uiFunnelSandTop.height;
 		var bh = uiFunnelSandButtom.height;
@@ -116,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			uiFunnelSandButtomCrop.y = Math.round(ratio * bh);
 			uiFunnelSandButtomCrop.height = Math.round((1 - ratio) * bh);
 		};
-		
+
 		uiFunnelSandTop.crop(uiFunnelSandTopCrop);
 		uiFunnelSandButtom.crop(uiFunnelSandButtomCrop);
 
@@ -469,8 +481,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		uiButtonQuestion.visible = false;
 		uiNote.visible = false;
 
+		itemSlots = game.add.group();
+
 		game.eventManager.register(game.Events.DAY.START, function(data) {
 			game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
+			itemSlots.callAll('kill');
+			itemSlots = uiPutItemslots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 			heroClueText.text = formatClues(data.clues.hero);
 			crisisClueText.text = formatClues(data.clues.crisis);
 		});
@@ -500,31 +516,33 @@ document.addEventListener('DOMContentLoaded', function() {
 		game.eventManager.register(game.Events.INPUT.NO, currNPCHitStart);
 		game.eventManager.register(game.Events.INVENTORY.SOLD, function(item, offer) {
 			coinDrop(offer);
-			var string = "";
-			var itemDupl = game.add.sprite(14, 14, 'item_' + item);
-			itemDupl.scale.setTo(2, 2);
-			itemDupl.smoothed = false;
-			var itemTweenScale = game.add.tween(itemDupl.scale).to({
-				x: 8,
-				y: 8
-			}, 550, Phaser.Easing.Linear.None, true);
-			var itemTween = game.add.tween(itemDupl).to({
-				x: 50,
-				y: 450,
-				alpha: 0
-			}, 550, Phaser.Easing.Quadratic.Out, true);
+			if (game.playerState.getAvalItems().indexOf(item) >= 0) {
+				var string = "";
+				var itemDupl = game.add.sprite(14, 14, 'item_' + item);
+				itemDupl.scale.setTo(2, 2);
+				itemDupl.smoothed = false;
+				var itemTweenScale = game.add.tween(itemDupl.scale).to({
+					x: 8,
+					y: 8
+				}, 550, Phaser.Easing.Linear.None, true);
+				var itemTween = game.add.tween(itemDupl).to({
+					x: 50,
+					y: 450,
+					alpha: 0
+				}, 550, Phaser.Easing.Quadratic.Out, true);
 
-			itemTween.onComplete.add(function() {
-				itemDupl.destroy();
-			});
-			itemTween.start();
-			itemTweenScale.start();
+				itemTween.onComplete.add(function() {
+					itemDupl.destroy();
+				});
+				itemTween.start();
+				itemTweenScale.start();
+			}
 		});
 
 		game.eventManager.register(game.Events.UPDATE.ITEMS, function(items) {
 			for(var item in items) {
-				if(item === 'sword') {
-					itemCountSword.setText(items[item]);
+				if (uiItemNums[item] != undefined) {
+					uiItemNums[item].setText(game.playerState.getItems()[item].toString());
 				}
 			}
 		});
