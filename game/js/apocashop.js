@@ -496,9 +496,6 @@ document.addEventListener('DOMContentLoaded', function() {
         game.eventManager.register(game.Events.INVENTORY.SOLD, function(item, offer) {
             coinDrop(offer);
             var string = "";
-            if (item == 'sword') { // TODO: hard-coding!
-                itemCountSword.setText((parseInt(itemCountSword.getText()) - 1).toString());
-            }
             var itemDupl = game.add.sprite(14, 14, 'item_' + item);
             itemDupl.scale.setTo(2, 2);
             itemDupl.smoothed = false;
@@ -517,6 +514,14 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             itemTween.start();
             itemTweenScale.start();
+        });
+
+        game.eventManager.register(game.Events.UPDATE.ITEMS, function(items) {
+        	for(var item in items) {
+        		if(item === 'sword') {
+        			itemCountSword.setText(items[item]);
+        		}
+        	}
         });
 
         game.eventManager.register(game.Events.UPDATE.GOLD, function(gold) {
