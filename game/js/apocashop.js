@@ -74,19 +74,25 @@ document.addEventListener('DOMContentLoaded', function() {
 		///////////////////////////// UI elems ///////////////////////////
 
 		//-------------------------- Item slots --------------------------
-		for (var i = 0; i < 1; i++) {
-			var uiItemslot = game.add.sprite(10, 10 + 50 * i, 'ui_itemslot');
-			uiItemslot.anchor.setTo(0, 0);
-		}
-		// TODO: demo use only
-		var itemSword = game.add.sprite(14, 14, 'item_sword');
-		var itemCountSword = game.add.text(64, 16, '5', // TODO: much hard-coding...
-										   {
-			font: "20px yoster_islandregular",
-			fill: '#d3af7a'
-		});
-		itemSword.scale.setTo(2, 2);
-		itemSword.smoothed = false;
+		var uiItemNums = {};
+		var uiPutItemslots = function(numSlots, items) {
+			for (var i = 0; i < numSlots; i++) {
+				var uiItemslot = game.add.sprite(10, 10 + 50 * i, 'ui_itemslot');
+				uiItemslot.anchor.setTo(0, 0);
+			}
+
+			var j = 0;
+			for (var item in items) {
+				var itemIcon = game.add.sprite(14, 14 + 50 * j, 'item_' + item);
+				itemIcon.scale.setTo(2, 2);
+				itemIcon.smoothed = false;
+				var itemCount = game.add.text(64, 16 + 50 * j, items[item], {
+					font: "20px yoster_islandregular",
+					fill: '#d3af7a'
+				});
+				uiItemNums[item] = itemCount;
+			}
+		};
 
 		//------------------------- Clock --------------------------------
 		var uiFunnelPos = {
@@ -105,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		var uiFunnel = game.add.sprite(uiFunnelPos.x, uiFunnelPos.y, 'ui_funnel');
 
-		
+
 
 		var th = uiFunnelSandTop.height;
 		var bh = uiFunnelSandButtom.height;
@@ -116,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			uiFunnelSandButtomCrop.y = Math.round(ratio * bh);
 			uiFunnelSandButtomCrop.height = Math.round((1 - ratio) * bh);
 		};
-		
+
 		uiFunnelSandTop.crop(uiFunnelSandTopCrop);
 		uiFunnelSandButtom.crop(uiFunnelSandButtomCrop);
 
@@ -469,6 +475,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		uiButtonQuestion.visible = false;
 		uiNote.visible = false;
 
+		uiPutItemslots(game.playerState.getNumSlots(), game.playerState.getItems());
+
 		game.eventManager.register(game.Events.DAY.START, function(data) {
 			game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
 			heroClueText.text = formatClues(data.clues.hero);
@@ -498,31 +506,33 @@ document.addEventListener('DOMContentLoaded', function() {
 		game.eventManager.register(game.Events.INPUT.NO, currNPCHitStart);
 		game.eventManager.register(game.Events.INVENTORY.SOLD, function(item, offer) {
 			coinDrop(offer);
-			var string = "";
-			var itemDupl = game.add.sprite(14, 14, 'item_' + item);
-			itemDupl.scale.setTo(2, 2);
-			itemDupl.smoothed = false;
-			var itemTweenScale = game.add.tween(itemDupl.scale).to({
-				x: 8,
-				y: 8
-			}, 550, Phaser.Easing.Linear.None, true);
-			var itemTween = game.add.tween(itemDupl).to({
-				x: 50,
-				y: 450,
-				alpha: 0
-			}, 550, Phaser.Easing.Quadratic.Out, true);
+			if (game.playerState.getAvalItems().indexOf(item) >= 0) {
+				var string = "";
+				var itemDupl = game.add.sprite(14, 14, 'item_' + item);
+				itemDupl.scale.setTo(2, 2);
+				itemDupl.smoothed = false;
+				var itemTweenScale = game.add.tween(itemDupl.scale).to({
+					x: 8,
+					y: 8
+				}, 550, Phaser.Easing.Linear.None, true);
+				var itemTween = game.add.tween(itemDupl).to({
+					x: 50,
+					y: 450,
+					alpha: 0
+				}, 550, Phaser.Easing.Quadratic.Out, true);
 
-			itemTween.onComplete.add(function() {
-				itemDupl.destroy();
-			});
-			itemTween.start();
-			itemTweenScale.start();
+				itemTween.onComplete.add(function() {
+					itemDupl.destroy();
+				});
+				itemTween.start();
+				itemTweenScale.start();
+			}
 		});
 
 		game.eventManager.register(game.Events.UPDATE.ITEMS, function(items) {
 			for(var item in items) {
-				if(item === 'sword') {
-					itemCountSword.setText(items[item]);
+				if (uiItemNums[item] != undefined) {
+					uiItemNums[item].setText(game.playerState.getItems()[item].toString());
 				}
 			}
 		});

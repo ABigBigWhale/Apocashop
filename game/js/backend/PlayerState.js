@@ -11,7 +11,7 @@ function PlayerState(game) {
 			"sword" : 5
 		};
 		availableItems = [
-			"sword", "meat", "shield", "bow"
+			"sword", "chicken", "shield", "bow"
 		];
 		Gold = 0;
 		Level = 1;
