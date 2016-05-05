@@ -77,7 +77,7 @@ function PlayerState(game) {
 
 	this.update = function(gold, items, stocked) {
 		Gold = gold;
-		Items = Object.assign({}, items);
+		Items = JSON.parse(JSON.stringify(items));
 		StockedItems = stocked
 	}
 
