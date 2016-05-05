@@ -75,10 +75,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		//-------------------------- Item slots --------------------------
 		var uiItemNums = {};
+		var uiItemGroup = game.add.group();
 		var uiPutItemslots = function(numSlots, items) {
 			for (var i = 0; i < numSlots; i++) {
 				var uiItemslot = game.add.sprite(10, 10 + 50 * i, 'ui_itemslot');
 				uiItemslot.anchor.setTo(0, 0);
+				uiItemGroup.add(uiItemslot);
 			}
 
 			var j = 0;
@@ -91,6 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					fill: '#d3af7a'
 				});
 				uiItemNums[item] = itemCount;
+				uiItemGroup.add(itemIcon);
+				uiItemGroup.add(itemCount);
 			}
 		};
 
