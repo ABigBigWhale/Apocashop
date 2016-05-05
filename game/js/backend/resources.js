@@ -160,6 +160,7 @@ var heroes = {
 				default : "What a face, what a smile!/And what dashing style!"
 			},
 			sellConditions : ["soldHero"],
+			refuseConditions : ["refusedHero"]
 		},
 		badRhymeMan : {
 			type : "interact",
@@ -182,7 +183,8 @@ var heroes = {
 				goblin : "Eek! Get it away, get it away!",
 				default : "Yup, that's a person?"
 			},
-			sellConditions : ["soldFalse"]
+			sellConditions : ["soldFalse"],
+			refuseConditions : ["refusedFalse"]
 		},
 		scaredMan : {
 			type : "interact",
@@ -490,82 +492,19 @@ var days = [
 				gold : -3
 			},
 			{
-				text : "He also demands that the shop should run faster and should collect more data on its customers."
+				conditions : ["soldHero"],
+				text : "Thanks to the sword you sold to the hero, goblins are driven from the town."
 			},
 			{
-				conditions : ["soldCousin"],
-				text : "Your store is robbed in the night. The robber leaves a note on Mac and Cheese colored paper.",
-				gold : -7
+				conditions : ["refusedHero"],
+				text : "Unfortunately, the hero did not have a sword and the town was overrun by goblins. Your store was pillaged in the night.",
+				gold : -5
+			},
+			{
+				conditions : ["soldFalse"],
+				text : "After giving a discount to the fake hero, you're getting a reputation around town. You might see some more people looking for hero discounts."
 			}
 		],
-		length : 120000
-	},
-	{
-		itemData : {
-			sword : {
-				min : 2,
-				max : 11,
-				priority : 5
-			},
-			chicken : {
-				min : 1,
-				max : 7,
-				priority : 2
-			}
-		},
-		sequence : {
-			0 : {
-				hero : {
-					item : "None",
-					offers : [0],
-					offerText : [
-						{
-							testLongTerm : "YOU SOLD TO HIM",
-							default : "YOU DIDN'T SELL TO HIM"
-						}
-					]
-				},
-				fuzz : 0,
-				force : true
-			},
-			2 : {
-				hero : "man",
-				fuzz : 3,
-				force : true
-			},
-			5 : {
-				hero : "tracker",
-				fuzz : 0,
-				force : true
-			}
-		},
-		conditions : {
-			eventTrigger : {
-				components : ["tutorialPerson"],
-				chance : 1.0,
-				events : ["Events.TEST"],
-				isLongTerm : false
-			},
-			hidPoorly : {
-				components : ["hidMan"],
-				chance : 0.5,
-				isLongTerm : false
-			}
-		},
-		clues : {
-			hero : [
-				"Hero is this person",
-				"Hero looks like this"
-			],
-			crisis : [
-				"Look out for goblins",
-				"Scary business, look out."
-			]
-		},
-		questions : {
-			day : "How was your day?",
-			color : "What's your favorite color?"
-		},
-		length : 60000
+		length : 100000
 	}
 ];
