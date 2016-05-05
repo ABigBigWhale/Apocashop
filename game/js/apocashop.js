@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		//-------------------------- Item slots --------------------------
 		var uiItemNums = {};
+		var uiItemGroup = game.add.group();
 		var uiPutItemslots = function(numSlots, items) {
 			goup = game.add.group();
 			for (var i = 0; i < numSlots; i++) {
