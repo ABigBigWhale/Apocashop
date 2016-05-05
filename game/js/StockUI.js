@@ -121,7 +121,6 @@ function StockUI(game) {
         coidDropTweenAlp.onComplete.add(function() {
             coins.destroy();
         });
-
         coidDropTweenPos.start();
         coidDropTweenAlp.start();
     }

@@ -109,6 +109,7 @@ function Stock(game) {
 		var newGold = game.playerState.getGold() - totalGold;
 		totalGold = 0;
 		game.playerState.update(newGold, Items, stocked);
+		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
 	}
 
 	init();
