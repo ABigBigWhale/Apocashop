@@ -77,8 +77,8 @@ function PlayerState(game) {
 
 	this.update = function(gold, items, stocked) {
 		Gold = gold;
-		Items = Object.assign({}, items);
-		StockedItems = stocked
+		Items = JSON.parse(JSON.stringify(Items)) || {};
+		StockedItems = stocked;
 	}
 
 	this.updateProfit = function(profit) {
@@ -86,7 +86,7 @@ function PlayerState(game) {
 			return;
 		}
 		printDebug("ADDING " + profit + " TO EXP");
-		EXP += profit;
+		EXP += profit * 3;
 		if(EXP >= Level * 10) {
 			game.eventManager.notify(game.Events.LEVEL.LEVELUP, Level + 1);
 			EXP = profit %= (Level * 10);
