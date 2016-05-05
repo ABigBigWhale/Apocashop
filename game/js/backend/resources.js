@@ -128,12 +128,112 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : 'jeff',
 			dialog : [
-				"Nice work, kid.",
 				{
-					testLongTerm : "Also, I remember you sold to the cousin.",
-					default : "Sup, you're fine."
+					soldHero : "Nice work, kid. Glad you read my instructions.",
+					default : "Well, we made it. Wish you had read my instructions though."
+				},
+				{
+					dayOneRobbery : "Hope we don't get robbed again. Haven't felt right since Mr. Mac and Cheese tried to steal me.",
+					default : "Let's hope our streak of good luck continues."
 				}
 			]
+		},
+		rhymeMan : {
+			type : "interact",
+			item : "sword",
+			appearanceInfo : "heroOne",
+			offers : [4],
+			offerText : "Hello shopkeeper, I hope you're not bored./For four gold, I would like to buy a sword!",
+			success : "Thank you sir!/Were I a cat, I would purr!",
+			fail : "I do not have the cash,/my apologies for being brash!",
+			questions : {
+				color : "Though it may fill some with dread,/I must say, my favorite color is red!",
+				day : "My day has been fun, not too short not too long./If this takes much longer, I may break out in song!",
+				default : "Of that, I have not been taught,/and thus I sadly know naught."
+			},
+			items : {
+				sword : "Swords are great for stabbing./Note: they are not meant for grabbing!",
+				default : "I do not know what to make of that,/but I am glad to have had this chat!"
+			},
+			profiles : {
+				goblin : "Ah, my mortal enemy is that./I wish to engage one in single combat.",
+				default : "What a face, what a smile!/And what dashing style!"
+			},
+			sellConditions : ["soldHero"],
+		},
+		badRhymeMan : {
+			type : "interact",
+			item : "sword",
+			appearanceInfo : "heroOne",
+			offers : [2],
+			offerText : "Ahoy there friend, this is a good month./I'd like a sword for two gold please./@Urm, @@@dunth?",
+			success : "Thank you my friend!",
+			fail : "Fine, I'll go elsewhere.",
+			questions : {
+				color : "Though I love many colors, my favorite is orange./It's the greatest of colors, because it's so ... @@@@florange?",
+				day : "Good.",
+				default : "What?"
+			},
+			items : {
+				sword : "Swords are the best, I need one. @@@@Um.@@@@@/Rhyming is hard, and I've run out of rhymes.",
+				default : "Erm, @@cool?"
+			},
+			profiles : {
+				goblin : "Eek! Get it away, get it away!",
+				default : "Yup, that's a person?"
+			},
+			sellConditions : ["soldFalse"]
+		},
+		scaredMan : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : "scaredMan",
+			offers : [0],
+			offerText : "I need to hide here. He's after me./Please, @@he'll kill me if he finds me.",
+			success : "Thank you.",
+			fail : "Oh no.",
+			questions : {
+				day : "Very, @@very@ bad.",
+				news : "Things are not good.",
+				default : "Please,@@ I don't have much time."
+			},
+			items : {
+				shield : "I don't know what to make of that.",
+				default : "I don't know what to make of that."
+			},
+			profiles : {
+				dragon : "There's a dragon?",
+				default : "I don't know them."
+			},
+			sellConditions : ['hidMan']
+		},
+		tracker : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : "tracker",
+			offers : [10, 15],
+			offerText : [
+				"A very dangerous man is loose and I need to find him./I'll pay you ten gold for any information.",
+				"What if I offered you fifteen?"
+			],
+			success : "Well, well street urchin. You're coming with me.",
+			fail : "Very well,@@ I hope you've been honest with me./@@@@For your sake.",
+			questions : {
+				day : "Busy.",
+				news : "I just told you the news.",
+				default : "Stop wasting my time."
+			},
+			items : {
+				shield : "I have no need for that.",
+				default : "Stop wasting my time."
+			},
+			profiles : {
+				dragon : "That is not my concern, leave that to Fosado.",
+				scaredMan : "Aha, That's him!@@ W@h@e@r@e@ @i@s@ @h@e@...",
+				default : "Beneath my concern."
+			},
+			appearConditions : ['hidMan'],
+			successConditions : ['soldMan']
 		}
 	},
 	"man" : {
@@ -274,7 +374,7 @@ var days = [
 				events : ["Events.TUTORIAL.BEGIN"],
 				isLongTerm : false
 			},
-			testLongTerm : {
+			dayOneRobbery : {
 				components : ["soldCousin"],
 				chance : 1.0,
 				isLongTerm : true
@@ -375,7 +475,10 @@ var days = [
 				"The hero speaks only in rhyme.",
 				"The hero does not use made up words to force a rhyme."
 			],
-			crisis : [""]
+			crisis : [
+				"Goblins have been harassing townspeople.",
+				"As a result, swords are in high demand."
+			]
 		},
 		questions : {
 			day : "How was your day?",
@@ -395,7 +498,7 @@ var days = [
 				gold : -7
 			}
 		],
-		length : 15000
+		length : 120000
 	},
 	{
 		itemData : {
