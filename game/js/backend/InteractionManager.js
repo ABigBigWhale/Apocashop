@@ -100,6 +100,10 @@ function InteractionManager(game) {
 		game.eventManager.register(game.Events.INPUT.PROFILE, function(name) {
 			game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC.profiles, name));
 		});
+
+		game.eventManager.register(game.Events.TIMER.JUMP, function(amount) {
+			dayTimer.jumpForward(4000);
+		});
 	}
 
 	// Begin the day, set the day timer, and send our first NPC.

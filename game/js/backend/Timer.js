@@ -9,9 +9,11 @@ function Timer(func, delay) {
 	var isPaused = true;
 
 	this.pause = function() {
-		clearTimeout(timeoutInfo);
-		remaining -= (Date.now() - start);
-		printDebug("PAUSING TIMER: " + remaining);
+		if(!isPaused) {
+			clearTimeout(timeoutInfo);
+			remaining -= (Date.now() - start);
+			printDebug("PAUSING TIMER: " + remaining);
+		}
 
 		isPaused = true;
 	};
@@ -25,6 +27,12 @@ function Timer(func, delay) {
 		}
 
 		isPaused = false;
+	};
+
+	this.jumpForward = function(amount) {
+		self.pause();
+		remaining -= amount;
+		self.resume();
 	};
 
 	this.getPercent = function() {

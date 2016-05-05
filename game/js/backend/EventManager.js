@@ -51,6 +51,9 @@ function EventManager(game) {
 			NEXT : [],
 			END : [],
 			MESSAGE : []
+		},
+		TIMER : {
+			JUMP : []
 		}
 	};
 

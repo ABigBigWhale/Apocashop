@@ -141,7 +141,7 @@ var heroes = {
 		rhymeMan : {
 			type : "interact",
 			item : "sword",
-			appearanceInfo : "heroOne",
+			appearanceInfo : "face|4,misc|4,body|1,hair|11,eye|2,nose|1,mouth|1",
 			offers : [4],
 			offerText : "Hello shopkeeper, I hope you're not bored./For four gold, I would like to buy a sword!",
 			success : "Thank you sir!/Were I a cat, I would purr!",
@@ -165,7 +165,7 @@ var heroes = {
 		badRhymeMan : {
 			type : "interact",
 			item : "sword",
-			appearanceInfo : "heroOne",
+			appearanceInfo : "face|3,misc|7,body|3,hair|8,eye|6,nose|10,mouth|7",
 			offers : [2],
 			offerText : "Ahoy there friend, this is a good month./I'd like a sword for two gold please./@Urm, @@@dunth?",
 			success : "Thank you my friend!",
@@ -189,7 +189,7 @@ var heroes = {
 		scaredMan : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "scaredMan",
+			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
 			offers : [0],
 			offerText : "I need to hide here. He's after me./Please, @@he'll kill me if he finds me.",
 			success : "Thank you.",
@@ -212,7 +212,7 @@ var heroes = {
 		tracker : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "tracker",
+			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
 			offers : [10, 15],
 			offerText : [
 				"A very dangerous man is loose and I need to find him./I'll pay you ten gold for any information.",

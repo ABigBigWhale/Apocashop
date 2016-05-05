@@ -90,7 +90,8 @@ function Stock(game) {
 			var currStocked = game.playerState.getStockedItems();
 			if (currItems[item] === undefined || currItems[item] <= 0 || currStocked[item] === undefined) {
 				price -= items[item].jPrice;
-				profit -= items[item].jPrice
+				profit -= items[item].jPrice;
+				game.eventManager.notify(game.Events.TIMER.JUMP, 4000);
 			} else {
 				profit -= items[item].price;
 			}
