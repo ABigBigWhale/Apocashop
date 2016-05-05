@@ -375,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		uiLevelUp.visible = false;
 
 		function createUpgrades(ups, names) {
-			for (var i = 0; i < (names[currUpgrade] || []).length; i++) {
+			for (var i = 0; i < (names[currUpgrade] || ['upgrade_shop']).length; i++) {
 				var but = game.add.button(game.world.centerX, game.world.centerY + 100, names[currUpgrade][i], acceptUpgrade, this, 1, 0, 0);
 				but.x -= but.width / 2;
 				but.y -= but.height / 2;
