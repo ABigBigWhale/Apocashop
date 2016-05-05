@@ -77,8 +77,8 @@ function PlayerState(game) {
 
 	this.update = function(gold, items, stocked) {
 		Gold = gold;
-		Items = JSON.parse(JSON.stringify(items));
-		StockedItems = stocked
+		Items = JSON.parse(JSON.stringify(Items)) || {};
+		StockedItems = stocked;
 	}
 
 	this.updateProfit = function(profit) {

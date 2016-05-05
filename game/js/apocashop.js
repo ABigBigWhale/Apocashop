@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			font: "1px yoster_islandregular",
 			fill: "#FFFFFF"
 		});
+		game.input.mouse.capture = true;
 
 		///////////////////////////// Assets ///////////////////////////
 		game.assetManager = new AssetManager(game);
@@ -375,9 +376,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		uiLevelUp.visible = false;
 
 		function createUpgrades(ups, names) {
-			for (var i = 0; i < (names[currUpgrade] || ['upgrade_shop']).length; i++) {
-				var but = game.add.button(game.world.centerX, game.world.centerY + 100, names[currUpgrade][i], acceptUpgrade, this, 1, 0, 0);
-				but.x -= but.width / 2;
+			var used = names[currUpgrade] || ['upgrade_shop'];
+			for (var i = 0; i < used.length; i++) {
+				var but = game.add.button(game.world.centerX, game.world.centerY + 100, used[i], acceptUpgrade, this, 1, 0, 0);
+				but.x -= (but.width * (i + 1)) / 2 - (but.width * i);
 				but.y -= but.height / 2;
 				but.visible = true;
 				but.inputEnabled = true;
