@@ -114,6 +114,28 @@ var heroes = {
 			]
 		}
 	},
+	"dayTwo" : {
+		introJeff : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Alright kiddo, time for another exciting day of shopkeeping.",
+				"Don't forget to check out your notebook. While you were resting your weak organic body, I was doing some research.",
+				"I read about a hero who was destined to save this town. You'd better make sure they get what they need."
+			]
+		},
+		endJeff : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Nice work, kid.",
+				{
+					testLongTerm : "Also, I remember you sold to the cousin.",
+					default : "Sup, you're fine."
+				}
+			]
+		}
+	},
 	"man" : {
 		type : "interact",
 		item : "none",
@@ -300,83 +322,58 @@ var days = [
 		},
 		sequence : {
 			0 : {
+				category : "dayTwo",
 				hero : "introJeff",
 				fuzz : 0,
 				force : true
 			},
-			1 : {
-				hero : {
-					item : "sword",
-					offers : [7]
-				},
-				fuzz : 0,
+			4 : {
+				category : "dayTwo",
+				hero : "rhymeMan",
+				fuzz : 7,
 				force : true
 			},
-			2 : {
-				hero : {
-					item : "sword",
-					offers : [1, 8]
-				},
-				fuzz : 0,
-				force : true
-			},
-			3 : {
-				hero : "tutorialWoman",
-				fuzz : 0,
-				force : true
+			5 : {
+				category : "dayTwo",
+				hero : "scaredMan",
+				fuzz : 6,
+				force : false
 			},
 			6 : {
-				hero : {
-					item : "chicken",
-					offers : [3, 6],
-					sellConditions : ["soldChicken"]
-				},
-				fuzz : 0,
-				force : true
+				category : "dayTwo",
+				hero : "badRhymeMan",
+				fuzz : 7,
+				force : false
 			},
 			7 : {
-				hero : "chickenJeff",
-				fuzz : 0,
-				force : true
-			},
-			8 : {
-				hero : "badCousin",
-				fuzz : 3,
-				force : true
-			},
-			11 : {
-				hero : "tutorialWomanAngry",
-				fuzz : 3,
-				force : true
-			},
-			12 : {
-				hero : "tutorialWomanHappy",
-				fuzz : 3,
+				category : "dayTwo",
+				hero : "tracker",
+				fuzz : 6,
 				force : true
 			},
 			9999 : {
-				hero : "endOfTutorialJeff",
+				category : "dayTwo",
+				hero : "endJeff",
 				fuzz : 0,
 				force : true
 			}
 		},
 		conditions : {
-			tutorialItemGive : {
-				components : ["tutorialBegin"],
-				chance : 1.0,
-				events : ["Events.TUTORIAL.BEGIN"],
-				isLongTerm : false
+			manGrateful : {
+				components : ["hidMan"],
+				chance : 0.6,
+				isLongTerm : true
 			},
-			testLongTerm : {
-				components : ["soldCousin"],
-				chance : 1.0,
+			trackerGrateful : {
+				components : ["soldMan"],
+				chance : 0.4,
 				isLongTerm : true
 			}
 		},
 		clues : {
 			hero : [
-				"My cousin is rather rude.",
-				"My cousin's favorite color is 'Mac and Cheese'"
+				"The hero speaks only in rhyme.",
+				"The hero does not use made up words to force a rhyme."
 			],
 			crisis : [""]
 		},
@@ -398,7 +395,7 @@ var days = [
 				gold : -7
 			}
 		],
-		length : 45000
+		length : 15000
 	},
 	{
 		itemData : {

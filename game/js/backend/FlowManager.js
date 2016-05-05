@@ -30,11 +30,11 @@ function beginGame(game) {
 	};
 
 	var beginStocking = function() {
-		game.eventManager.notify(game.Events.STOCK.BEGIN);
-		game.stockUI.startDay(days[dayIndex].clues.crisis, function() {
-			game.eventManager.notify(game.Events.STOCK.END);
-			beginSales();
-		});
+		// game.eventManager.notify(game.Events.STOCK.BEGIN);
+		// game.stockUI.startDay(days[currentDay].clues.crisis, function() {
+		// 	game.eventManager.notify(game.Events.STOCK.END);
+		// 	beginSales();
+		// });
 	};
 
 	var beginSales = function() {

@@ -163,7 +163,7 @@ function InteractionManager(game) {
 			if(typeof npc.hero === 'object') {
 				return generateNPC(currentDay, npc.hero);
 			} else {
-				return storedHero;
+				return npc.category ? heroes[npc.category][npc.hero] : heroes[npc.hero];
 			}
 		}
 		if(npc && storedHero) {
