@@ -92,11 +92,10 @@ var heroes = {
 			appearanceInfo : "jeff",
 			dialog : [
 				"Oh, I forgot to mention. I can make you anything that the people want and you don't have, for a price.",
-				"Y@O@U@R@ S@O@U@L@.@.@.@.@.@.",
-				"But for you kid, I'll also accept gold pieces.",
+				"YOUR@ S@O@U@L@@/But for you kid, I'll also accept gold pieces.",
 				"If I see that you're out of what the customer wants, I'll be sure to shout my price at you.",
 				{
-					soldChicken : "You're pretty lucky to have me, kid. @@Not many anvils can make a cooked chicken.",
+					soldChicken : "You're pretty lucky to have me, kid. @@Not many anvils can magic up a cooked chicken.",
 					default : "You might want to try haggling and selling more next time."
 				}
 			]
@@ -105,7 +104,7 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : "jeff",
 			dialog : [
-				"Nicely done, kid. We're still in business!/@@Against all odds.",
+				"Nicely done, kid. We're still in business!/. . . Against all odds.",
 				{
 					soldCousin : "We need to keep a closer eye out for who to sell to./I have an idea on how to fix that.",
 					default : "We got lucky to get that tip about the cousin./I'll make sure we don't have to rely on luck again."
@@ -408,7 +407,7 @@ var days = [
 				gold : -7
 			}
 		],
-		length : 70000
+		length : 60000
 	},
 	{
 		itemData : {
