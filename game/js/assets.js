@@ -48,13 +48,13 @@ function AssetManager(game) {
 		
 		// 'part' : #of files
 		'npc' : {
-			'face' : 3,
-			'body' : 4,
-			'hair' : 6,
-			'eye' : 8,
+			'face' : 5,
+			'misc' : 7,
+			'body' : 5,
+			'hair' : 11,
+			'eye' : 10,
 			'nose' : 11,
-			'mouth' : 11,
-			'misc' : 7
+			'mouth' : 11
 		}
 
 	};

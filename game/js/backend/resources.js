@@ -570,3 +570,28 @@ var days = [
 		length : 60000
 	}
 ];
+
+var upgrades = {
+	'shop' : [
+		{
+			name: 'Stone',
+			description: 'It doesn\'t look very well... But at least people know it\'s a shop.',
+			effect: 'Increased chance of higher offer'	// TODO
+		},
+		{
+			name: 'Wooden desk',
+			description: 'Finally it matches your dialog box...',
+			effect: 'Increased chance of higher offer'
+		}
+	],
+	
+	'jeff' : [
+		{
+			
+		}
+	],
+	
+	'stock' : [
+		
+	]
+};
