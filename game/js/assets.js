@@ -9,11 +9,17 @@ function AssetManager(game) {
 		'gameplay': [
 			'gp_background',
 			'gp_shopkeeper',
+			'gp_stock',
+			/* Jeff */
 			'gp_jeff',
 			'gp_jeff_noshadow',
 			'gp_jeff_shadow',
-			'gp_stock',
-			'gp_jeff_big'
+			'gp_jeff_big',
+			/* Dog */
+			'gp_dog_small',
+			'gp_dog_big', 'gp_dog_tail', 'gp_dog_tounge', 'gp_dog_claw_1',
+			'gp_dog_claw_2',
+
 		],
 
 		'ui': [
@@ -45,7 +51,7 @@ function AssetManager(game) {
 		'items' : [
 			'item_sword', 'item_bow', 'item_chicken', 'item_shield'
 		],
-		
+
 		// 'part' : #of files
 		'npc' : {
 			'face' : 5,

@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		};
 
 		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
+		var dog = game.add.sprite(440, 300, 'gp_dog_small');
 
 		var shop = game.add.sprite(0, 0, 'shop_rock');
 		shop.smoothed = false;
