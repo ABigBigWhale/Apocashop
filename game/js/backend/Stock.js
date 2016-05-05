@@ -14,6 +14,7 @@ function Stock(game) {
 		game.eventManager.register(game.Events.STOCK.OUTSTOCK, returnStock);
 		game.eventManager.register(game.Events.STOCK.INIT, initStock);
 		game.eventManager.register(game.Events.LEVEL.ACCEPT, addUpgrade);
+		game.eventManager.register(game.Events.STOCK.STARTDAY, initStockUI);
 	}
 
 	function initStock() {
@@ -21,6 +22,10 @@ function Stock(game) {
 		game.eventManager.notify(game.Events.UPDATE.STOCKGOLD, game.playerState.getGold() - totalGold);
 	}
 
+	function initStockUI() {
+		game.eventManager.notify(game.Events.STOCK.INIT, game.playerState.getNumSlots(), game.playerState.getGold(),
+														game.playerState.getAvalItems(), game.playerState.getItems());
+	}
 	function returnStock(item) {
 		if (items[item] === undefined) {
 			alert("Trying to remove an item that doesn't exist");

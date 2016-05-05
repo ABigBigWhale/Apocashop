@@ -35,7 +35,8 @@ function EventManager(game) {
 			REMOVE : [],
 			COMMIT : [],
 			OUTSTOCK : [],
-			INIT : []
+			INIT : [],
+			STARTDAY : []
 		},
 		LEVEL : {
 			LEVELUP : [],
