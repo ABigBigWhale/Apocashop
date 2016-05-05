@@ -2,7 +2,7 @@ function DialogManager(game) {
 
 	game.dialog = {
 		main : {
-			box : game.add.text(250, 427, "", { font: "24px yoster_islandregular", fill: "#4d372c"} ),
+			box : game.add.text(250, 427, "", { font: "24px yoster_islandregular", fill: Colors.PassiveMain} ),
 			ghost : game.add.text(999, 999, "", { font: "24px yoster_islandregular"} ),
 			isPrinting : false,
 			isFrozen : false,
@@ -22,12 +22,12 @@ function DialogManager(game) {
 			unfreezeCallback : false
 		},
 		jeff : {
-			box : game.add.text(500, 130, "", { font : "16px yoster_islandregular" }),
+			box : game.add.text(500, 130, "", { font : "16px yoster_islandregular", fill: Colors.PassiveDarker }),
 			ghost : game.add.text(999, 999, "", { font : "16px yoster_islandregular" }),
 			timeout : false
 		},
 		wrapup : {
-			box : game.add.text(150, 200, "", { font: "24px yoster_islandregular", fill: "#FFFFFF" }),
+			box : game.add.text(150, 200, "", { font: "24px yoster_islandregular", fill: Colors.PassiveLighter }),
 			ghost : game.add.text(999, 999, "", { font: "24px yoster_islandregular" }),
 			timeout : false
 		}
