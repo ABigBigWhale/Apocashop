@@ -154,7 +154,8 @@ function StockUI(game) {
     function updateItems(Items) {
         for (var key in Items) {
             // do shallow copy of each item number
-            allBox[key].num = Items[key] + 0;
+            if (!(allBox === undefined) && allBox != null)
+                allBox[key].num = Items[key] + 0;
         }
     }
 
@@ -205,7 +206,7 @@ function StockUI(game) {
 
     function findCollision(sprite, all) {
         for (var i = 0; i < all.length; i++) {
-            if (game.physics.arcade.overlap(sprite, all[i])) {
+            if (Phaser.Rectangle.intersects(sprite.getBounds(), all[i].getBounds())) {
                 return all[i];
             }
         }
