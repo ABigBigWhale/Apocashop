@@ -405,7 +405,7 @@ var days = [
 				gold : -7
 			}
 		],
-		length : 45000
+		length : 70000
 	},
 	{
 		itemData : {

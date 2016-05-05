@@ -495,8 +495,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, offer, isRepeat) {
 			switchButtons(true);
+			game.interactionManager.dayTimer.pause();
 			game.dialog.main.isPrinting = true;
 			game.dialogManager.printMain(offer, isRepeat, function() {
+				game.interactionManager.dayTimer.resume();
 				game.dialog.main.isPrinting = false;
 			});
 		});
