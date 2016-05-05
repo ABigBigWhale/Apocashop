@@ -586,10 +586,18 @@ document.addEventListener('DOMContentLoaded', function() {
 			toggleButtons(false);
 
 			printDebug("GENERATING NPC IMG: " + appearanceInfo);
+			
 			var isRandom = false;
+			var animFunc = null; 	// Function for moving parts
 			switch (appearanceInfo) {
 				case 'jeff':
 					appearanceInfo = 'gp_jeff_big';
+					break;
+				case 'dog':
+					appearanceInfo = 'gp_dog_big';
+					animFunc = function(layer) {
+						// TODO: Create tails, tounges, claws, and make tweens for them?
+					}
 					break;
 				default:
 					isRandom = true;
@@ -618,6 +626,10 @@ document.addEventListener('DOMContentLoaded', function() {
 					npcAssetId = appearanceInfo;
 				}
 				currNPC = uiAvatarLayer.create(20, 360, npcAssetId);
+				
+				// TODO: probably create all moving parts here?
+				// 		 and make currNPC a group?
+				
 				setNPCTween();
 				if (isRandom) currNPC.scale.setTo(3, 3);
 				else {
