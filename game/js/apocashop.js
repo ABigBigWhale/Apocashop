@@ -79,27 +79,27 @@ document.addEventListener('DOMContentLoaded', function() {
 		var uiItemNums = {};
 		var uiItemGroup = game.add.group();
 		var uiPutItemslots = function(numSlots, items) {
-			goup = game.add.group();
+			//goup = game.add.group();
 			for (var i = 0; i < numSlots; i++) {
-				var uiItemslot = game.add.sprite(20, 40 + 50 * i, 'ui_itemslot');
+				var uiItemslot = uiItemGroup.create(20, 40 + 50 * i, 'ui_itemslot');
 				uiItemslot.anchor.setTo(0, 0);
-				goup.add(uiItemslot);
+				//goup.add(uiItemslot);
 			}
 			var j = -1;
 			for (var key in items) {
 				j++;
-				var itemIcon = game.add.sprite(24, 44 + 50 * j, 'item_' + key);
+				var itemIcon = uiItemGroup.create(24, 44 + 50 * j, 'item_' + key);
 				itemIcon.scale.setTo(2, 2);
 				itemIcon.smoothed = false;
 				var itemCount = game.add.text(74, 46 + 50 * j, items[key], {
 					font: "20px yoster_islandregular",
 					fill: '#d3af7a'
-				});
+				}, uiItemGroup);
 				uiItemNums[key] = itemCount;
-				goup.add(itemIcon);
-				goup.add(itemCount);
+				//goup.add(itemIcon);
+				//goup.add(itemCount);
 			}
-			return goup;
+			//return goup;
 		};
 
 		//------------------------- Clock --------------------------------
