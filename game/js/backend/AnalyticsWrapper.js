@@ -1,39 +1,34 @@
 function AnalyticsWrapper() {
 
-	var self = this;
+	// Change this whenever we want to start collecting
+	// to a new data set
+	var VERSION_NUM = '0.001';
 
-	var mappedVals = {};
+	// The value argument isn't required, you can just
+	// not include it if it doesn't really apply.
 
-	// Maps a key to be used for a later analytics call. For example,
-	// we can map the current day, and then include it in a future call
-	// by putting "day" in the mappedKeys array for a track call.
-	this.map = function(key, val, isSend) {
-		mappedVals[key] = val;
-		if(isSend) {
-			self.track(key, val);
-		}
-	};
+	// EXAMPLES:
+	// category : day, buttons, interactions, timer
+	// action : begin, question, accept, haggle
+	// value : 7
 
-	// Call this with the event you want to track, the value you
-	// want to track with it (just put false if you don't care about
-	// the value), and an optional array of mapped keys to include.
-	this.track = function(event, val, mappedKeys) {
-		var trackedVals = {};
-		mappedKeys = mappedKeys || [];
-		for(var i = 0; i < mappedKeys.length; i++) {
-			trackedVals[mappedKeys[i]] = mappedVals[mappedKeys[i]];
-		}
-		trackedVals[event] = val;
+	// EXAMPLE CALLS:
+	// track('day', 'begin', 2)
+	// track('interactions', 'haggle', 7)
+	// track('buttons', 'question')
+	this.track = function(category, action, value) {
+
+		printDebug("Tracking: " + category + ", " + action + ", " + value);
 
 		// This is the only area we'll need to change based on the
 		// analytics framework.
-		dummyFramework.track(trackedVals);
+		ga('send', {
+			hitType : 'event',
+			eventCategory : category,
+			eventAction : action,
+			eventLabel : VERSION_NUM,
+			eventValue : value
+		});
 	};
 
 }
-
-var dummyFramework = {
-	track : function(vals) {
-		printDebug("TRACKING: " + JSON.stringify(vals));
-	}
-};
