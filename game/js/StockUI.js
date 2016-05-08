@@ -38,14 +38,6 @@ function StockUI(game) {
     }
 
     function updateNewsUI(news) {
-        /* allBox = createItemSprites(game.playerState.getAvalItems(), game.playerState.getItems());
-        allLoad = createLoads(game.playerState.getNumSlots());
-        initAllItems(allBox);
-        initAllLoad(allLoad);
-        textCoins = game.add.text(60, 520, "0",
-                                          { font: "30px yoster_islandregular", fill: "#c67520"} );
-        textCoins.setText(game.playerState.getGold());
-		textCoins.anchor.setTo(0.5, 0); */
         allNews = game.add.text(200, 435, formatClues(news), 
                                     { font: "20px yoster_islandregular" , fill: "#3B3B3B", wordWrap : true,
                                        wordWrapWidth : 400});

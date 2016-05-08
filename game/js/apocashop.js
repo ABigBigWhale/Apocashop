@@ -56,10 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		var shop = game.add.sprite(0, 0, 'shop_rock');
 		shop.smoothed = false;
 		shop.alpha = 0;
+		shop.visible = false;
 		var shop_fade_tween = game.add.tween(shop).to({
 			alpha: 1
 		}, 2000, Phaser.Easing.Linear.None, false);
-		shop.visible = false;
 		setPositionLowerMiddle(shop, shopkeeper);
 
 		var jeff = game.add.sprite(shopkeeper.x + 35, 277, 'gp_jeff_noshadow');
@@ -351,40 +351,38 @@ document.addEventListener('DOMContentLoaded', function() {
 			uiDeskBg.tint = tintVal;
 		}
 
-		function toggleUpgrades() {
-			var isEnabled = uiButtonAccept.inputEnabled && uiButtonContinue.inputEnabled;
-			toggleButtons(!isEnabled);
-			if (isEnabled) {
-				makeFireworks();
-				upgrades = game.add.group();
-				createUpgrades(upgrades, upgradeNames);
-				tintAll(0xA9A9A9);
-			} else {
-				tintAll(0xFFFFFF);
-				upgrades.callAll('kill');
-			}
-			uiLevelUp.visible = isEnabled;
-		}
-
 		// --------------------------- Upgrades -----------------------
 		//TODO: make this create based off of upgrades taken from stock.nextUpgrades
-		var upgradeNames = [['upgrade_shop'], ['upgrade_itemslot']];
 		var currUpgrade = 0;
-		var upgrades = game.add.group();
+		var currShop = 0;
+		var upgradeGroup = game.add.group();
 		var uiLevelUp = game.add.sprite(game.world.centerX, 20, 'ui_levelup');
 		uiLevelUp.scale.setTo(0.75, 0.75);
 		uiLevelUp.x -= uiLevelUp.width / 2 - 12;
 		uiLevelUp.visible = false;
 
+		var upgradeIndexes = {};
+		
+		function initUpgradeIndexes(indexes) {
+			for(var key in upgrades) {
+				indexes[key] = 0;
+			}
+		}
+
 		function createUpgrades(ups, names) {
-			var used = names[currUpgrade] || ['upgrade_shop'];
+			var used = names[currUpgrade] || ['shop'];
 			for (var i = 0; i < used.length; i++) {
-				var but = game.add.button(game.world.centerX, game.world.centerY + 100, used[i], acceptUpgrade, this, 1, 0, 0);
-				but.x -= (but.width * (i + 1)) / 2 - (but.width * i);
+				var but = game.add.button(game.world.centerX, game.world.centerY + 100, 
+											"upgrade_" + used[i], acceptUpgrade, this, 1, 0, 0);
+				but.x -= ((but.width + 10 ) * (used.length)) / 2 - ((but.width + 10) * i);
 				but.y -= but.height / 2;
+				but.nextVisual = "shop_" + (upgrades[used[i]][currShop] ||
+											upgrades[used[i]][upgrades[used[i]].length - 1]).name;
+				but.nextPos = (upgrades[used[i]][currShop]|| 
+							  upgrades[used[i]][upgrades[used[i]].length - 1]).position;
 				but.visible = true;
 				but.inputEnabled = true;
-				upgrades.add(but);
+				upgradeGroup.add(but);
 			}
 			currUpgrade++;
 		}
@@ -392,13 +390,34 @@ document.addEventListener('DOMContentLoaded', function() {
 		function acceptUpgrade(sprite, pointer) {
 			game.eventManager.notify(game.Events.LEVEL.ACCEPT, sprite.key);
 			if (sprite.key.indexOf("shop") > 0) {
-				shop_fade_tween.start();
+				shop.kill();
+				shop = game.add.sprite(sprite.nextPos[0], sprite.nextPos[1], sprite.nextVisual);
+				shop.smoothed = false;
+				shop.alpha = 1;
 				shop.visible = true;
+				currShop++;
+				//shop_fade_tween.start();
 			}
 			fireworks.x = sprite.x + sprite.width / 2;
 			fireworks.y = sprite.y + sprite.height / 2;
 			fireworks.start(true, 1000, null, 15);
 			toggleUpgrades();
+		}
+
+
+		function toggleUpgrades() {
+			var isEnabled = uiButtonAccept.inputEnabled && uiButtonContinue.inputEnabled;
+			toggleButtons(!isEnabled);
+			if (isEnabled) {
+				makeFireworks();
+				upgradeGroup = game.add.group();
+				createUpgrades(upgradeGroup, upgradeSequence);
+				tintAll(0xA9A9A9);
+			} else {
+				tintAll(0xFFFFFF);
+				upgradeGroup.callAll('kill');
+			}
+			uiLevelUp.visible = isEnabled;
 		}
 
 		// ---------------------- EXP bar ------------------------
