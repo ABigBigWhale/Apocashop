@@ -254,6 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			if (game.dialog.main.isPrinting) {
 				game.dialogManager.jumpMain();
 			} else {
+				
 				game.eventManager.notify(game.Events.INPUT.NO)
 			}
 		};

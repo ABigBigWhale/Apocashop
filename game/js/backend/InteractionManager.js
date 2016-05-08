@@ -69,6 +69,7 @@ function InteractionManager(game) {
 		// When no is selected, if there is an unsent offer, send it. Otherwise, trip refuse
 		// Conditions and send fail dialog.
 		game.eventManager.register(game.Events.INPUT.NO, function() {
+			game.analytics.track("NOTSOLD", currentNPC.item, currentNPC.offers[offerIndex]);
 			var offers = currentNPC.offers;
 			offerIndex++;
 			if(currentNPC.offers.length > offerIndex) {

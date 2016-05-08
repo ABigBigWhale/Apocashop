@@ -79,6 +79,11 @@ function PlayerState(game) {
 		Gold = gold;
 		Items = JSON.parse(JSON.stringify(Items)) || {};
 		StockedItems = stocked;
+		var stocked_string = StockedItems[0] || "";
+		for(var i = 1; i < StockedItems.length; i++) {
+			stocked_string += "_" + StockedItems[i]
+		}
+		game.analytics.track("STOCK.COMMIT", stocked_string, numSlots);
 	}
 
 	this.updateProfit = function(profit) {
