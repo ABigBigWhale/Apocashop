@@ -193,6 +193,10 @@ function InteractionManager(game) {
 			}
 		} while(currentNPC.appearConditions && !conditionManager.get(currentNPC.appearConditions));
 
+		if(currentNPC.appearanceInfo === 'random') {
+			applyRandomAppearance(currentNPC);
+		}
+
 		offerIndex = 0;
 		dialogIndex = 0;
 

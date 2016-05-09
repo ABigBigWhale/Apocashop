@@ -396,6 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				shop.smoothed = false;
 				shop.alpha = 1;
 				shop.visible = true;
+				game.depthGroups.shopGroup.add(shop);
 				currShop++;
 				//shop_fade_tween.start();
 			}

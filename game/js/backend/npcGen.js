@@ -1,4 +1,5 @@
 var generateNPC;
+var applyRandomAppearance;
 
 function initNPCGen(game) {
 
@@ -21,7 +22,7 @@ function initNPCGen(game) {
 		}
 	};
 
-	var generateAppearance;
+	var generateAppearance
 	var generateGreeting;
 	var generateHaggle;
 	var generateItemResponse;
@@ -105,6 +106,10 @@ function initNPCGen(game) {
 			}
 			
 			return apprQuery.substring(0, apprQuery.length - 1);
+		};
+
+		applyRandomAppearance = function(npc) {
+			npc.appearanceInfo = generateAppearance(npc.item, npc.offers);
 		};
 
 	})();

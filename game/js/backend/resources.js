@@ -69,7 +69,7 @@ var heroes = {
 		"badCousin" : {
 			type : "interact",
 			item : "sword",
-			appearanceInfo : "face|1,body|3,hair|6,eye|4,nose|11,mouth|5,misc|4",
+			appearanceInfo : "random",
 			offers : [10],
 			offerText : "Give me a sword and you can have ten gold instead of a mouth full of teeth.",
 			success : "Heh, thanks.",
@@ -141,7 +141,7 @@ var heroes = {
 		rhymeMan : {
 			type : "interact",
 			item : "sword",
-			appearanceInfo : "face|4,misc|4,body|1,hair|11,eye|2,nose|1,mouth|1",
+			appearanceInfo : "random",
 			offers : [4],
 			offerText : "Hello shopkeeper, I hope you're not bored./For four gold, I would like to buy a sword!",
 			success : "Thank you sir!/Were I a cat, I would purr!",
@@ -165,7 +165,7 @@ var heroes = {
 		badRhymeMan : {
 			type : "interact",
 			item : "sword",
-			appearanceInfo : "face|3,misc|7,body|3,hair|8,eye|6,nose|10,mouth|7",
+			appearanceInfo : "random",
 			offers : [2],
 			offerText : "Ahoy there friend, this is a good month./I'd like a sword for two gold please./@Urm, @@@dunth?",
 			success : "Thank you my friend!",
@@ -196,7 +196,7 @@ var heroes = {
 			fail : "Oh no.",
 			questions : {
 				day : "Very, @@very@ bad.",
-				news : "Things are not good.",
+				color : "I don't know.",
 				default : "Please,@@ I don't have much time."
 			},
 			items : {
@@ -222,7 +222,7 @@ var heroes = {
 			fail : "Very well,@@ I hope you've been honest with me./@@@@For your sake.",
 			questions : {
 				day : "Busy.",
-				news : "I just told you the news.",
+				color : "Whatever will make you move faster.",
 				default : "Stop wasting my time."
 			},
 			items : {
@@ -235,7 +235,96 @@ var heroes = {
 				default : "Beneath my concern."
 			},
 			appearConditions : ['hidMan'],
-			successConditions : ['soldMan']
+			sellConditions : ['soldMan'],
+			refuseConditions : ['manLived']
+		}
+	},
+	dayThree : {
+		introJeff : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Alright kiddo, third day's the charm. Let's do this.",
+			]
+		},
+		endJeff : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				{
+					soldHero : "Nice work, kid. Let's get some sleep.",
+					default : "We made it, kiddo. Let's hope we don't get robbed."
+				}
+			]
+		},
+		scaredMan : {
+			type : 'interact',
+			item : "None",
+			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			offers : [10],
+			offerText : [
+				"Thank you so much for hiding me yesterday. Would you accept this gift?"
+			],
+			success : "Use it well.",
+			fail : "Very well, friend.",
+			questions : {
+				number : "I'll go with ten.",
+				color : "The color of sky, the color of freedom.",
+				default : "ERROR: NO ANSWER."
+			},
+			items : {
+				default : "ERROR: NO ANSWER."
+			},
+			profiles : {
+				default : "ERROR: NO ANSWER."
+			},
+			appearConditions : ['manGrateful']
+		},
+		vocabMan : {
+			type : 'interact',
+			item : 'bow',
+			appearanceInfo : 'random',
+			offers : [2],
+			offerText : "Get @bow,@@ two @gold?",
+			success : "Two gold, @bow get!",
+			fail : "Two gold bow . . .",
+			questions : {
+				color : "@@Gold!",
+				number : "@@Two!",
+				default : ". . ."
+			},
+			items : {
+				bow : "Bow!",
+				default : ". . ."
+			},
+			profiles : {
+				convict : "Bow get!",
+				default : ". . ."
+			},
+			sellConditions : ['soldHero'],
+			refuseConditions : ['refusedHero']
+		},
+		badVocabMan : {
+			type : 'interact',
+			item : 'bow',
+			appearanceInfo : 'random',
+			offers : [3],
+			offerText : "Three gold, bow get?",
+			success : "Thanks!",
+			fail : "Ugh, fine.",
+			questions : {
+				color : "Red!",
+				number : "Four!",
+				default : "Huh?"
+			},
+			items : {
+				bow : "Nice!",
+				default : "Huh?"
+			},
+			profiles : {
+				convict : ". . .",
+				default : ". . ."
+			}
 		}
 	}
 };
@@ -344,8 +433,8 @@ var days = [
 		},
 		wrapup : [
 			{
-				text : "You're forced by King Zoran to pay 3 gold in taxes.",
-				gold : -3
+				text : "You're forced by King Zoran to pay 10 gold in taxes.",
+				gold : -10
 			},
 			{
 				text : "He also demands that the shop should run faster and should collect more data on its customers."
@@ -353,7 +442,7 @@ var days = [
 			{
 				conditions : ["soldCousin"],
 				text : "Your store is robbed in the night. The robber leaves a note on Mac and Cheese colored paper.",
-				gold : -7
+				gold : -3
 			}
 		],
 		length : 60000
@@ -411,8 +500,8 @@ var days = [
 		},
 		conditions : {
 			manGrateful : {
-				components : ["hidMan"],
-				chance : 0.6,
+				components : ["manLived"],
+				chance : 1.0,
 				isLongTerm : true
 			},
 			trackerGrateful : {
@@ -437,8 +526,8 @@ var days = [
 		},
 		wrapup : [
 			{
-				text : "You're forced by King Zoran to pay 3 gold in taxes.",
-				gold : -3
+				text : "You're forced by King Zoran to pay 10 gold in taxes.",
+				gold : -10
 			},
 			{
 				conditions : ["soldHero"],
@@ -455,7 +544,95 @@ var days = [
 			}
 		],
 		length : 100000
-	}
+	},
+	{
+		itemData : {
+			sword : {
+				min : 2,
+				max : 11,
+				priority : 2
+			},
+			chicken : {
+				min : 1,
+				max : 8,
+				priority : 2
+			},
+			bow : {
+				min : 3,
+				max : 12,
+				priority : 8
+			}
+		},
+		sequence : {
+			0 : {
+				category : "dayThree",
+				hero : "introJeff",
+				fuzz : 0,
+				force : true
+			},
+			1 : {
+				category : 'dayThree',
+				hero : 'vocabMan',
+				fuzz : 12,
+				force : true
+			},
+			2 : {
+				category : 'dayThree',
+				hero : 'badVocabMan',
+				fuzz : 12,
+				force : true
+			},
+			3 : {
+				category : 'dayThree',
+				hero : 'scaredMan',
+				fuzz : 12,
+				force : true
+			},
+			9999 : {
+				category : "dayThree",
+				hero : "endJeff",
+				fuzz : 0,
+				force : true
+			}
+		},
+		conditions : {
+			
+		},
+		clues : {
+			hero : [
+				"The hero knows only four words.",
+				"Hint: You may need to question the hero."
+			],
+			crisis : [
+				"The town's being attacked by convicts with very short swords.",
+				"Bows are in high demand."
+			]
+		},
+		questions : {
+			number : "Favorite number?",
+			color : "Favorite color?"
+		},
+		wrapup : [
+			{
+				text : "You're forced by King Zoran to pay 10 gold in taxes.",
+				gold : -10
+			},
+			{
+				conditions : ["soldHero"],
+				text : "Using his sharpshooting skills, the hero drove the convicts from the town.",
+			},
+			{
+				conditions : ['soldHero'],
+				text : "When interviewed, he would only repeat 'BOW GET, FIVE GOLD!'."
+			},
+			{
+				conditions : ["refusedHero"],
+				text : "The convicts pillage the town and destroy your storefront. You spend 15 gold to repair it.",
+				gold : -15
+			}
+		],
+		length : 60000
+	},
 ];
 
 var upgradeSequence = [['shop'], ['itemslot'], ['shop'], ['shop', 'time'], ['shop', 'time']];
