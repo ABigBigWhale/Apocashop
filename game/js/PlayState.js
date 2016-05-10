@@ -583,7 +583,7 @@ function PlayStateWrapper(game) {
 						appearanceInfo = 'gp_jeff_big';
 						break;
 					case 'dog':
-						appearanceInfo = 'gp_dog_big';
+						appearanceInfo = 'gp_dog_set';
 						animFunc = function(layer) {
 							// TODO: Create tails, tounges, claws, and make tweens for them?
 						}
@@ -622,7 +622,8 @@ function PlayStateWrapper(game) {
 					setNPCTween();
 					if (isRandom) currNPC.scale.setTo(3, 3);
 					else {
-                        if (npcAssetId == 'gp_jeff_big') currNPC.scale.setTo(2, 2);
+                        //if (npcAssetId == 'gp_jeff_big') 
+                        currNPC.scale.setTo(2, 2);
 						currNPC.smoothed = false;
 					}
 					currNPCIn.onComplete.add(function() {
