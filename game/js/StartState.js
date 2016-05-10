@@ -2,6 +2,7 @@ function StartStateWrapper(game) {
 
 	this.startState = {
 		create: function() {
+			game.displayManager.prepareStage();
 			game.displayManager.putTitleScreen();
 
 			game.input.onDown.add(function() {
