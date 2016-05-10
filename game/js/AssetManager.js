@@ -7,6 +7,8 @@ function AssetManager(game) {
 	// Paths of asset files, without extensions
 	this.assets = {
 		'gameplay': [
+			'gp_title',
+			'gp_clickstart',
 			'gp_background',
 			'gp_shopkeeper',
 			'gp_stock',
