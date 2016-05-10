@@ -361,12 +361,10 @@ function PlayStateWrapper(game) {
 				fireworks.x = sprite.x + sprite.width / 2;
 				fireworks.y = sprite.y + sprite.height / 2;
 				fireworks.start(true, 1000, null, 15);
-				toggleUpgrades();
+				toggleUpgrades(false);
 			}
 
-
-			function toggleUpgrades() {
-				var isEnabled = uiButtonAccept.inputEnabled && uiButtonContinue.inputEnabled;
+			function toggleUpgrades(isEnabled) {
 				toggleButtons(!isEnabled);
 				if (isEnabled) {
 					makeFireworks();
@@ -375,6 +373,7 @@ function PlayStateWrapper(game) {
 					tintAll(0xA9A9A9);
 				} else {
 					tintAll(0xFFFFFF);
+					upgradeGroup.visible = false;
 					upgradeGroup.callAll('kill');
 				}
 				uiLevelUp.visible = isEnabled;
@@ -496,7 +495,9 @@ function PlayStateWrapper(game) {
 			});
 
 			game.eventManager.register(game.Events.LEVEL.EXPUP, drawExp);
-			game.eventManager.register(game.Events.LEVEL.LEVELUP, toggleUpgrades);
+			game.eventManager.register(game.Events.LEVEL.LEVELUP, function() {
+				toggleUpgrades(true);
+			});
 			game.eventManager.register(game.Events.INPUT.NO, currNPCHitStart);
 			game.eventManager.register(game.Events.INVENTORY.SOLD, function(item, offer) {
 				coinDrop(offer);
