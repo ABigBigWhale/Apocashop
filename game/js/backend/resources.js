@@ -365,10 +365,15 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : 'jeff',
 			dialog : [
-				"YES, this is the best day. Dogs are one of the few things I can't create.",
-				"Well, I can,@@@ but I can only make dead ones."
-			],
-			appearConditions : ['gotDog']
+				{
+					gotDog : "YES, this is the best day. Dogs are one of the few things I can't create.",
+					default : "This is the worst day ever."
+				},
+				{
+					gotDog : "Well, I can,@@@ but I can only make dead ones.",
+					default : "I am irate."
+				}
+			]
 		}
 	}
 };
