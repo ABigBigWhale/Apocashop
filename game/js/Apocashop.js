@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	game.loadStateWrapper = new LoadStateWrapper(game);
 	game.startStateWrapper = new StartStateWrapper(game);
 	game.playStateWrapper = new PlayStateWrapper(game);
+	game.endStateWrapper = new EndStateWrapper(game);
 	
 	game.state.add('state_load',
 				   game.loadStateWrapper.loadState);
@@ -30,6 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				   game.startStateWrapper.startState);
 	game.state.add('state_play',
 				   game.playStateWrapper.playState);
+	game.state.add('state_end',
+				   game.endStateWrapper.endState);
 	
 	game.state.start('state_load');
 });

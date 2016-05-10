@@ -477,8 +477,8 @@ var days = [
 		},
 		wrapup : [
 			{
-				text : "You're forced by King Zoran to pay 10 gold in taxes.",
-				gold : -10
+				text : "You're forced by King Zoran to pay 1000 gold in taxes.",
+				gold : -1000
 			},
 			{
 				text : "He also demands that the shop should run faster and should collect more data on its customers."
@@ -570,8 +570,8 @@ var days = [
 		},
 		wrapup : [
 			{
-				text : "You're forced by King Zoran to pay 10 gold in taxes.",
-				gold : -10
+				text : "You're forced by King Zoran to pay 20 gold in taxes.",
+				gold : -20
 			},
 			{
 				conditions : ["soldHero"],
@@ -580,7 +580,7 @@ var days = [
 			{
 				conditions : ["refusedHero"],
 				text : "Unfortunately, the hero did not have a sword and the town was overrun by goblins. Your store was pillaged in the night.",
-				gold : -5
+				gold : -20
 			},
 			{
 				conditions : ["soldFalse"],

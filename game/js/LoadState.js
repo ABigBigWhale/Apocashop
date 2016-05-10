@@ -9,8 +9,9 @@ function LoadStateWrapper(game) {
 				fill: "#FFFFFF"
 			});
 
-			var loadingText = game.add.text(100, 200, "fix", {
-				font: "1px yoster_islandregular",
+			// TODO: temporary
+			var loadingText = game.add.text(100, 200, "Loading", {
+				font: "32px yoster_islandregular",
 				fill: "#FFFFFF"
 			});
 
