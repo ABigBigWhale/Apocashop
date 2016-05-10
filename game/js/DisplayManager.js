@@ -68,19 +68,28 @@ function DisplayManager(game) {
 	};
 
 
+	this.putLoadingBackground = function() {
+		var background = game.add.image(0, 500, 'gp_background');
+		background.arriveTween = game.add.tween(background).to({
+			y:'-300'
+		}, 300, Phaser.Easing.Quadratic.None, true);
+	}
 
 	this.putTitleScreen = function() {
-		game.add.image(0, 200, 'gp_background');
 		var title = game.add.sprite(0, 0, 'gp_title');
-		var clickStart = game.add.sprite(400, 500, 'gp_clickstart');
-
+		var clickStart = game.add.sprite(400, 400, 'gp_clickstart');
+		title.alpha = 0;
+		clickStart.alpha = 0;
 		clickStart.anchor.setTo(0.5, 0.5);
 		clickStart.blinkTween = game.add.tween(clickStart).to({
-			alpha: 0
+			alpha: 1
 		}, 1000, Phaser.Easing.Linear.None, true, 0, 500, true);
 
 		title.shakeTween = game.add.tween(title).to({
 			y: '-10'
 		}, 1000, Phaser.Easing.Quadratic.In, true, 0, 500, true);
+		title.fadeIn = game.add.tween(title).to({
+			alpha: 1
+		}, 300, Phaser.Easing.Quadratic.None, true);;
 	};
 }

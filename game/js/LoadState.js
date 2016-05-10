@@ -10,17 +10,16 @@ function LoadStateWrapper(game) {
 			});
 
 			// TODO: temporary
-			var loadingText = game.add.text(100, 200, "Loading", {
+			/*var loadingText = game.add.text(300, 400, "Loading", {
 				font: "32px yoster_islandregular",
 				fill: "#FFFFFF"
-			});
-
-			game.input.mouse.capture = true;
-
-			game.assetManager = new AssetManager(game);
-			game.displayManager = new DisplayManager(game);
+			});*/
 			
-
+			game.stage.backgroundColor = "#92CD9A";
+			game.input.mouse.capture = true;
+			game.displayManager = new DisplayManager(game);
+			game.assetManager = new AssetManager(game);
+			
 			game.displayManager.prepareStage();
 			game.assetManager.load();
 			//initBackend(game);

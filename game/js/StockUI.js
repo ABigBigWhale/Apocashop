@@ -148,6 +148,7 @@ function StockUI(game) {
             curr++;
             game.physics.arcade.enable(boxes[key]);
             boxes[key].itemname = key;
+            boxes[key].loaded = false;
             boxes[key].inputEnabled = true;
             boxes[key].scale.setTo(2, 2);
             boxes[key].input.enableDrag();
@@ -163,6 +164,7 @@ function StockUI(game) {
             boxes[key].price = items[key].price;
         }
     }
+
     function initAllLoad(loads) {
         for (var i = 0; i < loads.length; i++) {
             loads[i].anchor.setTo(0, 0);
@@ -217,20 +219,36 @@ function StockUI(game) {
     }
 
     function onDragStop(sprite, pointer) {
-        var loader = findCollision(sprite, allLoad);
+        var loaded;
+        if (Phaser.Rectangle.intersects(sprite.getBounds(), sprite.itemborder.getBounds()) && sprite.loaded == false) {
+            loader = findEmptyLoad();
+        } else {
+            loader = findCollision(sprite, allLoad);
+        }
         if (loader != undefined && !(loader.loaded === undefined) && loader.loaded == null) {
             sprite.position.copyFrom(loader.position);
             sprite.position.x += 4;
             sprite.position.y += 4;
+            sprite.loaded = true;
             loader.num.text = sprite.num + "";
             loader.loaded = sprite;
         } else {
             sprite.position.copyFrom(sprite.originalPosition);
+            sprite.loaded = false;
             game.world.bringToTop(sprite.itemborder);
             coinDrop(sprite.num - sprite.orignum);
             game.eventManager.notify(game.Events.STOCK.OUTSTOCK, sprite.itemType);
             coinDrop()
         }
+    }
+
+    function findEmptyLoad() {
+        for (var i = 0; i < allLoad.length; i++) {
+            if (allLoad[i].loaded == null) {
+                return allLoad[i];
+            }
+        }
+        return null;
     }
 
     function findCollision(sprite, all) {

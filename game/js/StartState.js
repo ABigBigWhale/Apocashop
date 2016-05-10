@@ -2,6 +2,7 @@ function StartStateWrapper(game) {
 
 	this.startState = {
 		create: function() {
+			game.displayManager.putLoadingBackground();
 			game.displayManager.prepareStage();
 			game.displayManager.putTitleScreen();
 

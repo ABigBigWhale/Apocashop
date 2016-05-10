@@ -20,7 +20,7 @@ function AssetManager(game) {
 			/* Dog */
 			'gp_dog_small',
 			'gp_dog_big', 'gp_dog_tail', 'gp_dog_tounge', 'gp_dog_claw_1',
-			'gp_dog_claw_2',
+			'gp_dog_claw_2'
 
 		],
 
