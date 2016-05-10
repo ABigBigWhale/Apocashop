@@ -373,6 +373,7 @@ function PlayStateWrapper(game) {
 					tintAll(0xA9A9A9);
 				} else {
 					tintAll(0xFFFFFF);
+					upgradeGroup.visible = false;
 					upgradeGroup.callAll('kill');
 				}
 				uiLevelUp.visible = isEnabled;
