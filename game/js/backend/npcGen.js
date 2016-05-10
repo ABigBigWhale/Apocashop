@@ -316,7 +316,6 @@ function initNPCGen(game) {
 			],
 			color : [
 				"Red.",
-				"Whatever answer will get you to stop talking to me.",
 				"Blue?",
 				"Chartreuse. @@@Don't you dare judge me.",
 				"8BA870",
@@ -331,8 +330,7 @@ function initNPCGen(game) {
 				"Viridian.",
 				"Vermillion.",
 				"Cinnibar.",
-				"Saffron.",
-				"Why do you care?"
+				"Saffron."
 			],
 			number : [
 				"Seven.",
