@@ -54,6 +54,9 @@ function EventManager(game) {
 		},
 		TIMER : {
 			JUMP : []
+		},
+		DOG : {
+			APPEAR : []
 		}
 	};
 

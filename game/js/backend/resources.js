@@ -325,6 +325,50 @@ var heroes = {
 				convict : ". . .",
 				default : ". . ."
 			}
+		},
+		startDog : {
+			type : 'dialog',
+			appearanceInfo : 'dog',
+			dialog : [
+				"*Arf!* @*Arf!*"
+			]
+		},
+		jeffDog : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Oh my god, can we keep it, can we keep it?",
+				"Please please please please please please please please please."
+			]
+		},
+		dogChoice : {
+			type : 'interact',
+			item : 'chicken',
+			appearanceInfo : 'dog',
+			offers : [0],
+			offerText : "*Arf!*@@/(It looks like the dog will want a free chicken in exchange for staying.)",
+			success : "*Arf!*",
+			fail : "*Arf.*",
+			questions : {
+				default : "*Arf!*"
+			},
+			items : {
+				default : "*Arf!*"
+			},
+			profiles : {
+				default : "*Arf!*"
+			},
+			sellConditions : ["gotDog"],
+			refuseConditions : ["lostDog"]
+		},
+		jeffHappy : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"YES, this is the best day. Dogs are one of the few things I can't create.",
+				"Well, I can,@@@ but I can only make dead ones."
+			],
+			appearConditions : ['gotDog']
 		}
 	}
 };
@@ -588,6 +632,30 @@ var days = [
 				fuzz : 12,
 				force : true
 			},
+			6 : {
+				category : 'dayThree',
+				hero : 'startDog',
+				fuzz : 0,
+				force : true
+			},
+			7 : {
+				category : 'dayThree',
+				hero : 'jeffDog',
+				fuzz : 0,
+				force : true
+			},
+			8 : {
+				category : 'dayThree',
+				hero : 'dogChoice',
+				fuzz : 0,
+				force : true
+			},
+			9 : {
+				category : 'dayThree',
+				hero : 'jeffHappy',
+				fuzz : 0,
+				force : true
+			},
 			9999 : {
 				category : "dayThree",
 				hero : "endJeff",
@@ -596,7 +664,12 @@ var days = [
 			}
 		},
 		conditions : {
-			
+			dogAppear : {
+				components : ["gotDog"],
+				events : ["Events.DOG.APPEAR"],
+				chance : 1.0,
+				isLongTerm : true
+			}
 		},
 		clues : {
 			hero : [
@@ -627,7 +700,7 @@ var days = [
 			},
 			{
 				conditions : ["refusedHero"],
-				text : "The convicts pillage the town and destroy your storefront. You spend 15 gold to repair it.",
+				text : "Without the hero to drive them away, the convicts pillage the town and destroy your storefront. You spend 15 gold to repair it.",
 				gold : -15
 			}
 		],

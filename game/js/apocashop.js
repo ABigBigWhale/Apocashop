@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		var shopkeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
 		var dog = game.add.sprite(440, 300, 'gp_dog_small');
+		dog.visible = false;
 
 		var shop = game.add.sprite(0, 0, 'shop_rock');
 		shop.smoothed = false;
@@ -599,6 +600,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			game.tutorial.questionVisible = true;
 			uiButtonQuestion.fadeIn.start();
 			uiButtonQuestion.dragIn.start();
+		});
+
+		game.eventManager.register(game.Events.DOG.APPEAR, function() {
+			dog.visible = true;
 		});
 
 		game.eventManager.register(game.Events.INTERACT.NEW, function(appearanceInfo) {

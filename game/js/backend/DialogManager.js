@@ -26,6 +26,11 @@ function DialogManager(game) {
 			ghost : game.add.text(999, 999, "", { font : "16px yoster_islandregular" }),
 			timeout : false
 		},
+		dog : {
+			box : game.add.text(300, 130, "", { font : "16px yoster_islandregular", fill: Colors.PassiveDarker }),
+			ghost : game.add.text(999, 999, "", { font : "16px yoster_islandregular" }),
+			timeout : false
+		},
 		wrapup : {
 			box : game.add.text(150, 200, "", { font: "24px yoster_islandregular", fill: Colors.PassiveLighter }),
 			ghost : game.add.text(999, 999, "", { font: "24px yoster_islandregular" }),
@@ -80,6 +85,13 @@ function DialogManager(game) {
 		clearTimeout(game.dialog.jeff.timeout);
 		var brokenMessage = formatMessage(game.dialog.jeff.box, game.dialog.jeff.ghost, 230, 4, 23, message);
 		printMessage(game.dialog.jeff.box, brokenMessage, 15, 100, false, game.dialog.jeff, doneCB);
+	};
+
+	this.printDog = function(message, doneCB) {
+		doneCB = doneCB || function() {};
+		clearTimeout(game.dialog.dog.timeout);
+		var brokenMessage = formatMessage(game.dialog.dog.box, game.dialog.dog.ghost, 230, 4, 23, message);
+		printMessage(game.dialog.dog.box, brokenMessage, 15, 100, false, game.dialog.dog, doneCB);
 	};
 
 	// Adds line breaks into the message, and nudges the text box vertically to
