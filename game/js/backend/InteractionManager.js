@@ -132,19 +132,29 @@ function InteractionManager(game) {
 	function initNPCs(day) {
 		npcs = {};
 		var sequence = day.sequence;
+		var fuzzSequence = {};
+
 		for(var index in sequence) {
+			if(sequence[index].fuzz === 0) {
+				npcs[index] = sequence[index];
+			} else {
+				fuzzSequence[index] = sequence[index];
+			}
+		}
+		
+		for(var index in fuzzSequence) {
 			var newIndex;
 			var escapeCounter = 0;
 			do {
-				if(escapeCounter >= sequence[index].fuzz * 2) {
-					sequence[index].fuzz++;
+				if(escapeCounter >= fuzzSequence[index].fuzz * 2) {
+					fuzzSequence[index].fuzz++;
 					escapeCounter = 0
 				}
 				index = parseInt(index);
-				newIndex = index + Math.floor(Math.random() * sequence[index].fuzz);
+				newIndex = index + Math.floor(Math.random() * fuzzSequence[index].fuzz);
 				escapeCounter++;
 			} while(npcs[newIndex]);
-			npcs[newIndex] = sequence[index];
+			npcs[newIndex] = fuzzSequence[index];
 		}
 	}
 

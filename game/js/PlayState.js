@@ -562,6 +562,10 @@ function PlayStateWrapper(game) {
 				uiButtonQuestion.dragIn.start();
 			});
 
+			game.eventManager.register(game.Events.DOG.APPEAR, function() {
+				game.displayManager.dog.visible = true;
+			});
+
 			game.eventManager.register(game.Events.INTERACT.NEW, function(appearanceInfo) {
 				// This function returns a BitmapData generated with the given indices of 
 				// body part images.
