@@ -617,7 +617,7 @@ function PlayStateWrapper(game) {
 					setNPCTween();
 					if (isRandom) currNPC.scale.setTo(3, 3);
 					else {
-						currNPC.scale.setTo(2, 2);
+                        if (npcAssetId == 'gp_jeff_big') currNPC.scale.setTo(2, 2);
 						currNPC.smoothed = false;
 					}
 					currNPCIn.onComplete.add(function() {
