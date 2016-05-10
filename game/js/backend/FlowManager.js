@@ -19,8 +19,8 @@ function beginGame(game) {
 	game.analytics.track('day', 'begin', currentDay);
 
 	game.eventManager.register(game.Events.UPDATE.GOLD, function(amount) {
-		if(amount < 0) {
-			alert("GAME OVER, OUT OF MONEY");
+		if (amount < 0) {
+			game.state.start('state_end');
 		}
 	});
 
