@@ -305,7 +305,7 @@ function PlayStateWrapper(game) {
 				uiNote.tint = tintVal;
 				uiDesk.tint = tintVal;
 				uiDialog.tint = tintVal;
-				imgBackground.tint = tintVal;
+				game.displayManager.imgBackground.tint = tintVal;
 				currNPC.tint = tintVal;
 				uiDeskBg.tint = tintVal;
 			}
