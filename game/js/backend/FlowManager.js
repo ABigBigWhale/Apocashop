@@ -57,6 +57,4 @@ function beginGame(game) {
 
 	beginSales();
 
-	document.getElementById("stockChange").onclick = beginStocking;
-
 }	
