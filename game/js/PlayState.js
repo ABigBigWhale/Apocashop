@@ -622,8 +622,14 @@ function PlayStateWrapper(game) {
 					setNPCTween();
 					if (isRandom) currNPC.scale.setTo(3, 3);
 					else {
-                        //if (npcAssetId == 'gp_jeff_big') 
-                        currNPC.scale.setTo(2, 2);
+                        switch (npcAssetId) {
+                            case 'gp_jeff_big':
+                                currNPC.scale.setTo(2, 2);
+                                break;
+                            case 'gp_dog_set':
+                                currNPC.scale.setTo(1.5, 1.5);
+                                break;
+                        }
 						currNPC.smoothed = false;
 					}
 					currNPCIn.onComplete.add(function() {
