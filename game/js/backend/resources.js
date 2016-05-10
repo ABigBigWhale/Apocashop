@@ -365,10 +365,15 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : 'jeff',
 			dialog : [
-				"YES, this is the best day. Dogs are one of the few things I can't create.",
-				"Well, I can,@@@ but I can only make dead ones."
-			],
-			appearConditions : ['gotDog']
+				{
+					gotDog : "YES, this is the best day. Dogs are one of the few things I can't create.",
+					default : "This is the worst day ever."
+				},
+				{
+					gotDog : "Well, I can,@@@ but I can only make dead ones.",
+					default : "I am irate."
+				}
+			]
 		}
 	}
 };
@@ -477,8 +482,8 @@ var days = [
 		},
 		wrapup : [
 			{
-				text : "You're forced by King Zoran to pay 1000 gold in taxes.",
-				gold : -1000
+				text : "You're forced by King Zoran to pay 10 gold in taxes.",
+				gold : -10
 			},
 			{
 				text : "He also demands that the shop should run faster and should collect more data on its customers."
@@ -570,8 +575,8 @@ var days = [
 		},
 		wrapup : [
 			{
-				text : "You're forced by King Zoran to pay 20 gold in taxes.",
-				gold : -20
+				text : "You're forced by King Zoran to pay 10 gold in taxes.",
+				gold : -10
 			},
 			{
 				conditions : ["soldHero"],

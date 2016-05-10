@@ -562,6 +562,10 @@ function PlayStateWrapper(game) {
 				uiButtonQuestion.dragIn.start();
 			});
 
+			game.eventManager.register(game.Events.DOG.APPEAR, function() {
+				game.displayManager.dog.visible = true;
+			});
+
 			game.eventManager.register(game.Events.INTERACT.NEW, function(appearanceInfo) {
 				// This function returns a BitmapData generated with the given indices of 
 				// body part images.
@@ -579,7 +583,7 @@ function PlayStateWrapper(game) {
 						appearanceInfo = 'gp_jeff_big';
 						break;
 					case 'dog':
-						appearanceInfo = 'gp_dog_big';
+						appearanceInfo = 'gp_dog_set';
 						animFunc = function(layer) {
 							// TODO: Create tails, tounges, claws, and make tweens for them?
 						}
@@ -618,7 +622,14 @@ function PlayStateWrapper(game) {
 					setNPCTween();
 					if (isRandom) currNPC.scale.setTo(3, 3);
 					else {
-						currNPC.scale.setTo(2, 2);
+                        switch (npcAssetId) {
+                            case 'gp_jeff_big':
+                                currNPC.scale.setTo(2, 2);
+                                break;
+                            case 'gp_dog_set':
+                                currNPC.scale.setTo(1.5, 1.5);
+                                break;
+                        }
 						currNPC.smoothed = false;
 					}
 					currNPCIn.onComplete.add(function() {

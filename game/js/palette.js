@@ -16,4 +16,6 @@ var Colors = {
   
   AccentAccept: '#92cb9a',
   AccentReject: '#cb929a',
+
+  Background: '#92cb9a',
 };

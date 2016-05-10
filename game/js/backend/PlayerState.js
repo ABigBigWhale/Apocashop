@@ -91,7 +91,7 @@ function PlayerState(game) {
 			return;
 		}
 		printDebug("ADDING " + profit + " TO EXP");
-		EXP += profit * 10;
+		EXP += profit;
 		if(EXP >= Level * 10) {
 			game.eventManager.notify(game.Events.LEVEL.LEVELUP, Level + 1);
 			EXP = profit %= (Level * 10);
