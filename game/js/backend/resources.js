@@ -485,9 +485,9 @@ var days = [
 				text : "You're forced by King Zoran to pay 10 gold in taxes.",
 				gold : -10
 			},
-			{
-				text : "He also demands that the shop should run faster and should collect more data on its customers."
-			},
+			// {
+			// 	text : "He also demands that the shop should run faster and should collect more data on its customers."
+			// },
 			{
 				conditions : ["soldCousin"],
 				text : "Your store is robbed in the night. The robber leaves a note on Mac and Cheese colored paper.",

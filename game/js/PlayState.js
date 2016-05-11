@@ -86,9 +86,15 @@ function PlayStateWrapper(game) {
 
 			//------------------------- Notes & Clues ------------------------
 			var uiNoteLayer = game.add.group();
+
 			var uiNoteDisplay = uiNoteLayer.create(800, 1000, 'ui_note_big');
 			uiNoteDisplay.smoothed = false;
 			uiNoteDisplay.anchor.setTo(1, 1);
+
+			var uiNoteCurtain = game.add.sprite(0, 0);
+			uiNoteCurtain.width = 800;
+			uiNoteCurtain.height = 600;
+			uiNoteCurtain.visible = false;
 
 			var crisisClueText = game.add.text(240, 650, "HELLO THERE", // TODO: hardcoded
 											   {
@@ -111,6 +117,7 @@ function PlayStateWrapper(game) {
 			var uiNoteDisplayShown = false;
 
 			game.depthGroups.uiGroup.add(uiNoteLayer);
+			game.depthGroups.uiGroup.add(uiNoteCurtain);
 
 			//------------------------- Question options ---------------------
 			var uiQuestionLayer = game.add.group();
@@ -154,6 +161,7 @@ function PlayStateWrapper(game) {
 					uiNoteTween = game.add.tween(uiNote).to({
 						y: '-200'
 					}, 200, Phaser.Easing.Quadratic.Out);
+					uiNoteCurtain.visible = false;
 				} else { // In
 					uiNoteDisplayTween = game.add.tween(uiNoteLayer.position)
 						.to({
@@ -162,6 +170,7 @@ function PlayStateWrapper(game) {
 					uiNoteTween = game.add.tween(uiNote).to({
 						y: '+200'
 					}, 300, Phaser.Easing.Quadratic.Out);
+					uiNoteCurtain.visible = true;
 				}
 				uiNoteDisplayTween.start();
 				uiNoteTween.start();
@@ -169,9 +178,10 @@ function PlayStateWrapper(game) {
 			}
 
 			uiNote.inputEnabled = true;
-			uiNoteDisplay.inputEnabled = true;
+			//uiNoteDisplay.inputEnabled = true;
+			uiNoteCurtain.inputEnabled = true;
 			uiNote.events.onInputDown.add(toggleNoteDisplay, this);
-			uiNoteDisplay.events.onInputDown.add(toggleNoteDisplay, this);
+			uiNoteCurtain.events.onInputDown.add(toggleNoteDisplay, this);
 
 			var textCoins = game.add.text(60, 540, "0", // TODO: hardcoded
 										  {
@@ -215,7 +225,6 @@ function PlayStateWrapper(game) {
 				if (game.dialog.main.isPrinting) {
 					game.dialogManager.jumpMain();
 				} else {
-
 					game.eventManager.notify(game.Events.INPUT.NO)
 				}
 			};
@@ -233,7 +242,7 @@ function PlayStateWrapper(game) {
 				}
 				game.analytics.track("questionToggled", true, ['day']);
 				game.questionManager.toggleQuestions();
-			}
+			};
 
 			var uiButtonAccept = game.add.button(660, 420, 'ui_button_accept',
 												 uiButtonAcceptCB, this, 1, 0, 2);
@@ -469,6 +478,9 @@ function PlayStateWrapper(game) {
 
 			game.eventManager.register(game.Events.DAY.START, function(data) {
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
+				if(uiNoteDisplayShown) {
+					toggleNoteDisplay();
+				}
 				//itemslots.visible = false;
 				game.uiItemGroup.callAll('kill');
 				uiPutItemSlots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
@@ -644,6 +656,9 @@ function PlayStateWrapper(game) {
 				if (currNPC) {
 					currNPCOut.start();
 					currNPCOut.onComplete.add(showNPC);
+					if(uiNoteDisplayShown) {
+						toggleNoteDisplay();
+					}
 				} else {
 					showNPC(isRandom);
 				}
