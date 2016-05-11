@@ -318,7 +318,7 @@ function initNPCGen(game) {
 				"Red.",
 				"Blue?",
 				"Chartreuse. @@@Don't you dare judge me.",
-				"8BA870",
+				"0x@8B@A8@70",
 				"Purple.",
 				"Sky color.",
 				"Ground color.",
