@@ -468,6 +468,7 @@ function PlayStateWrapper(game) {
 
 			game.eventManager.register(game.Events.DAY.START, function(data) {
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
+				itemslots.visible = false;
 				itemSlots.callAll('kill');
 				itemSlots = uiPutItemslots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 				heroClueText.text = formatClues(data.clues.hero);
