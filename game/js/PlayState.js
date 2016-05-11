@@ -464,12 +464,14 @@ function PlayStateWrapper(game) {
 			uiButtonQuestion.visible = false;
 			uiNote.visible = false;
 
-			itemSlots = game.add.group();
+			var itemSlots = game.add.group();
 
 			game.eventManager.register(game.Events.DAY.START, function(data) {
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
-				itemslots.visible = false;
-				itemSlots.callAll('kill');
+				if (itemSlots !== undefined) {
+					itemSlots.visible = false;
+					itemSlots.callAll('kill');
+				}
 				itemSlots = uiPutItemslots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 				heroClueText.text = formatClues(data.clues.hero);
 				crisisClueText.text = formatClues(data.clues.crisis);
