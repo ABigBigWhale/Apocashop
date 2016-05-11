@@ -26,27 +26,28 @@ function PlayStateWrapper(game) {
 
 			//-------------------------- Item slots --------------------------
 			var uiItemNums = {};
-			var uiItemGroup = game.add.group();
-			var uiPutItemslots = function(numSlots, items) {
+			game.uiItemGroup = game.add.group();
+			var uiPutItemSlots = function(numSlots, items) {
 				for (var i = 0; i < numSlots; i++) {
-					var uiItemslot = uiItemGroup.create(20, 40 + 50 * i, 'ui_itemslot');
+					var uiItemslot = game.uiItemGroup.create(20, 40 + 50 * i, 'ui_itemslot');
 					uiItemslot.anchor.setTo(0, 0);
 				}
 				var j = -1;
 				for (var key in items) {
 					j++;
-					var itemIcon = uiItemGroup.create(24, 44 + 50 * j, 'item_' + key);
+					var itemIcon = game.uiItemGroup.create(24, 44 + 50 * j, 'item_' + key);
 					itemIcon.scale.setTo(2, 2);
 					itemIcon.smoothed = false;
 					var itemCount = game.add.text(74, 46 + 50 * j, items[key], {
 						font: "20px yoster_islandregular",
 						fill: '#d3af7a'
-					}, uiItemGroup);
+					}, game.uiItemGroup);
+					printDebug('UI: itemKey ' + key + '\nUI: itemCount ' + items[key]);
 					uiItemNums[key] = itemCount;
 				}
 			};
 
-			game.depthGroups.uiGroup.add(uiItemGroup);
+			game.depthGroups.uiGroup.add(game.uiItemGroup);
 
 			//------------------------- Clock --------------------------------
 			var uiFunnelPos = {
@@ -464,13 +465,13 @@ function PlayStateWrapper(game) {
 			uiButtonQuestion.visible = false;
 			uiNote.visible = false;
 
-			itemSlots = game.add.group();
+			//game.itemSlots = game.add.group();
 
 			game.eventManager.register(game.Events.DAY.START, function(data) {
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
-				itemslots.visible = false;
-				itemSlots.callAll('kill');
-				itemSlots = uiPutItemslots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
+				//itemslots.visible = false;
+				game.uiItemGroup.callAll('kill');
+				uiPutItemSlots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 				heroClueText.text = formatClues(data.clues.hero);
 				crisisClueText.text = formatClues(data.clues.crisis);
 			});
