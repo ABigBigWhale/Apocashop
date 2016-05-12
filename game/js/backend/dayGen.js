@@ -190,6 +190,8 @@ function initDayGenerator(game) {
 		};
 
 		var generateQuestionClue;
+		var generateOfferClue;
+		var generateNeighborClue;
 
 		(function() {
 
@@ -229,15 +231,15 @@ function initDayGenerator(game) {
 					"'smelly'"
 				],
 				color : [
-					"mac and cheese",
-					"worm colored",
-					"Royal Purple",
-					"Radical Red",
-					"Outrageous Orange",
-					"Razzle Dazzle Rose",
-					"Purple Pizzazz",
-					"Magic Mint",
-					"Screamin' Green"
+					"'Mac and Cheese'",
+					"the color of worms",
+					"'Royal Purple'",
+					"'Radical Red'",
+					"'Outrageous Orange'",
+					"'Razzle Dazzle Rose'",
+					"'Purple Pizzazz'",
+					"'Magic Mint'",
+					"'Screamin' Green'"
 				],
 				number : [
 					"negative twelve",
@@ -313,13 +315,42 @@ function initDayGenerator(game) {
 
 		})();
 
-		function generateOfferClue(day, hero, falseHeroes) {
+		(function() {
 
-		}
+			var offerFlavor = [
+				"The hero's [n] offer will be [x] gold."
+			];
 
-		function generateNeighborClue(day, hero, falseHeroes) {
+			generateOfferClue = function(day, hero, falseHeroes) {
+				var numOffers = rollDice(60/100) ? 1 :
+					rollDice(25/40) ? 2 :
+					rollDice(10/15) ? 3 : 4;
 
-		}
+
+			};
+
+			function generateOffers(numOffers) {
+				var offers = [];
+				for(var i = 0; i < numOffers - 1; i++) {
+					offers.push(numOffers - i);
+				}
+				return offers;
+			}
+
+			function generateFlavor(offer, index) {
+				var flavor = randomElement(offerFlavor);
+				return flavor.replace('[n]', numToThStr(index)).replace('[x]', numToStr(offer));
+			}
+
+		})();
+
+		(function() {
+
+			generateNeighborClue = function(day, hero, falseHeroes) {
+
+			};
+
+		})();
 
 		function lowerOffers(day, hero, falseHeroes) {
 

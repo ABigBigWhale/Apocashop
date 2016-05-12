@@ -64,3 +64,8 @@ function randomElement(arr, isRemove) {
 	}
 	return retVal;
 }
+
+function numToThStr(num) {
+	var numArray = ["zeroeth", "first", "second", "third", "fourth"];
+	return numArray[num];
+}
