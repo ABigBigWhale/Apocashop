@@ -32,20 +32,21 @@ function beginGame(game) {
 	};
 
 	var beginStocking = function() {
-		game.stockUI.startDay(days[currentDay].clues.crisis, function() {
-			beginSales();
+		var day = getDay(currentDay);
+		game.stockUI.startDay(day.clues.crisis, function() {
+			beginSales(day);
 		});
 	};
 
-	var beginSales = function() {
-		game.interactionManager.startDay(days[currentDay], function() {
+	var beginSales = function(day) {
+		game.interactionManager.startDay(day, function() {
 			game.eventManager.notify(game.Events.DAY.END);
-			beginWrapup();
+			beginWrapup(day);
 		});
 	};
 
-	var beginWrapup = function() {
-		game.wrapupManager.startDay(days[currentDay], function() {
+	var beginWrapup = function(day) {
+		game.wrapupManager.startDay(day, function() {
 			game.eventManager.notify(game.Events.WRAPUP.END);
 			currentDay++;
 			game.analytics.track('day', 'begin', currentDay);
@@ -55,6 +56,6 @@ function beginGame(game) {
 
 	// beginTitle();
 
-	beginSales();
+	beginSales(getDay(currentDay));
 
 }	

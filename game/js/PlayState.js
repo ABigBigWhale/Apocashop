@@ -462,6 +462,7 @@ function PlayStateWrapper(game) {
 
 			///////////////////////////// Backend ///////////////////////////
 
+			initDayGenerator(game);
 			initBackend(game);
 
 			game.tutorial = {

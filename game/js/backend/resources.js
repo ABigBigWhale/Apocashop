@@ -375,7 +375,8 @@ var heroes = {
 				}
 			]
 		}
-	}
+	},
+	generatedDay : {}
 };
 
 var days = [
