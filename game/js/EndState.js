@@ -14,7 +14,8 @@ function EndStateWrapper(game) {
 			);
 
 			game.input.onDown.add(function() {
-				game.state.start('state_start');
+				//game.state.start('state_start');
+				location.reload();
 			});
 		}
 	};
