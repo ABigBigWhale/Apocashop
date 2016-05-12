@@ -20,6 +20,7 @@ function beginGame(game) {
 
 	game.eventManager.register(game.Events.UPDATE.GOLD, function(amount) {
 		if (amount < 0) {
+			game.endStateWrapper.setGameResult(false);
 			game.state.start('state_end');
 		}
 	});
@@ -49,7 +50,12 @@ function beginGame(game) {
 			game.eventManager.notify(game.Events.WRAPUP.END);
 			currentDay++;
 			game.analytics.track('day', 'begin', currentDay);
-			beginStocking();
+			// TODO: only going to day 3
+			if (currentDay <= 2) beginStocking();
+			else {
+				game.endStateWrapper.setGameResult(true);
+				game.state.start('state_end');
+			}
 		});
 	};
 
