@@ -54,7 +54,8 @@ function EndStateWrapper(game) {
 				else if (score <= 3.0) commentText = 'I hope you have S/NS\'ed...';
 				else if (score <= 3.5) commentText = 'Still, probably won\'t make the Dean\'s List.';
 				else if (score <= 3.9) commentText = 'That\'ll look nice on the Grade Report.';
-				else commentText = 'Wow... [The ancient sales manager is surprised.]';
+				else commentText = 'Wow... [The ancient sales manager is surprised.]\n' + 
+					'[Sorry...\nBut he doesn\'t have any surprise for you...]';
 				
 				var endOfDemoText = game.add.text(
 					100, 200,
