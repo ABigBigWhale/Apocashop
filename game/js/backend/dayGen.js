@@ -128,10 +128,15 @@ function initDayGenerator(game) {
 			var NUM_FALSE_HEROES = 2;
 			var isAddedToSequence = false;
 
-			var hero = generateNPC(day, {});
+			var hero = generateNPC(day, {
+				sellConditions : ['soldHero'],
+				refuseConditions : ['refusedHero']
+			});
 			var falseHeroes = [];
 			for(var i = 0; i < NUM_FALSE_HEROES; i++) {
-				falseHeroes.push(generateNPC(day, {}));
+				falseHeroes.push(generateNPC(day, {
+					sellConditions : ['soldFalse']
+				}));
 			}
 
 			var numClues = Math.ceil(worldState.difficulty / 1);
@@ -146,13 +151,11 @@ function initDayGenerator(game) {
 					generateOfferClue(day, hero, falseHeroes);
 				}
 			} else {
-				generateRandomOffer(day, hero, falseHeroes);
+				lowerOffers(day, hero, falseHeroes);
 			}
 
 			if(numClues >= 3) {
 				generateLetterClue(day, hero, falseHeroes);
-			} else {
-				generateMessages(day, hero, falseHeroes);
 			}
 
 			heroes.generatedDay.hero = hero;
@@ -299,15 +302,11 @@ function initDayGenerator(game) {
 
 		}
 
-		function generateRandomOffer(day, hero, falseHeroes) {
+		function lowerOffers(day, hero, falseHeroes) {
 
 		}
 
 		function generateLetterClue(day, hero, falseHeroes) {
-
-		}
-
-		function generateMessages(day, hero, falseHeroes) {
 
 		}
 
