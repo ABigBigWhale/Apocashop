@@ -56,7 +56,11 @@ function shuffleArray(array) {
     return array;
 }
 
-function randomElement(arr) {
+function randomElement(arr, isRemove) {
 	var index = Math.floor(Math.random() * arr.length);
-	return arr[index];
+	var retVal = arr[index];
+	if(isRemove) {
+		arr.splice(index, 1);
+	}
+	return retVal;
 }

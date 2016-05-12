@@ -124,9 +124,28 @@ function initDayGenerator(game) {
 
 	(function() {
 
+		// structure: {hero : heroID, falseHeroes : [array of heroIDs]}
+		// Actual heroes are set up in the generatedDay section of the
+		// heroes object. Make sure you do NOT use hero or falseHero
+		// followed by a number as an ID or it will be overwritten.
+		var preGenHeroes = [];
+
 		generateHero = function(day, crisis) {
 			var NUM_FALSE_HEROES = 2;
 			var isAddedToSequence = false;
+
+			if(preGenHeroes.length > 0 && rollDice(0.2)) {
+				var genDay = heroes.generatedDay;
+				var randomHeroInfo = randomElement(preGenHeroes, true);
+
+				var hero = genDay[randomHeroInfo.hero];
+				var falseHeroes = [];
+				for(var i = 0; i < randomHeroInfo.falseHeroes.length; i++) {
+					falseHeroes.push(genDay[randomHeroInfo.falseHeroes[i]]);
+				}
+				addToSequence(day, hero, falseHeroes);
+				return; 
+			}
 
 			var hero = generateNPC(day, {
 				sellConditions : ['soldHero'],
