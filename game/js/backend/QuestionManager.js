@@ -21,12 +21,24 @@ function QuestionManager(game) {
 	
 	var questionVisible = false;
 	
+	var questionBox;
 	var questions = [];
 	
 	var options = [];
-	
+
+	var dialogDraw;
+	var start = false;
+	game.eventManager.register(game.Events.DAY.END, removeCurrentQuestions);
+
+	function removeCurrentQuestions() {
+		for(var i = 0; i < options.length; i++) {
+			options[i].visible = false;
+			options[i].kill();
+		}
+		options = [];
+	}
+
 	this.populateQuestions = function(q, questionLayer) {
-		
 		questions = Object.keys(q);
 		
 		var setUpListeners = function(option, question) {
@@ -42,17 +54,24 @@ function QuestionManager(game) {
 				self.hideQuestions();
 			}, this);
 		};
-		
+		var minX, minY;
 		for (var i = 0; i < questions.length; i++) {
 			printDebug('QUESTION OPT: ' + questions[i]);
 			
 			var opt = game.add.text(775, 835, q[questions[i]], textStyle, questionLayer);
+			// find min for x, y for use in the graphics.
+			var currY = -400 - (i + 1) * optionMargin + 835;
+			var currX = 775 - opt.width;
+			minY = Math.min(minY, currY);
+			minX = Math.min(minX, currX);
 			opt.anchor.setTo(1, 1);
 			opt.inputEnabled = true;
 			options.push(opt);
 			
 			setUpListeners(options[i], questions[i]);
-
+		}
+		for(var i = 0; i < options.length; i++) {
+			options[i].bringToTop();
 		}
 		
 	};
