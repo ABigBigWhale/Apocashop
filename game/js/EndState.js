@@ -21,7 +21,7 @@ function EndStateWrapper(game) {
 					}
 				);
 			} else {
-				var topScore = 62.0;
+				var topScore = 52.0;
 				var score = game.playerState.getGold() * 1.0;
 				
 				var items = game.playerState.getStockedItems();
@@ -55,7 +55,7 @@ function EndStateWrapper(game) {
 				else if (score <= 3.5) commentText = 'Still, probably won\'t make the Dean\'s List.';
 				else if (score <= 3.9) commentText = 'That\'ll look nice on the Grade Report.';
 				else commentText = 'Wow... [The ancient sales manager is surprised.]\n' + 
-					'[Sorry...\nBut he doesn\'t have any surprise for you...]';
+					'[Sadly...\n he doesn\'t have any surprise for you...]';
 				
 				var endOfDemoText = game.add.text(
 					100, 200,
