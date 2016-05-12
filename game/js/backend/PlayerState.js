@@ -67,7 +67,7 @@ function PlayerState(game) {
 
 	this.checkStock = function(item) {
 		return items[item] && StockedItems.indexOf(item) >= 0 && !(Items[item] === undefined)
-			   && Items[item] > 0 && item !== 'none';
+			   && Items[item] > 0 && item !== 'None';
 	}
 
 	this.checkPrice = function(item, goldOffset) {

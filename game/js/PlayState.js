@@ -26,27 +26,28 @@ function PlayStateWrapper(game) {
 
 			//-------------------------- Item slots --------------------------
 			var uiItemNums = {};
-			var uiItemGroup = game.add.group();
-			var uiPutItemslots = function(numSlots, items) {
+			game.uiItemGroup = game.add.group();
+			var uiPutItemSlots = function(numSlots, items) {
 				for (var i = 0; i < numSlots; i++) {
-					var uiItemslot = uiItemGroup.create(20, 40 + 50 * i, 'ui_itemslot');
+					var uiItemslot = game.uiItemGroup.create(20, 40 + 50 * i, 'ui_itemslot');
 					uiItemslot.anchor.setTo(0, 0);
 				}
 				var j = -1;
 				for (var key in items) {
 					j++;
-					var itemIcon = uiItemGroup.create(24, 44 + 50 * j, 'item_' + key);
+					var itemIcon = game.uiItemGroup.create(24, 44 + 50 * j, 'item_' + key);
 					itemIcon.scale.setTo(2, 2);
 					itemIcon.smoothed = false;
 					var itemCount = game.add.text(74, 46 + 50 * j, items[key], {
 						font: "20px yoster_islandregular",
 						fill: '#d3af7a'
-					}, uiItemGroup);
+					}, game.uiItemGroup);
+					printDebug('UI: itemKey ' + key + '\nUI: itemCount ' + items[key]);
 					uiItemNums[key] = itemCount;
 				}
 			};
 
-			game.depthGroups.uiGroup.add(uiItemGroup);
+			game.depthGroups.uiGroup.add(game.uiItemGroup);
 
 			//------------------------- Clock --------------------------------
 			var uiFunnelPos = {
@@ -85,9 +86,15 @@ function PlayStateWrapper(game) {
 
 			//------------------------- Notes & Clues ------------------------
 			var uiNoteLayer = game.add.group();
+
 			var uiNoteDisplay = uiNoteLayer.create(800, 1000, 'ui_note_big');
 			uiNoteDisplay.smoothed = false;
 			uiNoteDisplay.anchor.setTo(1, 1);
+
+			var uiNoteCurtain = game.add.sprite(0, 0);
+			uiNoteCurtain.width = 800;
+			uiNoteCurtain.height = 600;
+			uiNoteCurtain.visible = false;
 
 			var crisisClueText = game.add.text(240, 650, "HELLO THERE", // TODO: hardcoded
 											   {
@@ -110,6 +117,7 @@ function PlayStateWrapper(game) {
 			var uiNoteDisplayShown = false;
 
 			game.depthGroups.uiGroup.add(uiNoteLayer);
+			game.depthGroups.uiGroup.add(uiNoteCurtain);
 
 			//------------------------- Question options ---------------------
 			var uiQuestionLayer = game.add.group();
@@ -153,6 +161,7 @@ function PlayStateWrapper(game) {
 					uiNoteTween = game.add.tween(uiNote).to({
 						y: '-200'
 					}, 200, Phaser.Easing.Quadratic.Out);
+					uiNoteCurtain.visible = false;
 				} else { // In
 					uiNoteDisplayTween = game.add.tween(uiNoteLayer.position)
 						.to({
@@ -161,6 +170,7 @@ function PlayStateWrapper(game) {
 					uiNoteTween = game.add.tween(uiNote).to({
 						y: '+200'
 					}, 300, Phaser.Easing.Quadratic.Out);
+					uiNoteCurtain.visible = true;
 				}
 				uiNoteDisplayTween.start();
 				uiNoteTween.start();
@@ -168,9 +178,10 @@ function PlayStateWrapper(game) {
 			}
 
 			uiNote.inputEnabled = true;
-			uiNoteDisplay.inputEnabled = true;
+			//uiNoteDisplay.inputEnabled = true;
+			uiNoteCurtain.inputEnabled = true;
 			uiNote.events.onInputDown.add(toggleNoteDisplay, this);
-			uiNoteDisplay.events.onInputDown.add(toggleNoteDisplay, this);
+			uiNoteCurtain.events.onInputDown.add(toggleNoteDisplay, this);
 
 			var textCoins = game.add.text(60, 540, "0", // TODO: hardcoded
 										  {
@@ -214,7 +225,6 @@ function PlayStateWrapper(game) {
 				if (game.dialog.main.isPrinting) {
 					game.dialogManager.jumpMain();
 				} else {
-
 					game.eventManager.notify(game.Events.INPUT.NO)
 				}
 			};
@@ -232,7 +242,7 @@ function PlayStateWrapper(game) {
 				}
 				game.analytics.track("questionToggled", true, ['day']);
 				game.questionManager.toggleQuestions();
-			}
+			};
 
 			var uiButtonAccept = game.add.button(660, 420, 'ui_button_accept',
 												 uiButtonAcceptCB, this, 1, 0, 2);
@@ -464,15 +474,13 @@ function PlayStateWrapper(game) {
 			uiButtonQuestion.visible = false;
 			uiNote.visible = false;
 
-			var itemSlots = game.add.group();
-
 			game.eventManager.register(game.Events.DAY.START, function(data) {
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
-				if (itemSlots !== undefined) {
-					itemSlots.visible = false;
-					itemSlots.callAll('kill');
+				if(uiNoteDisplayShown) {
+					toggleNoteDisplay();
 				}
-				itemSlots = uiPutItemslots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
+				game.uiItemGroup.callAll('kill');
+				uiPutItemSlots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 				heroClueText.text = formatClues(data.clues.hero);
 				crisisClueText.text = formatClues(data.clues.crisis);
 			});
@@ -645,6 +653,9 @@ function PlayStateWrapper(game) {
 				if (currNPC) {
 					currNPCOut.start();
 					currNPCOut.onComplete.add(showNPC);
+					if(uiNoteDisplayShown) {
+						toggleNoteDisplay();
+					}
 				} else {
 					showNPC(isRandom);
 				}

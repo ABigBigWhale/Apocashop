@@ -188,6 +188,7 @@ function StockUI(game) {
             if (!(allBox === undefined) && allBox != null)
                 allBox[key].num = Items[key] + 0;
         }
+		//game.playerState.StockedItems = Items;
     }
 
 
