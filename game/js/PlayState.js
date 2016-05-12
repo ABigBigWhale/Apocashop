@@ -474,14 +474,11 @@ function PlayStateWrapper(game) {
 			uiButtonQuestion.visible = false;
 			uiNote.visible = false;
 
-			//game.itemSlots = game.add.group();
-
 			game.eventManager.register(game.Events.DAY.START, function(data) {
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
 				if(uiNoteDisplayShown) {
 					toggleNoteDisplay();
 				}
-				//itemslots.visible = false;
 				game.uiItemGroup.callAll('kill');
 				uiPutItemSlots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 				heroClueText.text = formatClues(data.clues.hero);
