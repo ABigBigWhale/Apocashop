@@ -48,14 +48,23 @@ function EndStateWrapper(game) {
 				
 				score = 4.0 * Math.min(1.0, score / topScore);
 				
+				var commentText = '';
+				if (score <= 1.8) commentText = 'I mean...Come on...';
+				else if (score <= 2.5) commentText = 'Awwwww...This is pretty sad...';
+				else if (score <= 3.0) commentText = 'I hope you have S/NS\'ed...';
+				else if (score <= 3.5) commentText = 'Still, probably won\'t make the Dean\'s List.';
+				else if (score <= 3.9) commentText = 'That\'ll look nice on the Grade Report.';
+				else commentText = 'Wow... [The ancient sales manager is surprised.]';
+				
 				var endOfDemoText = game.add.text(
 					100, 200,
 					"THANK YOU!\nYou have reached the end of the demo.\n" + 
 					"The ancient sales manager gave you\n a rating of " + 
 					parseFloat(Math.round(score * 10) / 10).toFixed(1) + '/4.0\n\n' + 
+					commentText + '\n' +
 					"[Click to restart]",
 					{
-						font: "32px yoster_islandregular",
+						font: "28px yoster_islandregular",
 						fill: '#e7bd68'
 					}
 				);
