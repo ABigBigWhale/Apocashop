@@ -21,7 +21,7 @@ function EndStateWrapper(game) {
 					}
 				);
 			} else {
-				var topScore = 70.0;
+				var topScore = 82.0;
 				var score = game.playerState.getGold() * 1.0;
 				
 				var items = game.playerState.getStockedItems();
