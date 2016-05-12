@@ -4,7 +4,11 @@ var gameConfig = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-	// Do stuff...
+	
+	// Prevents right clicks on the game window
+	document.getElementById("gameDiv").addEventListener('contextmenu', function(e) {
+	  e.preventDefault();
+	}, false);
 
 	var game = new Phaser.Game(
 		gameConfig.RESOLUTION[0],
