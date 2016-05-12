@@ -63,6 +63,7 @@ function StockUI(game) {
         }
         return retString;
     }
+
     function killGroup() {
         for(var key in allBox) {
             allBox[key].itemborder.kill();
@@ -162,7 +163,24 @@ function StockUI(game) {
             game.world.bringToTop(boxes[key].itemborder);
             boxes[key].originalPosition = boxes[key].position.clone();
             boxes[key].price = items[key].price;
+            boxes[key].priceText = game.add.text(boxes[key].position.x, boxes[key].position.y + boxes[key].height + 5, "Price: " + boxes[key].price,
+                                                 { font: "18px yoster_islandregular", fill: '#d3af7a' });
+            boxes[key].priceText.visible = false;
+            boxes[key].events.onInputOver.add(hoverOnItem, boxes[key]);
+            boxes[key].events.onInputOut.add(deHoverOnItem, boxes[key]);
         }
+    }
+
+    function hoverOnItem(sprite, pointer) {
+        sprite.priceText.visible = true;
+        sprite.priceText.x = sprite.position.x;
+            if(!sprite.loaded)
+                sprite.priceText.x -= 20;
+        sprite.priceText.y = sprite.position.y + sprite.height + 5;
+    }
+
+    function deHoverOnItem(sprite, pointer) {
+        sprite.priceText.visible = false;
     }
 
     function initAllLoad(loads) {
@@ -211,6 +229,7 @@ function StockUI(game) {
 
     function onDragStart(sprite, pointer) {
         game.world.bringToTop(sprite);
+        deHoverOnItem(sprite, pointer);
         for (var i = 0; i < allLoad.length; i++) {
             if (Phaser.Rectangle.intersects(sprite.getBounds(), allLoad[i].getBounds())) {
                 allLoad[i].num.text = 'X';
@@ -227,6 +246,7 @@ function StockUI(game) {
             loader = findCollision(sprite, allLoad);
         }
         if (loader != undefined && !(loader.loaded === undefined) && loader.loaded == null) {
+            hoverOnItem(sprite, pointer);
             sprite.position.copyFrom(loader.position);
             sprite.position.x += 4;
             sprite.position.y += 4;

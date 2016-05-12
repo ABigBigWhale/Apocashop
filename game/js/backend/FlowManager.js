@@ -54,7 +54,6 @@ function beginGame(game) {
 	};
 
 	// beginTitle();
-
+	window.forceStock = beginStocking;
 	beginSales();
-
 }	
