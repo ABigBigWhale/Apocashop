@@ -291,28 +291,28 @@ function initDayGenerator(game) {
 
 		})();
 
-		function generateOfferClue(day) {
+		function generateOfferClue(day, hero, falseHeroes) {
 
 		}
 
-		function generateNeighborClue(day) {
+		function generateNeighborClue(day, hero, falseHeroes) {
 
 		}
 
-		function generateRandomOffer(day) {
+		function generateRandomOffer(day, hero, falseHeroes) {
 
 		}
 
-		function generateLetterClue(day) {
+		function generateLetterClue(day, hero, falseHeroes) {
 
 		}
 
-		function generateMessages(day) {
+		function generateMessages(day, hero, falseHeroes) {
 
 		}
 
 		function addToSequence(day, hero, falseHeroes) {
-			
+
 		}
 
 	})();
