@@ -111,7 +111,10 @@ function DisplayManager(game) {
 		this.randomCloudAttr();
 		printDebug('UI: Putting cloud at ' + this.cloudY);
 		var cloudAsset = 'gp_cloud';
-		if (randomIntInRange(1, 20) == 2) cloudAsset = 'gp_cloud_star';
+		if (randomIntInRange(1, 14) == 2) { 
+			cloudAsset = 'gp_cloud_star';
+			this.cloudDur = 6000;
+		}
 		var cloud = this.clouds.create(-58, this.cloudY, cloudAsset);
 		cloud.floatTween = game.add.tween(cloud).to( {x: gameConfig.RESOLUTION[0]}, this.cloudDur);
 		cloud.floatTween.start();
