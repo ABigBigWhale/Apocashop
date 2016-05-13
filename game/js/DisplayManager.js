@@ -5,11 +5,19 @@ function DisplayManager(game) {
 	var titleStartText;
 
 	//----------- Objects in environment -------------
-	var imgBackground;
+	var imgBackgroundSky;
+	var clouds, cloudGenOn = false, 
+		cloudIntv = randomIntInRange(5, 13), 
+		cloudY = randomIntInRange(200, 300),
+		cloudDur = randomIntInRange(1800, 3200),
+		cloudTimer = game.time.create(false);
+	var imgBackgroundTown;
 	var shopKeeper;
 	var dog;
 	var shop;
 	var jeff, jeffShadow;
+
+
 
 	/*
 	var environment = {
@@ -32,7 +40,10 @@ function DisplayManager(game) {
 	};
 
 	this.putEnvironment = function() {
-		this.imgBackground = game.add.image(0, 0, 'gp_background');
+		this.imgBackgroundSky = game.add.image(0, 0, 'gp_background_sky');
+		this.clouds = game.add.group();
+		this.cloudTimer = game.time.create();
+		this.imgBackgroundTown = game.add.image(0, 0, 'gp_background_town');
 		this.shopKeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
 		this.dog = game.add.sprite(440, 300, 'gp_dog_small');
 		this.dog.visible = false;
@@ -41,12 +52,13 @@ function DisplayManager(game) {
 		this.jeffShadow = game.add.sprite(this.shopKeeper.x + 43, 
 										  this.shopKeeper.y + this.shopKeeper.height - 7, 'gp_jeff_shadow');
 
-		game.depthGroups.envGroup.add(this.imgBackground);
+		game.depthGroups.envGroup.add(this.imgBackgroundSky);
+		game.depthGroups.envGroup.add(this.clouds);
+		game.depthGroups.envGroup.add(this.imgBackgroundTown);
 		game.depthGroups.envGroup.add(this.shopKeeper);
 		game.depthGroups.envGroup.add(this.dog);
 		game.depthGroups.envGroup.add(this.jeff);
 		game.depthGroups.envGroup.add(this.jeffShadow);
-
 
 		this.shop.smoothed = false;
 		this.shop.alpha = 0;
@@ -93,4 +105,44 @@ function DisplayManager(game) {
 			alpha: 1
 		}, 300, Phaser.Easing.Quadratic.None, true);;
 	};
+
+	// duration: time takes to reach end of screen
+	this.putCloud = function() {
+		this.randomCloudAttr();
+		printDebug('UI: Putting cloud at ' + this.cloudY);
+		var cloud = this.clouds.create(-58, this.cloudY, 'gp_cloud');
+		cloud.floatTween = game.add.tween(cloud).to( {x: gameConfig.RESOLUTION[0]}, this.cloudDur);
+		cloud.floatTween.start();
+		cloud.floatTween.onComplete.add(function() { 
+			cloud.kill();
+		});
+		
+		if (this.cloudGenerationOn) {
+			this.cloudTimer.add(
+				Phaser.Timer.SECOND * game.rnd.realInRange(3, 8),
+				this.putCloud, 
+				this
+			);
+		}
+	}
+
+	this.toggleCloudGeneration = function(cloudGen) {
+		this.cloudGenOn = cloudGen;
+		if (cloudGen) {
+			this.putCloud();
+			this.cloudTimer.start();
+		} else if (this.cloudTimer.running) {
+			this.cloudTimer.stop();
+		}
+	}
+
+	this.cloudGenerationOn = function() {
+		return this.cloudGenOn;
+	}
+
+	this.randomCloudAttr = function() {
+		this.cloudIntv = randomIntInRange(5, 13);
+		this.cloudY = randomIntInRange(100, 240);
+		this.cloudDur = randomIntInRange(40000, 80000);
+	}
 }

@@ -10,6 +10,9 @@ function AssetManager(game) {
 			'gp_title',
 			'gp_clickstart',
 			'gp_background',
+			'gp_background_town',
+			'gp_background_sky',
+			'gp_cloud',
 			'gp_shopkeeper',
 			'gp_stock',
 			/* Jeff */

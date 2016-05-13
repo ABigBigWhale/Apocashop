@@ -21,8 +21,6 @@ function PlayStateWrapper(game) {
 
 			var shop = game.displayManager.shop;	// TODO: temporary work-around
 
-			//game.displayManager.toggleTitleScreen(true);
-
 			///////////////////////////// UI elems ///////////////////////////
 
 			//-------------------------- Item slots --------------------------
@@ -316,7 +314,8 @@ function PlayStateWrapper(game) {
 				uiNote.tint = tintVal;
 				uiDesk.tint = tintVal;
 				uiDialog.tint = tintVal;
-				game.displayManager.imgBackground.tint = tintVal;
+				game.displayManager.imgBackgroundSky.tint = tintVal;
+				game.displayManager.imgBackgroundTown.tint = tintVal;
 				currNPC.tint = tintVal;
 				uiDeskBg.tint = tintVal;
 			}
@@ -476,6 +475,10 @@ function PlayStateWrapper(game) {
 			uiNote.visible = false;
 
 			game.eventManager.register(game.Events.DAY.START, function(data) {
+				// Turn on cloud generation
+				game.displayManager.toggleCloudGeneration(true);
+				
+				// Set up day game
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
 				if(uiNoteDisplayShown) {
 					toggleNoteDisplay();
@@ -661,6 +664,10 @@ function PlayStateWrapper(game) {
 					showNPC(isRandom);
 				}
 			});
+			
+			game.eventManager.register(game.Events.DAY.END, function() {
+				game.displayManager.toggleCloudGeneration(false);
+			});
 
 			beginGame(game);
 
@@ -670,9 +677,6 @@ function PlayStateWrapper(game) {
 			uiFunnelSetTime(game.interactionManager.dayTimer.getPercent());
 			uiFunnelSandTop.updateCrop();
 			uiFunnelSandButtom.updateCrop();
-
-			//game.depthGroups.envGroup.visible = false;
-			//game.depthGroups.uiGroup.visible = false;
 		}
 
 	};
