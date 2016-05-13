@@ -33,6 +33,7 @@ function QuestionManager(game) {
 	function removeCurrentQuestions() {
 		for(var i = 0; i < options.length; i++) {
 			options[i].visible = false;
+			options[i].textbox.visible = false;
 			options[i].kill();
 		}
 		options = [];
