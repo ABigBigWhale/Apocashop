@@ -34,7 +34,6 @@ function QuestionManager(game) {
 		for(var i = 0; i < options.length; i++) {
 			options[i].visible = false;
 			options[i].textbox.visible = false;
-			option[i].textbox.kill();
 			options[i].kill();
 		}
 		options = [];
