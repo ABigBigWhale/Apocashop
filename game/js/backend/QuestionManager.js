@@ -10,7 +10,7 @@ function QuestionManager(game) {
 	
 	var textStyle = {
 		font: '20px yoster_islandregular',
-		fill: '#4b4b4b',
+		//fill: '#4b4b4b',
 		//wordWrap: true,
 		//wordWrapWidth: optionWidth,
 		align: 'left',
