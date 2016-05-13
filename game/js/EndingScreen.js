@@ -25,6 +25,7 @@ function EndingScreen(game) {
 	}
 
 	function requestNext() {
+		blackScreenSprite.events.onInputDown.removeAll();
 		game.eventManager.notify(game.Events.WRAPUP.NEXT);
 	}
 
@@ -40,7 +41,6 @@ function EndingScreen(game) {
 	});
 
 	game.eventManager.register(game.Events.WRAPUP.MESSAGE, function(message) {
-		blackScreenSprite.events.onInputDown.removeAll();
 		game.dialogManager.printWrapup(message, function() {
 			blackScreenSprite.events.onInputDown.add(requestNext, this);
 		});

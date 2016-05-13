@@ -88,9 +88,14 @@ function StockUI(game) {
     }
 
     function endDay() {
+        var stocked = currStocked();
+        if(stocked.length === 0) {
+            alert("You need to stock at least one item before starting the day!");
+            return;
+        }
         ui_group.visible = false;
         killGroup();
-        game.eventManager.notify(game.Events.STOCK.COMMIT, currStocked());
+        game.eventManager.notify(game.Events.STOCK.COMMIT, stocked);
         callback();
     }
 

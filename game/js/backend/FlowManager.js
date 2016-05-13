@@ -40,6 +40,10 @@ function beginGame(game) {
 	};
 
 	var beginSales = function() {
+		// For some reason, this event doesn't take in wrapupManager's callback
+		// sometimes. Throwing it here as well for safety.
+		// Hey, when you have a one month dev cycle, this is what happens.
+		game.eventManager.notify(game.Events.WRAPUP.END);
 		game.interactionManager.startDay(days[currentDay], function() {
 			game.eventManager.notify(game.Events.DAY.END);
 			beginWrapup();
