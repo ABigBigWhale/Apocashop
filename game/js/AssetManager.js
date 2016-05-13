@@ -53,7 +53,10 @@ function AssetManager(game) {
 			'ui_coin',
 			'ui_coins',
 			'ui_coinstack',
-			'ui_button_start'
+			'ui_button_start',
+			'right_textbox',
+			'left_textbox',
+			'middle_textbox'
 		],
 
 		'items' : [

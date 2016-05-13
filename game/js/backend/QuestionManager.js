@@ -11,8 +11,8 @@ function QuestionManager(game) {
 	var textStyle = {
 		font: '20px yoster_islandregular',
 		fill: '#4b4b4b',
-		wordWrap: true,
-		wordWrapWidth: optionWidth,
+		//wordWrap: true,
+		//wordWrapWidth: optionWidth,
 		align: 'left',
 		backgroundColor: '#acacac'
 	};
@@ -54,28 +54,35 @@ function QuestionManager(game) {
 				self.hideQuestions();
 			}, this);
 		};
-		var minX, minY;
 		for (var i = 0; i < questions.length; i++) {
 			printDebug('QUESTION OPT: ' + questions[i]);
-			
-			var opt = game.add.text(775, 835, q[questions[i]], textStyle, questionLayer);
-			// find min for x, y for use in the graphics.
-			var currY = -400 - (i + 1) * optionMargin + 835;
-			var currX = 775 - opt.width;
-			minY = Math.min(minY, currY);
-			minX = Math.min(minX, currX);
+			var opt = game.add.text(775, 835, " " + q[questions[i]] + " ", textStyle, questionLayer);
 			opt.anchor.setTo(1, 1);
 			opt.inputEnabled = true;
 			options.push(opt);
-			
 			setUpListeners(options[i], questions[i]);
+			opt.textbox = generateTextbox(opt);
 		}
+		var optionGroup = game.add.group();
 		for(var i = 0; i < options.length; i++) {
-			options[i].bringToTop();
+			optionGroup.add(options[i]);		
 		}
-		
 	};
 	
+	function generateTextbox(sprite) {
+		var totalSpots = Math.ceil((20 + sprite.width) / 19); // find the number of slots we need to generate
+		var textBox = game.add.group();
+		var right = game.add.sprite(sprite.x, sprite.y, 'right_textbox');
+		var left = game.add.sprite(sprite.x - totalSpots * 19, sprite.y, 'left_textbox');
+		textBox.add(left);
+		for (var i = 1; i < totalSpots; i++) {
+			var middle = game.add.sprite(sprite.x - i * 19, sprite.y, 'middle_textbox');
+			textBox.add(middle);
+		}
+		textBox.add(right);
+		return textBox;
+	}
+
 	this.toggleQuestions = function() {
 		
 		questionVisible = !questionVisible;
@@ -84,9 +91,13 @@ function QuestionManager(game) {
 		if (!questionVisible) {	// Out
 			
 			for (var i = 0; i < options.length; i++) {
-				
+				options[i].textbox.forEach(function(sprite) {	
+					var textBoxTween = game.add.tween(sprite)
+						.to( {y: 835}, 500, Phaser.Easing.Quadratic.Out);
+					textBoxTween.start();
+				});
 				var optTween = game.add.tween(options[i])
-					.to( {y: 800}, 500, Phaser.Easing.Quadratic.Out);
+					.to( {y: 835}, 500, Phaser.Easing.Quadratic.Out);
 				optTween.start();
 			}
 			
@@ -95,6 +106,11 @@ function QuestionManager(game) {
 			for (var i = 0; i < options.length; i++) {
 				
 				var yPos = -400 - (i + 1) * optionMargin;
+				options[i].textbox.forEach(function(sprite) {
+					var textBoxTween = game.add.tween(sprite)
+						.to( {y: (yPos - 35).toString()}, 500, Phaser.Easing.Quadratic.Out);
+					textBoxTween.start();
+				});
 				var optTween = game.add.tween(options[i])
 					.to( {y: yPos.toString()}, 500, Phaser.Easing.Quadratic.Out);
 				optTween.start();
@@ -108,8 +124,13 @@ function QuestionManager(game) {
 			for (var i = 0; i < options.length; i++) {
 				
 				var optTween = game.add.tween(options[i])
-					.to( {y: 800}, 500, Phaser.Easing.Quadratic.Out);
+					.to( {y: 835}, 500, Phaser.Easing.Quadratic.Out);
 				optTween.start();
+				options[i].textbox.forEach(function(sprite) {	
+					var textBoxTween = game.add.tween(sprite)
+						.to( {y: 835}, 500, Phaser.Easing.Quadratic.Out);
+					textBoxTween.start();
+				});
 			}
 		}
 		questionVisible = false;
