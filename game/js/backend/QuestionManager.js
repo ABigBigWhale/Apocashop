@@ -67,11 +67,13 @@ function QuestionManager(game) {
 		for(var i = 0; i < options.length; i++) {
 			optionGroup.add(options[i]);		
 		}
+		game.depthGroups.questionGroup.add(optionGroup);
 	};
 	
 	function generateTextbox(sprite) {
 		var totalSpots = Math.ceil((20 + sprite.width) / 19); // find the number of slots we need to generate
 		var textBox = game.add.group();
+		game.depthGroups.questionGroup.add(textBox);
 		var right = game.add.sprite(sprite.x, sprite.y, 'right_textbox');
 		var left = game.add.sprite(sprite.x - totalSpots * 19, sprite.y, 'left_textbox');
 		textBox.add(left);

@@ -12,6 +12,7 @@ function PlayStateWrapper(game) {
 				titleGroup: game.add.group(),
 				envGroup: game.add.group(),
 				shopGroup: game.add.group(),
+				questionGroup : game.add.group(),
 				uiGroup: game.add.group(),
 			};
 
