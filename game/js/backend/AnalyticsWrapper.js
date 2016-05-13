@@ -31,4 +31,8 @@ function AnalyticsWrapper() {
 		});
 	};
 
+	this.set = function(metric, val) {
+		ga('set', 'metric1', val);
+	};
+
 }
