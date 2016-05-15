@@ -29,6 +29,7 @@ function AssetManager(game) {
 
 		'ui': [
 			'ui_itemslot', 
+			'ui_jeff_dialog_corner', 'ui_jeff_dialog_tip', 'ui_jeff_dialog_border',
 			'ui_dialog',
 			'ui_note',
 			'ui_note_big',

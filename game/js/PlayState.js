@@ -12,6 +12,7 @@ function PlayStateWrapper(game) {
 				titleGroup: game.add.group(),
 				envGroup: game.add.group(),
 				shopGroup: game.add.group(),
+				dialogGroup: game.add.group(),
 				questionGroup : game.add.group(),
 				uiGroup: game.add.group(),
 			};
@@ -217,21 +218,21 @@ function PlayStateWrapper(game) {
 				if (game.dialog.main.isPrinting) {
 					game.dialogManager.jumpMain();
 				} else {
-					game.eventManager.notify(game.Events.INPUT.YES)
+					game.eventManager.notify(game.Events.INPUT.YES);
 				}
 			};
 			var uiButtonRejectCB = function() {
 				if (game.dialog.main.isPrinting) {
 					game.dialogManager.jumpMain();
 				} else {
-					game.eventManager.notify(game.Events.INPUT.NO)
+					game.eventManager.notify(game.Events.INPUT.NO);
 				}
 			};
 			var uiButtonContinueCB = function() {
 				if (game.dialog.main.isPrinting) {
 					game.dialogManager.jumpMain();
 				} else {
-					game.eventManager.notify(game.Events.INPUT.CONTINUE)
+					game.eventManager.notify(game.Events.INPUT.CONTINUE);
 				}
 			};
 			var uiButtonQuestionCB = function() {

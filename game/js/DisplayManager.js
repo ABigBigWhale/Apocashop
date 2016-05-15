@@ -60,6 +60,8 @@ function DisplayManager(game) {
 		game.depthGroups.envGroup.add(this.jeff);
 		game.depthGroups.envGroup.add(this.jeffShadow);
 
+
+
 		this.shop.smoothed = false;
 		this.shop.alpha = 0;
 		this.shop.visible = false;
@@ -121,7 +123,7 @@ function DisplayManager(game) {
 		cloud.floatTween.onComplete.add(function() { 
 			cloud.kill();
 		});
-		
+
 		if (this.cloudGenerationOn) {
 			this.cloudTimer.add(
 				Phaser.Timer.SECOND * game.rnd.realInRange(3, 8),
@@ -149,5 +151,70 @@ function DisplayManager(game) {
 		this.cloudIntv = randomIntInRange(5, 13);
 		this.cloudY = randomIntInRange(100, 240);
 		this.cloudDur = randomIntInRange(40000, 80000);
+	}
+
+	function createDialogTweens(dialog) {
+		dialog.dialogIn = game.add.tween(game.depthGroups.dialogGroup)
+			.to( {alpha: 1}, 500, Phaser.Easing.Bounce.In);
+		dialog.dialogPop = game.add.tween(game.depthGroups.dialogGroup.scale)
+			.from( {x: 0, y: 0}, 700, Phaser.Easing.Bounce.Out);
+		dialog.dialogOut = game.add.tween(game.depthGroups.dialogGroup.scale)
+			.to( {x: 0, y: 0}, 300, Phaser.Easing.Quadratic.Out);
+		dialog.dialogOut.onComplete.add(function() {
+			game.depthGroups.dialogGroup.callAll('kill');
+		});
+	}
+
+	function createJeffDialog(x, y, w, h) {
+		game.depthGroups.dialogGroup.callAll('kill');
+		game.depthGroups.dialogGroup = game.add.group();
+		createDialogTweens(game.depthGroups.dialogGroup);
+
+		var cornerSize = 12;
+		var cornerUL = game.depthGroups.dialogGroup.create(x, y, 'ui_jeff_dialog_corner');
+		var cornerUR = game.depthGroups.dialogGroup.create(x+w+cornerSize, y, 'ui_jeff_dialog_corner');
+		var cornerLL = game.depthGroups.dialogGroup.create(x, y+h-8, 'ui_jeff_dialog_tip');
+		var cornerLR = game.depthGroups.dialogGroup.create(x+w+cornerSize, y+h, 'ui_jeff_dialog_corner');
+
+		cornerUR.angle += 90;
+		cornerLR.angle += 180;
+
+		for (var ix = x + cornerSize; ix <= x + w; ix += 2) {
+			var sideTop = game.depthGroups.dialogGroup.create(ix, y, 'ui_jeff_dialog_border');
+			var sideButtom = game.depthGroups.dialogGroup.create(ix, y+h, 'ui_jeff_dialog_border');
+			sideButtom.angle += 180;
+		}
+		for (var iy = y + cornerSize; iy <= y + h; iy += 2) {
+			var sideLeft = game.depthGroups.dialogGroup.create(x, iy, 'ui_jeff_dialog_border');
+			sideLeft.angle += 270;
+			if (iy < y + h - cornerSize) {
+				var sideRight = game.depthGroups.dialogGroup.create(x+w+cornerSize, iy, 'ui_jeff_dialog_border');	
+				sideRight.angle += 90;
+			}
+		}
+
+		var middleRect = game.add.graphics(0, 0);
+		middleRect.beginFill(0xFFFFCA);
+		middleRect.drawRect(0, 0, w , h - cornerSize);
+		var middle = game.depthGroups.dialogGroup.create(x + cornerSize/2, y + cornerSize/2);
+		middle.addChild(middleRect);
+
+		game.depthGroups.dialogGroup.x = x + w/2;
+		game.depthGroups.dialogGroup.y = y + h/2;
+		game.depthGroups.dialogGroup.pivot.x = x + w/2;
+		game.depthGroups.dialogGroup.pivot.y = y + h/2;
+		game.depthGroups.dialogGroup.alpha = 0;
+
+		printDebug('UI: put Jeff dialog at ' + x + ', ' + y + ' with width: ' + w + ' height: ' + h);
+	}
+
+	this.putJeffDialog = function(x, y, w, h) {
+		createJeffDialog(x, y, w, h);
+		game.depthGroups.dialogGroup.dialogIn.start();
+		game.depthGroups.dialogGroup.dialogPop.start();
+	}
+
+	this.clearJeffDialog = function() {
+		game.depthGroups.dialogGroup.dialogOut.start();
 	}
 }
