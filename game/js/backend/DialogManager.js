@@ -80,24 +80,29 @@ function DialogManager(game) {
 		game.dialog.main.callback();
 	};
 
+	var isJeffActive = false;
+
 	this.printJeff = function(message, doneCB) {
 		doneCB = doneCB || function() {};
 		if(message === "") {
+			isJeffActive = false;
 			clearTimeout(game.dialog.jeff.timeout);
 			game.dialog.jeff.box.text = "";
 			game.displayManager.clearJeffDialog();
 			doneCB();
 			return;
 		}
-		var doneCallback = function() {
-			game.displayManager.clearJeffDialog();
-			doneCB();
-		}
-		game.displayManager.putJeffDialog(550, 70, 200, 180, function() {
+		var printFunc = function() {
 			clearTimeout(game.dialog.jeff.timeout);
 			var brokenMessage = formatMessage(game.dialog.jeff.box, game.dialog.jeff.ghost, 180, 3, 23, message);
 			printMessage(game.dialog.jeff.box, brokenMessage, 15, 100, false, game.dialog.jeff, doneCB);
-		});
+		}
+		if(isJeffActive) {
+			printFunc();
+		} else {
+			game.displayManager.putJeffDialog(550, 70, 200, 180, printFunc);
+			isJeffActive = true;
+		}
 	};
 
 	this.printDog = function(message, doneCB) {

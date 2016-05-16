@@ -381,7 +381,8 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : 'jeff',
 			dialog : [
-				"Alright kiddo, time for another fun filled day. Let's do this."
+				"Alright kiddo, time for another fun filled day. Let's do this.",
+				"Also, just so you know, everything past this point is pretty rough and very much in beta."
 			]
 		},
 		endJeff : {
