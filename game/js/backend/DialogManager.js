@@ -22,7 +22,7 @@ function DialogManager(game) {
 			unfreezeCallback : false
 		},
 		jeff : {
-			box : game.add.text(500, 130, "", { font : "16px yoster_islandregular", fill: Colors.PassiveDarker }),
+			box : game.add.text(560, 70, "", { font : "16px yoster_islandregular", fill: Colors.PassiveDarker }),
 			ghost : game.add.text(999, 999, "", { font : "16px yoster_islandregular" }),
 			timeout : false
 		},
@@ -82,9 +82,22 @@ function DialogManager(game) {
 
 	this.printJeff = function(message, doneCB) {
 		doneCB = doneCB || function() {};
-		clearTimeout(game.dialog.jeff.timeout);
-		var brokenMessage = formatMessage(game.dialog.jeff.box, game.dialog.jeff.ghost, 230, 4, 23, message);
-		printMessage(game.dialog.jeff.box, brokenMessage, 15, 100, false, game.dialog.jeff, doneCB);
+		if(message === "") {
+			clearTimeout(game.dialog.jeff.timeout);
+			game.dialog.jeff.box.text = "";
+			game.displayManager.clearJeffDialog();
+			doneCB();
+			return;
+		}
+		var doneCallback = function() {
+			game.displayManager.clearJeffDialog();
+			doneCB();
+		}
+		game.displayManager.putJeffDialog(550, 70, 200, 180, function() {
+			clearTimeout(game.dialog.jeff.timeout);
+			var brokenMessage = formatMessage(game.dialog.jeff.box, game.dialog.jeff.ghost, 180, 3, 23, message);
+			printMessage(game.dialog.jeff.box, brokenMessage, 15, 100, false, game.dialog.jeff, doneCB);
+		});
 	};
 
 	this.printDog = function(message, doneCB) {

@@ -207,13 +207,27 @@ function DisplayManager(game) {
 		printDebug('UI: put Jeff dialog at ' + x + ', ' + y + ' with width: ' + w + ' height: ' + h);
 	}
 
-	this.putJeffDialog = function(x, y, w, h) {
+	var isJeffActive = false;
+
+	this.putJeffDialog = function(x, y, w, h, doneCB) {
+		doneCB = doneCB || function() {};
+		if(isJeffActive) {
+			doneCB();
+			return;
+		}
+		var completeCallback = function() {
+			game.depthGroups.dialogGroup.dialogIn.onComplete.remove(completeCallback);
+			doneCB();
+		}
 		createJeffDialog(x, y, w, h);
+		game.depthGroups.dialogGroup.dialogIn.onComplete.add(completeCallback);
 		game.depthGroups.dialogGroup.dialogIn.start();
 		game.depthGroups.dialogGroup.dialogPop.start();
+		isJeffActive = true;
 	}
 
 	this.clearJeffDialog = function() {
 		game.depthGroups.dialogGroup.dialogOut.start();
+		isJeffActive = false;
 	}
 }

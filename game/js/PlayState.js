@@ -11,12 +11,11 @@ function PlayStateWrapper(game) {
 			game.depthGroups = {
 				titleGroup: game.add.group(),
 				envGroup: game.add.group(),
-				shopGroup: game.add.group(),
 				dialogGroup: game.add.group(),
+				shopGroup: game.add.group(),
 				questionGroup : game.add.group(),
 				uiGroup: game.add.group(),
 			};
-
 
 			game.displayManager.putEnvironment();
 

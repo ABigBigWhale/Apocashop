@@ -58,7 +58,7 @@ function beginGame(game) {
 			game.analytics.track('day', 'begin' + currentDay, currentDay);
 			game.analytics.set('day', 1);
 			// TODO: only going to day 3
-			if (currentDay <= 2) beginStocking();
+			if (currentDay <= 5) beginStocking();
 			else {
 				game.endStateWrapper.setGameResult(true);
 				game.state.start('state_end');
