@@ -3,6 +3,20 @@ function AssetManager(game) {
 	this.game = game;
 
 	this.assetFolder = 'assets/';
+	
+	this.spriteSheets = {
+		'button_item_border' : [22, 22],
+		'button_add' : [11, 11],
+		'button_sub' : [11, 11],
+		'gp_dog_small' : [48, 36],
+		'upgrade_' : [100, 100],
+		'button_continue' : [128, 128],
+		'button_start' : [160, 53],
+		'button_accept' : [63, 22],
+		'button_reject' : [63, 22],
+		'button_question' : [63, 22],
+		
+	};
 
 	// Paths of asset files, without extensions
 	this.assets = {
@@ -24,7 +38,7 @@ function AssetManager(game) {
 			'gp_dog_small',
 			'gp_dog_big', 'gp_dog_tail', 'gp_dog_tounge', 'gp_dog_claw_1',
 			'gp_dog_claw_2',
-            'gp_dog_set'
+			'gp_dog_set'
 		],
 
 		'ui': [
@@ -100,29 +114,28 @@ function AssetManager(game) {
 					for (var i = 0; i < this.assets[path].length; i++) {
 						var assetId = this.assets[path][i];
 						var fullPath = this.assetFolder + path + '/' + assetId + '.png';
-						if (assetId.indexOf('button_item_border') > 0) {
-							var spriteSize = [22, 22];
-							this.game.load.spritesheet(assetId, fullPath, spriteSize[0], spriteSize[1]);
-
-						}
-						if (assetId.indexOf('button_add') > 0 || assetId.indexOf('button_sub') > 0) {
-							var spriteSize = [11, 11];
-							this.game.load.spritesheet(assetId, fullPath, spriteSize[0], spriteSize[1]);
-						} else if (assetId.indexOf('button') < 0 && assetId.indexOf('upgrade') < 0) { // single image
-							this.game.load.image(assetId, fullPath);
-						} else if (assetId.indexOf('upgrade') < 0) {
-							var spriteSize = [63, 22];
-							if (assetId.indexOf('continue') > 0) {
-								spriteSize = [128, 128];
-							} else if (assetId.indexOf('start') > 0) {
-								spriteSize = [160, 53];
+						var isSpritesheet = false;
+						
+						for (var key in this.spriteSheets) {
+							// Load spritesheets
+							if (assetId.indexOf(key) >= 0) {
+								printDebug('LOADING(spritesheet): ' + fullPath);
+								this.game.load.spritesheet(assetId, fullPath, 
+														  this.spriteSheets[key][0],
+														  this.spriteSheets[key][1]);
+								isSpritesheet = true;
+								break;
 							}
-							this.game.load.spritesheet(assetId, fullPath, spriteSize[0], spriteSize[1]);
-						} else {    // TODO: spritesheet
-							var spriteSize = [100, 100];
-							this.game.load.spritesheet(assetId, fullPath, spriteSize[0], spriteSize[1]);
 						}
-						printDebug('LOADING: ' + fullPath);
+						
+						if (!isSpritesheet) {
+							// Load images
+							printDebug('LOADING(image): ' + fullPath);
+							this.game.load.image(assetId, fullPath);
+						}
+						
+						printDebug('LOADED: ' + assetId);
+						
 					}   
 				}
 			}
