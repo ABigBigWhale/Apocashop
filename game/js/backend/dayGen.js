@@ -151,7 +151,7 @@ function initDayGenerator(game) {
 				}));
 			}
 
-			var numClues = Math.ceil(worldState.difficulty / 3);
+			var numClues = Math.ceil(worldState.difficulty);
 
 			generateQuestionClue(day, hero, falseHeroes, numClues === 1);
 
