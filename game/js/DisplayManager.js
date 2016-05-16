@@ -46,7 +46,7 @@ function DisplayManager(game) {
 		this.imgBackgroundTown = game.add.image(0, 0, 'gp_background_town');
 		this.shopKeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
 		this.dog = game.add.sprite(440, 300, 'gp_dog_small');
-		this.dog.visible = false;
+		this.dog.visible = true;
 		this.shop = game.add.sprite(0, 0, 'shop_rock');
 		this.jeff = game.add.sprite(this.shopKeeper.x + 35, 277, 'gp_jeff_noshadow');
 		this.jeffShadow = game.add.sprite(this.shopKeeper.x + 43, 
@@ -71,6 +71,9 @@ function DisplayManager(game) {
 		);
 
 		setPositionLowerMiddle(this.shop, this.shopKeeper);
+		
+		this.dog.anim = this.dog.animations.add('doge');
+		this.dog.animations.play('doge', 3, true);
 
 		this.jeff.floating = game.add.tween(this.jeff).to({
 			y: 260
