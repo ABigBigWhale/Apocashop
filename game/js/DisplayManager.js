@@ -166,8 +166,7 @@ function DisplayManager(game) {
 	}
 
 	function createJeffDialog(x, y, w, h) {
-		game.depthGroups.dialogGroup.callAll('kill');
-		game.depthGroups.dialogGroup = game.add.group();
+		game.depthGroups.dialogGroup.removeAll(true);
 		createDialogTweens(game.depthGroups.dialogGroup);
 
 		var cornerSize = 12;
