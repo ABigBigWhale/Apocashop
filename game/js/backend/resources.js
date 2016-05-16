@@ -375,6 +375,22 @@ var heroes = {
 				}
 			]
 		}
+	},
+	generatedDay : {
+		genericJeff : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Alright kiddo, time for another fun filled day. Let's do this."
+			]
+		},
+		endJeff : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Hey kid, it's getting late. I think it's time to get some sleep."
+			]
+		}
 	}
 };
 
