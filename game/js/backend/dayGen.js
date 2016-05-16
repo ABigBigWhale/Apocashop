@@ -1,13 +1,5 @@
 var getDay;
 
-initDayGenerator({
-	playerState : {
-		getAvalItems : function() {
-			return ['sword', 'shield', 'chicken', 'water'];
-		}
-	}
-});
-
 function initDayGenerator(game) {
 
 	var days;
@@ -54,7 +46,7 @@ function initDayGenerator(game) {
 	}
 
 	function generateLength(day) {
-		day.length = 60000;
+		day.length = 40000;
 	}
 
 	var generateCrisis;
@@ -124,6 +116,8 @@ function initDayGenerator(game) {
 
 	(function() {
 
+		var NUM_FALSE_HEROES = 2;
+
 		// structure: {hero : heroID, falseHeroes : [array of heroIDs]}
 		// Actual heroes are set up in the generatedDay section of the
 		// heroes object. Make sure you do NOT use hero or falseHero
@@ -131,7 +125,6 @@ function initDayGenerator(game) {
 		var preGenHeroes = [];
 
 		generateHero = function(day, crisis) {
-			var NUM_FALSE_HEROES = 2;
 			var isAddedToSequence = false;
 
 			if(preGenHeroes.length > 0 && rollDice(0.2)) {
@@ -163,18 +156,18 @@ function initDayGenerator(game) {
 			generateQuestionClue(day, hero, falseHeroes, numClues === 1);
 
 			if(numClues >= 2) {
-				if(rollDice(0.5)) {
-					generateNeighborClue(day, hero, falseHeroes);
+				if(rollDice(0)) {
+					generateNeighborClue(day, hero, falseHeroes, numClues === 2);
 					isAddedToSequence = true;
 				} else {
-					generateOfferClue(day, hero, falseHeroes);
+					generateOfferClue(day, hero, falseHeroes, numClues === 2);
 				}
 			} else {
 				lowerOffers(day, hero, falseHeroes);
 			}
 
 			if(numClues >= 3) {
-				generateLetterClue(day, hero, falseHeroes);
+				generateLetterClue(day, hero, falseHeroes, true);
 			}
 
 			heroes.generatedDay.hero = hero;
@@ -321,17 +314,30 @@ function initDayGenerator(game) {
 				"The hero's [n] offer will be [x] gold."
 			];
 
-			generateOfferClue = function(day, hero, falseHeroes) {
+			generateOfferClue = function(day, hero, falseHeroes, isFoolproof) {
 				var numOffers = rollDice(60/100) ? 1 :
 					rollDice(25/40) ? 2 :
 					rollDice(10/15) ? 3 : 4;
 
+				hero.offers = generateOffers(numOffers);
+				hero.offerText = generateOfferText(hero.item, hero.offers);
+
+				day.clues.hero.push(generateFlavor(hero.offers[numOffers - 1], numOffers));
+
+				if(isFoolproof) {
+					for(var i = 0; i < falseHeroes.length; i++) {
+						var offer = falseHeroes[i].offers[numOffers - 1];
+						if(offer && offer === hero.offers[numOffers - 1]) {
+							falseHeroes[i].offers[numOffers - 1] -= 1;
+						}
+					}
+				}
 
 			};
 
 			function generateOffers(numOffers) {
 				var offers = [];
-				for(var i = 0; i < numOffers - 1; i++) {
+				for(var i = 0; i < numOffers; i++) {
 					offers.push(numOffers - i);
 				}
 				return offers;
@@ -353,23 +359,93 @@ function initDayGenerator(game) {
 		})();
 
 		function lowerOffers(day, hero, falseHeroes) {
+			var allHeroes = [hero].concat(falseHeroes);
+			for(var i = 0; i < allHeroes.length; i++) {
+				var offers = allHeroes[i].offers;
+				for(var i = 0; i < offers.length; i++) {
+					if(offers[i] > items[hero.item].price) {
+						offers.splice(i, 1);
+						i--;
+					}
+				}
+				if(offers.length === 0) {
+					allHeroes[i].offers = [2];
+				}
+				allHeroes[i].offerText = generateOfferText(allHeroes[i].item, allHeroes[i].offers);
+			}
+		}
+
+		function generateLetterClue(day, hero, falseHeroes, isFoolproof) {
+			var text = hero.offerText[0].split(/[^a-zA-Z]/).join("");
+			var index = Math.floor(Math.random() * text.length);
+			var originalIndex = index;
+			var char = text.charAt(index);
+
+			if(isFoolproof) {
+				for(var i = 0; i < falseHeroes.length; i++) {
+					var falseText = falseHeroes[i].offerText[0].split(/[^a-zA-Z]/).join("");
+					var falseChar = falseText.charAt(index);
+					if(falseChar === char) {
+						index = (index + 1) % text.length;
+						if(index === originalIndex) {
+							return;
+						}
+						char = text.charAt(index);
+						i = 0;
+					}
+				}
+			}
+
+			day.clues.hero.push(generateLetterFlavor(char, index));
 
 		}
 
-		function generateLetterClue(day, hero, falseHeroes) {
+		function generateLetterFlavor(character, index) {
+			index += 1;
+			var clueStr = "The " + getOrdinal(index) + " letter the hero says will be '" + character + "'.";
+			return clueStr;
+		}
 
+		function generateHeroData(heroName) {
+			return {
+				category : "generatedDay",
+				hero : heroName,
+				fuzz : 0,
+				force : true
+			}
 		}
 
 		function addToSequence(day, hero, falseHeroes) {
+			var index = randomIntInRange(1, 20);
+			day.sequence[index] = generateHeroData('hero');
+			for(var i = 0; i < falseHeroes.length; i++) {
+				do {
+					index = randomIntInRange(1, 20);
+				} while(day.sequence[index]);
+				day.sequence[index] = generateHeroData('falseHero' + i);
+			}
 
+			day.sequence[0] = generateHeroData('genericJeff');
+			day.sequence[9999] = generateHeroData('endJeff');
 		}
 
 	})();
 
 	(function() {
 
-		generateWrapup = function(day, hero, crisis) {
+		function generateMessage(text, gold, conditions) {
+			return {
+				text : text,
+				gold : gold,
+				conditions : conditions
+			};
+		}
 
+		generateWrapup = function(day, hero, crisis) {
+			var taxes = Math.ceil(worldState.difficulty / 5) * 10;
+			day.wrapup.push(generateMessage("You are forced by King Zoran to pay " + taxes + " gold in taxes.", -taxes));
+			var robbedCash = Math.ceil(worldState.difficulty / 3) * 10;
+			day.wrapup.push(generateMessage("The hero was unable to save the town. You lose " + robbedCash + "gold.", -robbedCash, ['refusedHero']));
 		};
 
 	})();
@@ -501,9 +577,6 @@ function initDayGenerator(game) {
 					text : "You're forced by King Zoran to pay 10 gold in taxes.",
 					gold : -10
 				},
-				// {
-				// 	text : "He also demands that the shop should run faster and should collect more data on its customers."
-				// },
 				{
 					conditions : ["soldCousin"],
 					text : "Your store is robbed in the night. The robber leaves a note on Mac and Cheese colored paper.",

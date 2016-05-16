@@ -1,7 +1,8 @@
 var generateNPC;
 var applyRandomAppearance;
+var generateOfferText;
 
-initNPCGen({});
+// initNPCGen({});
 
 function initNPCGen(game) {
 
@@ -85,29 +86,29 @@ function initNPCGen(game) {
 		return offers;
 	}
 
-	function generateOfferText(item, offers) {
+	generateOfferText = function(item, offers) {
 		var textArr = [];
 		textArr.push(generateGreeting(item, offers[0]));
 		for(var i = 1; i < offers.length; i++) {
 			textArr.push(generateHaggle(offers[i]));
 		}
 		return textArr;
-	}
+	}.bind(this);
 
 	(function() {
 		
-		var apprCategory// = game.assetManager.assets['npc'];
+		var apprCategory = game.assetManager.assets['npc'];
 
 		generateAppearance = function(item, offers) {
-			// var maxOffer = Math.max.apply(this, offers);
-			// var apprQuery = '';
+			var maxOffer = Math.max.apply(this, offers);
+			var apprQuery = '';
 			
-			// for (var apprPart in apprCategory) {
-			// 	var partCount = game.assetManager.assets['npc'][apprPart];
-			// 	apprQuery += apprPart + '|' + game.rnd.integerInRange(1, partCount) + ',';
-			// }
+			for (var apprPart in apprCategory) {
+				var partCount = game.assetManager.assets['npc'][apprPart];
+				apprQuery += apprPart + '|' + game.rnd.integerInRange(1, partCount) + ',';
+			}
 			
-			// return apprQuery.substring(0, apprQuery.length - 1);
+			return apprQuery.substring(0, apprQuery.length - 1);
 		};
 
 		applyRandomAppearance = function(npc) {

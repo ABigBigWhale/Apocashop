@@ -66,6 +66,13 @@ function randomElement(arr, isRemove) {
 }
 
 function numToThStr(num) {
-	var numArray = ["zeroeth", "first", "second", "third", "fourth"];
+	var numArray = ["zeroeth", "first", "second", "third", "fourth",
+					];
 	return numArray[num];
+}
+
+function getOrdinal(n) {
+	var s=["th","st","nd","rd"],
+	v=n%100;
+	return n+(s[(v-20)%10]||s[v]||s[0]);
 }
