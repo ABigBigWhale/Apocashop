@@ -88,10 +88,22 @@ function StockUI(game) {
     }
 
     function endDay() {
+        if (!somethingLoaded()) {
+            remindPlayer();
+            return;
+        }
         ui_group.visible = false;
         killGroup();
         game.eventManager.notify(game.Events.STOCK.COMMIT, currStocked());
         callback();
+    }
+
+    function somethingLoaded() {
+        for (var i = 0; i < allLoad.length; i++) {
+            if (allLoad[i].loaded != null) {
+                return true;
+            }
+        }
     }
 
     function currStocked() {

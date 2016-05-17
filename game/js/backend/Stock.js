@@ -17,6 +17,10 @@ function Stock(game) {
 		game.eventManager.register(game.Events.STOCK.STARTDAY, initStockUI);
 	}
 
+	function empty() {
+		return totalGold != 0 && game.playerState.getGold() > 10;
+	}
+
 	function initStock() {
 		game.eventManager.notify(game.Events.UPDATE.ITEMS, Items);
 		game.eventManager.notify(game.Events.UPDATE.STOCKGOLD, game.playerState.getGold() - totalGold);
