@@ -54,7 +54,7 @@ function Stock(game) {
 	function addItems(item, amount) {
 		if (items[item] === undefined) {
 			alert("Trying to remove an item that doesn't exist");
-		} else if ((items[item].price * amount + totalGold) < game.playerState.getGold()) {
+		} else if ((items[item].price * amount + totalGold) <= game.playerState.getGold()) {
 			Items[item] = (Items[item] || 0) + amount;
 			totalGold += items[item].price * amount;
 		}
