@@ -1,5 +1,8 @@
 var generateNPC;
 var applyRandomAppearance;
+var generateOfferText;
+
+// initNPCGen({});
 
 function initNPCGen(game) {
 
@@ -83,14 +86,14 @@ function initNPCGen(game) {
 		return offers;
 	}
 
-	function generateOfferText(item, offers) {
+	generateOfferText = function(item, offers) {
 		var textArr = [];
 		textArr.push(generateGreeting(item, offers[0]));
 		for(var i = 1; i < offers.length; i++) {
 			textArr.push(generateHaggle(offers[i]));
 		}
 		return textArr;
-	}
+	}.bind(this);
 
 	(function() {
 		

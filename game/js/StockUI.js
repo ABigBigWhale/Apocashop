@@ -5,6 +5,7 @@ function StockUI(game) {
     var allNews;
     var textCoins;
     var endDayButton;
+    var reminder;
     var imgBackground;
     var ui_group;
     var callback;
@@ -23,9 +24,13 @@ function StockUI(game) {
         ui_group = game.add.group();
         imgBackground = game.add.image(0, 0, 'gp_stock');
         endDayButton = game.add.button(620, 538, 'ui_button_start', endDay, this, 1, 0, 2);
+        reminder = game.add.text(627, 542 - endDayButton.height / 2, "Stock Items", 
+                                    { font: "20px yoster_islandregular" , fill: "#CC0000"});
+        reminder.alpha = 0;
 
         ui_group.add(imgBackground); 
         ui_group.add(endDayButton);
+        ui_group.add(reminder);
         
 
         game.eventManager.register(game.Events.UPDATE.ITEMS, updateItems);
@@ -94,8 +99,17 @@ function StockUI(game) {
         }
         ui_group.visible = false;
         killGroup();
-        game.eventManager.notify(game.Events.STOCK.COMMIT, currStocked());
+        game.eventManager.notify(game.Events.STOCK.COMMIT, stocked);
         callback();
+    }
+
+    function remindPlayer() {
+        var remindertween = game.add.tween(reminder).to( {alpha: 1}, 1000);
+        remindertween.onComplete.add(function() {
+            var disappeartween = game.add.tween(reminder).to( {alpha: 0}, 1000);
+            disappeartween.start();
+        });
+        remindertween.start();
     }
 
     function somethingLoaded() {
@@ -192,7 +206,8 @@ function StockUI(game) {
     }
 
     function deHoverOnItem(sprite, pointer) {
-        sprite.priceText.visible = false;
+        if (sprite.loaded != null)
+            sprite.priceText.visible = false;
     }
 
     function initAllLoad(loads) {
@@ -263,6 +278,7 @@ function StockUI(game) {
             sprite.position.x += 4;
             sprite.position.y += 4;
             sprite.loaded = true;
+            hoverOnItem(sprite, null);
             loader.num.text = sprite.num + "";
             loader.loaded = sprite;
         } else {

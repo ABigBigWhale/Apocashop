@@ -11,17 +11,15 @@ function PlayStateWrapper(game) {
 			game.depthGroups = {
 				titleGroup: game.add.group(),
 				envGroup: game.add.group(),
+				dialogGroup: game.add.group(),
 				shopGroup: game.add.group(),
 				questionGroup : game.add.group(),
 				uiGroup: game.add.group(),
 			};
 
-
 			game.displayManager.putEnvironment();
 
 			var shop = game.displayManager.shop;	// TODO: temporary work-around
-
-			//game.displayManager.toggleTitleScreen(true);
 
 			///////////////////////////// UI elems ///////////////////////////
 
@@ -219,21 +217,21 @@ function PlayStateWrapper(game) {
 				if (game.dialog.main.isPrinting) {
 					game.dialogManager.jumpMain();
 				} else {
-					game.eventManager.notify(game.Events.INPUT.YES)
+					game.eventManager.notify(game.Events.INPUT.YES);
 				}
 			};
 			var uiButtonRejectCB = function() {
 				if (game.dialog.main.isPrinting) {
 					game.dialogManager.jumpMain();
 				} else {
-					game.eventManager.notify(game.Events.INPUT.NO)
+					game.eventManager.notify(game.Events.INPUT.NO);
 				}
 			};
 			var uiButtonContinueCB = function() {
 				if (game.dialog.main.isPrinting) {
 					game.dialogManager.jumpMain();
 				} else {
-					game.eventManager.notify(game.Events.INPUT.CONTINUE)
+					game.eventManager.notify(game.Events.INPUT.CONTINUE);
 				}
 			};
 			var uiButtonQuestionCB = function() {
@@ -316,7 +314,8 @@ function PlayStateWrapper(game) {
 				uiNote.tint = tintVal;
 				uiDesk.tint = tintVal;
 				uiDialog.tint = tintVal;
-				game.displayManager.imgBackground.tint = tintVal;
+				game.displayManager.imgBackgroundSky.tint = tintVal;
+				game.displayManager.imgBackgroundTown.tint = tintVal;
 				currNPC.tint = tintVal;
 				uiDeskBg.tint = tintVal;
 			}
@@ -463,6 +462,7 @@ function PlayStateWrapper(game) {
 
 			///////////////////////////// Backend ///////////////////////////
 
+			initDayGenerator(game);
 			initBackend(game);
 
 			game.tutorial = {
@@ -476,6 +476,10 @@ function PlayStateWrapper(game) {
 			uiNote.visible = false;
 
 			game.eventManager.register(game.Events.DAY.START, function(data) {
+				// Turn on cloud generation
+				game.displayManager.toggleCloudGeneration(true);
+				
+				// Set up day game
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
 				if(uiNoteDisplayShown) {
 					toggleNoteDisplay();
@@ -661,6 +665,10 @@ function PlayStateWrapper(game) {
 					showNPC(isRandom);
 				}
 			});
+			
+			game.eventManager.register(game.Events.DAY.END, function() {
+				game.displayManager.toggleCloudGeneration(false);
+			});
 
 			beginGame(game);
 
@@ -670,9 +678,6 @@ function PlayStateWrapper(game) {
 			uiFunnelSetTime(game.interactionManager.dayTimer.getPercent());
 			uiFunnelSandTop.updateCrop();
 			uiFunnelSandButtom.updateCrop();
-
-			//game.depthGroups.envGroup.visible = false;
-			//game.depthGroups.uiGroup.visible = false;
 		}
 
 	};

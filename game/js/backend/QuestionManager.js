@@ -10,11 +10,11 @@ function QuestionManager(game) {
 	
 	var textStyle = {
 		font: '20px yoster_islandregular',
-		fill: '#4b4b4b',
+		fill: '0x000000',
 		//wordWrap: true,
 		//wordWrapWidth: optionWidth,
 		align: 'left',
-		backgroundColor: '#acacac'
+		//backgroundColor: '#acacac'
 	};
 
 	var self = this;
@@ -47,7 +47,7 @@ function QuestionManager(game) {
 				option.fill = '#d3af7a';
 			}, this);
 			option.events.onInputOut.add(function() {
-				option.fill = '#4b4b4b';
+				option.fill = '#000000';
 			}, this);
 			option.events.onInputDown.add(function() {
 				printDebug('QUESTION SELECTED: ' + question);

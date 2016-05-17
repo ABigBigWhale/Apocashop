@@ -34,26 +34,31 @@ function beginGame(game) {
 	};
 
 	var beginStocking = function() {
-		game.stockUI.startDay(days[currentDay].clues.crisis, function() {
-			beginSales();
+		var day = getDay(currentDay);
+		game.stockUI.startDay(day.clues.crisis, function() {
+			beginSales(day);
 		});
 	};
 
-	var beginSales = function() {
-		game.interactionManager.startDay(days[currentDay], function() {
+	var beginSales = function(day) {
+		// For some reason, this event doesn't take in wrapupManager's callback
+		// sometimes. Throwing it here as well for safety.
+		// Hey, when you have a one month dev cycle, this is what happens.
+		game.eventManager.notify(game.Events.WRAPUP.END);
+		game.interactionManager.startDay(day, function() {
 			game.eventManager.notify(game.Events.DAY.END);
-			beginWrapup();
+			beginWrapup(day);
 		});
 	};
 
-	var beginWrapup = function() {
-		game.wrapupManager.startDay(days[currentDay], function() {
+	var beginWrapup = function(day) {
+		game.wrapupManager.startDay(day, function() {
 			game.eventManager.notify(game.Events.WRAPUP.END);
 			currentDay++;
 			game.analytics.track('day', 'begin' + currentDay, currentDay);
 			game.analytics.set('day', 1);
 			// TODO: only going to day 3
-			if (currentDay <= 2) beginStocking();
+			if (currentDay <= 5) beginStocking();
 			else {
 				game.endStateWrapper.setGameResult(true);
 				game.state.start('state_end');
@@ -62,6 +67,9 @@ function beginGame(game) {
 	};
 
 	// beginTitle();
+
 	window.forceStock = beginStocking;
-	beginSales();
+
+	beginSales(getDay(currentDay));
+
 }	
