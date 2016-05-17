@@ -206,7 +206,7 @@ function StockUI(game) {
     }
 
     function deHoverOnItem(sprite, pointer) {
-        if (sprite.loaded != null)
+        if (!sprite.loaded)
             sprite.priceText.visible = false;
     }
 
@@ -256,6 +256,7 @@ function StockUI(game) {
 
     function onDragStart(sprite, pointer) {
         game.world.bringToTop(sprite);
+        sprite.loaded = false;
         deHoverOnItem(sprite, pointer);
         for (var i = 0; i < allLoad.length; i++) {
             if (Phaser.Rectangle.intersects(sprite.getBounds(), allLoad[i].getBounds())) {
@@ -273,7 +274,6 @@ function StockUI(game) {
             loader = findCollision(sprite, allLoad);
         }
         if (loader != undefined && !(loader.loaded === undefined) && loader.loaded == null) {
-            hoverOnItem(sprite, pointer);
             sprite.position.copyFrom(loader.position);
             sprite.position.x += 4;
             sprite.position.y += 4;
