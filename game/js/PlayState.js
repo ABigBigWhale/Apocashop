@@ -147,6 +147,7 @@ function PlayStateWrapper(game) {
 				printDebug("UI: note clicked; shown: " + uiNoteDisplayShown);
 				if (uiNote.alpha != 1) {
 					uiNote.fadeIn.stop();
+					uiNote.shake.stop();
 					uiNote.alpha = 1;
 				}
 				var uiNoteDisplayTween;
@@ -265,10 +266,10 @@ function PlayStateWrapper(game) {
 			uiButtonQuestion.alpha = 0;
 			uiButtonQuestion.fadeIn = game.add.tween(uiButtonQuestion).to({
 				alpha: 0.9
-			}, 1000, Phaser.Easing.Linear.None, false, 0, 1000, true);
+			}, 500, Phaser.Easing.Linear.None, false, 0, 1000, true);
 			uiButtonQuestion.dragIn = game.add.tween(uiButtonQuestion).to({
 				x: 660
-			}, 1000, Phaser.Easing.Linear.None, false);
+			}, 500, Phaser.Easing.Linear.None, false);
 
 			uiButtonAccept.smoothed = false;
 			uiButtonReject.smoothed = false;
@@ -567,11 +568,15 @@ function PlayStateWrapper(game) {
 				uiNote.alpha = 0;
 				uiNote.fadeIn = game.add.tween(uiNote).to({
 					alpha: 0.9
-				}, 1000, Phaser.Easing.Linear.None, false, 0, 1000, true);
+				}, 500, Phaser.Easing.Linear.None, false, 0, 1000, true);
 				uiNote.dragIn = game.add.tween(uiNote).to({
 					y: 535
-				}, 1000, Phaser.Easing.Linear.None, false);
+				}, 500, Phaser.Easing.Linear.None, false);
+				uiNote.shake = game.add.tween(uiNote.position).to({
+					x : '10'
+				}, 100, Phaser.Easing.Quadratic.None, false, 0, 1000, true);
 				uiNote.fadeIn.start();
+				uiNote.shake.start();
 				uiNote.dragIn.start();
 				game.tutorial.questionVisible = true;
 				uiButtonQuestion.fadeIn.start();

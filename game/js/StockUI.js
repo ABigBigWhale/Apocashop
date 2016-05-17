@@ -98,8 +98,11 @@ function StockUI(game) {
             return;
         }
         ui_group.visible = false;
+        for(var key in allBox) {
+            allBox[key].priceText.visible = false;
+        }
         killGroup();
-        game.eventManager.notify(game.Events.STOCK.COMMIT, stocked);
+        game.eventManager.notify(game.Events.STOCK.COMMIT, currStocked());
         callback();
     }
 
