@@ -84,7 +84,9 @@ function initDayGenerator(game) {
 			"ruffians",
 			"violent youths",
 			"orcs",
-			"beholders"
+			"beholders",
+			"inedible mushroom monsters",
+			"ill-mannered honey badgers"
 		];
 
 		function generateThreat() {
@@ -94,7 +96,8 @@ function initDayGenerator(game) {
 		var threatFlavor = [
 			"The town is being menaced by [x].",
 			"Our town's being attacked by [x].",
-			"Your shop is being threatened by [x]"
+			"Your shop is being threatened by [x]",
+			"The town is imperiled by [x]"
 		];
 
 		function generateThreatFlavor(threat) {
@@ -104,7 +107,9 @@ function initDayGenerator(game) {
 		var demandFlavor = [
 			"People seem to really want [x]s.",
 			"The townspeople are clamoring for [x]s.",
-			"Everyone in town wants [ax]."
+			"Everyone in town wants [ax].",
+			"[x]s have been in high demand.",
+			"People are searching for [x]s"
 		]
 
 		function generateDemandFlavor(item) {
@@ -219,6 +224,9 @@ function initDayGenerator(game) {
 			var answers = {
 				day : [
 					"'well'",
+					"alright, I guess.",
+					"not bad, could've been better",
+					"good, good...",
 					"a complete disaster",
 					"'really normal'",
 					"'smelly'"
@@ -239,7 +247,10 @@ function initDayGenerator(game) {
 					"banana",
 					"fourty",
 					"sixty two",
-					"eight hundred"
+					"eight hundred",
+					"seven point nine two six two eight nine five",
+					"twoteen",
+					"seven-eleven"
 				]
 			};
 

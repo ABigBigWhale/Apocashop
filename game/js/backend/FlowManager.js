@@ -15,7 +15,12 @@ function initBackend(game) {
 
 function beginGame(game) {
 
-	var currentDay = 0;
+	var currentDay = 3;
+	
+	if (currentDay > 0) {
+		debugGame.eventManager.notify(debugGame.Events.TUTORIAL.BEGIN);
+	}
+	
 	game.analytics.track('day', 'begin' + currentDay, currentDay);
 	game.analytics.set('day', 1);
 
