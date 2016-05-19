@@ -157,7 +157,7 @@ function initDayGenerator(game) {
 			}
 
 			var numClues = worldState.difficulty < 4 ? 1 :
-				worldState.difficulty < 6 ? 2 : 3;
+				worldState.difficulty < 5 ? 2 : 3;
 
 			generateQuestionClue(day, hero, falseHeroes, numClues === 1);
 
