@@ -241,7 +241,8 @@ function PlayStateWrapper(game) {
 					uiButtonQuestion.fadeIn.stop();
 					uiButtonQuestion.alpha = 1;
 				}
-				game.analytics.track("questionToggled", true, ['day']);
+				// TODO: 
+				game.analytics.track("question", "toggled", "test");
 				game.questionManager.toggleQuestions();
 			};
 
@@ -309,6 +310,7 @@ function PlayStateWrapper(game) {
 			}
 
 			function tintAll(tintVal) {
+				game.dialog.main.box.tint = tintVal;
 				currNPC.tint = tintVal;
 				uiDeskBg.tint = tintVal;
 				uiQuestionLayer.setAll('tint', tintVal);
@@ -406,7 +408,7 @@ function PlayStateWrapper(game) {
 					makeFireworks();
 					upgradeGroup = game.add.group();
 					createUpgrades(upgradeGroup, upgradeSequence);
-					tintAll(0xA9A9A9);
+					tintAll(0x191919);
 				} else {
 					tintAll(0xFFFFFF);
 					upgradeGroup.visible = false;
