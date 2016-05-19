@@ -113,6 +113,7 @@ function DisplayManager(game) {
 	};
     
     function starCloudClicked() {
+        this.cloud.inputEnabled = false;
         var reward = randomIntInRange(5, 8);
         printDebug("UI: star cloud clicked! Rewarding " + reward + " gold.");
         
@@ -149,7 +150,7 @@ function DisplayManager(game) {
 		this.randomCloudAttr();
 		printDebug('UI: Putting cloud at ' + this.cloudY);
 		var cloudAsset = 'gp_cloud';
-		if (randomIntInRange(2, 3) == 2) {   // Generate special clouds
+		if (randomIntInRange(1, 14) == 2) {   // Generate special clouds
 			cloudAsset = 'gp_cloud_star';
 			this.cloudDur = 6000;
 		}
