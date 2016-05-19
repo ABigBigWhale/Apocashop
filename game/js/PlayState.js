@@ -308,17 +308,24 @@ function PlayStateWrapper(game) {
 			}
 
 			function tintAll(tintVal) {
-				uiButtonContinue.tint = tintVal;
-				uiButtonAccept.tint = tintVal;
-				uiButtonQuestion.tint = tintVal;
-				uiButtonReject.tint = tintVal;
-				uiNote.tint = tintVal;
-				uiDesk.tint = tintVal;
-				uiDialog.tint = tintVal;
-				game.displayManager.imgBackgroundSky.tint = tintVal;
-				game.displayManager.imgBackgroundTown.tint = tintVal;
 				currNPC.tint = tintVal;
 				uiDeskBg.tint = tintVal;
+				uiQuestionLayer.setAll('tint', tintVal);
+				game.uiItemGroup.setAll('tint', tintVal);
+				game.depthGroups.titleGroup.setAll('tint', tintVal);
+				game.depthGroups.envGroup.setAll('tint', tintVal);
+				game.depthGroups.dialogGroup.setAll('tint', tintVal);
+				for(var i = 0; i < game.depthGroups.dialogGroup.children.length; i++) {
+					if (game.depthGroups.dialogGroup.children[i].children != undefined)
+						game.depthGroups.dialogGroup.children[i].setAll('tint', tintVal);
+				}
+				game.depthGroups.shopGroup.setAll('tint', tintVal);
+				game.depthGroups.questionGroup.setAll('tint', tintVal);
+				game.depthGroups.uiGroup.setAll('tint', tintVal);
+				uiDeskBgLayer.setAll('tint', tintVal);
+				uiAvatarLayer.setAll('tint', tintVal);
+				uiDeskLayer.setAll('tint', tintVal);
+				uiDialogLayer.setAll('tint', tintVal);
 			}
 
 			// --------------------------- Upgrades -----------------------
@@ -352,6 +359,23 @@ function PlayStateWrapper(game) {
 								   upgrades[used[i]][upgrades[used[i]].length - 1]).position;
 					but.visible = true;
 					but.inputEnabled = true;
+					but.descText = game.add.text(but.x + 65 - 200, but.y + 120,
+						(upgrades[used[i]][currShop] ||
+						upgrades[used[i]][upgrades[used[i]].length - 1]).effect
+						+ "\n\n" +
+						(upgrades[used[i]][currShop] ||
+						upgrades[used[i]][upgrades[used[i]].length - 1]).description 
+						,
+						// ,
+						{
+						font: "20px yoster_islandregular",
+						fill: '#d3af7a',
+						wordWrap: true, wordWrapWidth: 400, align: "center"
+					});
+					but.descText.visible = true;
+					but.events.onInputOver.add(function() { but.descText.visible = true;}, but);
+            		but.events.onInputOut.add(function() { but.descText.visible = false;}, but);
+					upgradeGroup.add(but.descText);
 					upgradeGroup.add(but);
 				}
 				currUpgrade++;

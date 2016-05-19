@@ -27,8 +27,10 @@ function InteractionManager(game) {
 
 	var dayTimer;
 
-	function init() {
+	var dayUpgrade;
 
+	function init() {
+		dayUpgrade = 1;
 		// When continue is pushed, send out a new NPC
 		game.eventManager.register(game.Events.INPUT.CONTINUE, function() {
 			if(currentNPC && currentNPC.type === 'interact') {
@@ -51,7 +53,11 @@ function InteractionManager(game) {
 				pushNPC();
 			}
 		});
-
+		// When we accept a level_up, we want to check if we upgraded time and adjust accordingly
+		game.eventManager.register(game.Events.LEVEL.ACCEPT, function(type) {
+			if (type.indexOf("time") >= 0)
+				dayUpgrade += 0.05;
+		});
 		// When yes is selected, trip sellConditions if they exist. Check if the item
 		// can be sold. If so, sell it and send success dialog. Otherwise, fail.
 		game.eventManager.register(game.Events.INPUT.YES, function() {
@@ -122,7 +128,7 @@ function InteractionManager(game) {
 		dayTimer = new Timer(function() {
 			printDebug("DAY ENDING TIMER");
 			isEnd = true;
-		}, day.length);
+		}, day.length * dayUpgrade);
 		this.dayTimer = dayTimer;
 		pushNPC();
 	}

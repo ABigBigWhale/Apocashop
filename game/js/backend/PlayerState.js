@@ -19,7 +19,7 @@ function PlayerState(game) {
 		Level = 1;
 		EXP = 0;
 		numSlots = 1;
-		game.eventManager.register(game.Events.LEVEL.ACCEPT, updateUpgrade)
+		game.eventManager.register(game.Events.LEVEL.ACCEPT, updateUpgrade);
 	}
 
 	this.updateItem = function(item, count) {
@@ -87,6 +87,7 @@ function PlayerState(game) {
 	}
 
 	this.updateProfit = function(profit) {
+		game.eventManager.notify(game.Events.LEVEL.LEVELUP, Level + 1);
 		if(profit <= 0) {
 			return;
 		}
