@@ -200,7 +200,7 @@ function PlayStateWrapper(game) {
 				var coidDropTweenPos = game.add.tween(coins.position).to({
 					y: coins.y + 100
 				}, 800, Phaser.Easing.Quadratic.Out);
-				var coidDropTweenAlp = game.add.tween(coins.alpha).to({
+				var coidDropTweenAlp = game.add.tween(coins).to({
 					alpha: 0
 				}, 500);
 				coidDropTweenAlp.onComplete.add(function() {

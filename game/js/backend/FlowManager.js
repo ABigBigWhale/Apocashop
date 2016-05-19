@@ -22,10 +22,11 @@ function beginGame(game) {
 	}
 	
 	game.analytics.track('day', 'begin' + currentDay, currentDay);
-	game.analytics.set('day', 1);
+	game.analytics.set("dimension1", currentDay);
 
 	game.eventManager.register(game.Events.UPDATE.GOLD, function(amount) {
 		if (amount < 0) {
+			game.analytics.track('game', 'fail', currentDay);
 			game.endStateWrapper.setGameResult(false);
 			game.state.start('state_end');
 		}
@@ -61,7 +62,7 @@ function beginGame(game) {
 			game.eventManager.notify(game.Events.WRAPUP.END);
 			currentDay++;
 			game.analytics.track('day', 'begin' + currentDay, currentDay);
-			game.analytics.set('day', 1);
+			game.analytics.set("dimension1", currentDay);
 			// TODO: only going to day 3
 			if (currentDay <= 7) beginStocking();
 			else {

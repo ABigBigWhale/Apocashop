@@ -83,6 +83,7 @@ function DisplayManager(game) {
 		this.jeffShadow.fadeIn = game.add.tween(this.jeffShadow).to({
 			alpha: 0.2
 		}, 2000, Phaser.Easing.Quadratic.None, true, 0, 1000, true);
+
 	};
 
 
@@ -110,13 +111,46 @@ function DisplayManager(game) {
 			alpha: 1
 		}, 300, Phaser.Easing.Quadratic.None, true);;
 	};
+    
+    function starCloudClicked() {
+        this.cloud.inputEnabled = false;
+        var reward = randomIntInRange(5, 8);
+        printDebug("UI: star cloud clicked! Rewarding " + reward + " gold.");
+        
+        var coins = game.add.group();
+        for (var i = 0; i < reward; i++) {
+            coins.create(this.cloud.x + randomIntInRange(-20, 20), this.cloud.y + randomIntInRange(-20, 20), 'ui_coin');
+        }
+        var coidDropTweenPos = game.add.tween(coins.position).to({
+            x: 10 - this.cloud.x, y: 570 - this.cloud.y
+        }, 800, Phaser.Easing.Quadratic.Out);
+        var coidDropTweenAlp = game.add.tween(coins).to({
+            alpha: 0
+        }, 500);
+        coidDropTweenAlp.onComplete.add(function() {
+            coins.destroy();
+        });
+        coidDropTweenPos.start();
+        coidDropTweenAlp.start();
+        
+        game.playerState.addsubGold(reward);
+        
+        var c = this.cloud;
+        var cloudDrop = game.add.tween(this.cloud).to( {y: '+10'}, 100).to( {y: 600}, 700, Phaser.Easing.Bounce.Out);
+        cloudDrop.onComplete.add(function () {
+            c.destroy();
+        });
+        cloudDrop.start();
+        
+        game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
+    };
 
 	// duration: time takes to reach end of screen
 	this.putCloud = function() {
 		this.randomCloudAttr();
 		printDebug('UI: Putting cloud at ' + this.cloudY);
 		var cloudAsset = 'gp_cloud';
-		if (randomIntInRange(1, 14) == 2) { 
+		if (randomIntInRange(1, 14) == 2) {   // Generate special clouds
 			cloudAsset = 'gp_cloud_star';
 			this.cloudDur = 6000;
 		}
@@ -126,6 +160,10 @@ function DisplayManager(game) {
 		cloud.floatTween.onComplete.add(function() { 
 			cloud.kill();
 		});
+        if (cloudAsset == 'gp_cloud_star') {
+            cloud.inputEnabled = true;
+            cloud.events.onInputDown.add(starCloudClicked, {cloud : cloud});
+        }
 
 		if (this.cloudGenerationOn) {
 			this.cloudTimer.add(
