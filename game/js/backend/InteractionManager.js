@@ -89,6 +89,7 @@ function InteractionManager(game) {
 				}
 				game.eventManager.notify(game.Events.INVENTORY.NOTSOLD, currentNPC.item, currentNPC.offers[offerIndex]);
 				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "fail"))
+				game.eventManager.notify(game.Events.TIMER.JUMP, 1000);
 				currentNPC = false;
 			}
 		});
@@ -109,7 +110,7 @@ function InteractionManager(game) {
 		});
 
 		game.eventManager.register(game.Events.TIMER.JUMP, function(amount) {
-			dayTimer.jumpForward(4000);
+			dayTimer.jumpForward(amount);
 		});
 	}
 

@@ -46,7 +46,7 @@ function initDayGenerator(game) {
 	}
 
 	function generateLength(day) {
-		day.length = 40000;
+		day.length = 45000;
 	}
 
 	var generateCrisis;
@@ -156,7 +156,8 @@ function initDayGenerator(game) {
 				}));
 			}
 
-			var numClues = Math.ceil(worldState.difficulty);
+			var numClues = worldState.difficulty < 4 ? 1 :
+				worldState.difficulty < 5 ? 2 : 3;
 
 			generateQuestionClue(day, hero, falseHeroes, numClues === 1);
 
@@ -224,7 +225,7 @@ function initDayGenerator(game) {
 			var answers = {
 				day : [
 					"'well'",
-					"alright, I guess.",
+					"alright, I guess",
 					"not bad, could've been better",
 					"good, good...",
 					"a complete disaster",
@@ -594,7 +595,7 @@ function initDayGenerator(game) {
 					gold : -3
 				}
 			],
-			length : 60000
+			length : 40000
 		},
 		{
 			itemData : {
@@ -692,7 +693,7 @@ function initDayGenerator(game) {
 					text : "After giving a discount to the fake hero, you're getting a reputation around town. You might see some more people looking for hero discounts."
 				}
 			],
-			length : 100000
+			length : 60000
 		},
 		{
 			itemData : {

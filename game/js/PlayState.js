@@ -13,6 +13,7 @@ function PlayStateWrapper(game) {
 				envGroup: game.add.group(),
 				dialogGroup: game.add.group(),
 				shopGroup: game.add.group(),
+				noteGroup : game.add.group(),
 				questionGroup : game.add.group(),
 				uiGroup: game.add.group(),
 			};
@@ -115,8 +116,8 @@ function PlayStateWrapper(game) {
 
 			var uiNoteDisplayShown = false;
 
-			game.depthGroups.uiGroup.add(uiNoteLayer);
-			game.depthGroups.uiGroup.add(uiNoteCurtain);
+			game.depthGroups.noteGroup.add(uiNoteLayer);
+			game.depthGroups.noteGroup.add(uiNoteCurtain);
 
 			//------------------------- Question options ---------------------
 			var uiQuestionLayer = game.add.group();
