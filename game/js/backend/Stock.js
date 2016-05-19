@@ -100,6 +100,7 @@ function Stock(game) {
 			} else {
 				game.analytics.track("SOLD", "stock_" + item, price); 
 				profit -= items[item].price;
+				game.eventManager.notify(game.Events.TIMER.JUMP, 2000);
 			}
 			game.playerState.decrementItem(item);
 			Items = game.playerState.getItems();

@@ -103,7 +103,7 @@ function InteractionManager(game) {
 		});
 
 		game.eventManager.register(game.Events.TIMER.JUMP, function(amount) {
-			dayTimer.jumpForward(4000);
+			dayTimer.jumpForward(amount);
 		});
 	}
 
