@@ -156,7 +156,8 @@ function initDayGenerator(game) {
 				}));
 			}
 
-			var numClues = Math.ceil(worldState.difficulty);
+			var numClues = worldState.difficulty < 4 ? 1 :
+				worldState.difficulty < 6 ? 2 : 3;
 
 			generateQuestionClue(day, hero, falseHeroes, numClues === 1);
 
@@ -224,7 +225,7 @@ function initDayGenerator(game) {
 			var answers = {
 				day : [
 					"'well'",
-					"alright, I guess.",
+					"alright, I guess",
 					"not bad, could've been better",
 					"good, good...",
 					"a complete disaster",

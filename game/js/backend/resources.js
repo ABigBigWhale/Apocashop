@@ -382,7 +382,7 @@ var heroes = {
 			appearanceInfo : 'jeff',
 			dialog : [
 				"Alright kiddo, time for another fun filled day. Let's do this.",
-				"Also, just so you know, everything past this point is pretty rough and very much in beta."
+				"Also, just so you know, sort of in beta, so no promises it won't break."
 			]
 		},
 		endJeff : {
