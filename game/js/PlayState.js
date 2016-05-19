@@ -373,9 +373,9 @@ function PlayStateWrapper(game) {
 						fill: '#d3af7a',
 						wordWrap: true, wordWrapWidth: 400, align: "center"
 					});
-					but.descText.visible = true;
-					but.events.onInputOver.add(function() { but.descText.visible = true;}, but);
-            		but.events.onInputOut.add(function() { but.descText.visible = false;}, but);
+					but.descText.visible = false;
+					but.events.onInputOver.add(function(but) { but.descText.visible = true;}, but);
+            		but.events.onInputOut.add(function(but) { but.descText.visible = false;}, but);
 					upgradeGroup.add(but.descText);
 					upgradeGroup.add(but);
 				}

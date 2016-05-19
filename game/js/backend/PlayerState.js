@@ -87,7 +87,6 @@ function PlayerState(game) {
 	}
 
 	this.updateProfit = function(profit) {
-		game.eventManager.notify(game.Events.LEVEL.LEVELUP, Level + 1);
 		if(profit <= 0) {
 			return;
 		}
