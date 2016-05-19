@@ -2,7 +2,7 @@ function AnalyticsWrapper() {
 
 	// Change this whenever we want to start collecting
 	// to a new data set
-	var VERSION_NUM = '0.008';
+	var VERSION_NUM = '0.009';
 
 	// The value argument isn't required, you can just
 	// not include it if it doesn't really apply.
@@ -32,7 +32,20 @@ function AnalyticsWrapper() {
 	};
 
 	this.set = function(metric, val) {
-		ga('set', 'metric1', val);
+		ga('set', metric, val);
 	};
+
+	function makeID() {
+	    var text = "";
+	    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	    for( var i=0; i < 5; i++ ) {
+	        text += possible.charAt(Math.floor(Math.random() * possible.length));
+	    }
+
+	    return text;
+	}
+
+	this.set("dimension2", makeID());
 
 }
