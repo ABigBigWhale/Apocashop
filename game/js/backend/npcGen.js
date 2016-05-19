@@ -1,7 +1,6 @@
 var generateNPC;
 var applyRandomAppearance;
 var generateOfferText;
-
 // initNPCGen({});
 
 function initNPCGen(game) {
@@ -24,7 +23,7 @@ function initNPCGen(game) {
 			refuseConditions : prePop.refuseConditions || false
 		}
 	};
-
+	var upgradeChance = 0.0;
 	var generateAppearance
 	var generateGreeting;
 	var generateHaggle;
@@ -34,6 +33,12 @@ function initNPCGen(game) {
 	var generateThanks;
 	var generateLeave;
 
+	game.eventManager.register(game.Events.LEVEL.ACCEPT, updateUpgrade);
+
+	function updateUpgrade(item) {
+		if(item.indexOf("shop") >= 0)
+			upgradeChance += (1 / 3.0);
+	}
 	function generateItem(itemData) {
 		var max = 0;
 		for(var item in itemData) {
@@ -71,7 +76,7 @@ function initNPCGen(game) {
 
 		while(offers[offers.length - 1] < max) {
 			var chance = (max - offers[offers.length - 1]) / (max - min);
-			chance = Math.min(0.6, Math.pow(chance, 3) * 3);
+			chance = Math.min(0.6 + upgradeChance, Math.pow(chance, 3) * 3);
 			if(rollDice(chance)) {
 				if(rollDice(0.7)) {
 					offers.push(randomIntInRange(offers[offers.length - 1] + 1, highAvg));

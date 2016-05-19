@@ -150,7 +150,7 @@ function StockUI(game) {
     function createLoads(numSlots) {
         var returned = [];
         for (var i = 0; i < numSlots; i++) {
-                var uiItemslot = game.add.sprite(20, 40 + 50 * i, 'ui_itemslot');
+                var uiItemslot = game.add.sprite(20, 40 + 70 * i, 'ui_itemslot');
                 uiItemslot.anchor.setTo(0, 0);
                 returned.push(uiItemslot);
         }

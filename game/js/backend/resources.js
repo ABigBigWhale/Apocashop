@@ -17,11 +17,11 @@ var items = {
 	}, 
 	"meat" : {
 		price : 3,
-		jprice : 5
+		jPrice : 5
 	},
 	"shield" : {
 		price : 6,
-		jprice : 8
+		jPrice : 8
 	},
 	"staff" : {
 		price : 8,
@@ -730,7 +730,7 @@ var days = [
 	},
 ];
 
-var upgradeSequence = [['shop'], ['itemslot'], ['shop'], ['shop', 'time'], ['shop', 'time']];
+var upgradeSequence = [['shop'], ['itemslot'], ['shop', 'time'], ['itemslot', 'time'], ['shop', 'time'], ['itemslot', 'time']];
 
 var upgrades = {
 	'shop' : [

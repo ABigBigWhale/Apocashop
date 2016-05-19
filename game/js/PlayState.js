@@ -348,7 +348,7 @@ function PlayStateWrapper(game) {
 			}
 
 			function createUpgrades(ups, names) {
-				var used = names[currUpgrade] || ['shop'];
+				var used = names[currUpgrade] || ['time'];
 				for (var i = 0; i < used.length; i++) {
 					var but = game.add.button(game.world.centerX, game.world.centerY + 100, 
 											  "upgrade_" + used[i], acceptUpgrade, this, 1, 0, 0);
