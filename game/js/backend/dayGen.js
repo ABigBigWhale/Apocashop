@@ -595,7 +595,7 @@ function initDayGenerator(game) {
 					gold : -3
 				}
 			],
-			length : 45000
+			length : 40000
 		},
 		{
 			itemData : {
@@ -693,7 +693,7 @@ function initDayGenerator(game) {
 					text : "After giving a discount to the fake hero, you're getting a reputation around town. You might see some more people looking for hero discounts."
 				}
 			],
-			length : 45000
+			length : 60000
 		},
 		{
 			itemData : {
@@ -810,7 +810,7 @@ function initDayGenerator(game) {
 					gold : -15
 				}
 			],
-			length : 45000
+			length : 60000
 		},
 	];
 

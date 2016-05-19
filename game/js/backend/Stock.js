@@ -96,11 +96,10 @@ function Stock(game) {
 				game.analytics.track("SOLD", "jeff_" + item, price); 
 				price -= items[item].jPrice;
 				profit -= items[item].jPrice;
-				game.eventManager.notify(game.Events.TIMER.JUMP, 4000);
+				game.eventManager.notify(game.Events.TIMER.JUMP, 3000);
 			} else {
 				game.analytics.track("SOLD", "stock_" + item, price); 
 				profit -= items[item].price;
-				game.eventManager.notify(game.Events.TIMER.JUMP, 2000);
 			}
 			game.playerState.decrementItem(item);
 			Items = game.playerState.getItems();

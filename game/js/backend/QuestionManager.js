@@ -96,11 +96,11 @@ function QuestionManager(game) {
 			for (var i = 0; i < options.length; i++) {
 				options[i].textbox.forEach(function(sprite) {	
 					var textBoxTween = game.add.tween(sprite)
-						.to( {y: 835}, 500, Phaser.Easing.Quadratic.Out);
+						.to( {y: 835}, 200, Phaser.Easing.Quadratic.Out);
 					textBoxTween.start();
 				});
 				var optTween = game.add.tween(options[i])
-					.to( {y: 835}, 500, Phaser.Easing.Quadratic.Out);
+					.to( {y: 835}, 200, Phaser.Easing.Quadratic.Out);
 				optTween.start();
 			}
 			
@@ -111,11 +111,11 @@ function QuestionManager(game) {
 				var yPos = -400 - (i + 1) * optionMargin;
 				options[i].textbox.forEach(function(sprite) {
 					var textBoxTween = game.add.tween(sprite)
-						.to( {y: (yPos - 35).toString()}, 500, Phaser.Easing.Quadratic.Out);
+						.to( {y: (yPos - 35).toString()}, 200, Phaser.Easing.Quadratic.Out);
 					textBoxTween.start();
 				});
 				var optTween = game.add.tween(options[i])
-					.to( {y: yPos.toString()}, 500, Phaser.Easing.Quadratic.Out);
+					.to( {y: yPos.toString()}, 200, Phaser.Easing.Quadratic.Out);
 				optTween.start();
 			}	
 		}
@@ -127,11 +127,11 @@ function QuestionManager(game) {
 			for (var i = 0; i < options.length; i++) {
 				
 				var optTween = game.add.tween(options[i])
-					.to( {y: 835}, 500, Phaser.Easing.Quadratic.Out);
+					.to( {y: 835}, 200, Phaser.Easing.Quadratic.Out);
 				optTween.start();
 				options[i].textbox.forEach(function(sprite) {	
 					var textBoxTween = game.add.tween(sprite)
-						.to( {y: 835}, 500, Phaser.Easing.Quadratic.Out);
+						.to( {y: 835}, 200, Phaser.Easing.Quadratic.Out);
 					textBoxTween.start();
 				});
 			}
