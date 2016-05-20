@@ -736,26 +736,26 @@ var upgrades = {
 	'shop' : [
 		{
 			name: 'stone',
-			description: 'It doesn\'t look very well... But at least people know it\'s a shop.',
-			effect: 'Increased chance of higher offer',	//TODO
+			description: 'A rock doesn\'t look very good ... But at least people know it\'s a shop.',
+			effect: 'Increased chance of counter offer',	//TODO
 			position : [470, 308]
 		},
 		{
 			name: 'wooden_desk',
 			description: 'Finally it matches your dialog box... desks are great!',
-			effect: 'Increased chance of higher offer',	
+			effect: 'Increased chance of counter offer',	
 			position : [481, 305]
 		},
 				{
 			name: 'wooden',
 			description: 'You moved your sign for all to see. Coolio!',
-			effect: 'Increased chance of higher offer',	
+			effect: 'Increased chance of counter offer',	
 			position : [481, 252]
 		},
 				{
 			name: 'wooden_plus',
 			description: 'Might as well show off some of the goods!',
-			effect: 'Increased chance of higher offer',	
+			effect: 'Increased chance of counter offer',	
 			position : [481, 252]
 		}
 	],

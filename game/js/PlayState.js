@@ -295,18 +295,18 @@ function PlayStateWrapper(game) {
 
 			//----------------------Upgrades--------------------------
 
-			var fireworks = game.add.emitter(0, 0, 100);
+			var fireworks = game.add.emitter(0, 0, 200);
 			fireworks.makeParticles('ui_coin');
-			fireworks.gravity = 200;
+			fireworks.gravity = 130;
 
 			function makeFireworks() {
 				fireworks.x = 100;
-				fireworks.y = 100;
-				fireworks.start(true, 1500, null, 25);
+				fireworks.y = 75;
+				fireworks.start(true, 4000, null, 50);
 
 				fireworks.x = game.width - 100;
-				fireworks.y = 100;
-				fireworks.start(true, 1500, null, 20);
+				fireworks.y = 75;
+				fireworks.start(true, 4000, null, 50);
 			}
 
 			function tintAll(tintVal) {
