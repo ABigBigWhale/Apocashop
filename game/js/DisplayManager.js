@@ -56,7 +56,7 @@ function DisplayManager(game) {
 		game.depthGroups.envGroup.add(this.dog);
 		game.depthGroups.envGroup.add(this.jeff);
 		game.depthGroups.envGroup.add(this.jeffShadow);
-		game.depthGroups.envGroup.add(this.pedests);
+		game.depthGroups.pedestGroup.add(this.pedests);
 
 
 		this.shop.smoothed = false;

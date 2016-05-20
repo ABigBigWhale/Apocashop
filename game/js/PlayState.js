@@ -13,6 +13,7 @@ function PlayStateWrapper(game) {
 				envGroup: game.add.group(),
 				dialogGroup: game.add.group(),
 				shopGroup: game.add.group(),
+				pedestGroup: game.add.group(),
 				noteGroup : game.add.group(),
 				questionGroup : game.add.group(),
 				uiGroup: game.add.group(),
