@@ -152,7 +152,7 @@ function DisplayManager(game) {
 		var cloudAsset = 'gp_cloud';
 		if (randomIntInRange(1, 14) == 2) {   // Generate special clouds
 			cloudAsset = 'gp_cloud_star';
-			this.cloudDur = 6000;
+			this.cloudDur = 4800;
 		}
 		var cloud = this.clouds.create(-58, this.cloudY, cloudAsset);
 		cloud.floatTween = game.add.tween(cloud).to( {x: gameConfig.RESOLUTION[0]}, this.cloudDur);
@@ -253,8 +253,8 @@ function DisplayManager(game) {
 	}
 
 	this.randomPedestAttr = function() {
-		this.pedestIntv = randomIntInRange(2, 24);
-		this.pedestY = randomIntInRange(350, 400);
+		this.pedestIntv = randomIntInRange(2, 40);
+		this.pedestY = randomIntInRange(350, 420);
 		this.pedestDur = randomIntInRange(24000, 48000);
 	}
 
