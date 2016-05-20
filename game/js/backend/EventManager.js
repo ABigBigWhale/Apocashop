@@ -44,7 +44,8 @@ function EventManager(game) {
 			ACCEPT : []
 		},
 		TUTORIAL : {
-			BEGIN : []
+			BEGIN : [],
+			FAILED : []
 		},
 		WRAPUP : {
 			START : [],

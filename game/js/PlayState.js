@@ -610,6 +610,16 @@ function PlayStateWrapper(game) {
 				uiButtonQuestion.dragIn.start();
 			});
 
+			game.eventManager.register(game.Events.TUTORIAL.FAILED, function() {
+				// Oh my god, I'm so sorry for this code. It's the only way though.
+				if(game.playerState.getGold() <= 1) {
+					game.analytics.set('dimension3', "inexperiened");
+					game.conditionManager.set('jeffReminder');
+				} else {
+					game.analytics.set('dimension3', "experiened");
+				}
+			});
+
 			game.eventManager.register(game.Events.DOG.APPEAR, function() {
 				game.displayManager.dog.visible = true;
 			});

@@ -44,6 +44,15 @@ var heroes = {
 				"Let's see how you do selling them!/Don't worry kid, I'll be right here if you need me."
 			]
 		},
+		"messUpJeff" : {
+			type : "dialog",
+			appearanceInfo : "jeff",
+			dialog : [
+				"Kid, you might want to keep a closer eye on what they're offering.",
+				"Remember, those swords cost you five gold each."
+			],
+			appearConditions : ['jeffReminder']
+		},
 		tutorialWoman : {
 			type : "dialog",
 			appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",

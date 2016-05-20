@@ -38,8 +38,8 @@ function initDayGenerator(game) {
 		for(var i = 0; i < crisis.items.length; i++) {
 			var item = crisis.items[i];
 			day.itemData[item] = {
-				min : items[item].price / 2,
-				max : items[item].price * 2,
+				min : Math.floor(items[item].price / 2),
+				max : Math.ceil(items[item].price * 2),
 				priority : 100 / (i+1)
 			};
 		}
@@ -57,7 +57,8 @@ function initDayGenerator(game) {
 
 	(function() {
 
-		var NUM_ITEMS = 2;
+		var NUM_ITEMS = 3;
+		var NUM_ITEMS_SHOWN = 2;
 
 		generateCrisis = function(day) {
 			var crisis = {
@@ -67,7 +68,7 @@ function initDayGenerator(game) {
 
 			day.clues.crisis.push(generateThreatFlavor(crisis.threat));
 
-			for(var i = 0; i < NUM_ITEMS; i++) {
+			for(var i = 0; i < NUM_ITEMS_SHOWN; i++) {
 				day.clues.crisis.push(generateDemandFlavor(crisis.items[i]));
 			}
 
@@ -156,8 +157,7 @@ function initDayGenerator(game) {
 				}));
 			}
 
-			var numClues = worldState.difficulty < 4 ? 1 :
-				worldState.difficulty < 5 ? 2 : 3;
+			var numClues = worldState.difficulty < 4 ? 2 : 3;
 
 			generateQuestionClue(day, hero, falseHeroes, numClues === 1);
 
@@ -350,7 +350,8 @@ function initDayGenerator(game) {
 			function generateOffers(numOffers) {
 				var offers = [];
 				for(var i = 0; i < numOffers; i++) {
-					offers.push(numOffers - i);
+					var randAdd = Math.floor(Math.random() * 3);
+					offers.push(numOffers + randAdd - i);
 				}
 				return offers;
 			}
@@ -428,11 +429,11 @@ function initDayGenerator(game) {
 		}
 
 		function addToSequence(day, hero, falseHeroes) {
-			var index = randomIntInRange(1, 20);
+			var index = randomIntInRange(1, 10);
 			day.sequence[index] = generateHeroData('hero');
 			for(var i = 0; i < falseHeroes.length; i++) {
 				do {
-					index = randomIntInRange(1, 20);
+					index = randomIntInRange(1, 10);
 				} while(day.sequence[index]);
 				day.sequence[index] = generateHeroData('falseHero' + i);
 			}
@@ -454,7 +455,7 @@ function initDayGenerator(game) {
 		}
 
 		generateWrapup = function(day, hero, crisis) {
-			var taxes = Math.ceil(worldState.difficulty / 5) * 10;
+			var taxes = Math.ceil(worldState.difficulty / 4) * 10;
 			day.wrapup.push(generateMessage("You are forced by King Zoran to pay " + taxes + " gold in taxes.", -taxes));
 			var robbedCash = Math.ceil(worldState.difficulty / 3) * 10;
 			day.wrapup.push(generateMessage("The hero was unable to save the town. You lose " + robbedCash + " gold.", -robbedCash, ['refusedHero']));
@@ -509,12 +510,20 @@ function initDayGenerator(game) {
 				2 : {
 					hero : {
 						item : "sword",
-						offers : [1, 8]
+						offers : [1, 8],
+						sellConditions : ['tutorialFailed'],
+						refuseConditions : ['tutorialFailed']
 					},
 					fuzz : 0,
 					force : true
 				},
 				3 : {
+					category : 'dayOne',
+					hero : 'messUpJeff',
+					fuzz : 0,
+					force : true
+				},
+				4 : {
 					category : "dayOne",
 					hero : "tutorialWoman",
 					fuzz : 0,
@@ -571,6 +580,12 @@ function initDayGenerator(game) {
 					components : ["soldCousin"],
 					chance : 1.0,
 					isLongTerm : true
+				},
+				uglyHackTracking : {
+					components : ["tutorialFailed"],
+					chance : 1.0,
+					events : ["Events.TUTORIAL.FAILED"],
+					isLongTerm : false
 				}
 			},
 			clues : {

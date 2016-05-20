@@ -61,13 +61,13 @@ function InteractionManager(game) {
 		// When yes is selected, trip sellConditions if they exist. Check if the item
 		// can be sold. If so, sell it and send success dialog. Otherwise, fail.
 		game.eventManager.register(game.Events.INPUT.YES, function() {
+			game.eventManager.notify(game.Events.INVENTORY.SOLD, currentNPC.item, currentNPC.offers[offerIndex]);
 			var sellConditions = currentNPC.sellConditions;
 			if(sellConditions) {
 				for(var i = 0; i < sellConditions.length; i++) {
 					conditionManager.set(sellConditions[i]);
 				}
 			}
-			game.eventManager.notify(game.Events.INVENTORY.SOLD, currentNPC.item, currentNPC.offers[offerIndex]);
 			game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "success"));
 			currentNPC = false;
 		});
