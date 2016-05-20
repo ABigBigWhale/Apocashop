@@ -195,18 +195,24 @@ function DisplayManager(game) {
 		this.randomPedestAttr();
 		
 		var pedestAsset = 'gp_passerby';
-		var pedestrian = this.pedests.create(-30, this.pedestY, pedestAsset);
+		var pedestrian = this.pedests.create(-15, this.pedestY, pedestAsset);
 		var pedestStepDur = this.pedestDur / 90;
 
-		pedestrian.anchor.setTo(0, 1);
+		pedestrian.anchor.setTo(0.5, 1);
 		pedestrian.tint = 0x999999 - (Math.random() * 0x004000);
 		pedestrian.stepCount = 0;
 		
 		printDebug('UI: Putting pedestrian at ' + this.pedestY + ' with tint: ' + pedestrian.tint.toString(16));
 
+		if (randomIntInRange(1, 3) == 1) {
 		pedestrian.moveTween = game.add.tween(pedestrian)
-			.to( {x: gameConfig.RESOLUTION[0]}, this.pedestDur, Phaser.Easing.Linear.None, true, 0, -1);
-
+			.to( {x: gameConfig.RESOLUTION[0] + 15}, this.pedestDur, Phaser.Easing.Linear.None, true, 0, -1);
+		} else {
+			pedestrian.x = gameConfig.RESOLUTION[0] + 15;
+			pedestrian.scale.x *= -1;
+			pedestrian.moveTween = game.add.tween(pedestrian)
+			.to( {x: -15}, this.pedestDur, Phaser.Easing.Linear.None, true, 0, -1);
+		}
 		pedestrian.walkTween = game.add.tween(pedestrian)
 			.to( {y: '-4'}, pedestStepDur, Phaser.Easing.Quadratic.InOut, true, 0, 500, true);
 
@@ -225,6 +231,8 @@ function DisplayManager(game) {
 				this
 			);
 		}
+		
+		this.pedests.sort('y', Phaser.Group.SORT_ASCENDING);
 	}
 
 	this.togglePedestGeneration = function(pedestGen) {
