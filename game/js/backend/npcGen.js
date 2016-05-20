@@ -37,7 +37,7 @@ function initNPCGen(game) {
 
 	function updateUpgrade(item) {
 		if(item.indexOf("shop") >= 0)
-			upgradeChance += (1 / 3.0);
+			upgradeChance += (0.1 / 3.0);
 	}
 	function generateItem(itemData) {
 		var max = 0;
