@@ -23,6 +23,7 @@ function AssetManager(game) {
 		'gameplay': [
 			'gp_title',
 			'gp_clickstart',
+			'gp_dev',
 			'gp_background',
 			'gp_background_town',
 			'gp_background_sky',

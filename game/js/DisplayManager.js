@@ -94,6 +94,8 @@ function DisplayManager(game) {
 	this.putTitleScreen = function() {
 		var title = game.add.sprite(0, 0, 'gp_title');
 		var clickStart = game.add.sprite(400, 400, 'gp_clickstart');
+		var dev = game.add.sprite(400, 590, 'gp_dev');
+		
 		title.alpha = 0;
 		clickStart.alpha = 0;
 		clickStart.anchor.setTo(0.5, 0.5);
@@ -107,6 +109,7 @@ function DisplayManager(game) {
 		title.fadeIn = game.add.tween(title).to({
 			alpha: 1
 		}, 300, Phaser.Easing.Quadratic.None, true);;
+		dev.anchor.setTo(0.5, 1);
 	};
 
 	function starCloudClicked() {
