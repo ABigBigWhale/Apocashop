@@ -11,22 +11,17 @@ function DisplayManager(game) {
 		cloudY = randomIntInRange(200, 300),
 		cloudDur = randomIntInRange(1800, 3200),
 		cloudTimer = game.time.create(false);
+	var pedests, pedestsGenOn = false,
+		pedestIntv = randomIntInRange(4, 10),
+		pedestY = randomIntInRange(350, 400),
+		pedestDur = randomIntInRange(1200, 2000),
+		pedestTimer = game.time.create(false);
 	var imgBackgroundTown;
 	var shopKeeper;
 	var dog;
 	var shop;
 	var jeff, jeffShadow;
 
-
-
-	/*
-	var environment = {
-		imgBackground: null,
-		shopKeeper: null,
-		dog: null,
-		shop: null,
-	};
-	*/
 	function setPositionLowerMiddle(shop, player) {
 		shop.position.copyFrom(player);
 		shop.position.y += player.height - shop.height / 2;
@@ -42,7 +37,9 @@ function DisplayManager(game) {
 	this.putEnvironment = function() {
 		this.imgBackgroundSky = game.add.image(0, 0, 'gp_background_sky');
 		this.clouds = game.add.group();
-		this.cloudTimer = game.time.create();
+		this.pedests = game.add.group();
+		this.cloudTimer = game.time.create(false);
+		this.pedestTimer = game.time.create(false);
 		this.imgBackgroundTown = game.add.image(0, 0, 'gp_background_town');
 		this.shopKeeper = game.add.sprite(500, 272, 'gp_shopkeeper');
 		this.dog = game.add.sprite(440, 300, 'gp_dog_small');
@@ -59,7 +56,7 @@ function DisplayManager(game) {
 		game.depthGroups.envGroup.add(this.dog);
 		game.depthGroups.envGroup.add(this.jeff);
 		game.depthGroups.envGroup.add(this.jeffShadow);
-
+		game.depthGroups.envGroup.add(this.pedests);
 
 
 		this.shop.smoothed = false;
@@ -111,39 +108,39 @@ function DisplayManager(game) {
 			alpha: 1
 		}, 300, Phaser.Easing.Quadratic.None, true);;
 	};
-    
-    function starCloudClicked() {
-        this.cloud.inputEnabled = false;
-        var reward = randomIntInRange(5, 8);
-        printDebug("UI: star cloud clicked! Rewarding " + reward + " gold.");
-        
-        var coins = game.add.group();
-        for (var i = 0; i < reward; i++) {
-            coins.create(this.cloud.x + randomIntInRange(-20, 20), this.cloud.y + randomIntInRange(-20, 20), 'ui_coin');
-        }
-        var coidDropTweenPos = game.add.tween(coins.position).to({
-            x: 10 - this.cloud.x, y: 570 - this.cloud.y
-        }, 800, Phaser.Easing.Quadratic.Out);
-        var coidDropTweenAlp = game.add.tween(coins).to({
-            alpha: 0
-        }, 500);
-        coidDropTweenAlp.onComplete.add(function() {
-            coins.destroy();
-        });
-        coidDropTweenPos.start();
-        coidDropTweenAlp.start();
-        
-        game.playerState.addsubGold(reward);
-        
-        var c = this.cloud;
-        var cloudDrop = game.add.tween(this.cloud).to( {y: '+10'}, 100).to( {y: 600}, 700, Phaser.Easing.Bounce.Out);
-        cloudDrop.onComplete.add(function () {
-            c.destroy();
-        });
-        cloudDrop.start();
-        
-        game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
-    };
+
+	function starCloudClicked() {
+		this.cloud.inputEnabled = false;
+		var reward = randomIntInRange(5, 8);
+		printDebug("UI: star cloud clicked! Rewarding " + reward + " gold.");
+
+		var coins = game.add.group();
+		for (var i = 0; i < reward; i++) {
+			coins.create(this.cloud.x + randomIntInRange(-20, 20), this.cloud.y + randomIntInRange(-20, 20), 'ui_coin');
+		}
+		var coidDropTweenPos = game.add.tween(coins.position).to({
+			x: 10 - this.cloud.x, y: 570 - this.cloud.y
+		}, 800, Phaser.Easing.Quadratic.Out);
+		var coidDropTweenAlp = game.add.tween(coins).to({
+			alpha: 0
+		}, 500);
+		coidDropTweenAlp.onComplete.add(function() {
+			coins.destroy();
+		});
+		coidDropTweenPos.start();
+		coidDropTweenAlp.start();
+
+		game.playerState.addsubGold(reward);
+
+		var c = this.cloud;
+		var cloudDrop = game.add.tween(this.cloud).to( {y: '+10'}, 100).to( {y: 600}, 700, Phaser.Easing.Bounce.Out);
+		cloudDrop.onComplete.add(function () {
+			c.destroy();
+		});
+		cloudDrop.start();
+
+		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
+	};
 
 	// duration: time takes to reach end of screen
 	this.putCloud = function() {
@@ -158,12 +155,12 @@ function DisplayManager(game) {
 		cloud.floatTween = game.add.tween(cloud).to( {x: gameConfig.RESOLUTION[0]}, this.cloudDur);
 		cloud.floatTween.start();
 		cloud.floatTween.onComplete.add(function() { 
-			cloud.kill();
+			cloud.destroy();
 		});
-        if (cloudAsset == 'gp_cloud_star') {
-            cloud.inputEnabled = true;
-            cloud.events.onInputDown.add(starCloudClicked, {cloud : cloud});
-        }
+		if (cloudAsset == 'gp_cloud_star') {
+			cloud.inputEnabled = true;
+			cloud.events.onInputDown.add(starCloudClicked, {cloud : cloud});
+		}
 
 		if (this.cloudGenerationOn) {
 			this.cloudTimer.add(
@@ -192,6 +189,60 @@ function DisplayManager(game) {
 		this.cloudIntv = randomIntInRange(5, 13);
 		this.cloudY = randomIntInRange(100, 240);
 		this.cloudDur = randomIntInRange(40000, 80000);
+	}
+
+	this.putPedestrian = function() {
+		this.randomPedestAttr();
+		printDebug('UI: Putting pedestrian at ' + this.pedestY);
+		var pedestAsset = 'gp_passerby';
+		var pedestrian = this.pedests.create(-30, this.pedestY, pedestAsset);
+		var pedestStepDur = this.pedestDur / 90;
+
+		pedestrian.anchor.setTo(0, 1);
+		pedestrian.tint = Math.random() * 0x343434;
+		pedestrian.stepCount = 0;
+
+		pedestrian.moveTween = game.add.tween(pedestrian)
+			.to( {x: gameConfig.RESOLUTION[0]}, this.pedestDur, Phaser.Easing.Linear.None, true, 0, -1);
+
+		pedestrian.walkTween = game.add.tween(pedestrian)
+			.to( {y: '-4'}, pedestStepDur, Phaser.Easing.Quadratic.InOut, true, 0, 500, true);
+
+
+		pedestrian.moveTween.onComplete.add(function() { 
+			pedestrian.destroy();
+		});
+
+		pedestrian.walkTween.start();
+		pedestrian.moveTween.start();
+
+		if (this.pedestGenerationOn) {
+			this.pedestTimer.add(
+				Phaser.Timer.SECOND * game.rnd.realInRange(3, 8),
+				this.putPedestrian, 
+				this
+			);
+		}
+	}
+
+	this.togglePedestGeneration = function(pedestGen) {
+		this.pedestGenOn = pedestGen;
+		if (pedestGen) {
+			this.putPedestrian();
+			this.pedestTimer.start();
+		} else if (this.pedestTimer.running) {
+			this.pedestTimer.stop();
+		}
+	}
+
+	this.pedestGenerationOn = function() {
+		return this.pedestGenOn;
+	}
+
+	this.randomPedestAttr = function() {
+		this.pedestIntv = randomIntInRange(2, 24);
+		this.pedestY = randomIntInRange(350, 400);
+		this.pedestDur = randomIntInRange(24000, 48000);
 	}
 
 	function createDialogTweens(dialog) {

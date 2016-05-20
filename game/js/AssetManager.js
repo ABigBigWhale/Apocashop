@@ -28,6 +28,7 @@ function AssetManager(game) {
 			'gp_background_sky',
 			'gp_cloud', 'gp_cloud_star',
 			'gp_shopkeeper',
+			'gp_passerby',
 			'gp_stock',
 			/* Jeff */
 			'gp_jeff',

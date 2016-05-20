@@ -506,6 +506,7 @@ function PlayStateWrapper(game) {
 			game.eventManager.register(game.Events.DAY.START, function(data) {
 				// Turn on cloud generation
 				game.displayManager.toggleCloudGeneration(true);
+				game.displayManager.togglePedestGeneration(true);
 				
 				// Set up day game
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
@@ -710,6 +711,7 @@ function PlayStateWrapper(game) {
 			
 			game.eventManager.register(game.Events.DAY.END, function() {
 				game.displayManager.toggleCloudGeneration(false);
+				game.displayManager.togglePedestGeneration(false);
 			});
 
 			beginGame(game);
