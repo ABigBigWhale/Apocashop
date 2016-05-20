@@ -193,14 +193,16 @@ function DisplayManager(game) {
 
 	this.putPedestrian = function() {
 		this.randomPedestAttr();
-		printDebug('UI: Putting pedestrian at ' + this.pedestY);
+		
 		var pedestAsset = 'gp_passerby';
-		var pedestrian = this.pedests.create(-30, this.pedestY, pedestAsset);
+		var pedestrian = this.pedests.create(300, this.pedestY, pedestAsset);
 		var pedestStepDur = this.pedestDur / 90;
 
 		pedestrian.anchor.setTo(0, 1);
-		pedestrian.tint = Math.random() * 0x343434;
+		pedestrian.tint = 0x999999 - (Math.random() * 0x004000);
 		pedestrian.stepCount = 0;
+		
+		printDebug('UI: Putting pedestrian at ' + this.pedestY + ' with tint: ' + pedestrian.tint.toString(16));
 
 		pedestrian.moveTween = game.add.tween(pedestrian)
 			.to( {x: gameConfig.RESOLUTION[0]}, this.pedestDur, Phaser.Easing.Linear.None, true, 0, -1);
