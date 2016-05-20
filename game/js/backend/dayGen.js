@@ -455,7 +455,7 @@ function initDayGenerator(game) {
 		}
 
 		generateWrapup = function(day, hero, crisis) {
-			var taxes = Math.ceil(worldState.difficulty / 4) * 10;
+			var taxes = Math.ceil((1 + worldState.difficulty) / 4) * 10;
 			day.wrapup.push(generateMessage("You are forced by King Zoran to pay " + taxes + " gold in taxes.", -taxes));
 			var robbedCash = Math.ceil(worldState.difficulty / 3) * 10;
 			day.wrapup.push(generateMessage("The hero was unable to save the town. You lose " + robbedCash + " gold.", -robbedCash, ['refusedHero']));
