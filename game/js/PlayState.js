@@ -311,6 +311,7 @@ function PlayStateWrapper(game) {
 
 			function tintAll(tintVal) {
 				game.dialog.main.box.tint = tintVal;
+				uiNoteLayer.setAll('tint', tintVal);
 				currNPC.tint = tintVal;
 				uiDeskBg.tint = tintVal;
 				uiQuestionLayer.setAll('tint', tintVal);
