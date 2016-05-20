@@ -195,7 +195,7 @@ function DisplayManager(game) {
 		this.randomPedestAttr();
 		
 		var pedestAsset = 'gp_passerby';
-		var pedestrian = this.pedests.create(300, this.pedestY, pedestAsset);
+		var pedestrian = this.pedests.create(-30, this.pedestY, pedestAsset);
 		var pedestStepDur = this.pedestDur / 90;
 
 		pedestrian.anchor.setTo(0, 1);
