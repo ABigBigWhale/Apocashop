@@ -8,12 +8,6 @@ function LoadStateWrapper(game) {
 				font: "1px yoster_islandregular",
 				fill: "#FFFFFF"
 			});
-
-			// TODO: temporary
-			/*var loadingText = game.add.text(300, 400, "Loading", {
-				font: "32px yoster_islandregular",
-				fill: "#FFFFFF"
-			});*/
 			
 			game.stage.backgroundColor = "#92CD9A";
 			game.input.mouse.capture = true;
@@ -28,6 +22,5 @@ function LoadStateWrapper(game) {
 		create: function() {
 			game.state.start('state_start');
 		}
-
 	};
 }
