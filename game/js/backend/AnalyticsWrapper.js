@@ -2,7 +2,7 @@ function AnalyticsWrapper() {
 
 	// Change this whenever we want to start collecting
 	// to a new data set
-	var VERSION_NUM = '0.01';
+	var VERSION_NUM = '0.06';
 
 	// The value argument isn't required, you can just
 	// not include it if it doesn't really apply.
@@ -32,7 +32,9 @@ function AnalyticsWrapper() {
 	};
 
 	this.set = function(metric, val) {
+		printDebug("Tracking dimension: " + metric + ", " + val);
 		ga('set', metric, val);
+		ga('send', 'pageview');
 	};
 
 	function makeID() {

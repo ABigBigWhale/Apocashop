@@ -45,6 +45,8 @@ function EndStateWrapper(game) {
 					}
 					score += itemNum * price;
 				}
+
+				game.analytics.track("game", "won", score);
 				
 				score = 4.0 * Math.min(1.0, score / topScore);
 				

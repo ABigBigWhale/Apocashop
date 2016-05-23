@@ -243,7 +243,7 @@ function PlayStateWrapper(game) {
 					uiButtonQuestion.alpha = 1;
 				}
 				// TODO: 
-				game.analytics.track("question", "toggled", "test");
+				game.analytics.track("question", "toggled");
 				game.questionManager.toggleQuestions();
 			};
 
@@ -618,6 +618,7 @@ function PlayStateWrapper(game) {
 				if(game.playerState.getGold() <= 1) {
 					game.analytics.set('dimension3', "inexperiened");
 					game.conditionManager.set('jeffReminder');
+					game.analytics.track("interaction", "jeffReminder");
 				} else {
 					game.analytics.set('dimension3', "experiened");
 				}

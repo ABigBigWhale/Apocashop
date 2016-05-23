@@ -94,7 +94,8 @@ var heroes = {
 				default : "I don't care."
 			},
 			sellConditions : ["soldCousin"],
-			refuseConditions : ["refuseCousin"]
+			refuseConditions : ["refuseCousin"],
+			isFalseHero : true
 		},
 		chickenJeff : {
 			type : "dialog",
@@ -169,7 +170,8 @@ var heroes = {
 				default : "What a face, what a smile!/And what dashing style!"
 			},
 			sellConditions : ["soldHero"],
-			refuseConditions : ["refusedHero"]
+			refuseConditions : ["refusedHero"],
+			isHero : true
 		},
 		badRhymeMan : {
 			type : "interact",
@@ -193,7 +195,8 @@ var heroes = {
 				default : "Yup, that's a person?"
 			},
 			sellConditions : ["soldFalse"],
-			refuseConditions : ["refusedFalse"]
+			refuseConditions : ["refusedFalse"],
+			isFalseHero : true
 		},
 		scaredMan : {
 			type : "interact",
@@ -311,7 +314,8 @@ var heroes = {
 				default : ". . ."
 			},
 			sellConditions : ['soldHero'],
-			refuseConditions : ['refusedHero']
+			refuseConditions : ['refusedHero'],
+			isHero : true
 		},
 		badVocabMan : {
 			type : 'interact',
@@ -333,7 +337,8 @@ var heroes = {
 			profiles : {
 				convict : ". . .",
 				default : ". . ."
-			}
+			},
+			isFalseHero : true
 		},
 		startDog : {
 			type : 'dialog',

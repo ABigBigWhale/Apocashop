@@ -68,6 +68,12 @@ function InteractionManager(game) {
 					conditionManager.set(sellConditions[i]);
 				}
 			}
+			if(currentNPC.isHero) {
+				game.analytics.track("hero", "sold_good" + dayIndex);
+			}
+			if(currentNPC.isFalseHero) {
+				game.analytics.track("hero", "sold_bad" + dayIndex);
+			}
 			game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "success"));
 			currentNPC = false;
 		});
@@ -86,6 +92,12 @@ function InteractionManager(game) {
 					for(var i = 0; i < refuseConditions.length; i++) {
 						conditionManager.set(refuseConditions[i]);
 					}
+				}
+				if(currentNPC.isHero) {
+					game.analytics.track("hero", "refused_good" + dayIndex);
+				}
+				if(currentNPC.isFalseHero) {
+					game.analytics.track("hero", "refused_bad" + dayIndex);
 				}
 				game.eventManager.notify(game.Events.INVENTORY.NOTSOLD, currentNPC.item, currentNPC.offers[offerIndex]);
 				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "fail"))

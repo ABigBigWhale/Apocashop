@@ -20,7 +20,9 @@ function initNPCGen(game) {
 			questions : prePop.questions || generateQuestions(day),
 			appearConditions : prePop.appearConditions || false,
 			sellConditions : prePop.sellConditions || false,
-			refuseConditions : prePop.refuseConditions || false
+			refuseConditions : prePop.refuseConditions || false,
+			isHero : prePop.isHero || false,
+			isFalseHero : prePop.isFalseHero || false
 		}
 	};
 	var upgradeChance = 0.0;

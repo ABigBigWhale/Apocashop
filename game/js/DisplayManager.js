@@ -116,6 +116,7 @@ function DisplayManager(game) {
 		this.cloud.inputEnabled = false;
 		var reward = randomIntInRange(5, 8);
 		printDebug("UI: star cloud clicked! Rewarding " + reward + " gold.");
+		game.analytics.track("cloud", "clicked");
 
 		var coins = game.add.group();
 		for (var i = 0; i < reward; i++) {
