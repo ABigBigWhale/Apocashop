@@ -2,7 +2,7 @@ function AnalyticsWrapper() {
 
 	// Change this whenever we want to start collecting
 	// to a new data set
-	var VERSION_NUM = '0.06';
+	var VERSION_NUM = 'TESTING';
 
 	// The value argument isn't required, you can just
 	// not include it if it doesn't really apply.
