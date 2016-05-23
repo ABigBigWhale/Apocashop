@@ -5,6 +5,7 @@ function DisplayManager(game) {
 	var titleStartText;
 
 	//----------- Objects in environment -------------
+	var tint = 0xFFFFFF;
 	var imgBackgroundSky;
 	var clouds, cloudGenOn = false, 
 		cloudIntv = randomIntInRange(5, 13), 
@@ -34,6 +35,11 @@ function DisplayManager(game) {
 		game.stage.backgroundColor = '#92cb9a';
 	};
 
+	this.tintClouds = function(tintVal) {
+		this.clouds.setAll('tint', tintVal);
+		tint = tintVal;
+
+	}
 	this.putEnvironment = function() {
 		this.imgBackgroundSky = game.add.image(0, 0, 'gp_background_sky');
 		this.clouds = game.add.group();
@@ -155,6 +161,7 @@ function DisplayManager(game) {
 			this.cloudDur = 4800;
 		}
 		var cloud = this.clouds.create(-58, this.cloudY, cloudAsset);
+		cloud.tint = tint;
 		cloud.floatTween = game.add.tween(cloud).to( {x: gameConfig.RESOLUTION[0]}, this.cloudDur);
 		cloud.floatTween.start();
 		cloud.floatTween.onComplete.add(function() { 

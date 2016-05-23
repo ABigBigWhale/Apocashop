@@ -310,7 +310,13 @@ function PlayStateWrapper(game) {
 				fireworks.start(true, 4000, null, 50);
 			}
 
+			function tintBackground(tintVal) {
+				game.displayManager.tintClouds(tintVal);
+				game.depthGroups.envGroup.setAll('tint', tintVal);
+			}
+			
 			function tintAll(tintVal) {
+				game.displayManager.tintClouds(tintVal);
 				game.dialog.main.box.tint = tintVal;
 				uiNoteLayer.setAll('tint', tintVal);
 				currNPC.tint = tintVal;
