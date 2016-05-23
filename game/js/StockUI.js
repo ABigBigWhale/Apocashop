@@ -71,6 +71,7 @@ function StockUI(game) {
 
     function killGroup() {
         for(var key in allBox) {
+            allBox[key].tinted.kill();
             allBox[key].itemborder.kill();
             allBox[key].kill();
         }
@@ -195,8 +196,13 @@ function StockUI(game) {
             boxes[key].priceText = game.add.text(boxes[key].position.x, boxes[key].position.y + boxes[key].height + 5, "Price: " + boxes[key].price,
                                                  { font: "18px yoster_islandregular", fill: '#d3af7a' });
             boxes[key].priceText.visible = false;
+            boxes[key].tinted = game.add.image(boxes[key].position.x, boxes[key].position.y, boxes[key].key);
+            boxes[key].tinted.scale.setTo(2, 2);
+            boxes[key].tinted.tint = "#7F7F7F";
+            game.world.bringToTop(boxes[key]);
             boxes[key].events.onInputOver.add(hoverOnItem, boxes[key]);
             boxes[key].events.onInputOut.add(deHoverOnItem, boxes[key]);
+            boxes[key].loader = null;
         }
     }
 
@@ -259,7 +265,6 @@ function StockUI(game) {
 
     function onDragStart(sprite, pointer) {
         game.world.bringToTop(sprite);
-        sprite.loaded = false;
         deHoverOnItem(sprite, pointer);
         for (var i = 0; i < allLoad.length; i++) {
             if (Phaser.Rectangle.intersects(sprite.getBounds(), allLoad[i].getBounds())) {
@@ -271,26 +276,34 @@ function StockUI(game) {
 
     function onDragStop(sprite, pointer) {
         var loaded;
-        if (Phaser.Rectangle.intersects(sprite.getBounds(), sprite.itemborder.getBounds()) && sprite.loaded == false) {
+        var inbounds = false;
+        if (Phaser.Rectangle.intersects(sprite.getBounds(), sprite.itemborder.getBounds())) {
             loader = findEmptyLoad();
+            inbounds = true;
         } else {
             loader = findCollision(sprite, allLoad);
         }
-        if (loader != undefined && !(loader.loaded === undefined) && loader.loaded == null) {
+        if ((loader != undefined && !(loader.loaded === undefined) && loader.loaded == null && sprite.loader == null) ||
+             (loader === undefined && sprite.loader != null && inbounds == false)) {
+            if (loader === undefined)
+                    loader = sprite.loader;
             sprite.position.copyFrom(loader.position);
             sprite.position.x += 4;
             sprite.position.y += 4;
             sprite.loaded = true;
+            sprite.loader = loader;
             hoverOnItem(sprite, null);
             loader.num.text = sprite.num + "";
             loader.loaded = sprite;
         } else {
             sprite.position.copyFrom(sprite.originalPosition);
             sprite.loaded = false;
+            sprite.loader = null;
             game.world.bringToTop(sprite.itemborder);
             coinDrop(sprite.num - sprite.orignum);
             game.eventManager.notify(game.Events.STOCK.OUTSTOCK, sprite.itemType);
             coinDrop()
+            deHoverOnItem(sprite, pointer);
         }
     }
 
