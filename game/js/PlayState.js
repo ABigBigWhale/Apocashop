@@ -365,21 +365,21 @@ function PlayStateWrapper(game) {
 					but.visible = true;
 					but.inputEnabled = true;
 					but.descText = game.add.text(but.x + 65 - 200, but.y + 120,
-						(upgrades[used[i]][currShop] ||
-						upgrades[used[i]][upgrades[used[i]].length - 1]).effect
-						+ "\n\n" +
-						(upgrades[used[i]][currShop] ||
-						upgrades[used[i]][upgrades[used[i]].length - 1]).description 
-						,
-						// ,
-						{
+												 (upgrades[used[i]][currShop] ||
+												  upgrades[used[i]][upgrades[used[i]].length - 1]).effect
+												 + "\n\n" +
+												 (upgrades[used[i]][currShop] ||
+												  upgrades[used[i]][upgrades[used[i]].length - 1]).description 
+												 ,
+												 // ,
+												 {
 						font: "20px yoster_islandregular",
 						fill: '#d3af7a',
 						wordWrap: true, wordWrapWidth: 400, align: "center"
 					});
 					but.descText.visible = false;
 					but.events.onInputOver.add(function(but) { but.descText.visible = true;}, but);
-            		but.events.onInputOut.add(function(but) { but.descText.visible = false;}, but);
+					but.events.onInputOut.add(function(but) { but.descText.visible = false;}, but);
 					upgradeGroup.add(but.descText);
 					upgradeGroup.add(but);
 				}
@@ -509,7 +509,7 @@ function PlayStateWrapper(game) {
 				// Turn on cloud generation
 				game.displayManager.toggleCloudGeneration(true);
 				game.displayManager.togglePedestGeneration(true);
-				
+
 				// Set up day game
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
 				if(uiNoteDisplayShown) {
@@ -663,6 +663,12 @@ function PlayStateWrapper(game) {
 						var partNumb = parseInt(partArr[1]);
 						npcBmd.draw('npc-' + partName + '-' + partNumb);
 					}
+					
+					var skinColor = generateSkinColor();
+					
+					bitmapDataReplaceColor(npcBmd, 190, 147, 125, 255,
+										  skinColor.r, skinColor.g, skinColor.b, 255,
+										  60, 70)
 
 					return npcBmd;
 				}
@@ -681,16 +687,17 @@ function PlayStateWrapper(game) {
 					// 		 and make currNPC a group?
 
 					setNPCTween();
-					if (isRandom) currNPC.scale.setTo(3, 3);
-					else {
-                        switch (npcAssetId) {
-                            case 'gp_jeff_big':
-                                currNPC.scale.setTo(2, 2);
-                                break;
-                            case 'gp_dog_set':
-                                currNPC.scale.setTo(1.5, 1.5);
-                                break;
-                        }
+					if (isRandom) {
+						currNPC.scale.setTo(3, 3);
+					} else {
+						switch (npcAssetId) {
+							case 'gp_jeff_big':
+								currNPC.scale.setTo(2, 2);
+								break;
+							case 'gp_dog_set':
+								currNPC.scale.setTo(1.5, 1.5);
+								break;
+						}
 						currNPC.smoothed = false;
 					}
 					currNPCIn.onComplete.add(function() {
@@ -710,7 +717,7 @@ function PlayStateWrapper(game) {
 					showNPC(isRandom);
 				}
 			});
-			
+
 			game.eventManager.register(game.Events.DAY.END, function() {
 				game.displayManager.toggleCloudGeneration(false);
 				game.displayManager.togglePedestGeneration(false);
