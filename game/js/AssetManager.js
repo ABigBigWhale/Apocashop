@@ -27,7 +27,7 @@ function AssetManager(game) {
 			'gp_background',
 			'gp_background_town',
 			'gp_background_sky',
-            'gp_sun', 'gp_moon'
+            'gp_sun', 'gp_moon',
 			'gp_cloud', 'gp_cloud_star',
 			'gp_shopkeeper',
 			'gp_passerby',
