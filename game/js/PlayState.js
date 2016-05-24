@@ -180,7 +180,6 @@ function PlayStateWrapper(game) {
 			}
 
 			uiNote.inputEnabled = true;
-			//uiNoteDisplay.inputEnabled = true;
 			uiNoteCurtain.inputEnabled = true;
 			uiNote.events.onInputDown.add(toggleNoteDisplay, this);
 			uiNoteCurtain.events.onInputDown.add(toggleNoteDisplay, this);
@@ -525,6 +524,10 @@ function PlayStateWrapper(game) {
 				uiPutItemSlots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 				heroClueText.text = formatClues(data.clues.hero);
 				crisisClueText.text = formatClues(data.clues.crisis);
+                
+                if (game.interactionManager.currentDay > 1 && !uiNoteDisplayShown) {
+                    toggleNoteDisplay();
+                }
 			});
 
 			function formatClues(clues) {
@@ -738,6 +741,7 @@ function PlayStateWrapper(game) {
 			uiFunnelSetTime(game.interactionManager.dayTimer.getPercent());
 			uiFunnelSandTop.updateCrop();
 			uiFunnelSandButtom.updateCrop();
+            game.displayManager.updateSunPosition(game.interactionManager.dayTimer.getPercent());
 		}
 
 	};
