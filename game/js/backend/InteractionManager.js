@@ -2,6 +2,8 @@ function InteractionManager(game) {
 
 	var conditionManager = game.conditionManager;
 
+	var dayIndex;
+
 	// The current day
 	var currentDay;
 
@@ -25,8 +27,6 @@ function InteractionManager(game) {
 
 	var dayEndCallback;
 
-	var dayTimer;
-
 	var dayUpgrade;
 
 	function init() {
@@ -40,7 +40,7 @@ function InteractionManager(game) {
 				dialogIndex++;
 			} else {
 				if(currentNPC) {
-					resume();
+					game.dayTimer.resume();
 					if(currentNPC.finishConditions) {
 						for(var i = 0; i < currentNPC.finishConditions.length; i++) {
 							conditionManager.set(currentNPC.finishConditions[i]);
@@ -122,33 +122,14 @@ function InteractionManager(game) {
 		});
 
 		game.eventManager.register(game.Events.TIMER.JUMP, function(amount) {
-			dayTimer.jumpForward(amount);
+			game.dayTimer.jumpForward(amount);
 		});
 	}
 
-	this.pauseClock = function() {
-		dayTimer.pause();
-		game.eventManager.notify(game.Events.TIMER.PAUSE, 0x191919);
-	}
-
-	this.resumeClock = function() {
-		dayTimer.resume();
-		game.eventManager.notify(game.Events.TIMER.RESUME, 0xFFFFFF);
-	}
-
-	function pause() {
-		dayTimer.pause();
-		game.eventManager.notify(game.Events.TIMER.PAUSE, 0x191919);
-	}
-
-	function resume() {
-		dayTimer.resume();
-		game.eventManager.notify(game.Events.TIMER.RESUME, 0xFFFFFF);
-	}
-
 	// Begin the day, set the day timer, and send our first NPC.
-	this.startDay = function(day, endCallback) {
+	this.startDay = function(day, index, endCallback) {
 		isEnd = false;
+		dayIndex = index;
 		currentDay = day;
 		dayEndCallback = endCallback;
 		conditionManager.init(day.conditions);
@@ -158,11 +139,14 @@ function InteractionManager(game) {
 		});
 		npcIndex = 0;
 		initNPCs(day);
-		dayTimer = new Timer(function() {
+		game.dayTimer = new Timer(function() {
 			printDebug("DAY ENDING TIMER");
 			isEnd = true;
-		}, day.length * dayUpgrade);
-		this.dayTimer = dayTimer;
+		}, day.length * dayUpgrade, function() {
+			game.eventManager.notify(game.Events.TIMER.PAUSE, 0x191919);
+		}, function() {
+			game.eventManager.notify(game.Events.TIMER.RESUME, 0xFFFFFF);
+		});
 		pushNPC();
 	}
 
@@ -253,7 +237,7 @@ function InteractionManager(game) {
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
-			pause();
+			game.dayTimer.pause();
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
 			pushDialog(currentNPC, dialogIndex);
 			dialogIndex++;

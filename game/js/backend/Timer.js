@@ -1,4 +1,4 @@
-function Timer(func, delay) {
+function Timer(func, delay, pauseCallback, resumeCallback) {
 
 	var self = this;
 
@@ -15,6 +15,7 @@ function Timer(func, delay) {
 			printDebug("PAUSING TIMER: " + remaining);
 		}
 
+		if(pauseCallback) pauseCallback();
 		isPaused = true;
 	};
 
@@ -26,6 +27,7 @@ function Timer(func, delay) {
 			printDebug("RESUMING TIMER: " + remaining);
 		}
 
+		if(resumeCallback) resumeCallback();
 		isPaused = false;
 	};
 

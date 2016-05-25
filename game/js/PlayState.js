@@ -431,10 +431,10 @@ function PlayStateWrapper(game) {
 					upgradeGroup = game.add.group();
 					createUpgrades(upgradeGroup, upgradeSequence);
 					tintAll(0x191919);
-					game.interactionManager.pauseClock();
+					game.dayTimer.pause();
 				} else {
 					tintAll(0xFFFFFF);
-					game.interactionManager.resumeClock();
+					game.dayTimer.resume();
 					upgradeGroup.visible = false;
 					upgradeGroup.callAll('kill');
 				}
@@ -556,10 +556,10 @@ function PlayStateWrapper(game) {
 
 			game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, offer, isRepeat) {
 				switchButtons(true);
-				game.interactionManager.pauseClock();
+				game.dayTimer.pause();
 				game.dialog.main.isPrinting = true;
 				game.dialogManager.printMain(offer, isRepeat, function() {
-					game.interactionManager.resumeClock();
+					game.dayTimer.resume();
 					game.dialog.main.isPrinting = false;
 				});
 			});
@@ -752,10 +752,10 @@ function PlayStateWrapper(game) {
 		},
 
 		update: function() {
-			uiFunnelSetTime(game.interactionManager.dayTimer.getPercent());
+			uiFunnelSetTime(game.dayTimer.getPercent());
 			uiFunnelSandTop.updateCrop();
 			uiFunnelSandButtom.updateCrop();
-            game.displayManager.updateSunPosition(game.interactionManager.dayTimer.getPercent());
+            game.displayManager.updateSunPosition(game.dayTimer.getPercent());
 		}
 
 	};
