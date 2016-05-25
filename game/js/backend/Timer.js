@@ -8,18 +8,18 @@ function Timer(func, delay, pauseCallback, resumeCallback) {
 
 	var isPaused = true;
 
-	this.pause = function() {
+	this.pause = function(skipCallback) {
 		if(!isPaused) {
 			clearTimeout(timeoutInfo);
 			remaining -= (Date.now() - start);
 			printDebug("PAUSING TIMER: " + remaining);
 		}
 
-		if(pauseCallback) pauseCallback();
+		if(pauseCallback && !skipCallback) pauseCallback();
 		isPaused = true;
 	};
 
-	this.resume = function() {
+	this.resume = function(skipCallback) {
 		if(isPaused) {
 			start = Date.now();
 			clearTimeout(timeoutInfo);
@@ -27,14 +27,14 @@ function Timer(func, delay, pauseCallback, resumeCallback) {
 			printDebug("RESUMING TIMER: " + remaining);
 		}
 
-		if(resumeCallback) resumeCallback();
+		if(resumeCallback && !skipCallback) resumeCallback();
 		isPaused = false;
 	};
 
 	this.jumpForward = function(amount) {
-		self.pause();
+		self.pause(true);
 		remaining -= amount;
-		self.resume();
+		self.resume(true);
 	};
 
 	this.getPercent = function() {
