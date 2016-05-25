@@ -40,7 +40,7 @@ function InteractionManager(game) {
 				dialogIndex++;
 			} else {
 				if(currentNPC) {
-					dayTimer.resume();
+					resume();
 					if(currentNPC.finishConditions) {
 						for(var i = 0; i < currentNPC.finishConditions.length; i++) {
 							conditionManager.set(currentNPC.finishConditions[i]);
@@ -112,6 +112,29 @@ function InteractionManager(game) {
 		game.eventManager.register(game.Events.TIMER.JUMP, function(amount) {
 			dayTimer.jumpForward(amount);
 		});
+	}
+
+	this.pauseClock = function() {
+		dayTimer.pause();
+
+	}
+
+	this.resumeClock = function() {
+		dayTimer.resume();
+		if (game.displayManager != undefined)
+		game.displayManager.tintClock(0xFFFFFF);
+	}
+
+	function pause() {
+		dayTimer.pause();
+		if (game.displayManager != undefined)
+		game.displayManager.tintClock(0x191919);
+	}
+
+	function resume() {
+		dayTimer.resume();
+		if (game.displayManager != undefined)
+		game.displayManager.tintClock(0xFFFFFF);
 	}
 
 	// Begin the day, set the day timer, and send our first NPC.
@@ -221,7 +244,7 @@ function InteractionManager(game) {
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
-			dayTimer.pause();
+			pause();
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
 			pushDialog(currentNPC, dialogIndex);
 			dialogIndex++;

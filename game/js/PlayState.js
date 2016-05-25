@@ -80,7 +80,7 @@ function PlayStateWrapper(game) {
 
 			uiFunnelSandTop.crop(uiFunnelSandTopCrop);
 			uiFunnelSandButtom.crop(uiFunnelSandButtomCrop);
-
+			game.clockUI = [uiFunnel, uiFunnelSandTop, uiFunnelSandButtom];
 			game.depthGroups.uiGroup.add(uiFunnelSandTop);
 			game.depthGroups.uiGroup.add(uiFunnelSandButtom);
 			game.depthGroups.uiGroup.add(uiFunnel);
@@ -314,6 +314,12 @@ function PlayStateWrapper(game) {
 				game.displayManager.tintClouds(tintVal);
 				game.depthGroups.envGroup.setAll('tint', tintVal);
 			}
+
+			function tintClock(tintVal) {
+				for (var i = 0; i < game.clockUI.length; i++) {
+					game.clockUI[i].tint = tintVal;
+				}
+			}
 			
 			function tintAll(tintVal) {
 				game.displayManager.tintClouds(tintVal);
@@ -539,10 +545,10 @@ function PlayStateWrapper(game) {
 
 			game.eventManager.register(game.Events.INTERACT.OFFER, function(amount, item, offer, isRepeat) {
 				switchButtons(true);
-				game.interactionManager.dayTimer.pause();
+				game.interactionManager.pauseClock();
 				game.dialog.main.isPrinting = true;
 				game.dialogManager.printMain(offer, isRepeat, function() {
-					game.interactionManager.dayTimer.resume();
+					game.interactionManager.resumeClock();
 					game.dialog.main.isPrinting = false;
 				});
 			});
