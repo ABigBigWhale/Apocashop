@@ -46,7 +46,7 @@ function initDayGenerator(game) {
 	}
 
 	function generateLength(day) {
-		day.length = 45000;
+		day.length = 70000;
 	}
 
 	var generateCrisis;
@@ -148,12 +148,14 @@ function initDayGenerator(game) {
 
 			var hero = generateNPC(day, {
 				sellConditions : ['soldHero'],
-				refuseConditions : ['refusedHero']
+				refuseConditions : ['refusedHero'],
+				isHero : true
 			});
 			var falseHeroes = [];
 			for(var i = 0; i < NUM_FALSE_HEROES; i++) {
 				falseHeroes.push(generateNPC(day, {
-					sellConditions : ['soldFalse']
+					sellConditions : ['soldFalse'],
+					isFalseHero : true
 				}));
 			}
 

@@ -16,6 +16,7 @@ function initBackend(game) {
 function beginGame(game) {
 
 	var currentDay = 0;
+	window.dayIndex = currentDay;
 	
 	if (currentDay > 0 && debugGame) {
 		debugGame.eventManager.notify(debugGame.Events.TUTORIAL.BEGIN);
@@ -61,10 +62,11 @@ function beginGame(game) {
 		game.wrapupManager.startDay(day, function() {
 			game.eventManager.notify(game.Events.WRAPUP.END);
 			currentDay++;
+			window.dayIndex = currentDay;
 			game.analytics.track('day', 'begin' + currentDay, currentDay);
 			game.analytics.set("dimension1", numToStr(currentDay));
 			// TODO: only going to day 3
-			if (currentDay <= 7) {
+			if (currentDay < 7) {
 				beginStocking();
 			} else {
 				game.endStateWrapper.setGameResult(true);

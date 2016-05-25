@@ -180,7 +180,6 @@ function PlayStateWrapper(game) {
 			}
 
 			uiNote.inputEnabled = true;
-			//uiNoteDisplay.inputEnabled = true;
 			uiNoteCurtain.inputEnabled = true;
 			uiNote.events.onInputDown.add(toggleNoteDisplay, this);
 			uiNoteCurtain.events.onInputDown.add(toggleNoteDisplay, this);
@@ -243,7 +242,7 @@ function PlayStateWrapper(game) {
 					uiButtonQuestion.alpha = 1;
 				}
 				// TODO: 
-				game.analytics.track("question", "toggled", "test");
+				game.analytics.track("question", "toggled");
 				game.questionManager.toggleQuestions();
 			};
 
@@ -531,6 +530,10 @@ function PlayStateWrapper(game) {
 				uiPutItemSlots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 				heroClueText.text = formatClues(data.clues.hero);
 				crisisClueText.text = formatClues(data.clues.crisis);
+                
+                if (game.interactionManager.currentDay > 1 && !uiNoteDisplayShown) {
+                    toggleNoteDisplay();
+                }
 			});
 
 			function formatClues(clues) {
@@ -630,6 +633,7 @@ function PlayStateWrapper(game) {
 				if(game.playerState.getGold() <= 1) {
 					game.analytics.set('dimension3', "inexperiened");
 					game.conditionManager.set('jeffReminder');
+					game.analytics.track("interaction", "jeffReminder");
 				} else {
 					game.analytics.set('dimension3', "experiened");
 				}
@@ -743,6 +747,7 @@ function PlayStateWrapper(game) {
 			uiFunnelSetTime(game.interactionManager.dayTimer.getPercent());
 			uiFunnelSandTop.updateCrop();
 			uiFunnelSandButtom.updateCrop();
+            game.displayManager.updateSunPosition(game.interactionManager.dayTimer.getPercent());
 		}
 
 	};

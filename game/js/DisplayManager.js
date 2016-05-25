@@ -7,6 +7,7 @@ function DisplayManager(game) {
 	//----------- Objects in environment -------------
 	var tint = 0xFFFFFF;
 	var imgBackgroundSky;
+    var imgSum;
 	var clouds, cloudGenOn = false, 
 		cloudIntv = randomIntInRange(5, 13), 
 		cloudY = randomIntInRange(200, 300),
@@ -42,6 +43,7 @@ function DisplayManager(game) {
 	}
 	this.putEnvironment = function() {
 		this.imgBackgroundSky = game.add.image(0, 0, 'gp_background_sky');
+        this.imgSun = game.add.image(400, 100, 'gp_sun');
 		this.clouds = game.add.group();
 		this.pedests = game.add.group();
 		this.cloudTimer = game.time.create(false);
@@ -56,6 +58,7 @@ function DisplayManager(game) {
 										  this.shopKeeper.y + this.shopKeeper.height - 7, 'gp_jeff_shadow');
 
 		game.depthGroups.envGroup.add(this.imgBackgroundSky);
+        game.depthGroups.envGroup.add(this.imgSun);
 		game.depthGroups.envGroup.add(this.clouds);
 		game.depthGroups.envGroup.add(this.imgBackgroundTown);
 		game.depthGroups.envGroup.add(this.shopKeeper);
@@ -64,7 +67,8 @@ function DisplayManager(game) {
 		game.depthGroups.envGroup.add(this.jeffShadow);
 		game.depthGroups.pedestGroup.add(this.pedests);
 
-
+        this.imgSun.anchor.setTo(0.5, 0.5);
+        
 		this.shop.smoothed = false;
 		this.shop.alpha = 0;
 		this.shop.visible = false;
@@ -117,11 +121,18 @@ function DisplayManager(game) {
 		}, 300, Phaser.Easing.Quadratic.None, true);;
 		dev.anchor.setTo(0.5, 1);
 	};
+    
+    this.updateSunPosition = function(dayPercent) {
+        this.imgSun.position.x = gameConfig.RESOLUTION[0] * dayPercent;
+        this.imgSun.position.y = gameConfig.RESOLUTION[1] / 3 - 
+            Math.sin((1-dayPercent) * Math.PI) * (gameConfig.RESOLUTION[1] / 6);
+    }
 
 	function starCloudClicked() {
 		this.cloud.inputEnabled = false;
 		var reward = randomIntInRange(5, 8);
 		printDebug("UI: star cloud clicked! Rewarding " + reward + " gold.");
+		game.analytics.track("cloud", "clicked");
 
 		var coins = game.add.group();
 		for (var i = 0; i < reward; i++) {
