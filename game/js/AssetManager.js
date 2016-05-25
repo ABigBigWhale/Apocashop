@@ -3,7 +3,7 @@ function AssetManager(game) {
 	this.game = game;
 
 	this.assetFolder = 'assets/';
-	
+
 	this.spriteSheets = {
 		'button_item_border' : [22, 22],
 		'button_add' : [11, 11],
@@ -15,7 +15,7 @@ function AssetManager(game) {
 		'button_accept' : [63, 22],
 		'button_reject' : [63, 22],
 		'button_question' : [63, 22],
-		
+
 	};
 
 	// Paths of asset files, without extensions
@@ -27,7 +27,7 @@ function AssetManager(game) {
 			'gp_background',
 			'gp_background_town',
 			'gp_background_sky',
-            'gp_sun', 'gp_moon',
+			'gp_sun', 'gp_moon',
 			'gp_cloud', 'gp_cloud_star',
 			'gp_shopkeeper',
 			'gp_passerby',
@@ -92,8 +92,10 @@ function AssetManager(game) {
 			'hair' : 11,
 			'eye' : 10,
 			'nose' : 11,
-			'mouth' : 11
-		}
+			'mouth' : 11,
+			'hand' : 'npc_hand',
+		},
+
 
 	};
 
@@ -105,10 +107,24 @@ function AssetManager(game) {
 					// Load parts for NPC avatar
 					for (var npcPart in this.assets[path]) {
 						var partCount = this.assets[path][npcPart];
-						for (j = 1; j <= partCount; j++) {
-							var partPath = 'assets/npc/' + npcPart + '/' + j + ".png";
-							game.load.image('npc-' + npcPart + '-' + j, partPath);
-							printDebug('LOADING NPC PART [' + npcPart + '] #' + j + '\t' + partPath);
+						
+						if (partCount.substring) {	// Hand
+							var imgPath = 'assets/npc/' + npcPart + '/' + partCount + ".png";
+							game.load.image('npc-' + npcPart, imgPath);
+							for (var j = 0; j < 5; j++) {
+								var imgPathPrefix = 'assets/npc/' + npcPart + '/' + partCount + '_' + j;
+								var id = 'npc-' + npcPart + '-' + j;
+								game.load.image(id, imgPathPrefix + '.png');
+								game.load.image(id + '-c', imgPathPrefix + '_c.png');
+								printDebug('LOADING NPC HANDS [' + npcPart + '] #' + j + '\t' + imgPathPrefix + '\tid: ' + id);
+							}
+							
+						} else {
+							for (var j = 1; j <= partCount; j++) {
+								var partPath = 'assets/npc/' + npcPart + '/' + j + ".png";
+								game.load.image('npc-' + npcPart + '-' + j, partPath);
+								printDebug('LOADING NPC PART [' + npcPart + '] #' + j + '\t' + partPath);
+							}
 						}
 					}
 
@@ -118,27 +134,27 @@ function AssetManager(game) {
 						var assetId = this.assets[path][i];
 						var fullPath = this.assetFolder + path + '/' + assetId + '.png';
 						var isSpritesheet = false;
-						
+
 						for (var key in this.spriteSheets) {
 							// Load spritesheets
 							if (assetId.indexOf(key) >= 0) {
 								printDebug('LOADING(spritesheet): ' + fullPath);
 								this.game.load.spritesheet(assetId, fullPath, 
-														  this.spriteSheets[key][0],
-														  this.spriteSheets[key][1]);
+														   this.spriteSheets[key][0],
+														   this.spriteSheets[key][1]);
 								isSpritesheet = true;
 								break;
 							}
 						}
-						
+
 						if (!isSpritesheet) {
 							// Load images
 							printDebug('LOADING(image): ' + fullPath);
 							this.game.load.image(assetId, fullPath);
 						}
-						
+
 						printDebug('LOADED: ' + assetId);
-						
+
 					}   
 				}
 			}

@@ -17,10 +17,18 @@ function PlayStateWrapper(game) {
 				noteGroup : game.add.group(),
 				questionGroup : game.add.group(),
 				uiGroup: game.add.group(),
+				frontGroup: game.add.group()
 			};
 
 			game.displayManager.putEnvironment();
 
+			/*
+			var hands = game.displayManager.generateNPCHands('01100', '11001');
+			hands.x = 80;
+			hands.y = 525;
+			game.depthGroups.frontGroup.add(hands);
+			*/
+			
 			var shop = game.displayManager.shop;	// TODO: temporary work-around
 
 			///////////////////////////// UI elems ///////////////////////////
@@ -87,8 +95,9 @@ function PlayStateWrapper(game) {
 
 			//------------------------- Notes & Clues ------------------------
 			var uiNoteLayer = game.add.group();
-
-			var uiNoteDisplay = uiNoteLayer.create(800, 1000, 'ui_note_big');
+			uiNoteLayer.y = 400;
+			
+			var uiNoteDisplay = uiNoteLayer.create(800, 400, 'ui_note_big');
 			uiNoteDisplay.smoothed = false;
 			uiNoteDisplay.anchor.setTo(1, 1);
 
@@ -158,19 +167,19 @@ function PlayStateWrapper(game) {
 				if (uiNoteDisplayShown) { // Out
 					uiNoteDisplayTween = game.add.tween(uiNoteLayer.position)
 						.to({
-						y: '+600'
+						y: 400
 					}, 300, Phaser.Easing.Quadratic.Out);
 					uiNoteTween = game.add.tween(uiNote).to({
-						y: '-200'
+						y: 520
 					}, 200, Phaser.Easing.Quadratic.Out);
 					uiNoteCurtain.visible = false;
 				} else { // In
 					uiNoteDisplayTween = game.add.tween(uiNoteLayer.position)
 						.to({
-						y: '-600'
+						y: 0
 					}, 200, Phaser.Easing.Quadratic.In);
 					uiNoteTween = game.add.tween(uiNote).to({
-						y: '+200'
+						y: 700
 					}, 300, Phaser.Easing.Quadratic.Out);
 					uiNoteCurtain.visible = true;
 				}
