@@ -525,15 +525,12 @@ function PlayStateWrapper(game) {
 
 				// Set up day game
 				game.questionManager.populateQuestions(data.questions, uiQuestionLayer);
-				if(uiNoteDisplayShown) {
-					toggleNoteDisplay();
-				}
 				game.uiItemGroup.callAll('kill');
 				uiPutItemSlots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 				heroClueText.text = formatClues(data.clues.hero);
 				crisisClueText.text = formatClues(data.clues.crisis);
                 
-                if (game.interactionManager.currentDay > 1 && !uiNoteDisplayShown) {
+                if ((game.interactionManager.currentDay || 0) > 0 && !(uiNoteDisplayShown || false)) {
                     toggleNoteDisplay();
                 }
 			});
