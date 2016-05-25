@@ -53,7 +53,7 @@ function StockUI(game) {
         allLoad = createLoads(numSlots);
         initAllItems(allBox);
         initAllLoad(allLoad);
-        textCoins = game.add.text(60, 520, "0",
+        textCoins = game.add.text(64, 520, "0",
                                           { font: "30px yoster_islandregular", fill: "#c67520"} );
         textCoins.setText(gold);
         textCoins.anchor.setTo(0.5, 0);

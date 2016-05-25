@@ -1,11 +1,13 @@
 function EndingScreen(game) {
 
 	var recapGroup;
+    var moonStars;
 	var blackScreenSprite;
 
 	function init() {
 		recapGroup = game.add.group();
 		blackScreenSprite = game.add.sprite(0, 0);
+        moonStars = game.add.image(0, 0, 'gp_moon');
 
 		var blackScreen = game.add.graphics(0, 0);
 		blackScreen.beginFill(0x0, 1);
@@ -19,7 +21,13 @@ function EndingScreen(game) {
 		blackScreenSprite.addChild(blackScreen);
 		blackScreenSprite.inputEnabled = true;
 
+        recapGroup.fadeIn = game.add.tween(recapGroup)
+            .to( {alpha: 1}, 2000);
+        recapGroup.fadeOut = game.add.tween(recapGroup)
+            .to( {alpha: 0}, 2000);
+        
 		recapGroup.add(blackScreenSprite);
+        recapGroup.add(moonStars);
 		recapGroup.add(game.dialog.wrapup.box);
 		recapGroup.visible = false;
 	}
@@ -31,13 +39,16 @@ function EndingScreen(game) {
 
 	game.eventManager.register(game.Events.WRAPUP.START, function() {
 		game.dialogManager.printWrapup("");
+        recapGroup.alpha = 0;
 		recapGroup.visible = true;
-		requestNext();
+        recapGroup.fadeIn.onComplete.addOnce(requestNext);
+        recapGroup.fadeIn.start();
 	});
 
 	game.eventManager.register(game.Events.WRAPUP.END, function() {
 		game.dialogManager.printWrapup("");
 		recapGroup.visible = false;
+        recapGroup.fadeOut.start();
 	});
 
 	game.eventManager.register(game.Events.WRAPUP.MESSAGE, function(message) {
