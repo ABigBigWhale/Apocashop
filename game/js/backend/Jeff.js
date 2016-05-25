@@ -7,7 +7,7 @@ function Jeff(game) {
 	//game.eventManager.register(game.Events.COMPANIONS.JEFF, game.dialogManager.printJeff);
 
 	function jeffListening(amount, item, offer) {
-		if(!game.playerState.checkStock(item)) {
+		if(!game.playerState.checkStock(item) && item !== "None") {
 			game.dialogManager.printJeff(generatePrompt(item, items[item].jPrice));
 			promptedItem = item;
 			primeJeff();

@@ -1,7 +1,6 @@
 var generateNPC;
 var applyRandomAppearance;
 var generateOfferText;
-// initNPCGen({});
 
 function initNPCGen(game) {
 

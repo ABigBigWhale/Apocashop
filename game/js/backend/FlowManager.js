@@ -2,6 +2,8 @@ function initBackend(game) {
 	game.conditionManager = new ConditionManager(game);
 	game.eventManager = new EventManager(game);
 	game.analytics = new AnalyticsWrapper();
+	initNPCGen(game);
+	initDayGenerator(game);
 	game.interactionManager = new InteractionManager(game);
 	game.questionManager = new QuestionManager(game);
 	game.dialogManager = new DialogManager(game);

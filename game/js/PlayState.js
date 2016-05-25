@@ -498,13 +498,11 @@ function PlayStateWrapper(game) {
 
 			///////////////////////////// Backend ///////////////////////////
 
-			initDayGenerator(game);
 			initBackend(game);
 
 			game.tutorial = {
 				questionVisible: false
 			};
-			initNPCGen(game);
 
 			uiButtonAccept.visible = false;
 			uiButtonReject.visible = false;

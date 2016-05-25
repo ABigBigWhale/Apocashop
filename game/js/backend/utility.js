@@ -4,6 +4,10 @@ function rollDice(chance) {
 	return Math.random() <= chance; 
 }
 
+function deepCopy(value) {
+	return JSON.parse(JSON.stringify(value));
+}
+
 function randomIntInRange(min, max) {
 	var range = max - min;
 	return Math.floor(min + Math.random() * range);
@@ -69,6 +73,15 @@ function numToThStr(num) {
 	var numArray = ["zeroeth", "first", "second", "third", "fourth",
 				   ];
 	return numArray[num];
+}
+
+function generateHeroData(story, name) {
+	return {
+		category : story,
+		hero : name,
+		fuzz : 0,
+		force : true
+	}
 }
 
 function getOrdinal(n) {
