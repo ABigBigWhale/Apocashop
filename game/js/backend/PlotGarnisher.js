@@ -5,9 +5,11 @@ function PlotGarnisher(game) {
 	var NUM_DOG_ELEMENTS = 0;
 	var LAST_AVAILABLE_INDEX = 20;
 
-	var storyElements = [];
+	var storyElements;
 
 	function init() {
+		storyElements = [];
+
 		var storyArrayTemp = storyArray;
 		for(var i = 0; i < NUM_ELEMENTS; i++) {
 			var story = randomElement(storyArrayTemp);
@@ -120,5 +122,6 @@ function PlotGarnisher(game) {
 	};
 
 	init();
+	game.reset.register(init);
 
 }

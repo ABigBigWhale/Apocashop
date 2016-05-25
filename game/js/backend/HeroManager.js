@@ -8,6 +8,7 @@ function HeroManager(game) {
 	var validHeroCollections = [];
 
 	function init() {
+		heroCollections.randomGenHero = generateRandomHero();
 		validHeroCollections = Object.keys(heroCollections);
 	}
 
@@ -93,10 +94,10 @@ function HeroManager(game) {
 					gold : -15
 				}
 			]
-		},
-		randomGenHero : generateRandomHero()
+		}
 	};
 
 	init();
+	game.reset.register(init);
 
 }
