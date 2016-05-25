@@ -535,6 +535,8 @@ function PlayStateWrapper(game) {
                     toggleNoteDisplay();
                 }
 			});
+			game.eventManager.register(game.Events.TIMER.PAUSE, tintClock);
+			game.eventManager.register(game.Events.TIMER.RESUME, tintClock);
 
 			function formatClues(clues) {
 				var retString = "";

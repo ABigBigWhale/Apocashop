@@ -128,25 +128,22 @@ function InteractionManager(game) {
 
 	this.pauseClock = function() {
 		dayTimer.pause();
-
+		game.eventManager.notify(game.Events.TIMER.PAUSE, 0x191919);
 	}
 
 	this.resumeClock = function() {
 		dayTimer.resume();
-		if (game.displayManager != undefined)
-		game.displayManager.tintClock(0xFFFFFF);
+		game.eventManager.notify(game.Events.TIMER.RESUME, 0xFFFFFF);
 	}
 
 	function pause() {
 		dayTimer.pause();
-		if (game.displayManager != undefined)
-		game.displayManager.tintClock(0x191919);
+		game.eventManager.notify(game.Events.TIMER.PAUSE, 0x191919);
 	}
 
 	function resume() {
 		dayTimer.resume();
-		if (game.displayManager != undefined)
-		game.displayManager.tintClock(0xFFFFFF);
+		game.eventManager.notify(game.Events.TIMER.RESUME, 0xFFFFFF);
 	}
 
 	// Begin the day, set the day timer, and send our first NPC.
