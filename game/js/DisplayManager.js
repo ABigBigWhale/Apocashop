@@ -7,7 +7,7 @@ function DisplayManager(game) {
 	//----------- Objects in environment -------------
 	var tint = 0xFFFFFF;
 	var imgBackgroundSky;
-    var imgSum;
+	var imgSum;
 	var clouds, cloudGenOn = false, 
 		cloudIntv = randomIntInRange(5, 13), 
 		cloudY = randomIntInRange(200, 300),
@@ -43,7 +43,7 @@ function DisplayManager(game) {
 	}
 	this.putEnvironment = function() {
 		this.imgBackgroundSky = game.add.image(0, 0, 'gp_background_sky');
-        this.imgSun = game.add.image(400, 100, 'gp_sun');
+		this.imgSun = game.add.image(400, 100, 'gp_sun');
 		this.clouds = game.add.group();
 		this.pedests = game.add.group();
 		this.cloudTimer = game.time.create(false);
@@ -58,7 +58,7 @@ function DisplayManager(game) {
 										  this.shopKeeper.y + this.shopKeeper.height - 7, 'gp_jeff_shadow');
 
 		game.depthGroups.envGroup.add(this.imgBackgroundSky);
-        game.depthGroups.envGroup.add(this.imgSun);
+		game.depthGroups.envGroup.add(this.imgSun);
 		game.depthGroups.envGroup.add(this.clouds);
 		game.depthGroups.envGroup.add(this.imgBackgroundTown);
 		game.depthGroups.envGroup.add(this.shopKeeper);
@@ -67,8 +67,8 @@ function DisplayManager(game) {
 		game.depthGroups.envGroup.add(this.jeffShadow);
 		game.depthGroups.pedestGroup.add(this.pedests);
 
-        this.imgSun.anchor.setTo(0.5, 0.5);
-        
+		this.imgSun.anchor.setTo(0.5, 0.5);
+
 		this.shop.smoothed = false;
 		this.shop.alpha = 0;
 		this.shop.visible = false;
@@ -105,7 +105,7 @@ function DisplayManager(game) {
 		var title = game.add.sprite(0, 0, 'gp_title');
 		var clickStart = game.add.sprite(400, 400, 'gp_clickstart');
 		var dev = game.add.sprite(400, 590, 'gp_dev');
-		
+
 		title.alpha = 0;
 		clickStart.alpha = 0;
 		clickStart.anchor.setTo(0.5, 0.5);
@@ -121,12 +121,12 @@ function DisplayManager(game) {
 		}, 300, Phaser.Easing.Quadratic.None, true);;
 		dev.anchor.setTo(0.5, 1);
 	};
-    
-    this.updateSunPosition = function(dayPercent) {
-        this.imgSun.position.x = gameConfig.RESOLUTION[0] * dayPercent;
-        this.imgSun.position.y = gameConfig.RESOLUTION[1] / 3 - 
-            Math.sin((1-dayPercent) * Math.PI) * (gameConfig.RESOLUTION[1] / 6);
-    }
+
+	this.updateSunPosition = function(dayPercent) {
+		this.imgSun.position.x = gameConfig.RESOLUTION[0] * dayPercent;
+		this.imgSun.position.y = gameConfig.RESOLUTION[1] / 3 - 
+			Math.sin((1-dayPercent) * Math.PI) * (gameConfig.RESOLUTION[1] / 6);
+	}
 
 	function starCloudClicked() {
 		this.cloud.inputEnabled = false;
@@ -207,14 +207,14 @@ function DisplayManager(game) {
 	}
 
 	this.randomCloudAttr = function() {
-		this.cloudIntv = randomIntInRange(5, 13);
+		this.cloudIntv = randomIntInRange(1, 15);
 		this.cloudY = randomIntInRange(100, 240);
 		this.cloudDur = randomIntInRange(40000, 80000);
 	}
 
 	this.putPedestrian = function() {
 		this.randomPedestAttr();
-		
+
 		var pedestAsset = 'gp_passerby';
 		var pedestrian = this.pedests.create(-15, this.pedestY, pedestAsset);
 		var pedestStepDur = this.pedestDur / 90;
@@ -222,17 +222,17 @@ function DisplayManager(game) {
 		pedestrian.anchor.setTo(0.5, 1);
 		pedestrian.tint = 0x999999 - (Math.random() * 0x004000);
 		pedestrian.stepCount = 0;
-		
+
 		printDebug('UI: Putting pedestrian at ' + this.pedestY + ' with tint: ' + pedestrian.tint.toString(16));
 
 		if (randomIntInRange(1, 3) == 1) {
-		pedestrian.moveTween = game.add.tween(pedestrian)
-			.to( {x: gameConfig.RESOLUTION[0] + 15}, this.pedestDur, Phaser.Easing.Linear.None, true, 0, -1);
+			pedestrian.moveTween = game.add.tween(pedestrian)
+				.to( {x: gameConfig.RESOLUTION[0] + 15}, this.pedestDur, Phaser.Easing.Linear.None, true, 0, -1);
 		} else {
 			pedestrian.x = gameConfig.RESOLUTION[0] + 15;
 			pedestrian.scale.x *= -1;
 			pedestrian.moveTween = game.add.tween(pedestrian)
-			.to( {x: -15}, this.pedestDur, Phaser.Easing.Linear.None, true, 0, -1);
+				.to( {x: -15}, this.pedestDur, Phaser.Easing.Linear.None, true, 0, -1);
 		}
 		pedestrian.walkTween = game.add.tween(pedestrian)
 			.to( {y: '-4'}, pedestStepDur, Phaser.Easing.Quadratic.InOut, true, 0, 500, true);
@@ -247,12 +247,12 @@ function DisplayManager(game) {
 
 		if (this.pedestGenerationOn) {
 			this.pedestTimer.add(
-				Phaser.Timer.SECOND * game.rnd.realInRange(3, 8),
+				Phaser.Timer.SECOND * this.pedestIntv,
 				this.putPedestrian, 
 				this
 			);
 		}
-		
+
 		this.pedests.sort('y', Phaser.Group.SORT_ASCENDING);
 	}
 
@@ -347,5 +347,39 @@ function DisplayManager(game) {
 			var dialog = game.depthGroups.dialogGroup.children[i];
 			dialog.dialogOut.start();
 		}
+	}
+
+	this.generateNPCHands = function(left, right) {
+		var npcHand = game.add.group();
+		var leftHand = game.add.group();
+		var rightHand = game.add.group();
+
+		var palmLeft = leftHand.create(0, 0, 'npc-hand');
+		var palmRight = rightHand.create(0, 0, 'npc-hand');
+
+		palmLeft.anchor.setTo(0.5, 0.5);
+		palmRight.anchor.setTo(0.5, 0.5);
+
+		palmLeft.scale.x = -1;	// Flip image of left hand
+
+		for (var i = 0; i < 5; i++) {
+			var flagLeft = left.charAt(i) == '1' ? '' : '-c';
+			var flagRight = right.charAt(i) == '1' ? '' : '-c';
+
+			var fingerLeft = leftHand.create(0, 0, 'npc-hand-' + i + flagLeft);
+			var fingerRight = rightHand.create(0, 0, 'npc-hand-' + i + flagRight);
+			
+			fingerLeft.anchor.setTo(0.5, 0.5);
+			fingerRight.anchor.setTo(0.5, 0.5);
+			
+			fingerLeft.scale.x = -1;
+		}
+		
+		leftHand.x = 0;
+		rightHand.x = 60;
+		npcHand.add(leftHand);
+		npcHand.add(rightHand);
+		
+		return npcHand;
 	}
 }

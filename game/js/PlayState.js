@@ -17,10 +17,18 @@ function PlayStateWrapper(game) {
 				noteGroup : game.add.group(),
 				questionGroup : game.add.group(),
 				uiGroup: game.add.group(),
+				frontGroup: game.add.group()
 			};
 
 			game.displayManager.putEnvironment();
 
+			/*
+			var hands = game.displayManager.generateNPCHands('01100', '11001');
+			hands.x = 80;
+			hands.y = 525;
+			game.depthGroups.frontGroup.add(hands);
+			*/
+			
 			var shop = game.displayManager.shop;	// TODO: temporary work-around
 
 			///////////////////////////// UI elems ///////////////////////////
