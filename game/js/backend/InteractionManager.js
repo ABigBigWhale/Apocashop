@@ -231,7 +231,6 @@ function InteractionManager(game) {
 		do {
 			currentNPC = getNextNPC();
 			if(!currentNPC) {
-				//game.eventManager.notify(game.Events.DAY.END);
 				dayEndCallback();
 				return;
 			}

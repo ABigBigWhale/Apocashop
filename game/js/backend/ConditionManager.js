@@ -10,10 +10,17 @@ function ConditionManager(game) {
 	// Contains the conditions and probabilities for compound conditions.
 	var compoundConditions;
 
+	var checkpoint;
+
 	// Clears our daily conditions and takes in a new set of compound condition properties.
 	this.init = function(compound) {
 		compoundConditions = compound;
 		conditions = persistentConditions.slice();
+		checkpoint = persistentConditions.slice();
+	};
+
+	this.revertToCheckpoint = function() {
+		persistentConditions = checkpoint;
 	};
 
 	// Trips the condition, if it hasn't already been tripped.
