@@ -20,15 +20,20 @@ function beginGame(game) {
 	var currentDayIndex = 0;
 	var currentDay = getDay(currentDayIndex);
 
+	game.timesFailed = 0;
+	game.timesWon = 0;
+
 	if(currentDayIndex > 0 && debugGame) {
 		debugGame.eventManager.notify(debugGame.Events.TUTORIAL.BEGIN);
 	}
 	
 	game.analytics.track('day', 'begin' + currentDayIndex, currentDayIndex);
-	game.analytics.set("dimension1", numToStr(currentDayIndex));
+	game.analytics.set("dimension1", currentDayIndex);
 
 	game.eventManager.register(game.Events.UPDATE.GOLD, function(amount) {
 		if (amount < 0) {
+			game.timesFailed++;
+			game.analytics.set("dimension4", game.timesFailed);
 			game.analytics.track('game', 'fail', currentDayIndex);
 			game.endStateWrapper.setGameResult(false);
 			game.state.start('state_end');
@@ -57,12 +62,14 @@ function beginGame(game) {
 			game.eventManager.notify(game.Events.WRAPUP.END);
 			currentDayIndex++;
 			game.analytics.track('day', 'begin' + currentDayIndex, currentDayIndex);
-			game.analytics.set("dimension1", numToStr(currentDayIndex));
+			game.analytics.set("dimension1", currentDayIndex);
 			// TODO: only going to day 3
 			if (currentDayIndex < 7) {
 				currentDay = getDay(currentDayIndex);
 				beginStocking();
 			} else {
+				game.timesWon++;
+				game.analytics.set("dimension4", game.timesWon);
 				game.endStateWrapper.setGameResult(true);
 				game.state.start('state_end');
 			}
