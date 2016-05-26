@@ -29,7 +29,7 @@ function PlayerState(game) {
 		game.eventManager.register(game.Events.DAY.END, saveStats);
 	}
 
-	function resetStats() {
+	this.resetStats = function() {
 		Stats = SavedStats;
 	}
 

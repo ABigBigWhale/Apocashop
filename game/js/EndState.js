@@ -121,7 +121,8 @@ function EndStateWrapper(game) {
 			}
 
 			function restartLevel() {
-
+				game.playerState.resetStats();
+				game.restartDay();
 			}
 
 			function restartGame() {
