@@ -128,6 +128,9 @@ function InteractionManager(game) {
 
 	// Begin the day, set the day timer, and send our first NPC.
 	this.startDay = function(day, index, endCallback) {
+		if(game.dayTimer) {
+			game.dayTimer.pause();
+		}
 		isEnd = false;
 		dayIndex = index;
 		currentDay = day;

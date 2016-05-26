@@ -205,6 +205,7 @@ var heroes = {
 			appearanceInfo : 'jeff',
 			dialog : [
 				"Alright kiddo, third day's the charm. Let's do this.",
+				"Remember, if you're not sure if someone's the hero, you might want to question them or look at them closely."
 			]
 		},
 		endJeff : {
@@ -228,7 +229,7 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : 'jeff',
 			dialog : [
-				"Oh my god, can we keep it, can we keep it?",
+				"Oh my gosh, can we keep it, can we keep it?",
 				"Please please please please please please please please please."
 			]
 		},

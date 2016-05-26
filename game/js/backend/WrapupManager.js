@@ -47,6 +47,7 @@ function WrapupManager(game) {
 
 	function sendNext() {
 		if(messageIndex >= messages.length) {
+			game.eventManager.remove(game.Events.WRAPUP.NEXT, sendNext);
 			endWrapup();
 		} else {
 			game.eventManager.notify(game.Events.WRAPUP.MESSAGE, messages[messageIndex]);
