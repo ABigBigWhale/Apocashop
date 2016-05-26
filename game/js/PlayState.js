@@ -106,7 +106,7 @@ function PlayStateWrapper(game) {
 			uiNoteCurtain.height = 600;
 			uiNoteCurtain.visible = false;
 
-			var crisisClueText = game.add.text(240, 650, "HELLO THERE", // TODO: hardcoded
+			var crisisClueText = game.add.text(240, 50, "HELLO THERE", // TODO: hardcoded
 											   {
 				font: "18px yoster_islandregular",
 				fill: "#4d372c",
@@ -115,7 +115,7 @@ function PlayStateWrapper(game) {
 			});
 			uiNoteLayer.add(crisisClueText);
 
-			var heroClueText = game.add.text(525, 650, "HELLO THERE", // TODO: hardcoded
+			var heroClueText = game.add.text(525, 50, "HELLO THERE", // TODO: hardcoded
 											 {
 				font: "18px yoster_islandregular",
 				fill: "#4d372c",
