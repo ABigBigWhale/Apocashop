@@ -17,56 +17,50 @@ function initBackend(game) {
 
 function beginGame(game) {
 
-	var currentDay = 0;
-	
-	if (currentDay > 0 && debugGame) {
+	var currentDayIndex = 0;
+	var currentDay = getDay(currentDayIndex);
+
+	if(currentDayIndex > 0 && debugGame) {
 		debugGame.eventManager.notify(debugGame.Events.TUTORIAL.BEGIN);
 	}
 	
-	game.analytics.track('day', 'begin' + currentDay, currentDay);
-	game.analytics.set("dimension1", numToStr(currentDay));
+	game.analytics.track('day', 'begin' + currentDayIndex, currentDayIndex);
+	game.analytics.set("dimension1", numToStr(currentDayIndex));
 
 	game.eventManager.register(game.Events.UPDATE.GOLD, function(amount) {
 		if (amount < 0) {
-			game.analytics.track('game', 'fail', currentDay);
+			game.analytics.track('game', 'fail', currentDayIndex);
 			game.endStateWrapper.setGameResult(false);
 			game.state.start('state_end');
 		}
 	});
 
-	var beginTitle = function() {
-		// game.eventManager.notify(game.Events.TITLE.INIT);
-		// game.eventManager.register(game.Events.TITLE.START, function() {
-		// 	beginSales();
-		// });
-	};
-
 	var beginStocking = function() {
-		var day = getDay(currentDay);
-		game.stockUI.startDay(day.clues.crisis, function() {
-			beginSales(day);
+		game.stockUI.startDay(currentDay.clues.crisis, function() {
+			beginSales(currentDay);
 		});
 	};
 
-	var beginSales = function(day) {
+	var beginSales = function() {
 		// For some reason, this event doesn't take in wrapupManager's callback
 		// sometimes. Throwing it here as well for safety.
 		// Hey, when you have a one month dev cycle, this is what happens.
 		game.eventManager.notify(game.Events.WRAPUP.END);
-		game.interactionManager.startDay(day, currentDay, function() {
+		game.interactionManager.startDay(currentDay, currentDayIndex, function() {
 			game.eventManager.notify(game.Events.DAY.END);
-			beginWrapup(day);
+			beginWrapup();
 		});
 	};
 
-	var beginWrapup = function(day) {
-		game.wrapupManager.startDay(day, function() {
+	var beginWrapup = function() {
+		game.wrapupManager.startDay(currentDay, function() {
 			game.eventManager.notify(game.Events.WRAPUP.END);
-			currentDay++;
-			game.analytics.track('day', 'begin' + currentDay, currentDay);
-			game.analytics.set("dimension1", numToStr(currentDay));
+			currentDayIndex++;
+			game.analytics.track('day', 'begin' + currentDayIndex, currentDayIndex);
+			game.analytics.set("dimension1", numToStr(currentDayIndex));
 			// TODO: only going to day 3
-			if (currentDay < 7) {
+			if (currentDayIndex < 7) {
+				currentDay = getDay(currentDayIndex);
 				beginStocking();
 			} else {
 				game.endStateWrapper.setGameResult(true);
@@ -75,14 +69,23 @@ function beginGame(game) {
 		});
 	};
 
-	// beginTitle();
-
-	window.forceStock = beginStocking;
+	if(debugGame) {
+		window.forceStock = beginStocking;
+	}
 
 	game.reset.register(function() {
 		currentDay = 0;
+		currentDayIndex = getDay(currentDayIndex);
 	});
 
-	beginSales(getDay(currentDay));
+	game.restartDay = function() {
+		if(currentDayIndex === 0) {
+			beginSales();
+		} else {
+			beginStocking();
+		}
+	};
+
+	beginSales();
 
 }	
