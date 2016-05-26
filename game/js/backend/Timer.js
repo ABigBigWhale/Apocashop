@@ -49,9 +49,6 @@ function Timer(func, delay, pauseCallback, resumeCallback) {
 		}
 
 		var percentThrough = (remaining + start - Date.now() + Math.max(fastForwardAmount + fastForwardFrom - Date.now(), 0)) / delay;
-		if(fastForwardAmount + fastForwardFrom - Date.now() > 0) {
-			console.log(fastForwardAmount + fastForwardFrom - Date.now());
-		}
 		return percentThrough;
 	};
 

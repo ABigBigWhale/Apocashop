@@ -19,6 +19,8 @@ function InteractionManager(game) {
 	// The current NPC we're interacting with
 	var currentNPC;
 
+	var npcStallTimer;
+
 	// The index of the offer the current NPC is currently giving
 	var offerIndex;
 
@@ -222,6 +224,10 @@ function InteractionManager(game) {
 	// Sets our current NPC to the next NPC. If the day has ended and there is no next
 	// NPC, sends the day end event instead.
 	function pushNPC() {
+		if(npcStallTimer) {
+			clearTimeout(npcStallTimer);
+			npcStallTimer = false;
+		}
 		do {
 			currentNPC = getNextNPC();
 			if(!currentNPC) {
@@ -246,6 +252,20 @@ function InteractionManager(game) {
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
 			pushDialog(currentNPC, dialogIndex);
 			dialogIndex++;
+		} else {
+			return;
+		}
+
+		if(currentNPC.stallTime) {
+			npcStallTimer = setTimeout(function() {
+				var stallConditions = currentNPC.stallConditions;
+				if(stallConditions) {
+					for(var i = 0; i < stallConditions.length; i++) {
+						conditionManager.set(stallConditions[i]);
+					}
+				}
+				npcStallTimer = false;
+			}, currentNPC.stallTime);
 		}
 	}
 

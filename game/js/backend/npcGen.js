@@ -20,6 +20,8 @@ function initNPCGen(game) {
 			appearConditions : prePop.appearConditions || false,
 			sellConditions : prePop.sellConditions || false,
 			refuseConditions : prePop.refuseConditions || false,
+			stallTime : prePop.stallTime || false,
+			stallConditions : prePop.stallConditions || false,
 			isHero : prePop.isHero || false,
 			isFalseHero : prePop.isFalseHero || false
 		}
