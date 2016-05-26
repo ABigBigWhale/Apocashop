@@ -15,7 +15,7 @@ function AssetManager(game) {
 		'button_accept' : [63, 22],
 		'button_reject' : [63, 22],
 		'button_question' : [63, 22],
-
+		'gp_sun' : [96, 96]
 	};
 
 	// Paths of asset files, without extensions

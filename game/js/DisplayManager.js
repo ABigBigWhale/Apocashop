@@ -43,7 +43,7 @@ function DisplayManager(game) {
 	}
 	this.putEnvironment = function() {
 		this.imgBackgroundSky = game.add.image(0, 0, 'gp_background_sky');
-		this.imgSun = game.add.image(400, 100, 'gp_sun');
+		this.imgSun = game.add.sprite(400, 100, 'gp_sun');
 		this.clouds = game.add.group();
 		this.pedests = game.add.group();
 		this.cloudTimer = game.time.create(false);

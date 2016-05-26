@@ -12,10 +12,10 @@ function Timer(func, delay, pauseCallback, resumeCallback) {
 		if(!isPaused) {
 			clearTimeout(timeoutInfo);
 			remaining -= (Date.now() - start);
+			if(pauseCallback && !skipCallback) pauseCallback();
 			printDebug("PAUSING TIMER: " + remaining);
 		}
 
-		if(pauseCallback && !skipCallback) pauseCallback();
 		isPaused = true;
 	};
 
@@ -24,26 +24,34 @@ function Timer(func, delay, pauseCallback, resumeCallback) {
 			start = Date.now();
 			clearTimeout(timeoutInfo);
 			timeoutInfo = setTimeout(func, remaining);
+			if(resumeCallback && !skipCallback) resumeCallback();
 			printDebug("RESUMING TIMER: " + remaining);
 		}
 
-		if(resumeCallback && !skipCallback) resumeCallback();
 		isPaused = false;
 	};
 
+	var fastForwardAmount = 0;
+	var fastForwardFrom = 0;
+
 	this.jumpForward = function(amount) {
 		self.pause(true);
+		fastForwardFrom = Date.now() - fastForwardAmount;
+		fastForwardAmount += amount;
 		remaining -= amount;
 		self.resume(true);
 	};
 
 	this.getPercent = function() {
-		var percentConsidered = remaining / delay;
+		var percentConsidered = (remaining + Math.max(fastForwardAmount + fastForwardFrom - Date.now(), 0)) / delay;
 		if(isPaused) {
 			return percentConsidered;
 		}
 
-		var percentThrough = (remaining + start - Date.now()) / delay;
+		var percentThrough = (remaining + start - Date.now() + Math.max(fastForwardAmount + fastForwardFrom - Date.now(), 0)) / delay;
+		if(fastForwardAmount + fastForwardFrom - Date.now() > 0) {
+			console.log(fastForwardAmount + fastForwardFrom - Date.now());
+		}
 		return percentThrough;
 	};
 
