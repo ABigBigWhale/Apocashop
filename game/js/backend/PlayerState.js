@@ -1,89 +1,104 @@
 function PlayerState(game) {
-	var Items;
-	var AvailableItems;
-	var StockedItems;
-	var Gold;
-	var Level;
-	var EXP;
-	var numSlots;
 
-	function init() {
-		StockedItems = ["sword"];
-		Items = {
-			"sword" : 5
-		};
-		AvailableItems = [
-			"sword", "chicken", "shield", "bow"
-		];
-		Gold = 0;
-		Level = 1;
-		EXP = 0;
-		numSlots = 1;
-		game.eventManager.register(game.Events.LEVEL.ACCEPT, updateUpgrade);
+	var Stats = {
+		Items : {},
+		AvailableItems : [],
+		StockedItems : [],
+		Gold : 0,
+		Level : 0,
+		EXP : 0,
+		numSlots : 1
 	}
 
+	var SavedStats = {};
+
+	function init() {
+		Stats.StockedItems = ["sword"];
+		Stats.Items = {
+			"sword" : 5
+		};
+		Stats.AvailableItems = [
+			"sword", "chicken", "shield", "bow"
+		];
+		Stats.Gold = 0;
+		Stats.Level = 1;
+		Stats.EXP = 0;
+		Stats.numSlots = 1;
+		saveStats();
+		game.eventManager.register(game.Events.LEVEL.ACCEPT, updateUpgrade);
+		game.eventManager.register(game.Events.DAY.END, saveStats);
+	}
+
+	function resetStats() {
+		Stats = SavedStats;
+	}
+
+	function saveStats() {
+		SavedStats = JSON.parse(JSON.stringify(Stats));
+	}
+	
 	this.updateItem = function(item, count) {
-		Items[item] = count;
+		Stats.Items[item] = count;
 	}
 	function updateUpgrade(key) {
 		if (key.indexOf('itemslot') >= 0) {
-			numSlots++;
+			Stats.numSlots++;
 		}
 	}
 	this.decrementItem = function(item) {
-		if (Items[item] === undefined || Items[item] <= 0) {
+		if (Stats.Items[item] === undefined || Stats.Items[item] <= 0) {
 			return;
 		}
-		Items[item]--;
+		Stats.Items[item]--;
 	}
 
 	this.addsubGold = function(num) {
-		Gold += num;
+		Stats.Gold += num;
 	}
 
 	this.getGold = function() {
-		return Gold;
+		return Stats.Gold;
 	}
 
 	this.getNumSlots = function() {
-		return numSlots;
+		return Stats.numSlots;
 	}
 
 	this.getItems = function() {
-		return (typeof Items !== 'object') ? {} : JSON.parse(JSON.stringify(Items));
+		return (typeof Stats.Items !== 'object') ? {} : JSON.parse(JSON.stringify(Stats.Items));
 	}
 
 	this.getStockedItems = function() {
 		var stocked = {};
-		for(var i = 0; i < StockedItems.length; i++) {
-			stocked[StockedItems[i]] = Items[StockedItems[i]] || 0;
+		for(var i = 0; i < Stats.StockedItems.length; i++) {
+			stocked[Stats.StockedItems[i]] = Stats.Items[Stats.StockedItems[i]] || 0;
 		}
 		return stocked;
 	}
 
 	this.getAvalItems = function() {
-		return (typeof Items !== 'object') ? {} : JSON.parse(JSON.stringify(AvailableItems));
+		return (typeof Stats.Items !== 'object') ? {} : JSON.parse(JSON.stringify(Stats.AvailableItems));
 	}
 
 	this.checkStock = function(item) {
-		return items[item] && StockedItems.indexOf(item) >= 0 && !(Items[item] === undefined)
-			   && Items[item] > 0 && item !== 'None';
+		return items[item] && Stats.StockedItems.indexOf(item) >= 0 && !(Stats.Items[item] === undefined)
+			   && Stats.Items[item] > 0 && item !== 'None';
 	}
 
 	this.checkPrice = function(item, goldOffset) {
-		var price = (Items[item] || !items[item]) ? 0 : items[item].jPrice;
-		return(Gold + goldOffset) >= price;
+		var price = (Stats.Items[item] || !items[item]) ? 0 : items[item].jPrice;
+		return(Stats.Gold + goldOffset) >= price;
 	}
 
 	this.update = function(gold, items, stocked) {
-		Gold = gold;
-		Items = JSON.parse(JSON.stringify(items)) || {};
-		StockedItems = stocked;
-		var stocked_string = StockedItems[0] || "";
-		for(var i = 1; i < StockedItems.length; i++) {
-			stocked_string += "_" + StockedItems[i]
+		Stats.Gold = gold;
+		Stats.Items = JSON.parse(JSON.stringify(items)) || {};
+		Stats.StockedItems = stocked;
+		var stocked_string = Stats.StockedItems[0] || "";
+		for(var i = 1; i < Stats.StockedItems.length; i++) {
+			stocked_string += "_" + Stats.StockedItems[i]
 		}
-		game.analytics.track("STOCK.COMMIT", stocked_string, numSlots);
+		game.analytics.track("STOCK.COMMIT", stocked_string, Stats.numSlots);
 	}
 
 	this.updateProfit = function(profit) {
@@ -91,13 +106,13 @@ function PlayerState(game) {
 			return;
 		}
 		printDebug("ADDING " + profit + " TO EXP");
-		EXP += profit;
-		if(EXP >= Level * 10) {
-			game.eventManager.notify(game.Events.LEVEL.LEVELUP, Level + 1);
-			EXP = profit %= (Level * 10);
-			Level++;
+		Stats.EXP += profit;
+		if(Stats.EXP >= Stats.Level * 10) {
+			game.eventManager.notify(game.Events.LEVEL.LEVELUP, Stats.Level + 1);
+			Stats.EXP = profit %= (Stats.Level * 10);
+			Stats.Level++;
 		}
-		game.eventManager.notify(game.Events.LEVEL.EXPUP, EXP / (Level * 10.0));
+		game.eventManager.notify(game.Events.LEVEL.EXPUP, Stats.EXP / (Stats.Level * 10.0));
 	}
 
 	init();

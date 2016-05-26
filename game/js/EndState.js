@@ -6,21 +6,69 @@ function EndStateWrapper(game) {
 		gameWon = won;	
 	};
 
+	var textStyle = {
+		font: '20px yoster_islandregular',
+		fill: '#FFFFFF',
+		//wordWrap: true,
+		//wordWrapWidth: optionWidth,
+		align: 'right',
+		//backgroundColor: '#acacac'
+	};
+
 	this.endState = {
 		create: function() {
 			// TODO: temporary
 			game.stage.backgroundColor = '#000000';
 
+			restartHard = game.add.text(800 - 100, 500, "Restart Game", {
+				font: '20px yoster_islandregular',
+				fill: '#FFFFFF',
+				align: 'right'
+			});
+			restartSoft = game.add.text(240, 500, "Restart Day", {
+				font: '20px yoster_islandregular',
+				fill: '#FFFFFF',
+				align: 'left'
+			});
+			restartHard.anchor.setTo(1, 1);
+			restartHard.inputEnabled = true;
+			restartSoft.anchor.setTo(1, 1);
+			restartSoft.inputEnabled = true;
+
+			restartSoft.events.onInputOver.add(function() {
+				restartSoft.fill = '#d3af7a';
+			}, this);
+			restartHard.events.onInputOver.add(function() {
+				restartHard.fill = '#d3af7a';
+			}, this);
+			restartSoft.events.onInputOut.add(function() {
+				restartSoft.fill = '#FFFFFF';
+			}, this);
+			restartHard.events.onInputOut.add(function() {
+				restartHard.fill = '#FFFFFF';
+			}, this);
+			restartHard.events.onInputDown.add(restartGame);
+			restartSoft.events.onInputOver.add(restartLevel);
+
+			var hardBox = game.add.image(0, 0, 'endday_boxoutline');
+			var softBox = game.add.image(0, 0, 'endday_boxoutline');
+			hardBox.x = restartHard.x - restartHard.width - 10;
+			softBox.x = restartSoft.x - restartSoft.width - 10;
+			hardBox.y = restartHard.y - restartHard.height - 15;
+			softBox.y = restartSoft.y - restartSoft.height - 15;
+
 			if (!gameWon) {
 				var gameOverText = game.add.text(
 					100, 200, 
-					"GAME OVER: You have gone broke. \n[Click to restart]", 
+					"GAME OVER: You have gone broke", 
 					{
 						font: "32px yoster_islandregular",
 						fill: "#FFFFFF"
 					}
 				);
 			} else {
+				restartSoft.kill();
+				softBox.kill();
 				var topScore = 52.0;
 				var score = game.playerState.getGold() * 1.0;
 				
@@ -64,8 +112,7 @@ function EndStateWrapper(game) {
 					"THANK YOU!\nYou have reached the end of the demo.\n" + 
 					"The ancient sales manager gave you\n a rating of " + 
 					parseFloat(Math.round(score * 10) / 10).toFixed(1) + '/4.0\n\n' + 
-					commentText + '\n' +
-					"[Click to restart]",
+					commentText,
 					{
 						font: "28px yoster_islandregular",
 						fill: '#e7bd68'
@@ -73,10 +120,14 @@ function EndStateWrapper(game) {
 				);
 			}
 
-			game.input.onDown.add(function() {
+			function restartLevel() {
+
+			}
+
+			function restartGame() {
 				//game.state.start('state_start');
 				location.reload();
-			});
+			}
 		}
 	};
 

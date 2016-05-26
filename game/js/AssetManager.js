@@ -45,6 +45,7 @@ function AssetManager(game) {
 		],
 
 		'ui': [
+			'endday_boxoutline',
 			'ui_itemslot', 
 			'ui_jeff_dialog_corner', 'ui_jeff_dialog_tip', 'ui_jeff_dialog_border',
 			'ui_dialog',
