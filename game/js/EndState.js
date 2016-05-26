@@ -1,5 +1,13 @@
 function EndStateWrapper(game) {
 
+	var blackScreen;
+	var restartHard;
+	var restartSoft;
+	var hardBox;
+	var softBox;
+	var gameOverText = null;
+	var endOfDemoText = null;
+
 	this.gameWon = false;
 	
 	this.setGameResult = function(won) {
@@ -15,10 +23,12 @@ function EndStateWrapper(game) {
 		//backgroundColor: '#acacac'
 	};
 
-	this.endState = {
-		create: function() {
+	this.endState = function() {
 			// TODO: temporary
 			game.stage.backgroundColor = '#000000';
+			blackScreen = game.add.graphics(0, 0);
+			blackScreen.beginFill(0x0, 1);
+			blackScreen.drawRect(0, 0, 800, 600);
 
 			restartHard = game.add.text(800 - 100, 500, "Restart Game", {
 				font: '20px yoster_islandregular',
@@ -48,17 +58,17 @@ function EndStateWrapper(game) {
 				restartHard.fill = '#FFFFFF';
 			}, this);
 			restartHard.events.onInputDown.add(restartGame);
-			restartSoft.events.onInputOver.add(restartLevel);
+			restartSoft.events.onInputDown.add(restartLevel);
 
-			var hardBox = game.add.image(0, 0, 'endday_boxoutline');
-			var softBox = game.add.image(0, 0, 'endday_boxoutline');
+			hardBox = game.add.image(0, 0, 'endday_boxoutline');
+			softBox = game.add.image(0, 0, 'endday_boxoutline');
 			hardBox.x = restartHard.x - restartHard.width - 10;
 			softBox.x = restartSoft.x - restartSoft.width - 10;
 			hardBox.y = restartHard.y - restartHard.height - 15;
 			softBox.y = restartSoft.y - restartSoft.height - 15;
 
 			if (!gameWon) {
-				var gameOverText = game.add.text(
+				gameOverText = game.add.text(
 					100, 200, 
 					"GAME OVER: You have gone broke", 
 					{
@@ -107,7 +117,7 @@ function EndStateWrapper(game) {
 				else commentText = 'Wow... [The ancient sales manager is surprised.]\n' + 
 					'[Sadly...\n he doesn\'t have any surprise for you...]';
 				
-				var endOfDemoText = game.add.text(
+				endOfDemoText = game.add.text(
 					100, 200,
 					"THANK YOU!\nYou have reached the end of the demo.\n" + 
 					"The ancient sales manager gave you\n a rating of " + 
@@ -121,15 +131,36 @@ function EndStateWrapper(game) {
 			}
 
 			function restartLevel() {
+				blackScreen.kill();
+				restartHard.kill();
+				restartSoft.kill();
+				hardBox.kill();
+				softBox.kill();
+				if (gameOverText != null) 
+					gameOverText.kill();
+				gameOverText = null;
+				if (endOfDemoText != null)
+					endOfDemoText.kill();
+				endOfDemoText = null;
 				game.playerState.resetStats();
+				game.stock.resetStock(game.playerState.getItems());
 				game.restartDay();
 			}
 
 			function restartGame() {
 				//game.state.start('state_start');
+				blackScreen.kill();
+				restartHard.kill();
+				restartSoft.kill();
+				hardBox.kill();
+				softBox.kill();
+				if (gameOverText != null) 
+					gameOverText.kill();
+				gameOverText = null;
+				if (endOfDemoText != null)
+					endOfDemoText.kill();
+				endOfDemoText = null;
 				location.reload();
 			}
 		}
-	};
-
 }

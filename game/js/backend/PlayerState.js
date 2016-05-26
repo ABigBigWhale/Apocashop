@@ -26,11 +26,15 @@ function PlayerState(game) {
 		Stats.numSlots = 1;
 		saveStats();
 		game.eventManager.register(game.Events.LEVEL.ACCEPT, updateUpgrade);
-		game.eventManager.register(game.Events.DAY.END, saveStats);
+		game.eventManager.register(game.Events.STOCK.STARTDAY, saveStats);
 	}
 
 	this.resetStats = function() {
-		Stats = SavedStats;
+		Stats = JSON.parse(JSON.stringify(SavedStats));
+		game.eventManager.notify(game.Events.UPDATE.GOLD, Stats.Gold);
+		//game.eventManager.notify(game.Events.STOCK.INIT, Stats.numSlots, Stats.Gold, Stats.AvailableItems, Stats.Items);
+		game.eventManager.notify(game.Events.UPDATE.ITEMS, Stats.Items);
+		game.eventManager.notify(game.Events.UPDATE.STOCKGOLD, Stats.Gold);
 	}
 
 	function saveStats() {
@@ -40,11 +44,13 @@ function PlayerState(game) {
 	this.updateItem = function(item, count) {
 		Stats.Items[item] = count;
 	}
+
 	function updateUpgrade(key) {
 		if (key.indexOf('itemslot') >= 0) {
 			Stats.numSlots++;
 		}
 	}
+
 	this.decrementItem = function(item) {
 		if (Stats.Items[item] === undefined || Stats.Items[item] <= 0) {
 			return;

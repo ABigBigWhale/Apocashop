@@ -24,8 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	if (gameConfig.DEBUG_MODE) window.debugGame = game;
 
-	game.reset = new ResetHelper();
-
 	game.loadStateWrapper = new LoadStateWrapper(game);
 	game.startStateWrapper = new StartStateWrapper(game);
 	game.playStateWrapper = new PlayStateWrapper(game);
@@ -37,8 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				   game.startStateWrapper.startState);
 	game.state.add('state_play',
 				   game.playStateWrapper.playState);
-	game.state.add('state_end',
-				   game.endStateWrapper.endState);
 	
 	game.state.start('state_load');
 });

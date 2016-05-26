@@ -601,7 +601,7 @@ function PlayStateWrapper(game) {
 					}
 				}
 			});
-
+			
 			game.eventManager.register(game.Events.UPDATE.GOLD, function(gold) {
 				textCoins.setText(gold);
 			});
