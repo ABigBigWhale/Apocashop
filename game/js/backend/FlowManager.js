@@ -1,4 +1,5 @@
 function initBackend(game) {
+	game.reset = new ResetHelper();
 	game.conditionManager = new ConditionManager(game);
 	game.eventManager = new EventManager(game);
 	game.analytics = new AnalyticsWrapper();
@@ -13,6 +14,7 @@ function initBackend(game) {
 	game.jeff = new Jeff(game);
 	game.endingScreen = new EndingScreen(game);
 	game.stockUI = new StockUI(game);
+	game.endState = new EndStateWrapper(game);
 }
 
 function beginGame(game) {
@@ -36,7 +38,7 @@ function beginGame(game) {
 			game.analytics.set("dimension4", game.timesFailed);
 			game.analytics.track('game', 'fail', currentDayIndex);
 			game.endStateWrapper.setGameResult(false);
-			game.state.start('state_end');
+			game.endState.endState();
 		}
 	});
 
@@ -71,7 +73,7 @@ function beginGame(game) {
 				game.timesWon++;
 				game.analytics.set("dimension4", game.timesWon);
 				game.endStateWrapper.setGameResult(true);
-				game.state.start('state_end');
+				game.endState.endState();
 			}
 		});
 	};

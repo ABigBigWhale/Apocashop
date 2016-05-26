@@ -35,8 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				   game.startStateWrapper.startState);
 	game.state.add('state_play',
 				   game.playStateWrapper.playState);
-	game.state.add('state_end',
-				   game.endStateWrapper.endState);
 	
 	game.state.start('state_load');
 });

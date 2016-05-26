@@ -123,5 +123,10 @@ function Stock(game) {
 		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
 	}
 
+	this.resetStock = function(NewItems) {
+		Items = NewItems;
+		totalGold = 0;
+	}
+
 	init();
 }
