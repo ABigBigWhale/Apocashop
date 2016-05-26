@@ -130,7 +130,7 @@ function EndStateWrapper(game) {
 				);
 			}
 
-			function restartLevel() {
+			function killScreen() {
 				blackScreen.kill();
 				restartHard.kill();
 				restartSoft.kill();
@@ -142,6 +142,11 @@ function EndStateWrapper(game) {
 				if (endOfDemoText != null)
 					endOfDemoText.kill();
 				endOfDemoText = null;
+			}
+
+			function restartLevel() {
+				killScreen();
+				game.conditionManager.revertToCheckpoint();
 				game.playerState.resetStats();
 				game.stock.resetStock(game.playerState.getItems());
 				game.restartDay();
@@ -149,17 +154,7 @@ function EndStateWrapper(game) {
 
 			function restartGame() {
 				//game.state.start('state_start');
-				blackScreen.kill();
-				restartHard.kill();
-				restartSoft.kill();
-				hardBox.kill();
-				softBox.kill();
-				if (gameOverText != null) 
-					gameOverText.kill();
-				gameOverText = null;
-				if (endOfDemoText != null)
-					endOfDemoText.kill();
-				endOfDemoText = null;
+				killScreen();
 				location.reload();
 			}
 		}
