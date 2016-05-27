@@ -31,6 +31,10 @@ function InteractionManager(game) {
 
 	var dayUpgrade;
 
+	this.getCurrentDay = function() {
+		return dayIndex;
+	}
+
 	function init() {
 		dayUpgrade = 1;
 		// When continue is pushed, send out a new NPC

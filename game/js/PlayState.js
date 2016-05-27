@@ -537,7 +537,7 @@ function PlayStateWrapper(game) {
 				heroClueText.text = formatClues(data.clues.hero);
 				crisisClueText.text = formatClues(data.clues.crisis);
                 
-                if ((game.interactionManager.currentDay || 0) > 0 && !(uiNoteDisplayShown || false)) {
+                if ((game.interactionManager.getCurrentDay() || 0) > 0 && !(uiNoteDisplayShown || false)) {
                     toggleNoteDisplay();
                 }
 			});
@@ -734,9 +734,9 @@ function PlayStateWrapper(game) {
 				if (currNPC) {
 					currNPCOut.start();
 					currNPCOut.onComplete.add(showNPC);
-					if(uiNoteDisplayShown) {
+					/*if(uiNoteDisplayShown) {
 						toggleNoteDisplay();
-					}
+					}*/
 				} else {
 					showNPC(isRandom);
 				}

@@ -40,6 +40,7 @@ function QuestionManager(game) {
 	}
 
 	this.populateQuestions = function(q, questionLayer) {
+		removeCurrentQuestions();
 		questions = Object.keys(q);
 		
 		var setUpListeners = function(option, question) {
