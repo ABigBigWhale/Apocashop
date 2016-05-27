@@ -341,7 +341,7 @@ var heroes = {
 		},
 	},
 	urchin : {
-		scaredMan : {
+		"1scaredMan" : {
 			type : "interact",
 			item : "None",
 			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
@@ -354,17 +354,10 @@ var heroes = {
 				color : "I don't know.",
 				default : "Please,@@ I don't have much time."
 			},
-			items : {
-				shield : "I don't know what to make of that.",
-				default : "I don't know what to make of that."
-			},
-			profiles : {
-				dragon : "There's a dragon?",
-				default : "I don't know them."
-			},
-			sellConditions : ['hidMan']
+			sellConditions : ["urchin_hidMan"],
+			refuseConditions : ["urchin_manRefused"]
 		},
-		tracker : {
+		"1trackerSearch" : {
 			type : "interact",
 			item : "None",
 			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
@@ -380,42 +373,141 @@ var heroes = {
 				color : "Whatever will make you move faster.",
 				default : "Stop wasting my time."
 			},
-			items : {
-				shield : "I have no need for that.",
-				default : "Stop wasting my time."
-			},
-			profiles : {
-				dragon : "That is not my concern, leave that to Fosado.",
-				scaredMan : "Aha, That's him!@@ W@h@e@r@e@ @i@s@ @h@e@...",
-				default : "Beneath my concern."
-			},
-			appearConditions : ['hidMan'],
-			sellConditions : ['soldMan'],
-			refuseConditions : ['manLived']
+			appearConditions : ["urchin_hidMan"],
+			sellConditions : ["urchin_manDead"],
+			refuseConditions : ["urchin_manLived"]
 		},
-		scaredManReturn : {
-			type : 'interact',
+		"1trackerWarn" : {
+			type : "dialog",
+			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			dialog : [
+				"A very dangerous man is loose and I need to find him./If you see anyone suspicious, do not trust them."
+			],
+			appearConditions : ["urchin_manRefused"]
+		},
+		"2gratefulMan" : {
+			type : "interact",
 			item : "None",
 			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
 			offers : [10],
 			offerText : [
-				"Thank you so much for hiding me yesterday. Would you accept this gift?"
+				"Thank you so much for hiding me. Would you accept this gift?"
 			],
-			success : "Use it well.",
-			fail : "Very well, friend.",
+			success : "Use it well friend. Be wary of the tracker.",
+			fail : ". . .",
 			questions : {
-				number : "I'll go with ten.",
-				color : "The color of sky, the color of freedom.",
-				default : "ERROR: NO ANSWER."
+			
 			},
-			items : {
-				default : "ERROR: NO ANSWER."
-			},
-			profiles : {
-				default : "ERROR: NO ANSWER."
-			},
-			appearConditions : ['manGrateful']
+			appearConditions : ["urchin_manGrateful"],
+			sellConditions : ["urchin_acceptedGift"],
+			refuseConditions : ["urchin_refusedGift"]
 		},
+		"2angryFamily" : {
+			type : "dialog",
+			appearanceInfo : "random",
+			dialog : [
+				"We know you sold out our brother to that man.",
+				"Watch your back, coward."
+			],
+			appearConditions : ["urchin_familyAngry"],
+		},
+		"4tracker" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			offers : [-10],
+			offerText : [
+				"Did you hide the dangerous man from me a few days ago?/@@I just want the truth."
+			],
+			success : ". . . I'll be back.",
+			fail : ". . .",
+			questions : {
+				default : ". . ."
+			},
+			appearConditions : ["urchin_trackerSuspicious"],
+			sellConditions : ["urchin_trackerTruth"],
+			refuseConditions : ["urchin_trackerLied"]
+		},
+		"4waryMan" : {
+			type : "dialog",
+			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
+			dialog : [
+				"I don't quite know what to make of you, shopkeeper.",
+				"Tomorrow, I will be back, and will try to buy a sword for two gold.",
+				"If you remember my face, I would be grateful."
+			],
+			appearConditions : ["urchin_manWary"]
+		},
+		"4trackerWarning" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			offers : [-7],
+			offerText : [
+				"By helping me capture that man, you've made dangerous enemies. I'll protect you for seven gold."
+			],
+			success : "Very good, I will return in the night.",
+			fail : "Very well. Good luck, you will need it.",
+			questions : {
+				default : ". . ."
+			},
+			appearConditions : ["urchin_familyAngry"],
+			sellConditions : ["urchin_trackerProtect"],
+			refuseConditions : ["urchin_unprotected"]
+		},
+		"5waryManTest" : {
+			type : "interact",
+			item : "sword",
+			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
+			offers : [2],
+			offerText : [
+				"Hiya! Can I get a sword for two gold?"
+			],
+			success : "Well done, shopkeeper.",
+			fail : "Hrm . . .",
+			questions : {
+				default : ". . ."
+			},
+			appearConditions : ["urchin_manWary"],
+			sellConditions : ["urchin_manSold"]
+		},
+		"5madTracker" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			offers : [-10],
+			offerText : [
+				"I got to thinking, shopkeeper. If you lied to me about the man, I want my ten gold back."
+			],
+			success : "Good choice.",
+			fail : ". . .",
+			questions : {
+				default : "Stop wasting my time and answer!"
+			},
+			appearConditions : ["urchin_trackerMad"],
+			sellConditions : ["urchin_trackerBribed"],
+			refuseConditions : ["urchin_trackerRefused"]
+		},
+		"6proudMan" : {
+			type : "dialog",
+			appearanceInfo : "random",
+			dialog : [
+				"You seem like the good sort of person after all.",
+				"Please shopkeeper, accept this gift."
+			],
+			endMoney : 15
+		},
+		"6vengefulTracker" : {
+			type : "dialog",
+			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			dialog : [
+				". . .",
+				"* The Tracker punches you in the stomach and takes 15 gold from your register. *",
+				". . ."
+			],
+			appearConditions : ["urchin_trackerVengeful"],
+			endMoney : -15
+		}
 	}
 };
 

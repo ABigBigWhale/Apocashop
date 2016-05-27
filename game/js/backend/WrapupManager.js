@@ -41,6 +41,7 @@ function WrapupManager(game) {
 
 		}
 
+		game.eventManager.register(game.Events.WRAPUP.NEXT, sendNext);
 		game.eventManager.notify(game.Events.WRAPUP.START);
 
 	};
@@ -63,7 +64,5 @@ function WrapupManager(game) {
 		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
 		endCallback();
 	}
-
-	game.eventManager.register(game.Events.WRAPUP.NEXT, sendNext);
 
 }
