@@ -1,5 +1,5 @@
 var gameConfig = {
-	DEBUG_MODE: false,
+	DEBUG_MODE: true,
 	RESOLUTION: [800, 600]
 };
 
