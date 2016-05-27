@@ -658,6 +658,10 @@ function PlayStateWrapper(game) {
 				game.displayManager.dog.visible = true;
 			});
 
+			game.reset.register(function() {
+				game.displayManager.dog.visible = false;
+			});
+
 			game.eventManager.register(game.Events.INTERACT.NEW, function(appearanceInfo) {
 				// This function returns a BitmapData generated with the given indices of 
 				// body part images.

@@ -126,6 +126,5 @@ function HeroManager(game) {
 	};
 
 	init();
-	game.reset.register(init);
 
 }

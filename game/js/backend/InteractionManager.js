@@ -133,6 +133,12 @@ function InteractionManager(game) {
 		game.eventManager.register(game.Events.TIMER.JUMP, function(amount) {
 			game.dayTimer.jumpForward(amount);
 		});
+
+		game.reset.register(function() {
+			if(game.dayTimer) {
+				game.dayTimer.pause();
+			}
+		});
 	}
 
 	// Begin the day, set the day timer, and send our first NPC.

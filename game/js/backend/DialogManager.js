@@ -32,7 +32,7 @@ function DialogManager(game) {
 			timeout : false
 		},
 		wrapup : {
-			box : game.add.text(150, 200, "", { font: "24px yoster_islandregular", fill: Colors.PassiveLighter }),
+			box : game.add.text(150, 300, "", { font: "24px yoster_islandregular", fill: Colors.PassiveLighter }),
 			ghost : game.add.text(999, 999, "", { font: "24px yoster_islandregular" }),
 			timeout : false
 		}
@@ -42,7 +42,7 @@ function DialogManager(game) {
 
 	game.dialog.main.box.defaultY = 427;
 	game.dialog.jeff.box.defaultY = 130;
-	game.dialog.wrapup.box.defaultY = 200;
+	game.dialog.wrapup.box.defaultY = 300;
 
 	this.printWrapup = function(message, doneCB) {
 		doneCB = doneCB || function() {};
