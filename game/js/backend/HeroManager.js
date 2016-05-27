@@ -10,7 +10,7 @@ function HeroManager(game) {
 	function init() {
 		heroCollections.randomGenHero = generateRandomHero();
 		//validHeroCollections = Object.keys(heroCollections);
-		validHeroCollections = ["rhymeAdvance", "rhymeAdvance", "rhymeAdvance", "rhymeAdvance", "rhymeAdvance", "rhymeAdvance"];
+		validHeroCollections = ["vocabMan", "randomGenHero", "vocabMan", "randomGenHero", "vocabMan", "vocabMan", "stallingMan", "stutterMan", "rhymeAdvance"];
 	}
 
 	this.insertHeroes = function(day, numFalse) {
@@ -92,6 +92,78 @@ function HeroManager(game) {
 				{
 					conditions : ["refusedHero"],
 					text : "Without the hero to drive them away, the monsters pillage the town and destroy your storefront. You spend 15 gold to repair it.",
+					gold : -15
+				}
+			]
+		},
+		stutterMan : {
+			hero : "hero",
+			falseHeroes : ["villain1", "villain2", "villain3"],
+			clues : [
+				"The hero has a hard time with the \"s\" sound. Be patient, he might take a while to pronounce sssssnake",
+				"The hero does not know the difference between numbers"
+			],
+			questions : {
+				numbers : "Two plus two?",
+				animal : "Snakes?"
+			},
+			wrapup : [
+				{
+					conditions : ["soldHero"],
+					text : "Our hero slayed the enemies while screaming SSSSSnakessssss are not SSSSScary!\n" + 
+						   "He stopped by your store to give you a small tip of 1 gold. You helped him overcome his secret fear of snakes he didn't know he had ...",
+					gold : 1
+				},
+				{
+					conditions : ['soldHero'],
+					text : "Our hero couldn't stop hissing. Or shushing? Can't really tell ... Maybe someone forgot to reset him?"
+
+				},
+				{
+					conditions : ['soldHero'],
+					text : "When asked how many he had slain, our hero said \'Two plussssss two many! Ssssssso around 10.4 I would guesssssssss\'. He's not our brightest hero"
+				},
+				{
+					conditions : ["refusedHero"],
+					text : "Our hero was found in the local town pub talking about how he 'would have' saved the villiage if a 'ccccccertain ssssssssomeone' would have sold him a shield. The townspeople wept and a couple of them joined forces and trashed your shop. You spent 10 gold in repairs.",
+					gold : -10
+				}
+			]
+		},
+		stallingMan : {
+			hero : "hero",
+			falseHeroes : ["villain1", "villain2"],
+			clues : [
+				"The hero speaks in bursts of three words",
+				"The hero cannot pronounce 'supercalifragilistic\nexpialidocious'",
+				"Our hero does not know what a sword is. But he will want to buy one",
+				"Our hero has no money, he will ask for the sword for free"
+			],
+			questions : {
+				sword : "Sword?",
+				super : "Supercalifragilisticexpialidocious?"
+			},
+			wrapup : [
+				{
+					conditions : ["soldHero"],
+					text : "Our hero stormed into battle in a gallop and slayed the enemies with a quick 1,2,3 of the sword.\n" +
+						   "Now that he has some money, he stops by and thanks you by giving you 1 gold out of his overflowing gold bag.",	
+					gold : 1
+				},
+				{
+					conditions : ['soldHero'],
+					text : "Our ran to the front lines and drew his shiny new (free) sword. Everyone cowered in fear and fled. " +
+						   "Unfortunatley, our hero didn't make any money because of it. So he is still goldless :("
+
+				},
+				{
+					conditions : ['soldHero'],
+					text : "When interviewed, our hero could not stop talking about his supercallfraglisticous pointy thing that he used so well"
+				},
+				{
+					conditions : ["refusedHero"],
+					text : "Our hero thought that a stick on the ground would be suitible to fend off the enemies. It didn't work. " +
+						   "King Zoran took an extra 15 gold in taxes to repair the town after the ransacking.",
 					gold : -15
 				}
 			]

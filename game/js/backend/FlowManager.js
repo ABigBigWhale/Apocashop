@@ -23,7 +23,7 @@ function initBackend(game) {
 
 function beginGame(game) {
 
-	var currentDayIndex = 0;
+	var currentDayIndex = 3;
 	var currentDay = getDay(currentDayIndex);
 
 	game.timesFailed = 0;

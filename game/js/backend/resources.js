@@ -373,6 +373,104 @@ var heroes = {
 			isFalseHero : true
 		},
 	},
+	stutterMan : {
+		hero : {
+			type : 'interact',
+			item : 'shield',
+			appearanceInfo : 'random',
+			offers : [4, 1],
+			offerText : ["I would like a brand new sssshiny sssshield. Four gold?",
+						"Comon good sssssir. How about one gold? Thatssss more than four!"],
+			success : "YESSSSSSSSSSSSSSS...",
+			fail : "Lookssss like I will just head to the pub with my gold ...",
+			questions : {
+				numbers : "Ummmmmm ... Maybe Ten and two fifthsssss?",
+				animal : "You ssssay it like they're niccccce. I aint afraid of no ssssnakesss. Exccccept on planesss ...",
+				default : ". . ."
+			},
+			items : {
+				shiled : "Sssssshiny!",
+				default : ". . ."
+			},
+			profiles : {
+				convict : "Poopoo fart I should not be here",
+				default : ". . ."
+			},
+			sellConditions : ['soldHero'],
+			refuseConditions : ['refusedHero'],
+			isHero : true
+		},
+		villain1 : {
+			type : 'interact',
+			item : 'shield',
+			appearanceInfo : 'random',
+			offers : [2],
+			offerText : "Whats it take to get a nice ssshiny sssshield? Two gold?",
+			success : "That was easy! HAHA! I am no hero!",
+			fail : "How did you know? I stuttered and everything ...",
+			questions : {
+				numbers : "Four of course! Everyone knowssss that!",
+				animal : "Snakes? .@.@.@ I mean sssssnakes are bad",
+				default : "Huh?"
+			},
+			items : {
+				shield : "That is what I want. Yessss",
+				default : "Huh?"
+			},
+			profiles : {
+				convict : ". . .",
+				default : ". . ."
+			},
+			isFalseHero : true
+		},
+		villain2 : {
+			type : 'interact',
+			item : 'shield',
+			appearanceInfo : 'random',
+			offers : [3, 4],
+			offerText : ["I know how to bash! Ssssshields are great for that. Three gold?", 
+						 "Okay, four gold. Four issss more than three!"],
+			success : "Snakes. @Planes. @Snow. @@Pepperoni. @I can say it all you fool!",
+			fail : "Maybe im not caught up for the acting business. I'm better at smashing ...",
+			questions : {
+				numbers : "Four. Like two lesss than sssix!",
+				animal : "I can ssssmash ssssnakesss with a sssshiled. Gimmie, gimmie!",
+				default : "Huh?"
+			},
+			items : {
+				shield : "That is what I want. Yessss",
+				default : "Huh?"
+			},
+			profiles : {
+				convict : ". . .",
+				default : ". . ."
+			},
+			isFalseHero : true
+		},
+		villain3 : {
+			type : 'interact',
+			item : 'shield',
+			appearanceInfo : 'random',
+			offers : [1],
+			offerText : "One gold for shield?",
+			success : "Why thank you. What a good deal for an honest, not sneaky, person like myself.",
+			fail : "I thought if I talked less you would believe me",
+			questions : {
+				numbers : "Ten. Like three lesss than sssix!",
+				animal : "Snakes. Yeah ...",
+				default : "Huh?"
+			},
+			items : {
+				shield : "That is what I want.",
+				default : "Huh?"
+			},
+			profiles : {
+				convict : ". . .",
+				default : ". . ."
+			},
+			isFalseHero : true
+		}
+	},
 	rhymeAdvance : {
 		"hero" : {
 			type : "interact",
@@ -438,7 +536,81 @@ var heroes = {
 			},
 			sellConditions : ["soldHero"],
 			refuseConditions : ["refusedHero"],
+		}
+	},
+	stallingMan : {
+		hero : {
+			type : 'interact',
+			item : 'sword',
+			appearanceInfo : 'random',
+			offers : [0],
+			offerText : "I need a @@@pointy thing to @@@protect the town! @@@I have no @@@money can I @@@have for free?",
+			success : "This supercallfraglisticous pointy @@@thing will do @@@wonderfully",
+			fail : "I guess I'll @@@find another pointy @@@thing to fight @@@with!",
+			questions : {
+				sword : "What is that? @@@It's pointy, that @@@will do.",
+				super : "... supercallilictousesness ... supercallfraglisticous? ... Thats my new @@@word!",
+				default : ". . ."
+			},
+			items : {
+				sword : "Oooooh pointy",
+				default : ". . ."
+			},
+			profiles : {
+				convict : "Poopoo fart I should not be here",
+				default : ". . ."
+			},
+			sellConditions : ['soldHero'],
+			refuseConditions : ['refusedHero'],
+			isHero : true
 		},
+		villain1 : {
+			type : 'interact',
+			item : 'sword',
+			appearanceInfo : 'random',
+			offers : [0, 0],
+			offerText : ["I'm the hero. @@@I'll take a free @@@sword, please.",
+						 "Seriously though. I @@@am the hero. @@@free sword!"],
+			success : "Sucka! I knew that would work.",
+			fail : "Can't blame me for trying right?",
+			questions : {
+				sword : "That's what I @@@want!",
+				super : "Supercalifragilisticexpialidocious. From the @@@movies!",
+				default : "Huh?"
+			},
+			items : {
+				sword : "That is what I want. Yessss",
+				default : "Huh?"
+			},
+			profiles : {
+				convict : ". . .",
+				default : ". . ."
+			},
+			isFalseHero : true
+		},
+		villain2 : {
+			type : 'interact',
+			item : 'sword',
+			appearanceInfo : 'random',
+			offers : [0],
+			offerText : "I'll take a pointy thing for free please",
+			success : "I'll send a couple of my friends here to get free swords too!",
+			fail : "I'll be off then ...",
+			questions : {
+				sword : "That is a pointy thing!",
+				super : "I don't even know what you just said",
+				default : "Huh?"
+			},
+			items : {
+				shield : "That is what I want. Yessss",
+				default : "Huh?"
+			},
+			profiles : {
+				convict : ". . .",
+				default : ". . ."
+			},
+			isFalseHero : true
+		}
 	},
 	urchin : {
 		"1scaredMan" : {

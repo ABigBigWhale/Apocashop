@@ -391,7 +391,10 @@ function initNPCGen(game) {
 			"Thanks a bunch, friend.",
 			"Thank you!",
 			"Thanks, see ya!",
-			"Thanks."	
+			"Thanks.",
+			"TTYL!",
+			"Thanks scruberoo!",
+			"You're the best. I love you ... Too much?"	
 		]
 
 		generateThanks = function() {
@@ -408,7 +411,11 @@ function initNPCGen(game) {
 			"Seriously, more? No way.",
 			"You just lost my business.",
 			"There's no way I can afford more.",
-			"Terrible experience. Zero stars."
+			"Terrible experience. Zero stars.",
+			"I'm a poor soul. Why would you do this to me?",
+			"Looks like I'll be getting the lecture from my mother tonight ...",
+			"If I were a rich man, I would go to this store. But alas, I am not.",
+			"I'll miss the adventures that you wouldn't let me have."
 		]
 
 		generateLeave = function() {
