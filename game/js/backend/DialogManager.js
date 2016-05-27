@@ -32,7 +32,7 @@ function DialogManager(game) {
 			timeout : false
 		},
 		wrapup : {
-			box : game.add.text(150, 200, "", { font: "24px yoster_islandregular", fill: Colors.PassiveLighter }),
+			box : game.add.text(150, 300, "", { font: "24px yoster_islandregular", fill: Colors.PassiveLighter }),
 			ghost : game.add.text(999, 999, "", { font: "24px yoster_islandregular" }),
 			timeout : false
 		}
@@ -42,25 +42,29 @@ function DialogManager(game) {
 
 	game.dialog.main.box.defaultY = 427;
 	game.dialog.jeff.box.defaultY = 130;
-	game.dialog.wrapup.box.defaultY = 200;
+	game.dialog.wrapup.box.defaultY = 300;
 
 	this.printWrapup = function(message, doneCB) {
 		doneCB = doneCB || function() {};
 		clearTimeout(game.dialog.wrapup.timeout);
 		var brokenMessage = formatMessage(game.dialog.wrapup.box, game.dialog.wrapup.ghost, 500, 5, 30, message);
-		printMessage(game.dialog.wrapup.box, brokenMessage, 15, 150, false, game.dialog.wrapup, doneCB);
+		printMessage(game.dialog.wrapup.box, brokenMessage, 10, 100, false, game.dialog.wrapup, doneCB);
 	};
 
 	// Prints the message to the main text box.
-	this.printMain = function(message, isAlreadyRead, doneCB) {
-		doneCB = doneCB || function() {};
+	this.printMain = function(message, isAlreadyRead, doneCBStub) {
+		doneCBStub = doneCBStub || function() {};
+		var doneCB = function() {
+			doneCBStub();
+			game.analytics.track("text", "noSkipText");
+		};
 		clearTimeout(game.dialog.main.timeout);
 		var brokenMessage = formatMessage(game.dialog.main.box, game.dialog.main.ghost, 383, 5, 30, message);
 		game.dialog.main.message = brokenMessage;
-		game.dialog.main.callback = doneCB;
+		game.dialog.main.callback = doneCBStub;
 		var printFunc = function() {
 			if(isAlreadyRead) {
-				printMessage(game.dialog.main.box, brokenMessage, 0, 0, false, game.dialog.main, doneCB);
+				printMessage(game.dialog.main.box, brokenMessage, 0, 0, false, game.dialog.main, doneCBStub);
 			} else {
 				printMessage(game.dialog.main.box, brokenMessage, 15, 150, false, game.dialog.main, doneCB);
 			}
@@ -74,6 +78,7 @@ function DialogManager(game) {
 	};
 
 	this.jumpMain = function() {
+		game.analytics.track("text", "skipText");
 		var splitMessage = game.dialog.main.message.split("@").join("").split(/\/|\|/);
 		clearTimeout(game.dialog.main.timeout);
 		game.dialog.main.box.text = splitMessage.join("\n");

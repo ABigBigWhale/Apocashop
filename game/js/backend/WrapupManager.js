@@ -39,8 +39,6 @@ function WrapupManager(game) {
 				messages.push(text[j]);
 			}
 
-			console.log("KYLEHERE: " + messages);
-
 		}
 
 		isEndEnabled = true;
@@ -57,7 +55,6 @@ function WrapupManager(game) {
 			game.eventManager.remove(game.Events.WRAPUP.NEXT, sendNext);
 			endWrapup();
 		} else {
-			console.log("KYLEHERESEND: " + messages[messageIndex]);
 			game.eventManager.notify(game.Events.WRAPUP.MESSAGE, messages[messageIndex]);
 			messageIndex++;
 		}
@@ -66,7 +63,6 @@ function WrapupManager(game) {
 	function endWrapup() {
 		if(isEndEnabled) {
 			isEndEnabled = false;
-			console.log("POTATO SALAD");
 			game.playerState.addsubGold(goldDiff);
 			goldDiff = 0;
 			messages = [];

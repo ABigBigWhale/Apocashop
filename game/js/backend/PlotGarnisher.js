@@ -16,7 +16,7 @@ function PlotGarnisher(game) {
 			storyArrayTemp = storyArrayTemp.filter(function(element) {
 				return element !== story && stories[story].invalidOthers.indexOf(element) < 0;
 			});
-			console.log("STORY: " + story);
+			printDebug("STORY: " + story);
 			storyElements.push(story);
 		}
 
@@ -44,15 +44,15 @@ function PlotGarnisher(game) {
 
 	function insertCharacters(day, storyName, charArray, isOrdered) {
 		var sequence = day.sequence;
-		var validIndexes = getValidIndexes(sequence);
+		var validIndexes = getValidIndexes(sequence, charArray.length);
 
 		for(var i = 0; i < charArray.length; i++) {
 			var index;
 			if(isOrdered) {
-				var segmentLength = Math.floor(validIndexes.length / charArray.length);
-				var validIndexSubset = validIndexes.slice(segmentLength * i, segmentLength * (i + 1));
+				var segmentLength = Math.floor(validIndexes.length / (charArray.length - i));
+				var validIndexSubset = validIndexes.slice(0, segmentLength);
 				index = randomElement(validIndexSubset);
-				validIndexes.splice(validIndexes.indexOf(index), 1);
+				validIndexes = validIndexes.slice(validIndexSubset.indexOf(index) + 1);
 			} else {
 				index = randomElement(validIndexes, true);
 			}
@@ -60,9 +60,9 @@ function PlotGarnisher(game) {
 		}
 	}
 
-	function getValidIndexes(sequence) {
+	function getValidIndexes(sequence, minNum) {
 		var validIndexes = [];
-		for(var i = 0; i < LAST_AVAILABLE_INDEX; i++) {
+		for(var i = 0; validIndexes.length < (minNum * 2) && i < LAST_AVAILABLE_INDEX; i++) {
 			if(!sequence[i]) {
 				validIndexes.push(i);
 			}
@@ -294,7 +294,7 @@ function PlotGarnisher(game) {
 				isOrdered : false,
 				wrapup : [
 					{
-						text : "Looking at the orb makes your innards feel strange./@@@You cover it with a blanket."
+						text : "Looking at the orb makes your innards feel strange./@@@@You cover it with a blanket."
 					}
 				]
 			},
@@ -476,6 +476,5 @@ function PlotGarnisher(game) {
 	};
 
 	init();
-	game.reset.register(init);
 
 }

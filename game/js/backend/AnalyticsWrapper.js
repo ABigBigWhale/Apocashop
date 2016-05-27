@@ -1,5 +1,7 @@
 function AnalyticsWrapper() {
 
+	var self = this;
+
 	// Change this whenever we want to start collecting
 	// to a new data set
 	var VERSION_NUM = 'TESTING';
@@ -37,11 +39,15 @@ function AnalyticsWrapper() {
 		ga('send', 'pageview');
 	};
 
+	this.setRunID = function() {
+		self.set("dimension6", makeID());
+	}
+
 	function makeID() {
 	    var text = "";
 	    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-	    for( var i=0; i < 5; i++ ) {
+	    for( var i=0; i < 8; i++ ) {
 	        text += possible.charAt(Math.floor(Math.random() * possible.length));
 	    }
 
@@ -49,5 +55,6 @@ function AnalyticsWrapper() {
 	}
 
 	this.set("dimension2", makeID());
+	this.set("dimension7", makeID());
 
 }

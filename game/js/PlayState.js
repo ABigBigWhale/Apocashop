@@ -93,6 +93,10 @@ function PlayStateWrapper(game) {
 			game.depthGroups.uiGroup.add(uiFunnelSandButtom);
 			game.depthGroups.uiGroup.add(uiFunnel);
 
+			uiFunnelSandTop.visible = false;
+			uiFunnelSandButtom.visible = false;
+			uiFunnel.visible = false;
+
 			//------------------------- Notes & Clues ------------------------
 			var uiNoteLayer = game.add.group();
 			uiNoteLayer.y = 400;
@@ -520,6 +524,8 @@ function PlayStateWrapper(game) {
 				questionVisible: false
 			};
 
+			var isBeginningDayToggle = false;
+
 			uiButtonAccept.visible = false;
 			uiButtonReject.visible = false;
 			uiButtonQuestion.visible = false;
@@ -539,6 +545,7 @@ function PlayStateWrapper(game) {
                 
                 if ((game.interactionManager.getCurrentDay() || 0) > 0 && !(uiNoteDisplayShown || false)) {
                     toggleNoteDisplay();
+                    isBeginningDayToggle = true;
                 }
 			});
 			game.eventManager.register(game.Events.TIMER.PAUSE, tintClock);
@@ -651,6 +658,10 @@ function PlayStateWrapper(game) {
 				game.displayManager.dog.visible = true;
 			});
 
+			game.reset.register(function() {
+				game.displayManager.dog.visible = false;
+			});
+
 			game.eventManager.register(game.Events.INTERACT.NEW, function(appearanceInfo) {
 				// This function returns a BitmapData generated with the given indices of 
 				// body part images.
@@ -734,9 +745,12 @@ function PlayStateWrapper(game) {
 				if (currNPC) {
 					currNPCOut.start();
 					currNPCOut.onComplete.add(showNPC);
-					/*if(uiNoteDisplayShown) {
+					// This is a bit of an ugly hack, sorry. - Kyle
+					if(uiNoteDisplayShown && !isBeginningDayToggle) {
 						toggleNoteDisplay();
-					}*/
+					} else {
+						isBeginningDayToggle = false;
+					}
 				} else {
 					showNPC(isRandom);
 				}
@@ -745,6 +759,9 @@ function PlayStateWrapper(game) {
 			game.eventManager.register(game.Events.DAY.END, function() {
 				game.displayManager.toggleCloudGeneration(false);
 				game.displayManager.togglePedestGeneration(false);
+				if(uiNoteDisplayShown) {
+					toggleNoteDisplay();
+				}
 			});
 
 			beginGame(game);

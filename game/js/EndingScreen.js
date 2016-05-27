@@ -30,15 +30,32 @@ function EndingScreen(game) {
         recapGroup.add(moonStars);
 		recapGroup.add(game.dialog.wrapup.box);
 		recapGroup.visible = false;
+
+		blackScreenSprite.events.onInputDown.add(trackFutileClick, this);
 	}
 
+	var isReading = false;
+
 	function requestNext() {
+		if(isReading) {
+			game.analytics.track("text", "wrapupNoSkip");
+		}
 		blackScreenSprite.events.onInputDown.removeAll();
+		isReading = true;
+		blackScreenSprite.events.onInputDown.add(trackFutileClick, this);
 		game.eventManager.notify(game.Events.WRAPUP.NEXT);
+	}
+
+	function trackFutileClick() {
+		if(isReading) {
+			game.analytics.track("text", "wrapupSkipAttempt");
+		}
+		isReading = false;
 	}
 
 	game.eventManager.register(game.Events.WRAPUP.START, function() {
 		blackScreenSprite.events.onInputDown.removeAll();
+		blackScreenSprite.events.onInputDown.add(trackFutileClick, this);
 		game.dialogManager.printWrapup("");
         recapGroup.alpha = 0;
 		recapGroup.visible = true;
@@ -54,6 +71,7 @@ function EndingScreen(game) {
 
 	game.eventManager.register(game.Events.WRAPUP.MESSAGE, function(message) {
 		game.dialogManager.printWrapup(message, function() {
+			blackScreenSprite.events.onInputDown.removeAll();
 			blackScreenSprite.events.onInputDown.add(requestNext, this);
 		});
 	});

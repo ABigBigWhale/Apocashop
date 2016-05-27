@@ -1,5 +1,5 @@
 var gameConfig = {
-	DEBUG_MODE: true,
+	DEBUG_MODE: false,
 	RESOLUTION: [800, 600]
 };
 
@@ -22,7 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		}*/ // Function references
 	);
 
-	if (gameConfig.DEBUG_MODE) window.debugGame = game;
+	if (gameConfig.DEBUG_MODE) {
+		window.debugGame = game;
+	} else {
+		window.debugGame = false;
+	}
 
 	game.loadStateWrapper = new LoadStateWrapper(game);
 	game.startStateWrapper = new StartStateWrapper(game);
