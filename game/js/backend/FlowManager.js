@@ -66,7 +66,7 @@ function beginGame(game) {
 			game.analytics.track('day', 'begin' + currentDayIndex, currentDayIndex);
 			game.analytics.set("dimension1", currentDayIndex);
 			// TODO: only going to day 3
-			if (currentDayIndex < 7) {
+			if (currentDayIndex <= 7) {
 				currentDay = getDay(currentDayIndex);
 				beginStocking();
 			} else {

@@ -290,6 +290,37 @@ var heroes = {
 			]
 		}
 	},
+	finalDay : {
+		introJeff : {
+			type : "dialog",
+			appearanceInfo : "jeff",
+			dialog : [
+				"Hey kiddo, time for another beautiful day./Doesn't something about today seem diff~~"
+			]
+		},
+		introZoran : {
+			type : "dialog",
+			appearanceInfo : "zoran",
+			dialog : [
+				"Hello humble shopkeeper. I am your glorious ruler, King Zoran.",
+				"I've heard good things about you and your shop./I have an opportunity for you.",
+				"If you have 100 gold by the end of this day, I will make you the official royal shopkeeper, up in the castle.",
+				"Good luck."
+			]
+		},
+		endZoran : {
+			type : "dialog",
+			appearanceInfo : "zoran",
+			dialog : [
+				"Kyle had to choose between writing this dialog or eating.",
+				"He chose eating. I'll write this later.",
+				{
+					"gold_100" : "Oh, I detected you won though.",
+					"default" : "Also, you lost."
+				}
+			]
+		}
+	},
 	vocabMan : {
 		hero : {
 			type : 'interact',
@@ -582,6 +613,191 @@ var heroes = {
 			appearConditions : ["treasure_hunting2"],
 			endMoney : 30
 		}
+	},
+	artifact : {
+	    "1initialGive" : {
+	        type : "dialog",
+	        appearanceInfo : "artifact",
+	        dialog : ["Hey, hold onto this orb for me. I'll pay you 50 gold if you hold onto it for 5 days.", "* The man gives you a black orb. It pulses with unnatural energy. *"],
+	    },
+	    "2shinyOffer" : {
+	        type : "interact",
+	        item : "None",
+	        appearanceInfo : "random",
+	        offers : [10],
+	        offerText : ["Ooh, that orb is beautiful. Think I could take it off your hands for ten gold?"],
+	        success : "Thanks, appreciate it.",
+	        fail : "Oh well, it was a long shot anyway.",
+	        questions : {default : ". . ."},
+	        sellConditions : ["artifact_soldOrb"],
+	        refuseConditions : ["artifact_keptOrb"],
+	    },
+	    "3studyOffer" : {
+	        type : "interact",
+	        item : "None",
+	        appearanceInfo : "random",
+	        offers : [20],
+	        offerText : ["That orb has a fascinating color. Do you think I could buy it from you for 20 gold?"],
+	        success : "Thank you, I cannot wait to study this.",
+	        fail : "Well, darn.",
+	        questions : {default : ". . ."},
+	        appearConditions : ["artifact_haveOrb2"],
+	        sellConditions : ["artifact_soldOrb"],
+	        refuseConditions : ["artifact_keptOrb"],
+	    },
+	    "4collectorOffer" : {
+	        type : "interact",
+	        item : "None",
+	        appearanceInfo : "random",
+	        offers : [40],
+	        offerText : ["Oh, my. That orb would look fantastic on my mantle. Would you part with it for 40 gold?"],
+	        success : "Well isn't this my lucky day.",
+	        fail : "Oh dearie me . . .",
+	        questions : {default : ". . ."},
+	        appearConditions : ["artifact_haveOrb3"],
+	        sellConditions : ["artifact_soldOrb"],
+	        refuseConditions : ["artifact_keptOrb"],
+	    },
+	    "5villainOffer" : {
+	        type : "interact",
+	        item : "None",
+	        appearanceInfo : "random",
+	        offers : [60],
+	        offerText : ["With that orb, unlimited power could be mine! GIVE IT TO ME. Sixty gold."],
+	        success : "AHAHAHAHAHAHA",
+	        fail : ". . .",
+	        questions : {default : ". . ."},
+	        appearConditions : ["artifact_haveOrb4"],
+	        sellConditions : ["artifact_soldOrb"],
+	        refuseConditions : ["artifact_keptOrb"],
+	    },
+	    "6returnHappy" : {
+	        type : "dialog",
+	        appearanceInfo : "artifact",
+	        dialog : ["Thank you for holding onto that for me, child."],
+	        appearConditions : ["haveOrb5"],
+	        endMoney : 50
+	    },
+	    "6returnSad" : {
+	        type : "dialog",
+	        appearanceInfo : "artifact",
+	        dialog : ["You didn't keep the orb? Curse you, child."],
+	        appearConditions : ["artifact_lostOrb"],
+	    },
+
+	    "6returnScared" : {
+	        type : "dialog",
+	        appearanceInfo : "artifact",
+	        dialog : ["Oh dear child, you sold my orb to that lunatic?", "You are a fool."],
+	        appearConditions : ["artifact_villainOrb"],
+	    }
+	},
+	uprising : {
+	    "2intro" : {
+	        type : "dialog",
+	        appearanceInfo : "ezic",
+	        dialog : ["We must rise up and topple those who would exploit us.", "If you are with us, accept my third offer tomorrow. It will be one gold.", "We are the night."],
+	    },
+	    "3return" : {
+	        type : "interact",
+	        item : "sword",
+	        appearanceInfo : "ezic",
+	        offers : [2, 3, 1],
+	        offerText : ["Hello friend who I have never seen before. Two gold for a sword?", "How about three?", "Or one?"],
+	        success : "We are the night.",
+	        fail : ". . . very well.",
+	        questions : {default : ". . ."},
+	        sellConditions : ["uprising_rebel"],
+	        refuseConditions : ["uprising_citizen"],
+	    },
+	    "4policeIntro" : {
+	        type : "dialog",
+	        appearanceInfo : "police",
+	        dialog : ["We've heard of some dangerous characters starting up a rebellion against the glorious King Zoran.", "If you hear anything, let me know. I will be back soon."],
+	    },
+	    "4rebelMoney" : {
+	        type : "interact",
+	        item : "None",
+	        appearanceInfo : "ezic",
+	        offers : [-7],
+	        offerText : ["Hello friend. The rebellion needs seven gold to continue freeing the people. Will you be one with us?"],
+	        success : "We are the night.",
+	        fail : ". . . very well.",
+	        questions : {default : ". . ."},
+	        appearConditions : ["uprising_rebelBegin"],
+	        sellConditions : ["uprising_rebel"],
+	        refuseConditions : ["uprising_citizen"],
+	    },
+	    "5rebelWarning" : {
+	        type : "dialog",
+	        appearanceInfo : "ezic",
+	        dialog : ["Hello friend. Thank you for listening to us even if you didn't join.", "You should probably think about staying out of the town square today.", ". . . Just so you know. No reason at all, nothing to worry about./@@k thanx bye."],
+	        appearConditions : ["uprising_citizenBegin"],
+	    },
+	    "5rebelJob" : {
+	        type : "dialog",
+	        appearanceInfo : "ezic",
+	        dialog : ["Hello friend, I have your mission.", "A city official will be here soon to buy a bow for one gold.", "Stall him for five seconds before you reject him so we can kidna . . . talk to him."],
+	        appearConditions : ["uprising_rebelJoined"],
+	    },
+	    "5official" : {
+	        type : "interact",
+	        item : "bow",
+	        appearanceInfo : "random",
+	        offers : [1],
+	        offerText : ["I am an official representative of the city, and I demand a bow for one gold."],
+	        success : "You made the right choice",
+	        fail : "Your king will hear of this.",
+	        questions : {default : ". . ."},
+	        stallTime : 4000,
+	        appearConditions : ["uprising_rebelJoined"],
+	        stallConditions : ["uprising_officialStalled"],
+	    },
+	    "5policeAsk" : {
+	        type : "interact",
+	        item : "None",
+	        appearanceInfo : "police",
+	        offers : [0, 5],
+	        offerText : ["Can you tell me anything about the rebels?", "What if I offer you five gold?"],
+	        success : "Thank you, this will help us greatly.",
+	        fail : "Very well, I hope you've been honest. We could make your life very difficult.",
+	        questions : {default : ". . ."},
+	        sellConditions : ["uprising_informant"],
+	        refuseConditions : ["uprising_traitor"],
+	    },
+	    "5stallThanks" : {
+	        type : "dialog",
+	        appearanceInfo : "ezic",
+	        dialog : ["Hello friend, thank you for the help. Now we pay you."],
+	        appearConditions : ["uprising_officialStalled"],
+	        endMoney : 17
+	    },
+	    "6stallAsk" : {
+	        type : "dialog",
+	        appearanceInfo : "police",
+	        dialog : ["Hello citizen, we've heard that one of the rebels will make contact with you today.", "Stall her for seven seconds when she's here, and we'll make it worth your while."],
+	        appearConditions : ["uprising_informantHelper"],
+	    },
+	    "6rebelStall" : {
+	        type : "interact",
+	        item : "None",
+	        appearanceInfo : "ezic",
+	        offers : [0],
+	        offerText : ["Hello friend, this is last time I come here. You are sure you will not join?"],
+	        success : "Fantastic! We will see you soon.",
+	        fail : "All right, friend. I will see you around then.",
+	        questions : {default : ". . ."},
+	        stallTime : 6000,
+	        appearConditions : ["uprising_informantHelper"],
+	        stallConditions : ["uprising_informant"],
+	    },
+	    "6policeBribe" : {
+	        type : "dialog",
+	        appearanceInfo : "police",
+	        dialog : ["We know you are lying. You're lucky I'm only taking your gold and not your head."],
+	        appearConditions : ["uprising_traitorFound"],
+	        endMoney : -15
+	    }
 	}
 };
 

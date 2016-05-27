@@ -464,6 +464,48 @@ function initDayGenerator(game) {
 			],
 			length : 60000
 		},
+		false,
+		false,
+		false,
+		false,
+		{
+			isPreset : {
+				length : true,
+				items : false,
+				tax : true,
+				jeff : true,
+				hero : true,
+				plot : true
+			},
+			itemData : {},
+			sequence : {
+				0 : {
+					category : "finalDay",
+					hero : "introJeff",
+					fuzz : 0,
+					force : true
+				},
+				1 : {
+					category : 'finalDay',
+					hero : 'introZoran',
+					fuzz : 0,
+					force : true
+				},
+				9999 : {
+					category : "finalDay",
+					hero : "endZoran",
+					fuzz : 0,
+					force : true
+				}
+			},
+			clues : {
+				hero : ["Today, you are the hero."],
+				crisis : []
+			},
+			questions : {},
+			wrapup : [],
+			length : 80000
+		},
 	];
 
 }

@@ -3,7 +3,7 @@ function PlotGarnisher(game) {
 
 	var NUM_ELEMENTS = 2;
 	var NUM_DOG_ELEMENTS = 0;
-	var LAST_AVAILABLE_INDEX = 20;
+	var LAST_AVAILABLE_INDEX = 30;
 
 	var storyElements;
 
@@ -16,6 +16,7 @@ function PlotGarnisher(game) {
 			storyArrayTemp = storyArrayTemp.filter(function(element) {
 				return element !== story && stories[story].invalidOthers.indexOf(element) < 0;
 			});
+			console.log("STORY: " + story);
 			storyElements.push(story);
 		}
 
@@ -85,7 +86,7 @@ function PlotGarnisher(game) {
 		}
 	}
 
-	var storyArray = ["urchin", "treasure"];
+	var storyArray = ["uprising", "urchin", "treasure", "artifact"];
 
 	var dogStoryArray = [];
 	
@@ -188,7 +189,7 @@ function PlotGarnisher(game) {
 				chars : ["6proudMan", "6vengefulTracker"],
 				isOrdered : false
 			},
-			invalidOthers : []
+			invalidOthers : ["treasure", "artifact"]
 		},
 		treasure : {
 			2 : {
@@ -284,6 +285,191 @@ function PlotGarnisher(game) {
 			6 : {
 				chars : ["6goodbye"],
 				isOrdered : false
+			},
+			invalidOthers : ["urchin", "artifact"]
+		},
+		artifact : {
+			1 : {
+				chars : ["1initialGive"],
+				isOrdered : false,
+				wrapup : [
+					{
+						text : "Looking at the orb makes your innards feel strange./@@@You cover it with a blanket."
+					}
+				]
+			},
+			2 : {
+				chars : ["2shinyOffer"],
+				isOrdered : false,
+				conditions : {
+					artifact_haveOrb2 : {
+						components : ["artifact_keptOrb"],
+						chance : 1.0,
+						isLongTerm : true
+					},
+					artifact_lostOrb : {
+						components : ["artifact_soldOrb"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
+			},
+			3 : {
+				chars : ["3studyOffer"],
+				isOrdered : false,
+				conditions : {
+					artifact_haveOrb3 : {
+						components : ["artifact_keptOrb"],
+						chance : 1.0,
+						isLongTerm : true
+					},
+					artifact_lostOrb : {
+						components : ["artifact_soldOrb"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				}
+			},
+			4 : {
+				chars : ["4collectorOffer"],
+				isOrdered : false,
+				conditions : {
+					artifact_haveOrb4 : {
+						components : ["artifact_keptOrb"],
+						chance : 1.0,
+						isLongTerm : true
+					},
+					artifact_lostOrb : {
+						components : ["artifact_soldOrb"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
+			},
+			5 : {
+				chars : ["5villainOffer"],
+				isOrdered : false,
+				conditions : {
+					artifact_haveOrb5 : {
+						components : ["artifact_keptOrb"],
+						chance : 1.0,
+						isLongTerm : true
+					},
+					artifact_villainOrb : {
+						components : ["artifact_soldOrb"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				}
+			},
+			6 : {
+				chars : ["6returnHappy", "6returnSad", "6returnScared"],
+				isOrdered : false,
+				wrapup : [
+					{
+						conditions : ["haveOrb5"],
+						text : "As the sun sets, you feel a wave of the orb's energy and see a beam of light pierce the sky in the north."
+					},
+					{
+						conditions : ["haveOrb5"],
+						text : "The slightly charred keeper of the orb stops by your home, and gives his thanks along with 20 more gold.",
+						gold : 20
+					},
+					{
+						conditions : ["artifact_villainOrb"],
+						text : "As the sun sets, you feel a wave of the orb's energy and see a beam of light pierce the sky in the north."
+					},
+					{
+						conditions : ["artifact_villainOrb"],
+						text : "From the beam's direction, shadows creep into the land, destroying all that they touch, including your storefront.",
+						gold : -30
+					}
+				]
+			},
+			invalidOthers : ["treasure", "urchin"]
+		},
+		uprising : {
+			2 : {
+				chars : ["2intro"],
+				isOrdered : false,
+			},
+			3 : {
+				chars : ["3return"],
+				isOrdered : false,
+				conditions : {
+					uprising_rebelBegin : {
+						components : ["uprising_rebel"],
+						chance : 1.0,
+						isLongTerm : true
+					},
+					uprising_citizenBegin : {
+						components : ["uprising_citizen"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
+			},
+			4 : {
+				chars : ["4policeIntro", "4rebelMoney"],
+				isOrdered : true,
+				conditions : {
+					uprising_rebelJoined : {
+						components : ["uprising_rebel"],
+						chance : 1.0,
+						isLongTerm : true
+					},
+					uprising_citizenBegin : {
+						components : ["uprising_citizen"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
+				wrapup : [
+					{
+						conditions : ["uprising_rebel"],
+						text : "You hear whispers of a rebellion gathering money and strength within the town."
+					}
+				]
+			},
+			5 : {
+				chars : ["5rebelWarning", "5rebelJob", "5official", "5policeAsk", "5stallThanks"],
+				isOrdered : true,
+				conditions : {
+					uprising_traitorFound : {
+						components : ["uprising_traitor"],
+						chance : 0.5,
+						isLongTerm : true
+					},
+					uprising_informantHelper : {
+						components : ["uprising_informant"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
+				wrapup : [
+					{
+						conditions : ["uprising_citizenBegin"],
+						text : "A small and harmless, but frightening fire broke out in the town square. The police refuse to comment on who they believe was responsible."
+					},
+					{
+						conditions : ["uprising_officialStalled"],
+						text : "You hear that an important city official has gone missing."
+					}
+				]
+			},
+			6 : {
+				chars : ["6stallAsk", "6rebelStall", "6policeBribe"],
+				isOrdered : true,
+				wrapup : [
+					{
+						text : "Even more instructions on how to join the rebellion are slipped under your door just before nightfall."
+					},
+					{
+						conditions : ["uprising_informant"],
+						text : "However, later in the night, the police stop by to thank you for destroying the rebellion. They leave behind a generous tip.",
+						gold : 20
+					}
+				]
 			},
 			invalidOthers : []
 		}
