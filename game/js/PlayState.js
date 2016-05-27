@@ -28,7 +28,7 @@ function PlayStateWrapper(game) {
 			hands.y = 525;
 			game.depthGroups.frontGroup.add(hands);
 			*/
-			
+
 			var shop = game.displayManager.shop;	// TODO: temporary work-around
 
 			///////////////////////////// UI elems ///////////////////////////
@@ -100,7 +100,7 @@ function PlayStateWrapper(game) {
 			//------------------------- Notes & Clues ------------------------
 			var uiNoteLayer = game.add.group();
 			uiNoteLayer.y = 400;
-			
+
 			var uiNoteDisplay = uiNoteLayer.create(800, 400, 'ui_note_big');
 			uiNoteDisplay.smoothed = false;
 			uiNoteDisplay.anchor.setTo(1, 1);
@@ -332,7 +332,7 @@ function PlayStateWrapper(game) {
 					game.clockUI[i].tint = tintVal;
 				}
 			}
-			
+
 			function tintAll(tintVal) {
 				game.displayManager.tintClouds(tintVal);
 				game.dialog.main.box.tint = tintVal;
@@ -472,6 +472,7 @@ function PlayStateWrapper(game) {
 			var currNPC;
 			var currNPCIn;
 			var currNPCOut;
+			var npcHands;
 
 			var setNPCTween = function() {
 				var npcPos = {
@@ -542,11 +543,11 @@ function PlayStateWrapper(game) {
 				uiPutItemSlots(game.playerState.getNumSlots(), game.playerState.getStockedItems());
 				heroClueText.text = formatClues(data.clues.hero);
 				crisisClueText.text = formatClues(data.clues.crisis);
-                
-                if ((game.interactionManager.getCurrentDay() || 0) > 0 && !(uiNoteDisplayShown || false)) {
-                    toggleNoteDisplay();
-                    isBeginningDayToggle = true;
-                }
+
+				if ((game.interactionManager.getCurrentDay() || 0) > 0 && !(uiNoteDisplayShown || false)) {
+					toggleNoteDisplay();
+					isBeginningDayToggle = true;
+				}
 			});
 			game.eventManager.register(game.Events.TIMER.PAUSE, tintClock);
 			game.eventManager.register(game.Events.TIMER.RESUME, tintClock);
@@ -608,7 +609,7 @@ function PlayStateWrapper(game) {
 					}
 				}
 			});
-			
+
 			game.eventManager.register(game.Events.UPDATE.GOLD, function(gold) {
 				textCoins.setText(gold);
 			});
@@ -662,7 +663,8 @@ function PlayStateWrapper(game) {
 				game.displayManager.dog.visible = false;
 			});
 
-			game.eventManager.register(game.Events.INTERACT.NEW, function(appearanceInfo) {
+			game.eventManager.register(game.Events.INTERACT.NEW, 
+									   function(appearanceInfo, handsInfo, handsTime) {
 				// This function returns a BitmapData generated with the given indices of 
 				// body part images.
 				/** NOTE: The size of the avatar frame is 168x198 **/
@@ -689,39 +691,51 @@ function PlayStateWrapper(game) {
 						break;
 				}
 
-				var drawRandomNPC = function(game, appearanceInfo) {
-					var npcBmd = game.add.bitmapData(60, 70);
-					var parts = appearanceInfo.split(',');
-					for (var i = 0; i < parts.length; i++) {
-						var partArr = parts[i].split('|');
-						var partName = partArr[0];
-						var partNumb = parseInt(partArr[1]);
-						npcBmd.draw('npc-' + partName + '-' + partNumb);
-					}
-					
-					var skinColor = generateSkinColor();
-					
-					bitmapDataReplaceColor(npcBmd, 190, 147, 125, 255,
-										  skinColor.r, skinColor.g, skinColor.b, 255,
-										  60, 70)
-
-					return npcBmd;
-				}
-
+				
 				// NOTE: position at (20, 360)
 				var showNPC = function() {
 					var npcAssetId;
+					var skinColor = generateSkinColor();
+					
 					if (isRandom) {
-						npcAssetId = drawRandomNPC(game, appearanceInfo);
+						npcAssetId = game.displayManager.drawRandomNPC(appearanceInfo, skinColor);
+
 					} else {
 						npcAssetId = appearanceInfo;
 					}
+
 					currNPC = uiAvatarLayer.create(20, 360, npcAssetId);
+
+					if (handsInfo && handsInfo.substring() && handsInfo.length == 10) {
+						// If we are generating fingers
+						var npcHandsBmd = game.displayManager.generateNPCHands(
+							handsInfo.substring(0, 5), handsInfo.substring(5, 10), skinColor);
+						npcHands = uiAvatarLayer.create(50, 600, npcHandsBmd);
+						
+						
+						npcHands.tweenIn = game.add.tween(npcHands).to( {y: 390}, 500);
+						npcHands.tweenOut = game.add.tween(npcHands).to( {y: 600}, 300);
+						
+						npcHands.tweenIn.onComplete.addOnce(function() {
+							game.time.events.add(
+								Phaser.Timer.SECOND * (handsTime ? handsTime : 1.5),
+								function() {npcHands.tweenOut.start();},
+								this
+							);
+						});
+						
+						npcHands.tweenOut.onComplete.addOnce(function() {
+							npcHands.destroy();
+						});
+					}
+
 
 					// TODO: probably create all moving parts here?
 					// 		 and make currNPC a group?
 
 					setNPCTween();
+					
+					
 					if (isRandom) {
 						currNPC.scale.setTo(3, 3);
 					} else {
@@ -736,6 +750,7 @@ function PlayStateWrapper(game) {
 						currNPC.smoothed = false;
 					}
 					currNPCIn.onComplete.add(function() {
+						if (handsInfo) npcHands.tweenIn.start();
 						toggleButtons(true);
 						game.dialog.main.freeze(false);
 					})
@@ -743,8 +758,9 @@ function PlayStateWrapper(game) {
 				}
 
 				if (currNPC) {
+					if (npcHands) npcHands.tweenOut.start();
 					currNPCOut.start();
-					currNPCOut.onComplete.add(showNPC);
+					currNPCOut.onComplete.addOnce(showNPC);
 					// This is a bit of an ugly hack, sorry. - Kyle
 					if(uiNoteDisplayShown && !isBeginningDayToggle) {
 						toggleNoteDisplay();
@@ -772,7 +788,7 @@ function PlayStateWrapper(game) {
 			uiFunnelSetTime(game.dayTimer.getPercent());
 			uiFunnelSandTop.updateCrop();
 			uiFunnelSandButtom.updateCrop();
-            game.displayManager.updateSunPosition(game.dayTimer.getPercent());
+			game.displayManager.updateSunPosition(game.dayTimer.getPercent());
 		}
 
 	};

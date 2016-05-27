@@ -264,7 +264,7 @@ function InteractionManager(game) {
 
 		if(currentNPC.type === "interact") {
 			trackPotentialProfit(currentNPC);
-			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
+			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, "0010011100", 1.23);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
 			game.dayTimer.pause();

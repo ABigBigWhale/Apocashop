@@ -148,7 +148,7 @@ function generateSkinColor() {
 }
 
 function bitmapDataReplaceColor(bmd, r, g, b, a, newR, newG, newB, newA, w, h) {
-	var imgdata = bmd.ctx.getImageData(0, 0, 60, 70);
+	var imgdata = bmd.ctx.getImageData(0, 0, w, h);
 	var imgdatalen = imgdata.data.length;
 	
 	// Iterate over every pixel in the bitmapdata
