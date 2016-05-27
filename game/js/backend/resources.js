@@ -471,7 +471,7 @@ var heroes = {
 			isFalseHero : true
 		}
 	},
-	stutterMan : {
+	stallMan : {
 		hero : {
 			type : 'interact',
 			item : 'sword',
