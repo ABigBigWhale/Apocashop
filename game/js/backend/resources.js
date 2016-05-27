@@ -313,7 +313,11 @@ var heroes = {
 			appearanceInfo : "zoran",
 			dialog : [
 				"Kyle had to choose between writing this dialog or eating.",
-				"He chose eating. I'll write this later."
+				"He chose eating. I'll write this later.",
+				{
+					"gold_100" : "Oh, I detected you won though.",
+					"default" : "Also, you lost."
+				}
 			]
 		}
 	},

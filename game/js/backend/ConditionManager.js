@@ -52,6 +52,10 @@ function ConditionManager(game) {
 			}
 			return true;
 		} else {
+			if(condition.indexOf("gold_") > -1) {
+				var gold = parseInt(condition.substring(5))
+				return gold <= game.playerState.getGold();
+			}
 			var isCondition = conditions.indexOf(condition) > -1;
 			// var isStateCondition = game.playerState.conditions.indexOf(condition) > -1;
 			// return isCondition || isStateCondition;
