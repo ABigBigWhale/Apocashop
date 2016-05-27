@@ -10,7 +10,7 @@ function HeroManager(game) {
 	function init() {
 		heroCollections.randomGenHero = generateRandomHero();
 		//validHeroCollections = Object.keys(heroCollections);
-		validHeroCollections = ["vocabMan", "randomGenHero", "vocabMan", "randomGenHero", "vocabMan", "vocabMan"];
+		validHeroCollections = ["rhymeAdvance", "rhymeAdvance", "rhymeAdvance", "rhymeAdvance", "rhymeAdvance", "rhymeAdvance"];
 	}
 
 	this.insertHeroes = function(day, numFalse) {
@@ -30,10 +30,10 @@ function HeroManager(game) {
 	}
 
 	function handleFalseHeroes(day, heroCollection, validIndexes, numFalse) {
-		var falseArray = heroCollections[heroCollection].falseHeroes;
+		var falseArray = deepCopy(heroCollections[heroCollection].falseHeroes);
 		for(var i = 0; i < Math.min(falseArray.length, numFalse); i++) {
 			var index = randomElement(validIndexes, true);
-			var falseHero = falseArray[i];
+			var falseHero = randomElement(falseArray, true);
 			day.sequence[index] = generateHeroData(heroCollection, falseHero);
 		}
 	}
@@ -83,7 +83,7 @@ function HeroManager(game) {
 			wrapup : [
 				{
 					conditions : ["soldHero"],
-					text : "Using his sharpshooting skills, the hero drove the convicts from the town.",
+					text : "Using his sharpshooting skills, the hero drove the monsters from the town.",
 				},
 				{
 					conditions : ['soldHero'],
@@ -91,8 +91,35 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ["refusedHero"],
-					text : "Without the hero to drive them away, the convicts pillage the town and destroy your storefront. You spend 15 gold to repair it.",
+					text : "Without the hero to drive them away, the monsters pillage the town and destroy your storefront. You spend 15 gold to repair it.",
 					gold : -15
+				}
+			]
+		},
+		rhymeAdvance : {
+			hero : "hero",
+			falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
+			clues : [
+				"The first, seventh, and thirteenth word the hero says will rhyme."
+			],
+			questions : {
+				day : "How was day?",
+				color : "Favorite Color?"
+			},
+			wrapup : [
+				{
+					conditions : ['soldHero'],
+					text : "Using their newly purchased shield to cower behind, the hero was able to confuse and defeat the monsters with their rhymes."
+				},
+				{
+					conditions : ['soldHero'],
+					text : "In appreciation, they return with some of the monster's keep.",
+					gold : 5
+				},
+				{
+					conditions : ['refusedHero'],
+					text : "Without a shield, the hero was lost while trying to distract the monsters with their rhymes./@Your store is pillaged.",
+					gold : -12
 				}
 			]
 		}

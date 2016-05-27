@@ -48,7 +48,7 @@ function DialogManager(game) {
 		doneCB = doneCB || function() {};
 		clearTimeout(game.dialog.wrapup.timeout);
 		var brokenMessage = formatMessage(game.dialog.wrapup.box, game.dialog.wrapup.ghost, 500, 5, 30, message);
-		printMessage(game.dialog.wrapup.box, brokenMessage, 15, 150, false, game.dialog.wrapup, doneCB);
+		printMessage(game.dialog.wrapup.box, brokenMessage, 10, 100, false, game.dialog.wrapup, doneCB);
 	};
 
 	// Prints the message to the main text box.
