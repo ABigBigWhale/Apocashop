@@ -524,6 +524,8 @@ function PlayStateWrapper(game) {
 				questionVisible: false
 			};
 
+			var isBeginningDayToggle = false;
+
 			uiButtonAccept.visible = false;
 			uiButtonReject.visible = false;
 			uiButtonQuestion.visible = false;
@@ -543,6 +545,7 @@ function PlayStateWrapper(game) {
                 
                 if ((game.interactionManager.getCurrentDay() || 0) > 0 && !(uiNoteDisplayShown || false)) {
                     toggleNoteDisplay();
+                    isBeginningDayToggle = true;
                 }
 			});
 			game.eventManager.register(game.Events.TIMER.PAUSE, tintClock);
@@ -739,8 +742,10 @@ function PlayStateWrapper(game) {
 					currNPCOut.start();
 					currNPCOut.onComplete.add(showNPC);
 					// This is a bit of an ugly hack, sorry. - Kyle
-					if(uiNoteDisplayShown && appearanceInfo !== "gp_jeff_big") {
+					if(uiNoteDisplayShown && !isBeginningDayToggle) {
 						toggleNoteDisplay();
+					} else {
+						isBeginningDayToggle = false;
 					}
 				} else {
 					showNPC(isRandom);
@@ -750,6 +755,9 @@ function PlayStateWrapper(game) {
 			game.eventManager.register(game.Events.DAY.END, function() {
 				game.displayManager.toggleCloudGeneration(false);
 				game.displayManager.togglePedestGeneration(false);
+				if(uiNoteDisplayShown) {
+					toggleNoteDisplay();
+				}
 			});
 
 			beginGame(game);
