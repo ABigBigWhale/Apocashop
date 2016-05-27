@@ -39,6 +39,8 @@ function WrapupManager(game) {
 				messages.push(text[j]);
 			}
 
+			console.log("KYLEHERE: " + messages);
+
 		}
 
 		isEndEnabled = true;
@@ -55,6 +57,7 @@ function WrapupManager(game) {
 			game.eventManager.remove(game.Events.WRAPUP.NEXT, sendNext);
 			endWrapup();
 		} else {
+			console.log("KYLEHERESEND: " + messages[messageIndex]);
 			game.eventManager.notify(game.Events.WRAPUP.MESSAGE, messages[messageIndex]);
 			messageIndex++;
 		}

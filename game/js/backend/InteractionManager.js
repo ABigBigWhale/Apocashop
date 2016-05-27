@@ -236,6 +236,7 @@ function InteractionManager(game) {
 			currentNPC = getNextNPC();
 			if(!currentNPC) {
 				dayEndCallback();
+				dayEndCallback = nullFunc;
 				return;
 			}
 		} while(currentNPC.appearConditions && !conditionManager.get(currentNPC.appearConditions));

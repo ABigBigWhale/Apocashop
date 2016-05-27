@@ -134,3 +134,16 @@ function bitmapDataReplaceColor(bmd, r, g, b, a, newR, newG, newB, newA, w, h) {
 	
 	bmd.ctx.putImageData(imgdata, 0, 0);
 }
+
+var nullFunc = function() {};
+
+function iddqd() {
+	debugGame.eventManager.register(debugGame.Events.DAY.START, function() {
+		setTimeout(function() {
+			debugGame.dayTimer.jumpForward(90000)
+		}, 5000);
+	});
+	debugGame.playerState.addsubGold(500);
+	debugGame.eventManager.notify(debugGame.Events.UPDATE.GOLD, debugGame.playerState.getGold());
+	debugGame.dayTimer.jumpForward(90000);
+}

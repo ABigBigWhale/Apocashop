@@ -53,7 +53,9 @@ function EndingScreen(game) {
 	});
 
 	game.eventManager.register(game.Events.WRAPUP.MESSAGE, function(message) {
+		console.log("KYLEHEREPRINT: " + message);
 		game.dialogManager.printWrapup(message, function() {
+			console.log("KYLEHEREPRINTDONE: " + message);
 			blackScreenSprite.events.onInputDown.add(requestNext, this);
 		});
 	});
