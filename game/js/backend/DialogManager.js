@@ -52,15 +52,19 @@ function DialogManager(game) {
 	};
 
 	// Prints the message to the main text box.
-	this.printMain = function(message, isAlreadyRead, doneCB) {
-		doneCB = doneCB || function() {};
+	this.printMain = function(message, isAlreadyRead, doneCBStub) {
+		doneCBStub = doneCBStub || function() {};
+		var doneCB = function() {
+			doneCBStub();
+			game.analytics.track("text", "noSkipText");
+		};
 		clearTimeout(game.dialog.main.timeout);
 		var brokenMessage = formatMessage(game.dialog.main.box, game.dialog.main.ghost, 383, 5, 30, message);
 		game.dialog.main.message = brokenMessage;
-		game.dialog.main.callback = doneCB;
+		game.dialog.main.callback = doneCBStub;
 		var printFunc = function() {
 			if(isAlreadyRead) {
-				printMessage(game.dialog.main.box, brokenMessage, 0, 0, false, game.dialog.main, doneCB);
+				printMessage(game.dialog.main.box, brokenMessage, 0, 0, false, game.dialog.main, doneCBStub);
 			} else {
 				printMessage(game.dialog.main.box, brokenMessage, 15, 150, false, game.dialog.main, doneCB);
 			}
@@ -74,6 +78,7 @@ function DialogManager(game) {
 	};
 
 	this.jumpMain = function() {
+		game.analytics.track("text", "skipText");
 		var splitMessage = game.dialog.main.message.split("@").join("").split(/\/|\|/);
 		clearTimeout(game.dialog.main.timeout);
 		game.dialog.main.box.text = splitMessage.join("\n");

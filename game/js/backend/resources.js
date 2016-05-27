@@ -312,11 +312,13 @@ var heroes = {
 			type : "dialog",
 			appearanceInfo : "zoran",
 			dialog : [
-				"Kyle had to choose between writing this dialog or eating.",
-				"He chose eating. I'll write this later.",
 				{
-					"gold_100" : "Oh, I detected you won though.",
-					"default" : "Also, you lost."
+					"gold_100" : "Well done, shopkeeper./You have proven yourself worthy.",
+					default : "I am disappointed, shopkeeper. I expected more."
+				},
+				{
+					"gold_100" : "Come with me, my friend. Let us go to the palace.",
+					"default" : "Feel free to restart the game and try again. I will be here."
 				}
 			]
 		}

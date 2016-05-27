@@ -93,6 +93,10 @@ function PlayStateWrapper(game) {
 			game.depthGroups.uiGroup.add(uiFunnelSandButtom);
 			game.depthGroups.uiGroup.add(uiFunnel);
 
+			uiFunnelSandTop.visible = false;
+			uiFunnelSandButtom.visible = false;
+			uiFunnel.visible = false;
+
 			//------------------------- Notes & Clues ------------------------
 			var uiNoteLayer = game.add.group();
 			uiNoteLayer.y = 400;

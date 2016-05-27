@@ -145,6 +145,7 @@ function EndStateWrapper(game) {
 			}
 
 			function restartLevel() {
+				game.analytics.track("game", "restartLevel");
 				killScreen();
 				game.conditionManager.revertToCheckpoint();
 				game.playerState.resetStats();
@@ -153,6 +154,7 @@ function EndStateWrapper(game) {
 			}
 
 			function restartGame() {
+				game.analytics.track("game", "restartDay");
 				//game.state.start('state_start');
 				killScreen();
 				location.reload();
