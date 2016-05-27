@@ -36,8 +36,13 @@ function Timer(func, delay, pauseCallback, resumeCallback) {
 
 	this.jumpForward = function(amount) {
 		self.pause(true);
-		fastForwardFrom = Date.now() - fastForwardAmount;
-		fastForwardAmount += amount;
+		if(fastForwardAmount + fastForwardFrom - Date.now() > 0) {
+			fastForwardFrom = Date.now() - fastForwardAmount;
+			fastForwardAmount += amount;
+		} else {
+			fastForwardFrom = Date.now();
+			fastForwardAmount = amount;
+		}
 		remaining -= amount;
 		self.resume(true);
 	};
