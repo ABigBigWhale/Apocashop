@@ -41,10 +41,14 @@ function WrapupManager(game) {
 
 		}
 
+		isEndEnabled = true;
+
 		game.eventManager.register(game.Events.WRAPUP.NEXT, sendNext);
 		game.eventManager.notify(game.Events.WRAPUP.START);
 
 	};
+
+	var isEndEnabled = false;
 
 	function sendNext() {
 		if(messageIndex >= messages.length) {
@@ -57,12 +61,16 @@ function WrapupManager(game) {
 	}
 
 	function endWrapup() {
-		game.playerState.addsubGold(goldDiff);
-		goldDiff = 0;
-		messages = [];
-		messageIndex = 0;
-		game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
-		endCallback();
+		if(isEndEnabled) {
+			isEndEnabled = false;
+			console.log("POTATO SALAD");
+			game.playerState.addsubGold(goldDiff);
+			goldDiff = 0;
+			messages = [];
+			messageIndex = 0;
+			game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
+			endCallback();
+		}
 	}
 
 }

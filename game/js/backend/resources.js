@@ -490,11 +490,12 @@ var heroes = {
 		},
 		"6proudMan" : {
 			type : "dialog",
-			appearanceInfo : "random",
+			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
 			dialog : [
 				"You seem like the good sort of person after all.",
 				"Please shopkeeper, accept this gift."
 			],
+			appearConditions : ["urchin_manProud"],
 			endMoney : 15
 		},
 		"6vengefulTracker" : {
@@ -507,6 +508,79 @@ var heroes = {
 			],
 			appearConditions : ["urchin_trackerVengeful"],
 			endMoney : -15
+		}
+	},
+	treasure : {
+		"2offer" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : "treasure",
+			offers : [-5],
+			offerText : ["Hey shopkeep, in my travels I found this treasure map./Want it? Five gold."],
+			success : "Hope it's worth it!@@/I mean, of course it's worth it!",
+			fail : "Your loss, shopkeep.",
+			questions : {default : ". . ."},
+			sellConditions : ["treasure_bought"],
+			refuseConditions : ["treasure_refused"],
+		},
+		"3friendlyOffer" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : "treasure",
+			offers : [-10],
+			offerText : ["Hey shopkeep, good to see you again! How about another map? Ten gold this time."],
+			success : "Have fun, pal.",
+			fail : "We'll see if you change your mind tomorrow.",
+			questions : {default : ". . ."},
+			appearConditions : ["treasure_happy"],
+			sellConditions : ["treasure_bought"],
+			refuseConditions : ["treasure_refused"],
+		},
+		"3sadOffer" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : "treasure",
+			offers : [-10],
+			offerText : ["Hey shopkeep, this time I have an even better map. Want it for ten gold?"],
+			success : "Have fun, pal.",
+			fail : "We'll see if you change your mind tomorrow.",
+			questions : {default : ". . ."},
+			appearConditions : ["treasure_sad"],
+			sellConditions : ["treasure_bought"],
+			refuseConditions : ["treasure_refused"],
+		},
+		"4dungeonOffer" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : "treasure",
+			offers : [-15],
+			offerText : ["Howdy shopkeep, I'm going to explore a dungeon. Want to invest and split the keep? Give me fifteen gold."],
+			success : "Wish me luck, pal.",
+			fail : "Alright, I'll try to find the cash elsewhere.",
+			questions : {default : ". . ."},
+			appearConditions : ["treasure_hunting"],
+			sellConditions : ["treasure_invested"],
+			refuseConditions : ["treasure_refused"],
+		},
+		"4lastMap" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : "treasure",
+			offers : [-15],
+			offerText : ["Hey shopkeep, I've got one last map for you. It'll be fifteen gold."],
+			success : "Happy travels, shopkeep.",
+			fail : "Alrighty shopkeep, have it your way.",
+			questions : {default : ". . ."},
+			appearConditions : ["treasure_sad"],
+			sellConditions : ["treasure_bought"],
+			refuseConditions : ["treasure_refused"],
+		},
+		"6goodbye" : {
+			type : "dialog",
+			appearanceInfo : "treasure",
+			dialog : ["Hey shopkeep, I escaped that dungeon by the skin of my teeth!", "As promised, here's the return on your investment. Spend it well, friend."],
+			appearConditions : ["treasure_hunting2"],
+			endMoney : 30
 		}
 	}
 };

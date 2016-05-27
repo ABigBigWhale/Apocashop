@@ -22,9 +22,9 @@ function EndingScreen(game) {
 		blackScreenSprite.inputEnabled = true;
 
         recapGroup.fadeIn = game.add.tween(recapGroup)
-            .to( {alpha: 1}, 2000);
+            .to( {alpha: 1}, 500);
         recapGroup.fadeOut = game.add.tween(recapGroup)
-            .to( {alpha: 0}, 2000);
+            .to( {alpha: 0}, 500);
         
 		recapGroup.add(blackScreenSprite);
         recapGroup.add(moonStars);
@@ -38,6 +38,7 @@ function EndingScreen(game) {
 	}
 
 	game.eventManager.register(game.Events.WRAPUP.START, function() {
+		blackScreenSprite.events.onInputDown.removeAll();
 		game.dialogManager.printWrapup("");
         recapGroup.alpha = 0;
 		recapGroup.visible = true;
