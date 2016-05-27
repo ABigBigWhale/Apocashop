@@ -738,9 +738,10 @@ function PlayStateWrapper(game) {
 				if (currNPC) {
 					currNPCOut.start();
 					currNPCOut.onComplete.add(showNPC);
-					/*if(uiNoteDisplayShown) {
+					// This is a bit of an ugly hack, sorry. - Kyle
+					if(uiNoteDisplayShown && appearanceInfo !== "gp_jeff_big") {
 						toggleNoteDisplay();
-					}*/
+					}
 				} else {
 					showNPC(isRandom);
 				}

@@ -382,7 +382,11 @@ var heroes = {
 			offerText : ["You, friendly shopkeeper. Your heart is true? I need a shield for two./. . . gold."],
 			success : "Thank you my friend, that gold I am happy to spend.",
 			fail : "Very well friend, I hope this is not the end.",
-			questions : {default : ". . ."},
+			questions : {
+				day : "Very normal, not too exciting.",
+				color : "Orange brown",
+				default : ". . ."
+			},
 			sellConditions : ["soldHero"],
 			refuseConditions : ["refusedHero"],
 			isHero : true
@@ -395,7 +399,11 @@ var heroes = {
 			offerText : ["You, friendly shopkeeper. Your heart is true? I need a shield for the gold of two."],
 			success : "Heh, thanks.",
 			fail : "Fine.",
-			questions : {default : ". . ."},
+			questions : {
+				day : "It was fine.",
+				color : "Navy.",
+				default : ". . ."
+			},
 			isFalseHero : true
 		},
 		"falseHero2" : {
@@ -406,7 +414,11 @@ var heroes = {
 			offerText : ["Why shopkeeper, you seem a nice guy. A shield I need for three gold."],
 			success : "Heh, thanks.",
 			fail : "Fine.",
-			questions : {default : ". . ."},
+			questions : {
+				day : "Nothing out of the ordinary.",
+				color : "Chartreuse.",
+				default : ". . ."
+			},
 			sellConditions : ["soldHero"],
 			refuseConditions : ["refusedHero"],
 			isFalseHero : true
@@ -419,7 +431,11 @@ var heroes = {
 			offerText : ["You, shopkeeper. Your heart is true? . . . I need a shield for three gold."],
 			success : "Heh, thanks.",
 			fail : "Fine.",
-			questions : {default : ". . ."},
+			questions : {
+				day : "Not too bad.",
+				color : "Purple blue",
+				default : ". . ."
+			},
 			sellConditions : ["soldHero"],
 			refuseConditions : ["refusedHero"],
 		},
