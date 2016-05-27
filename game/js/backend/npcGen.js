@@ -67,7 +67,7 @@ function initNPCGen(game) {
 		var avg = Math.ceil((min + max) / 2);
 		var highAvg = Math.ceil((avg + max) / 2);
 
-		if(rollDice(0.75)) {
+		if(rollDice(0.8)) {
 			offers.push(bellCurveIntInRange(min, avg));
 		} else {
 			if(rollDice(0.8)) {
