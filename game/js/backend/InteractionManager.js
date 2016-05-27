@@ -31,6 +31,9 @@ function InteractionManager(game) {
 
 	var dayUpgrade;
 
+	var potentialProfit;
+	var itemsRequested;
+
 	this.getCurrentDay = function() {
 		return dayIndex;
 	}
@@ -138,9 +141,14 @@ function InteractionManager(game) {
 			game.dayTimer.pause();
 		}
 		isEnd = false;
+		potentialProfit = 0;
+		itemsRequested = {};
 		dayIndex = index;
 		currentDay = day;
-		dayEndCallback = endCallback;
+		dayEndCallback = function() {
+			calculatePotentialProfit();
+			endCallback();
+		};
 		conditionManager.init(day.conditions);
 		game.eventManager.notify(game.Events.DAY.START, {
 			clues : day.clues,
@@ -249,6 +257,7 @@ function InteractionManager(game) {
 		dialogIndex = 0;
 
 		if(currentNPC.type === "interact") {
+			trackPotentialProfit(currentNPC);
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
@@ -271,6 +280,29 @@ function InteractionManager(game) {
 				npcStallTimer = false;
 			}, currentNPC.stallTime);
 		}
+	}
+
+	function trackPotentialProfit(npc) {
+		var maxOffer = Math.max.apply(this, npc.offers);
+
+		if(items[npc.item]) {
+			var profit = maxOffer - items[npc.item].jPrice;
+			if(profit >= 0) {
+				potentialProfit += maxOffer - items[npc.item].jPrice;
+				itemsRequested[npc.item] = itemsRequested[npc.item] || 0;
+				itemsRequested[npc.item]++;
+			}
+		}
+	}
+
+	function calculatePotentialProfit() {
+		var stockedItems = game.playerState.getStockedItems();
+		for(var item in stockedItems) {
+			if(itemsRequested[item]) {
+				potentialProfit += (Math.min(itemsRequested[item], stockedItems[item]) * (items[item].jPrice - items[item].price));
+			}
+		}
+		game.analytics.track("game", "potentialProfit", potentialProfit);
 	}
 
 	// Sends the next offer for the current NPC.
