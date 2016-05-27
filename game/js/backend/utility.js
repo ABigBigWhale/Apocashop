@@ -13,6 +13,26 @@ function randomIntInRange(min, max) {
 	return Math.floor(min + Math.random() * range);
 }
 
+function bellCurveIntInRange(min, max) {
+	var index = Math.random() * 100;
+	var diff = max - min;
+	var number;
+	if (index < 3) {
+		number = randomIntInRange(min, min + 1);
+	} else if (index < 17) {
+		number =  randomIntInRange(min + 1, min + 2);
+	} else if (index < 75) {
+		number = randomIntInRange(max - diff / 2 - 2, max - diff / 2 + 2);		
+	} else if (index < 97) {
+		number = randomIntInRange(max - 2, max - 1);
+	} else {
+		number = randomIntInRange(max - 1, max);
+	}
+	number = Math.min(number, max);
+	number = Math.max(number, min);
+	return number;
+}
+
 function printDebug(message) {
 	if(DEBUG_FLAG) {
 		console.log(message);

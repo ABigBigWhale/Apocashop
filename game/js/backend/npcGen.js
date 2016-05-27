@@ -68,12 +68,12 @@ function initNPCGen(game) {
 		var highAvg = Math.ceil((avg + max) / 2);
 
 		if(rollDice(0.75)) {
-			offers.push(randomIntInRange(min, avg));
+			offers.push(bellCurveIntInRange(min, avg));
 		} else {
 			if(rollDice(0.8)) {
-				offers.push(randomIntInRange(avg, highAvg));
+				offers.push(bellCurveIntInRange(avg, highAvg));
 			} else {
-				offers.push(randomIntInRange(highAvg, max));
+				offers.push(bellCurveIntInRange(highAvg, max));
 			}
 		}
 
@@ -82,9 +82,9 @@ function initNPCGen(game) {
 			chance = Math.min(0.6 + upgradeChance, Math.pow(chance, 3) * 3);
 			if(rollDice(chance)) {
 				if(rollDice(0.7)) {
-					offers.push(randomIntInRange(offers[offers.length - 1] + 1, highAvg));
+					offers.push(bellCurveIntInRange(offers[offers.length - 1] + 1, highAvg));
 				} else {
-					offers.push(randomIntInRange(offers[offers.length - 1] + 1, max));
+					offers.push(bellCurveIntInRange(offers[offers.length - 1] + 1, max));
 				}
 			} else {
 				break;
