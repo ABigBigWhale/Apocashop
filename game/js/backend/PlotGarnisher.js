@@ -16,7 +16,7 @@ function PlotGarnisher(game) {
 			storyArrayTemp = storyArrayTemp.filter(function(element) {
 				return element !== story && stories[story].invalidOthers.indexOf(element) < 0;
 			});
-			console.log("STORY: " + story);
+			printDebug("STORY: " + story);
 			storyElements.push(story);
 		}
 
