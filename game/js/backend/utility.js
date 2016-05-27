@@ -1,5 +1,3 @@
-var DEBUG_FLAG = true;
-
 function rollDice(chance) {
 	return Math.random() <= chance; 
 }
@@ -50,7 +48,7 @@ function gaussian(mean, stdev) {
 }
 
 function printDebug(message) {
-	if(DEBUG_FLAG) {
+	if(gameConfig.DEBUG_MODE) {
 		console.log(message);
 	}
 }

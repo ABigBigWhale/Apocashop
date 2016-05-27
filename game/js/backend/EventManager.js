@@ -65,7 +65,7 @@ function EventManager(game) {
 
 	this.register = function(arr, newCB) {
 		if(!(arr instanceof Array) || !(typeof newCB === 'function')) {
-			if(DEBUG_FLAG) {
+			if(gameConfig.DEBUG_MODE) {
 				alert("REGISTERING INVALID CALLBACK");
 			}
 			return false;
@@ -77,7 +77,7 @@ function EventManager(game) {
 
 	this.remove = function(arr, oldCB) {
 		if(!(arr instanceof Array) || !(typeof oldCB === 'function')) {
-			if(DEBUG_FLAG) {
+			if(gameConfig.DEBUG_MODE) {
 				alert("REMOVING INVALID CALLBACK");
 			}
 			return false;
@@ -91,7 +91,7 @@ function EventManager(game) {
 
 	this.notify = function(arr) {
 		if(!(arr instanceof Array)) {
-			if(DEBUG_FLAG) {
+			if(gameConfig.DEBUG_MODE) {
 				alert("NOTIFYING INVALID CALLBACK");
 			}
 			return false;

@@ -154,10 +154,11 @@ function EndStateWrapper(game) {
 			}
 
 			function restartGame() {
-				game.analytics.track("game", "restartDay");
-				//game.state.start('state_start');
+				game.analytics.track("game", "restartGame");
 				killScreen();
-				location.reload();
+				game.reset.start();
+				game.state.start('state_start');
+				//location.reload();
 			}
 		}
 }

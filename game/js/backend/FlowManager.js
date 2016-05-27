@@ -2,7 +2,11 @@ function initBackend(game) {
 	game.reset = new ResetHelper();
 	game.conditionManager = new ConditionManager(game);
 	game.eventManager = new EventManager(game);
-	game.analytics = new AnalyticsWrapper();
+	if(!game.analytics) {
+		game.analytics = new AnalyticsWrapper();
+	} else {
+		game.analytics.setRunID();
+	}
 	initNPCGen(game);
 	initDayGenerator(game);
 	game.interactionManager = new InteractionManager(game);
@@ -19,7 +23,7 @@ function initBackend(game) {
 
 function beginGame(game) {
 
-	var currentDayIndex = 0;
+	var currentDayIndex = 3;
 	var currentDay = getDay(currentDayIndex);
 
 	game.timesFailed = 0;
@@ -81,11 +85,6 @@ function beginGame(game) {
 	if(debugGame) {
 		window.forceStock = beginStocking;
 	}
-
-	game.reset.register(function() {
-		currentDay = 0;
-		currentDayIndex = getDay(currentDayIndex);
-	});
 
 	game.restartDay = function() {
 		if(currentDayIndex === 0) {
