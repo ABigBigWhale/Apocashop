@@ -81,6 +81,8 @@ function EndStateWrapper(game) {
 			} else {
 				restartSoft.kill();
 				softBox.kill();
+				restartHard.x = 400 - restartHard.width;
+				hardBox.x = restartHard.x - restartHard.width - (hardBox.width - restartHard.width) / 2;
 				var topScore = 52.0;
 				var score = game.playerState.getGold() * 1.0;
 				
