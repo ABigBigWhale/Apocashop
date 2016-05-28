@@ -9,7 +9,9 @@ function initRandomHeroes(game) {
 		var collectionData = {
 			hero : "hero",
 			falseHeroes : [],
-			clues : [],
+			clues : {
+				hero : []
+			},
 			questions : {},
 			itemData : {
 				sword : {
@@ -46,14 +48,14 @@ function initRandomHeroes(game) {
 
 		generateWrapup(collectionData);
 
-		delete collectionData.itemData;
-
 		heroes.randomGenHero.hero = hero;
 
 		for(var i = 0; i < NUM_FALSE_HEROES; i++) {
 			collectionData.falseHeroes.push("falseHero" + i);
 			heroes.randomGenHero["falseHero" + i] = falseHeroes[i];
 		}
+
+		delete collectionData.itemData;
 
 		return collectionData;
 
@@ -171,7 +173,7 @@ function initRandomHeroes(game) {
 					if(isFoolproof) {
 						invalidAnswers.push(heroAnswer);
 					}
-					day.clues.push(generateClue(question, heroAnswer));
+					day.clues.hero.push(generateClue(question, heroAnswer));
 				}
 				hero.questions[question] = generateFlavor(question, heroAnswer);
 
@@ -225,7 +227,7 @@ function initRandomHeroes(game) {
 			hero.offers = generateOffers(numOffers);
 			hero.offerText = generateOfferText(hero.item, hero.offers);
 
-			day.clues.push(generateFlavor(hero.offers[numOffers - 1], numOffers));
+			day.clues.hero.push(generateFlavor(hero.offers[numOffers - 1], numOffers));
 
 			if(isFoolproof) {
 				for(var i = 0; i < falseHeroes.length; i++) {
@@ -275,7 +277,7 @@ function initRandomHeroes(game) {
 			}
 		}
 
-		day.clues.push(generateLetterFlavor(char, index));
+		day.clues.hero.push(generateLetterFlavor(char, index));
 
 	}
 

@@ -10,7 +10,7 @@ function HeroManager(game) {
 	function init() {
 		heroCollections.randomGenHero = generateRandomHero();
 		validHeroCollections = Object.keys(heroCollections);
-		//validHeroCollections = ["noLetter", "noLetter", "noLetter", "noLetter", "noLetter"];
+		//validHeroCollections = ["randomGenHero", "randomGenHero", "randomGenHero", "randomGenHero", "randomGenHero"];
 	}
 
 	this.insertHeroes = function(day, numFalse) {
@@ -18,6 +18,7 @@ function HeroManager(game) {
 		var validIndexes = getValidIndexes(day.sequence);
 		handleHero(day, heroCollection, validIndexes);
 		handleFalseHeroes(day, heroCollection, validIndexes, numFalse);
+		handleItemData(day, heroCollection);
 		handleClues(day, heroCollection);
 		handleQuestions(day, heroCollection);
 		handleWrapupText(day, heroCollection);
@@ -38,6 +39,17 @@ function HeroManager(game) {
 		}
 	}
 
+	function handleItemData(day, heroCollection) {
+		var itemData = heroCollections[heroCollection].itemData;
+		
+		if(itemData) {
+			day.itemData = {};
+			for(var item in itemData) {
+				day.itemData[item] = itemData[item];
+			}
+		}
+	}
+
 	function handleWrapupText(day, heroCollection) {
 		var wrapup = heroCollections[heroCollection].wrapup;
 		for(var i = 0; i < wrapup.length; i++) {
@@ -46,10 +58,21 @@ function HeroManager(game) {
 	}
 
 	function handleClues(day, heroCollection) {
-		var clues = heroCollections[heroCollection].clues;
-		for(var i = 0; i < clues.length; i++) {
-			day.clues.hero.push(clues[i]);
+		var heroClues = heroCollections[heroCollection].clues.hero;
+		var crisisClues = heroCollections[heroCollection].clues.crisis;
+
+		for(var i = 0; i < heroClues.length; i++) {
+			day.clues.hero.push(heroClues[i]);
 		}
+
+		if(crisisClues) {
+			day.clues.crisis = [];
+
+			for(var i = 0; i < crisisClues.length; i++) {
+				day.clues.crisis.push(crisisClues[i]);
+			}
+		}
+
 	}
 
 	function handleQuestions(day, heroCollection) {
@@ -73,9 +96,32 @@ function HeroManager(game) {
 		vocabMan : {
 			hero : "hero",
 			falseHeroes : ["villain", "villain2", "villain3"],
-			clues : [
-				"The hero knows only four words."
-			],
+			itemData : {
+				sword : {
+					min : 2,
+					max : 11,
+					priority : 2
+				},
+				chicken : {
+					min : 1,
+					max : 8,
+					priority : 2
+				},
+				bow : {
+					min : 3,
+					max : 12,
+					priority : 8
+				}
+			},
+			clues : {
+				hero : [
+					"The hero knows only four words."
+				],
+				crisis : [
+					"The town's being attacked by convicts with very short swords.",
+					"Bows are in high demand."
+				]
+			},
 			questions : {
 				number : "Favorite number?",
 				color : "Favorite color?"
@@ -83,7 +129,7 @@ function HeroManager(game) {
 			wrapup : [
 				{
 					conditions : ["soldHero"],
-					text : "Using his sharpshooting skills, the hero drove the monsters from the town.",
+					text : "Using his sharpshooting skills, the hero drove the convicts from the town.",
 				},
 				{
 					conditions : ['soldHero'],
@@ -91,19 +137,46 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ["refusedHero"],
-					text : "Without the hero to drive them away, the monsters pillage the town and destroy your storefront. You spend 15 gold to repair it.",
-					gold : -15
+					text : "Without the hero to drive them away, the convicts pillage the town and destroy your storefront.",
+				},
+				{
+					conditions : ["refusedHero"],
+					text : "You spend 12 gold to repair it.",
+					gold : -12
 				}
 			]
 		},
 		fingers : {
 			hero : "hero",
 			falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
-			clues : [
-				"The hero will offer five gold for a shield.",
-				"The hero refuses to say numbers.",
-				"The hero likes to talk with their hands."
-			],
+			itemData : {
+				shield : {
+					min : 2,
+					max : 12,
+					priority : 7
+				},
+				chicken : {
+					min : 1,
+					max : 9,
+					priority : 2
+				},
+				bow : {
+					min : 2,
+					max : 11,
+					priority : 1
+				}
+			},
+			clues : {
+				hero : [
+					"The hero will offer five gold for a shield.",
+					"The hero refuses to say numbers.",
+					"The hero likes to talk with their hands."
+				],
+				crisis : [
+					"Your shop is being threatened by violent youths.",
+					"The townsfolk are looking for something to cower behind."
+				]
+			},
 			questions : {
 				number : "Favorite number?",
 				color : "Favorite color?"
@@ -111,15 +184,15 @@ function HeroManager(game) {
 			wrapup : [
 				{
 					conditions : ['soldHero'],
-					text : "Thanks to their shiny new shield, the hero was able to drive the threat from the town."
+					text : "Thanks to their shiny new shield, the hero was able to drive the youths from the town."
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "Without a shield to protect themselves, the hero was unable to stop the threat."
+					text : "Without a shield to protect themselves, the hero was unable to stop the youths."
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "They were also unable to warn the townspeople of how many monsters were coming, since there were more than ten./You are unprepared and your storefront is destroyed.",
+					text : "They were also unable to warn of how many were coming, since there were more than ten./@You are unprepared and your storefront is destroyed.",
 					gold : -12
 				}
 			]
@@ -127,9 +200,32 @@ function HeroManager(game) {
 		noLetter : {
 			hero : "hero",
 			falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
-			clues : [
-				"The hero is the only customer to not say a single 's' or 'h'"
-			],
+			itemData : {
+				bow : {
+					min : 2,
+					max : 11,
+					priority : 7
+				},
+				chicken : {
+					min : 1,
+					max : 9,
+					priority : 2
+				},
+				shield : {
+					min : 2,
+					max : 12,
+					priority : 1
+				}
+			},
+			clues : {
+				hero : [
+					"The hero is the only customer to not say a single 's' or 'h'"
+				],
+				crisis : [
+					"The town is being menaced by inedible and pungent mushroom monsters.",
+					"Everyone is looking for a way to fend them off without getting too close."
+				]
+			},
 			questions : {
 				alphabet : "Alphabet?",
 				color : "Favorite color?"
@@ -137,11 +233,15 @@ function HeroManager(game) {
 			wrapup : [
 				{
 					conditions : ['soldHero'],
-					text : "Using their newly purchased bow, the hero drives the villains out of town./It turns out a sword, shield, or chicken would have worked better, but the hero was unable to ask for them.",
+					text : "Using their newly purchased bow, the hero drives the mushrooms and their odor out of the town.",
+				},
+				{
+					conditions : ['soldHero'],
+					text : "It turns out a sword, shield, or chicken would have worked better, but the hero was unable to ask for them."
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "Without access to a bow, the hero fell trying to defend the town from monsters. Your store is pillaged.",
+					text : "Without access to a bow, the hero succumbed to the odor of the mushrooms./You spend money thoroughly cleaning your store.",
 					gold : -12
 				}
 			]
@@ -149,11 +249,34 @@ function HeroManager(game) {
 		noNumber : {
 			hero : "hero",
 			falseHeroes : ["falseHero1", "falseHero2"],
-			clues : [
-				"The hero will offer three gold.",
-				"The hero refuses to say any number except five.",
-				"The hero enjoys word games."
-			],
+			itemData : {
+				sword : {
+					min : 2,
+					max : 11,
+					priority : 7
+				},
+				chicken : {
+					min : 1,
+					max : 8,
+					priority : 2
+				},
+				bow : {
+					min : 2,
+					max : 11,
+					priority : 1
+				}
+			},
+			clues : {
+				hero : [
+					"The hero will offer three gold.",
+					"The hero refuses to say any number except five.",
+					"The hero enjoys word games."
+				],
+				crisis : [
+					"Orcs are planning to raid the village.",
+					"Townspeople are looking for pointy things to stab into them."
+				]
+			},
 			questions : {
 				number : "Favorite number?",
 				day : "How was day?"
@@ -161,7 +284,7 @@ function HeroManager(game) {
 			wrapup : [
 				{
 					conditions : ['soldHero'],
-					text : "Thanks to their new sword, the hero was able to repel the monsters from the town."
+					text : "Thanks to their new sword, the hero was able to stab many orcs."
 				},
 				{
 					conditions : ['soldHero'],
@@ -170,7 +293,7 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "Without a sword, the hero was no match for the evil that descended upon the town. Your shop is heavily damaged.",
+					text : "Without a sword, the hero was no match for the hordes of orcs. Your shop is heavily damaged.",
 					gold : -12
 				}
 			]
