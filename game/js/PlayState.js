@@ -102,7 +102,7 @@ function PlayStateWrapper(game) {
 			game.depthGroups.uiGroup.add(uiCalendarLayer);
 			uiCalendarLayer.create(223, 600-270, 'ui_calendar');
 			
-			var uiCalendarDay = game.add.text(223+26, 600-270+22, '0',  { font: "bold 32px Arial", fill: "#666", boundsAlignH: "center", boundsAlignV: "middle" });
+			var uiCalendarDay = game.add.text(223+26, 600-270+22, '0',  { font: "bold 32px Arial", fill: "#cfcece", boundsAlignH: "center", boundsAlignV: "middle" });
 			uiCalendarLayer.add(uiCalendarDay);
 
 			//------------------------- Notes & Clues ------------------------
