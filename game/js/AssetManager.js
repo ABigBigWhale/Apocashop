@@ -27,6 +27,9 @@ function AssetManager(game) {
 			'gp_background',
 			'gp_background_town',
 			'gp_background_sky',
+			'gp_background_sky_dawn',
+			'gp_background_sky_noon',
+			'gp_background_sky_dusk',
 			'gp_sun', 'gp_moon',
 			'gp_cloud', 'gp_cloud_star',
 			'gp_shopkeeper',
@@ -79,6 +82,14 @@ function AssetManager(game) {
 			'right_textbox',
 			'left_textbox',
 			'middle_textbox'
+		],
+		
+		'hero': [
+			'hero_artifact',
+			'hero_cloak',
+			'hero_guardian',
+			'hero_king_zoran',
+			'hero_treasure_hunter'
 		],
 
 		'items' : [

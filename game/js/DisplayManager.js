@@ -12,7 +12,8 @@ function DisplayManager(game) {
 		cloudIntv = randomIntInRange(5, 13), 
 		cloudY = randomIntInRange(200, 300),
 		cloudDur = randomIntInRange(1800, 3200),
-		cloudTimer = game.time.create(false);
+		cloudTimer = game.time.create(false),
+		spawnGoldenCloud = true;
 	var pedests, pedestsGenOn = false,
 		pedestIntv = randomIntInRange(4, 10),
 		pedestY = randomIntInRange(350, 400),
@@ -42,7 +43,12 @@ function DisplayManager(game) {
 
 	}
 	this.putEnvironment = function() {
-		this.imgBackgroundSky = game.add.image(0, 0, 'gp_background_sky');
+		this.imgBackgroundSky = game.add.group();
+		this.imgBackgroundSky.dawn = game.add.image(0, 0, 'gp_background_sky_dawn');
+		this.imgBackgroundSky.noon = game.add.image(0, 0, 'gp_background_sky');
+		this.imgBackgroundSky.afternoon = game.add.image(0, 0, 'gp_background_sky_noon');
+		this.imgBackgroundSky.dusk = game.add.image(0, 0, 'gp_background_sky_dusk');
+
 		this.imgSun = game.add.sprite(400, 100, 'gp_sun');
 		this.clouds = game.add.group();
 		this.pedests = game.add.group();
@@ -56,6 +62,11 @@ function DisplayManager(game) {
 		this.jeff = game.add.sprite(this.shopKeeper.x + 35, 277, 'gp_jeff_noshadow');
 		this.jeffShadow = game.add.sprite(this.shopKeeper.x + 43, 
 										  this.shopKeeper.y + this.shopKeeper.height - 7, 'gp_jeff_shadow');
+
+		this.imgBackgroundSky.add(this.imgBackgroundSky.dawn);
+		this.imgBackgroundSky.add(this.imgBackgroundSky.noon);
+		this.imgBackgroundSky.add(this.imgBackgroundSky.afternoon);
+		this.imgBackgroundSky.add(this.imgBackgroundSky.dusk);
 
 		game.depthGroups.envGroup.add(this.imgBackgroundSky);
 		game.depthGroups.envGroup.add(this.imgSun);
@@ -128,6 +139,24 @@ function DisplayManager(game) {
 			Math.sin((1-dayPercent) * Math.PI) * (gameConfig.RESOLUTION[1] / 6);
 	}
 
+	this.updateSky = function(dayPercent) {
+		var percent = 1 - dayPercent;
+		this.imgBackgroundSky.dawn.alpha = 
+			(percent >= DayTimes.dawn.start && percent <= DayTimes.dawn.end) ?
+			1 - percent / DayTimes.dawn.end : 0;
+		this.imgBackgroundSky.noon.alpha = 
+			(percent >= DayTimes.noon.start && percent <= DayTimes.noon.end) ?
+			Math.sin((percent - DayTimes.noon.start) / (DayTimes.noon.end - DayTimes.noon.start) * Math.PI) : 0;
+		this.imgBackgroundSky.afternoon.alpha = 
+			(percent >= DayTimes.afternoon.start && percent <= DayTimes.afternoon.end) ?
+			Math.sin((percent - DayTimes.afternoon.start) / (DayTimes.afternoon.end - DayTimes.afternoon.start) * Math.PI) : 0;
+		this.imgBackgroundSky.dusk.alpha = 
+			(percent >= DayTimes.dusk.start) ?
+			Math.sin((percent - DayTimes.dusk.start) / (DayTimes.dusk.end - DayTimes.dusk.start) * Math.PI / 2) : 0;
+		this.imgBackgroundSky.dusk.alpha = (percent >= DayTimes.dusk.end) ?
+			1 : this.imgBackgroundSky.dusk.alpha;
+	}
+
 	function starCloudClicked() {
 		this.cloud.inputEnabled = false;
 		var reward = randomIntInRange(5, 8);
@@ -167,7 +196,7 @@ function DisplayManager(game) {
 		this.randomCloudAttr();
 		printDebug('UI: Putting cloud at ' + this.cloudY);
 		var cloudAsset = 'gp_cloud';
-		if (randomIntInRange(1, 14) == 2) {   // Generate special clouds
+		if (randomIntInRange(1, 14) == 2 && spawnGoldenCloud) {   // Generate special clouds
 			cloudAsset = 'gp_cloud_star';
 			this.cloudDur = 4800;
 		}
@@ -368,15 +397,15 @@ function DisplayManager(game) {
 
 	this.generateNPCHands = function(left, right, skinColor) {
 		var palmLeft = game.make.sprite(0, 0, 'npc-hand');
-		
+
 		var handsBmd = game.add.bitmapData(168, 198);
-		
+
 		palmLeft.anchor.setTo(0.5, 0);
 		palmLeft.scale.x = -1;	// Flip image of left hand
-		
+
 		handsBmd.draw(palmLeft, 35, 100);
 		handsBmd.draw('npc-hand', 70, 100);
-		
+
 		for (var i = 0; i < 5; i++) {
 			var flagLeft = left.charAt(i) == '1' ? '' : '-c';
 			var flagRight = right.charAt(i) == '1' ? '' : '-c';
@@ -385,13 +414,13 @@ function DisplayManager(game) {
 
 			fingerLeft.anchor.setTo(0.5, 0);
 			fingerLeft.scale.x = -1;
-			
+
 			handsBmd.draw(fingerLeft, 35, 100);
 			handsBmd.draw('npc-hand-' + i + flagRight, 70, 100);
-			
+
 			fingerLeft.destroy();
 		}
-		
+
 		bitmapDataReplaceColor(handsBmd, 190, 147, 125, 255,
 							   skinColor.r, skinColor.g, skinColor.b, 255,
 							   168, 198);
@@ -399,4 +428,5 @@ function DisplayManager(game) {
 
 		return handsBmd;
 	}
+
 }

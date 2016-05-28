@@ -801,6 +801,7 @@ function PlayStateWrapper(game) {
 			uiFunnelSandTop.updateCrop();
 			uiFunnelSandButtom.updateCrop();
 			game.displayManager.updateSunPosition(game.dayTimer.getPercent());
+			game.displayManager.updateSky(game.dayTimer.getPercent());
 		}
 
 	};
