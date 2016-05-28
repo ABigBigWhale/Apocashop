@@ -33,6 +33,12 @@ var items = {
 	}
 };
 
+var heroLooks = {
+	tutorialWoman : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1,skin|(259.58,198.19,158.71)",
+	scaredMan : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2,skin|(259.58,198.19,158.71)",
+	tracker : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6,skin|(259.58,198.19,158.71)",
+};
+
 var heroes = {
 	dayOne : {
 		"introJeff" : {
@@ -55,7 +61,7 @@ var heroes = {
 		},
 		tutorialWoman : {
 			type : "dialog",
-			appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
+			appearanceInfo : heroLooks.tutorialWoman,
 			dialog : [
 				"I don't have much time. My cousin's on his way. He wants a sword./@@Please don't sell him one.",
 				"I wrote clues to help you find him./If you turn him away, I'll make sure you're paid."
@@ -64,14 +70,14 @@ var heroes = {
 		},
 		tutorialWomanHappy : {
 			type : "dialog",
-			appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
+			appearanceInfo : heroLooks.tutorialWoman,
 			appearConditions : ["refuseCousin"],
 			dialog : "Thank you so much. Here's a little something for the help.",
 			endMoney : 7
 		},
 		tutorialWomanAngry : {
 			type : "dialog",
-			appearanceInfo : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1",
+			appearanceInfo : heroLooks.tutorialWoman,
 			appearConditions : ["soldCousin"],
 			dialog : "I can't believe you sold to my cousin. Did you even bother asking about his favorite color?"
 		},
@@ -616,7 +622,7 @@ var heroes = {
 		"1scaredMan" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
+			appearanceInfo : heroLooks.scaredMan,
 			offers : [0],
 			offerText : "I need to hide here. He's after me./Please, @@he'll kill me if he finds me.",
 			success : "Thank you.",
@@ -632,7 +638,7 @@ var heroes = {
 		"1trackerSearch" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			appearanceInfo : heroLooks.tracker,
 			offers : [10, 15],
 			offerText : [
 				"A very dangerous man is loose and I need to find him./I'll pay you ten gold for any information.",
@@ -651,7 +657,7 @@ var heroes = {
 		},
 		"1trackerWarn" : {
 			type : "dialog",
-			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			appearanceInfo : heroLooks.tracker,
 			dialog : [
 				"A very dangerous man is loose and I need to find him./If you see anyone suspicious, do not trust them."
 			],
@@ -660,7 +666,7 @@ var heroes = {
 		"2gratefulMan" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
+			appearanceInfo : heroLooks.scaredMan,
 			offers : [10],
 			offerText : [
 				"Thank you so much for hiding me. Would you accept this gift?"
@@ -686,7 +692,7 @@ var heroes = {
 		"4tracker" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			appearanceInfo : heroLooks.tracker,
 			offers : [-10],
 			offerText : [
 				"Did you hide the dangerous man from me a few days ago?/@@I just want the truth."
@@ -702,7 +708,7 @@ var heroes = {
 		},
 		"4waryMan" : {
 			type : "dialog",
-			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
+			appearanceInfo : heroLooks.scaredMan,
 			dialog : [
 				"I don't quite know what to make of you, shopkeeper.",
 				"Tomorrow, I will be back, and will try to buy a sword for two gold.",
@@ -713,7 +719,7 @@ var heroes = {
 		"4trackerWarning" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			appearanceInfo : heroLooks.tracker,
 			offers : [-7],
 			offerText : [
 				"By helping me capture that man, you've made dangerous enemies. I'll protect you for seven gold."
@@ -730,7 +736,7 @@ var heroes = {
 		"5waryManTest" : {
 			type : "interact",
 			item : "sword",
-			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
+			appearanceInfo : heroLooks.scaredMan,
 			offers : [2],
 			offerText : [
 				"Hiya! Can I get a sword for two gold?"
@@ -746,7 +752,7 @@ var heroes = {
 		"5madTracker" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			appearanceInfo : heroLooks.tracker,
 			offers : [-10],
 			offerText : [
 				"I got to thinking, shopkeeper. If you lied to me about the man, I want my ten gold back."
@@ -762,7 +768,7 @@ var heroes = {
 		},
 		"6proudMan" : {
 			type : "dialog",
-			appearanceInfo : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2",
+			appearanceInfo : heroLooks.scaredMan,
 			dialog : [
 				"You seem like the good sort of person after all.",
 				"Please shopkeeper, accept this gift."
@@ -772,7 +778,7 @@ var heroes = {
 		},
 		"6vengefulTracker" : {
 			type : "dialog",
-			appearanceInfo : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6",
+			appearanceInfo : heroLooks.tracker,
 			dialog : [
 				". . .",
 				"* The Tracker punches you in the stomach and takes 15 gold from your register. *",
