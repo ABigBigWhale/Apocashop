@@ -141,8 +141,8 @@ function initDayGenerator(game) {
 		}
 
 		generateTaxWrapup = function(day, index) {
-			var taxes = Math.ceil((1 + index) / 4) * 10;
-			var nextTax = Math.ceil((2 + index) / 4) * 10
+			var taxes = (Math.ceil((1 + index) / 4) * 2 - 1) * 10;
+			var nextTax = (Math.ceil((2 + index) / 4) * 2 - 1) * 10
 			day.wrapup.push(generateMessage("You are forced by King Zoran to pay " + taxes + " gold in taxes.", -taxes));
 			if(taxes !== nextTax) {
 				day.wrapup.push(generateMessage("You are warned that tomorrow, Zoran will want " + nextTax + " gold."));
@@ -464,7 +464,7 @@ function initDayGenerator(game) {
 				tax : true,
 				jeff : true,
 				hero : true,
-				plot : true
+				plot : false
 			},
 			itemData : {},
 			sequence : {
@@ -493,7 +493,7 @@ function initDayGenerator(game) {
 			},
 			questions : {},
 			wrapup : [],
-			length : 80000
+			length : 60000
 		},
 	];
 
