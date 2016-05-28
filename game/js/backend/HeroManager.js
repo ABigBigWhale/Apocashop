@@ -10,7 +10,7 @@ function HeroManager(game) {
 	function init() {
 		heroCollections.randomGenHero = generateRandomHero();
 		validHeroCollections = Object.keys(heroCollections);
-		//validHeroCollections = ["noLetter", "noLetter", "noLetter", "noLetter", "noLetter"];
+		//validHeroCollections = ["randomGenHero", "randomGenHero", "randomGenHero", "randomGenHero", "randomGenHero"];
 	}
 
 	this.insertHeroes = function(day, numFalse) {
@@ -18,6 +18,7 @@ function HeroManager(game) {
 		var validIndexes = getValidIndexes(day.sequence);
 		handleHero(day, heroCollection, validIndexes);
 		handleFalseHeroes(day, heroCollection, validIndexes, numFalse);
+		handleItemData(day, heroCollection);
 		handleClues(day, heroCollection);
 		handleQuestions(day, heroCollection);
 		handleWrapupText(day, heroCollection);
@@ -38,6 +39,17 @@ function HeroManager(game) {
 		}
 	}
 
+	function handleItemData(day, heroCollection) {
+		var itemData = heroCollections[heroCollection].itemData;
+		
+		if(itemData) {
+			day.itemData = {};
+			for(var item in itemData) {
+				day.itemData[item] = itemData[item];
+			}
+		}
+	}
+
 	function handleWrapupText(day, heroCollection) {
 		var wrapup = heroCollections[heroCollection].wrapup;
 		for(var i = 0; i < wrapup.length; i++) {
@@ -46,10 +58,21 @@ function HeroManager(game) {
 	}
 
 	function handleClues(day, heroCollection) {
-		var clues = heroCollections[heroCollection].clues;
-		for(var i = 0; i < clues.length; i++) {
-			day.clues.hero.push(clues[i]);
+		var heroClues = heroCollections[heroCollection].clues.hero;
+		var crisisClues = heroCollections[heroCollection].clues.crisis;
+
+		for(var i = 0; i < heroClues.length; i++) {
+			day.clues.hero.push(heroClues[i]);
 		}
+
+		if(crisisClues) {
+			day.clues.crisis = [];
+
+			for(var i = 0; i < crisisClues.length; i++) {
+				day.clues.crisis.push(crisisClues[i]);
+			}
+		}
+
 	}
 
 	function handleQuestions(day, heroCollection) {
@@ -73,9 +96,32 @@ function HeroManager(game) {
 		vocabMan : {
 			hero : "hero",
 			falseHeroes : ["villain", "villain2", "villain3"],
-			clues : [
-				"The hero knows only four words."
-			],
+			itemData : {
+				sword : {
+					min : 2,
+					max : 11,
+					priority : 2
+				},
+				chicken : {
+					min : 1,
+					max : 8,
+					priority : 2
+				},
+				bow : {
+					min : 3,
+					max : 12,
+					priority : 8
+				}
+			},
+			clues : {
+				hero : [
+					"The hero knows only four words."
+				],
+				crisis : [
+					"The town's being attacked by convicts with very short swords.",
+					"Bows are in high demand."
+				]
+			},
 			questions : {
 				number : "Favorite number?",
 				color : "Favorite color?"
@@ -99,11 +145,34 @@ function HeroManager(game) {
 		fingers : {
 			hero : "hero",
 			falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
-			clues : [
-				"The hero will offer five gold for a shield.",
-				"The hero refuses to say numbers.",
-				"The hero likes to talk with their hands."
-			],
+			itemData : {
+				shield : {
+					min : 2,
+					max : 12,
+					priority : 7
+				},
+				chicken : {
+					min : 1,
+					max : 9,
+					priority : 2
+				},
+				bow : {
+					min : 2,
+					max : 11,
+					priority : 1
+				}
+			},
+			clues : {
+				hero : [
+					"The hero will offer five gold for a shield.",
+					"The hero refuses to say numbers.",
+					"The hero likes to talk with their hands."
+				],
+				crisis : [
+					"Your shop is being threatened by violent youths.",
+					"The townsfolk are looking for something to cower behind."
+				]
+			},
 			questions : {
 				number : "Favorite number?",
 				color : "Favorite color?"
@@ -127,9 +196,32 @@ function HeroManager(game) {
 		noLetter : {
 			hero : "hero",
 			falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
-			clues : [
-				"The hero is the only customer to not say a single 's' or 'h'"
-			],
+			itemData : {
+				bow : {
+					min : 2,
+					max : 11,
+					priority : 7
+				},
+				chicken : {
+					min : 1,
+					max : 9,
+					priority : 2
+				},
+				shield : {
+					min : 2,
+					max : 12,
+					priority : 1
+				}
+			},
+			clues : {
+				hero : [
+					"The hero is the only customer to not say a single 's' or 'h'"
+				],
+				crisis : [
+					"The town is being menaced by inedible and pungent mushroom monsters.",
+					"Everyone is looking for a way to fend them off without getting too close."
+				]
+			},
 			questions : {
 				alphabet : "Alphabet?",
 				color : "Favorite color?"
@@ -149,11 +241,34 @@ function HeroManager(game) {
 		noNumber : {
 			hero : "hero",
 			falseHeroes : ["falseHero1", "falseHero2"],
-			clues : [
-				"The hero will offer three gold.",
-				"The hero refuses to say any number except five.",
-				"The hero enjoys word games."
-			],
+			itemData : {
+				sword : {
+					min : 2,
+					max : 11,
+					priority : 7
+				},
+				chicken : {
+					min : 1,
+					max : 8,
+					priority : 2
+				},
+				bow : {
+					min : 2,
+					max : 11,
+					priority : 1
+				}
+			},
+			clues : {
+				hero : [
+					"The hero will offer three gold.",
+					"The hero refuses to say any number except five.",
+					"The hero enjoys word games."
+				],
+				crisis : [
+					"Orcs are planning to raid the village.",
+					"Townspeople are looking for pointy things to stab into them."
+				]
+			},
 			questions : {
 				number : "Favorite number?",
 				day : "How was day?"

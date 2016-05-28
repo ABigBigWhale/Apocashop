@@ -29,7 +29,7 @@ function initDayGenerator(game) {
 		}
 
 		if(!day.isPreset.hero) {
-			heroManager.insertHeroes(day, Math.ceil(num/3));
+			heroManager.insertHeroes(day, Math.ceil((num+1)/3));
 		}
 	
 		if(!day.isPreset.plot) {
@@ -63,13 +63,8 @@ function initDayGenerator(game) {
 		var NUM_ITEMS_SHOWN = 2;
 
 		var threats = [
-			"goblins",
-			"escaped convicts",
 			"ruffians",
-			"violent youths",
-			"orcs",
 			"beholders",
-			"inedible mushroom monsters",
 			"ill-mannered honey badgers"
 		];
 
@@ -118,6 +113,19 @@ function initDayGenerator(game) {
 		function generateDemandFlavor(item) {
 			var flavor = randomElement(demandFlavor);
 			return flavor.replace('[ax]', addAn(item)).replace('[x]', item);
+		}
+
+		window.kylegen = function(items) {
+
+			var crisis = [];
+
+			crisis.push(generateThreatFlavor(randomElement(threats)));
+
+			for(var i = 0; i < NUM_ITEMS_SHOWN; i++) {
+				crisis.push(generateDemandFlavor(items[i]));
+			}
+
+			console.log("CRISIS: " + crisis);
 		}
 
 	})();
@@ -385,23 +393,7 @@ function initDayGenerator(game) {
 				hero : false,
 				plot : false
 			},
-			itemData : {
-				sword : {
-					min : 2,
-					max : 11,
-					priority : 2
-				},
-				chicken : {
-					min : 1,
-					max : 8,
-					priority : 2
-				},
-				bow : {
-					min : 3,
-					max : 12,
-					priority : 8
-				}
-			},
+			itemData : {},
 			sequence : {
 				0 : {
 					category : "dayThree",
@@ -450,10 +442,7 @@ function initDayGenerator(game) {
 			},
 			clues : {
 				hero : [],
-				crisis : [
-					"The town's being attacked by convicts with very short swords.",
-					"Bows are in high demand."
-				]
+				crisis : []
 			},
 			questions : {},
 			wrapup : [
