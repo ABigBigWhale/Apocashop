@@ -61,11 +61,13 @@ function EndStateWrapper(game) {
 			restartSoft.events.onInputDown.add(restartLevel);
 
 			hardBox = game.add.image(0, 0, 'endday_boxoutline');
+			hardBox.scale.setTo(1.5, 1.5);
 			softBox = game.add.image(0, 0, 'endday_boxoutline');
-			hardBox.x = restartHard.x - restartHard.width - 10;
-			softBox.x = restartSoft.x - restartSoft.width - 10;
-			hardBox.y = restartHard.y - restartHard.height - 15;
-			softBox.y = restartSoft.y - restartSoft.height - 15;
+			softBox.scale.setTo(1.5, 1.5);
+			hardBox.x = restartHard.x - restartHard.width - (hardBox.width - restartHard.width) / 2;
+			softBox.x = restartSoft.x - restartSoft.width - (softBox.width - restartSoft.width) / 2;
+			hardBox.y = restartHard.y - restartHard.height / 2 - hardBox.height / 2;
+			softBox.y = restartSoft.y - restartSoft.height / 2- softBox.height / 2;
 
 			if (!gameWon) {
 				gameOverText = game.add.text(
