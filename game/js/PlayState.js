@@ -343,6 +343,7 @@ function PlayStateWrapper(game) {
 				game.uiItemGroup.setAll('tint', tintVal);
 				game.depthGroups.titleGroup.setAll('tint', tintVal);
 				game.depthGroups.envGroup.setAll('tint', tintVal);
+				game.displayManager.imgBackgroundSky.setAll('tint', tintVal);
 				game.depthGroups.dialogGroup.setAll('tint', tintVal);
 				for(var i = 0; i < game.depthGroups.dialogGroup.children.length; i++) {
 					if (game.depthGroups.dialogGroup.children[i].children != undefined)
