@@ -348,6 +348,11 @@ function PlayStateWrapper(game) {
 
 			function tintAll(tintVal) {
 				game.displayManager.tintClouds(tintVal);
+				if (tintVal == 0xFFFFFF) {
+					game.displayManager.tintJeffBox(false);
+				} else {
+					game.displayManager.tintJeffBox(true);
+				}
 				game.dialog.main.box.tint = tintVal;
 				uiNoteLayer.setAll('tint', tintVal);
 				currNPC.tint = tintVal;
