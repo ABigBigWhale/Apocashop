@@ -60,6 +60,7 @@ function AssetManager(game) {
 			'ui_table_background',
 			'ui_clock',
 			'ui_funnel', 'ui_funnel_sand_top', 'ui_funnel_sand_buttom',
+			'ui_hands_background',
 			'ui_button_accept', 
 			'ui_button_reject', 
 			'ui_button_question', 

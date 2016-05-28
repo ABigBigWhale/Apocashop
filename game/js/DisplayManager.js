@@ -348,8 +348,20 @@ function DisplayManager(game) {
 		var middleRect = game.add.graphics(0, 0);
 		middleRect.beginFill(0xFFFFCA);
 		middleRect.drawRect(0, 0, w , h - cornerSize);
-		var middle = dialog.create(x + cornerSize/2, y + cornerSize/2);
+		var middle = game.add.sprite(x + cornerSize/2, y + cornerSize/2);
 		middle.addChild(middleRect);
+		dialog.add(middle);
+
+		/*		var blackScreen = game.add.graphics(0, 0);
+		blackScreen.beginFill(0x0, 1);
+		blackScreen.drawRect(0, 0, 800, 600);
+
+		blackScreenSprite.width = 800;
+		blackScreenSprite.height = 600;
+
+		blackScreenSprite.events.onInputDown.add(requestNext, this);
+
+		blackScreenSprite.addChild(blackScreen);*/
 
 		dialog.x = x + w/2;
 		dialog.y = y + h/2;
@@ -399,36 +411,39 @@ function DisplayManager(game) {
 	}
 
 	this.generateNPCHands = function(left, right, skinColor) {
-		var palmLeft = game.make.sprite(0, 0, 'npc-hand');
+		var palmLeft = game.make.image(0, 0, 'npc-hand');
 
 		var handsBmd = game.add.bitmapData(168, 198);
 
-		palmLeft.anchor.setTo(0.5, 0);
+		palmLeft.anchor.setTo(1, 0);
 		palmLeft.scale.x = -1;	// Flip image of left hand
+		palmLeft.smoothed = false;
 
-		handsBmd.draw(palmLeft, 35, 100);
+		handsBmd.draw(palmLeft, 10, 100);
 		handsBmd.draw('npc-hand', 70, 100);
 
 		for (var i = 0; i < 5; i++) {
 			var flagLeft = left.charAt(i) == '1' ? '' : '-c';
 			var flagRight = right.charAt(i) == '1' ? '' : '-c';
 
-			var fingerLeft = game.make.sprite(0, 0, 'npc-hand-' + i + flagLeft);
+			var fingerLeft = game.make.image(0, 0, 'npc-hand-' + i + flagLeft);
 
-			fingerLeft.anchor.setTo(0.5, 0);
+			fingerLeft.anchor.setTo(1, 0);
 			fingerLeft.scale.x = -1;
+			fingerLeft.smoothed = false;
 
-			handsBmd.draw(fingerLeft, 35, 100);
+			handsBmd.draw(fingerLeft, 10, 100);
 			handsBmd.draw('npc-hand-' + i + flagRight, 70, 100);
 
 			fingerLeft.destroy();
 		}
 
-		bitmapDataReplaceColor(handsBmd, 173, 122, 95, 255,
-							   0.85 * skinColor.r, 0.75 * skinColor.g, 0.65 * skinColor.b, 255,
-							   168, 198);
+
 		bitmapDataReplaceColor(handsBmd, 190, 147, 125, 255,
 							   skinColor.r, skinColor.g, skinColor.b, 255,
+							   168, 198);
+		bitmapDataReplaceColor(handsBmd, 173, 122, 95, 255,
+							   0.85 * skinColor.r, 0.75 * skinColor.g, 0.65 * skinColor.b, 255,
 							   168, 198);
 
 		palmLeft.destroy();
