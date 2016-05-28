@@ -104,12 +104,12 @@ function HeroManager(game) {
 				},
 				chicken : {
 					min : 1,
-					max : 8,
+					max : 7,
 					priority : 2
 				},
 				bow : {
-					min : 3,
-					max : 12,
+					min : 1,
+					max : 10,
 					priority : 8
 				}
 			},
@@ -141,8 +141,8 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ["refusedHero"],
-					text : "You spend 12 gold to repair it.",
-					gold : -12
+					text : "You spend 18 gold to repair it.",
+					gold : -18
 				}
 			]
 		},
@@ -151,18 +151,18 @@ function HeroManager(game) {
 			falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
 			itemData : {
 				shield : {
-					min : 2,
-					max : 12,
+					min : 1,
+					max : 11,
 					priority : 7
 				},
 				chicken : {
 					min : 1,
-					max : 9,
+					max : 8,
 					priority : 2
 				},
 				bow : {
-					min : 2,
-					max : 11,
+					min : 1,
+					max : 9,
 					priority : 1
 				}
 			},
@@ -193,7 +193,7 @@ function HeroManager(game) {
 				{
 					conditions : ['refusedHero'],
 					text : "They were also unable to warn of how many were coming, since there were more than ten./@You are unprepared and your storefront is destroyed.",
-					gold : -12
+					gold : -18
 				}
 			]
 		},
@@ -202,18 +202,18 @@ function HeroManager(game) {
 			falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
 			itemData : {
 				bow : {
-					min : 2,
-					max : 11,
+					min : 1,
+					max : 10,
 					priority : 7
 				},
 				chicken : {
 					min : 1,
-					max : 9,
+					max : 8,
 					priority : 2
 				},
 				shield : {
 					min : 2,
-					max : 12,
+					max : 10,
 					priority : 1
 				}
 			},
@@ -242,7 +242,7 @@ function HeroManager(game) {
 				{
 					conditions : ['refusedHero'],
 					text : "Without access to a bow, the hero succumbed to the odor of the mushrooms./You spend money thoroughly cleaning your store.",
-					gold : -12
+					gold : -18
 				}
 			]
 		},
@@ -251,18 +251,18 @@ function HeroManager(game) {
 			falseHeroes : ["falseHero1", "falseHero2"],
 			itemData : {
 				sword : {
-					min : 2,
-					max : 11,
+					min : 1,
+					max : 9,
 					priority : 7
 				},
 				chicken : {
 					min : 1,
-					max : 8,
+					max : 7,
 					priority : 2
 				},
 				bow : {
-					min : 2,
-					max : 11,
+					min : 1,
+					max : 9,
 					priority : 1
 				}
 			},
@@ -294,7 +294,7 @@ function HeroManager(game) {
 				{
 					conditions : ['refusedHero'],
 					text : "Without a sword, the hero was no match for the hordes of orcs. Your shop is heavily damaged.",
-					gold : -12
+					gold : -18
 				}
 			]
 		},
