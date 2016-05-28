@@ -34,7 +34,7 @@ function beginGame(game) {
 	}
 	
 	game.analytics.set("dimension1", currentDayIndex);
-	game.analytics.track('day', 'begin' + currentDayIndex, currentDayIndex);
+	game.analytics.track('day', 'begin' + currentDayIndex, game.playerState.getGold());
 
 	game.eventManager.register(game.Events.UPDATE.GOLD, function(amount) {
 		if (amount < 0) {
@@ -68,7 +68,7 @@ function beginGame(game) {
 			game.eventManager.notify(game.Events.WRAPUP.END);
 			currentDayIndex++;
 			game.analytics.set("dimension1", currentDayIndex);
-			game.analytics.track('day', 'begin' + currentDayIndex, currentDayIndex);
+			game.analytics.track('day', 'begin' + currentDayIndex, game.playerState.getGold());
 			if (currentDayIndex <= 7) {
 				if(game.playerState.getGold() >= 0) {
 					currentDay = getDay(currentDayIndex);
