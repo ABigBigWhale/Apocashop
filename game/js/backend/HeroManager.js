@@ -129,7 +129,7 @@ function HeroManager(game) {
 			wrapup : [
 				{
 					conditions : ["soldHero"],
-					text : "Using his sharpshooting skills, the hero drove the monsters from the town.",
+					text : "Using his sharpshooting skills, the hero drove the convicts from the town.",
 				},
 				{
 					conditions : ['soldHero'],
@@ -137,8 +137,12 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ["refusedHero"],
-					text : "Without the hero to drive them away, the monsters pillage the town and destroy your storefront. You spend 15 gold to repair it.",
-					gold : -15
+					text : "Without the hero to drive them away, the convicts pillage the town and destroy your storefront.",
+				},
+				{
+					conditions : ["refusedHero"],
+					text : "You spend 12 gold to repair it.",
+					gold : -12
 				}
 			]
 		},
@@ -180,15 +184,15 @@ function HeroManager(game) {
 			wrapup : [
 				{
 					conditions : ['soldHero'],
-					text : "Thanks to their shiny new shield, the hero was able to drive the threat from the town."
+					text : "Thanks to their shiny new shield, the hero was able to drive the youths from the town."
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "Without a shield to protect themselves, the hero was unable to stop the threat."
+					text : "Without a shield to protect themselves, the hero was unable to stop the youths."
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "They were also unable to warn the townspeople of how many monsters were coming, since there were more than ten./You are unprepared and your storefront is destroyed.",
+					text : "They were also unable to warn of how many were coming, since there were more than ten./@You are unprepared and your storefront is destroyed.",
 					gold : -12
 				}
 			]
@@ -229,11 +233,15 @@ function HeroManager(game) {
 			wrapup : [
 				{
 					conditions : ['soldHero'],
-					text : "Using their newly purchased bow, the hero drives the villains out of town./It turns out a sword, shield, or chicken would have worked better, but the hero was unable to ask for them.",
+					text : "Using their newly purchased bow, the hero drives the mushrooms and their odor out of the town.",
 				},
 				{
+					conditions : ['soldHero'],
+					text : "It turns out a sword, shield, or chicken would have worked better, but the hero was unable to ask for them."
+				}
+				{
 					conditions : ['refusedHero'],
-					text : "Without access to a bow, the hero fell trying to defend the town from monsters. Your store is pillaged.",
+					text : "Without access to a bow, the hero succumbed to the odor of the mushrooms./You spend money thoroughly cleaning your store.",
 					gold : -12
 				}
 			]
@@ -276,7 +284,7 @@ function HeroManager(game) {
 			wrapup : [
 				{
 					conditions : ['soldHero'],
-					text : "Thanks to their new sword, the hero was able to repel the monsters from the town."
+					text : "Thanks to their new sword, the hero was able to stab many orcs."
 				},
 				{
 					conditions : ['soldHero'],
@@ -285,7 +293,7 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "Without a sword, the hero was no match for the evil that descended upon the town. Your shop is heavily damaged.",
+					text : "Without a sword, the hero was no match for the hordes of orcs. Your shop is heavily damaged.",
 					gold : -12
 				}
 			]
