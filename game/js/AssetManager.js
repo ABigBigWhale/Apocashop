@@ -100,7 +100,7 @@ function AssetManager(game) {
 		'npc' : {
 			'face' : 5,
 			'misc' : 7,
-			'body' : 5,
+			'body' : 8,
 			'hair' : 11,
 			'eye' : 10,
 			'nose' : 11,

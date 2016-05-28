@@ -687,6 +687,21 @@ function PlayStateWrapper(game) {
 							// TODO: Create tails, tounges, claws, and make tweens for them?
 						}
 						break;
+					case 'artifact':
+						appearanceInfo = 'hero_artifact';
+						break;
+					case 'cloak':
+						appearanceInfo = 'hero_cloak';
+						break;
+					case 'guardian':
+						appearanceInfo = 'hero_guardian';
+						break;
+					case 'king_zoran':
+						appearanceInfo = 'hero_king_zoran';
+						break;
+					case 'treasure_hunter':
+						appearanceInfo = 'hero_treasure_hunter';
+						break;
 					default:
 						isRandom = true;
 						break;
