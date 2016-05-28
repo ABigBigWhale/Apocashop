@@ -483,6 +483,7 @@ function PlayStateWrapper(game) {
 			var currNPC;
 			var currNPCIn;
 			var currNPCOut;
+			var npcHandsBg;
 			var npcHands;
 
 			var setNPCTween = function() {
@@ -752,11 +753,19 @@ function PlayStateWrapper(game) {
 						// If we are generating fingers
 						var npcHandsBmd = game.displayManager.generateNPCHands(
 							handsInfo.substring(0, 5), handsInfo.substring(5, 10), skinColor);
+						npcHandsBg = uiAvatarLayer.create(20, 600-59, 'ui_hands_background');
 						npcHands = uiAvatarLayer.create(50, 600, npcHandsBmd);
 
+						npcHandsBg.anchor.setTo(0, 1);
+						npcHandsBg.scale.setTo(3, 3);
+						npcHandsBg.alpha = 0;
+						npcHandsBg.visible = false;
 
 						npcHands.tweenIn = game.add.tween(npcHands).to( {y: 390}, 500);
 						npcHands.tweenOut = game.add.tween(npcHands).to( {y: 600}, 300);
+						
+						npcHands.tweenVisible = game.add.tween(npcHandsBg).to( {alpha: 1}, 500);
+						npcHands.tweenInvisible = game.add.tween(npcHandsBg).to( {alpha: 0}, 250);
 
 						npcHands.tweenIn.onComplete.addOnce(function() {
 							game.time.events.add(
@@ -767,7 +776,9 @@ function PlayStateWrapper(game) {
 						});
 
 						npcHands.tweenOut.onComplete.addOnce(function() {
+							npcHandsBg.visible = false;
 							npcHands.destroy();
+							npcHandsBg.destroy();
 						});
 					}
 
@@ -792,7 +803,11 @@ function PlayStateWrapper(game) {
 						currNPC.smoothed = false;
 					}
 					currNPCIn.onComplete.add(function() {
-						if (handsInfo) npcHands.tweenIn.start();
+						if (handsInfo) { 
+							npcHandsBg.visible = true;
+							npcHands.tweenIn.start();
+							npcHands.tweenVisible.start();
+						}
 						toggleButtons(true);
 						game.dialog.main.freeze(false);
 					})
@@ -800,7 +815,10 @@ function PlayStateWrapper(game) {
 				}
 
 				if (currNPC) {
-					if (npcHands) npcHands.tweenOut.start();
+					if (npcHands) { 
+						npcHands.tweenOut.start(); 
+						npcHands.tweenInvisible.start();
+					}
 					currNPCOut.start();
 					currNPCOut.onComplete.addOnce(showNPC);
 					// This is a bit of an ugly hack, sorry. - Kyle
