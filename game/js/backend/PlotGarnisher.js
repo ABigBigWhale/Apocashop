@@ -460,6 +460,13 @@ function PlotGarnisher(game) {
 			6 : {
 				chars : ["6stallAsk", "6rebelStall", "6policeBribe"],
 				isOrdered : true,
+				conditions : {
+					uprising_destroyedRebels : {
+						components : ['uprising_informant'],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
 				wrapup : [
 					{
 						text : "Even more instructions on how to join the rebellion are slipped under your door just before nightfall."

@@ -238,7 +238,7 @@ function HeroManager(game) {
 				{
 					conditions : ['soldHero'],
 					text : "It turns out a sword, shield, or chicken would have worked better, but the hero was unable to ask for them."
-				}
+				},
 				{
 					conditions : ['refusedHero'],
 					text : "Without access to a bow, the hero succumbed to the odor of the mushrooms./You spend money thoroughly cleaning your store.",
