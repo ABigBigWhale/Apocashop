@@ -117,8 +117,16 @@ function initNPCGen(game) {
 					apprQuery += apprPart + '|' + game.rnd.integerInRange(1, partCount) + ',';
 				}
 			}
-
-			return apprQuery.substring(0, apprQuery.length - 1);
+			
+			// Generate skin color
+			var skinColor = generateSkinColor();
+			apprQuery += 'skin|(' + 
+				skinColor.r.toFixed(2) + ',' + 
+				skinColor.g.toFixed(2) + ',' + 
+				skinColor.b.toFixed(2) +
+				')'; 
+			
+			return apprQuery;
 		};
 
 		applyRandomAppearance = function(npc) {

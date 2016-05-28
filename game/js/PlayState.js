@@ -691,14 +691,26 @@ function PlayStateWrapper(game) {
 						break;
 				}
 
-				
+				function parseSkinColor(str) {
+					str = str.substring(str.indexOf('skin') + 6, str.length - 1);
+					var cArr = str.split(',');
+					return {
+						r: parseFloat(cArr[0]), 
+						g: parseFloat(cArr[1]),
+						b: parseFloat(cArr[2])
+					};
+				}
+
 				// NOTE: position at (20, 360)
 				var showNPC = function() {
 					var npcAssetId;
-					var skinColor = generateSkinColor();
-					
+					var skinColor = parseSkinColor(appearanceInfo);
+
 					if (isRandom) {
-						npcAssetId = game.displayManager.drawRandomNPC(appearanceInfo, skinColor);
+						npcAssetId = game.displayManager.drawRandomNPC(
+							appearanceInfo.substring(0, appearanceInfo.indexOf('skin') - 1), 
+							skinColor
+						);
 
 					} else {
 						npcAssetId = appearanceInfo;
@@ -711,11 +723,11 @@ function PlayStateWrapper(game) {
 						var npcHandsBmd = game.displayManager.generateNPCHands(
 							handsInfo.substring(0, 5), handsInfo.substring(5, 10), skinColor);
 						npcHands = uiAvatarLayer.create(50, 600, npcHandsBmd);
-						
-						
+
+
 						npcHands.tweenIn = game.add.tween(npcHands).to( {y: 390}, 500);
 						npcHands.tweenOut = game.add.tween(npcHands).to( {y: 600}, 300);
-						
+
 						npcHands.tweenIn.onComplete.addOnce(function() {
 							game.time.events.add(
 								Phaser.Timer.SECOND * (handsTime ? handsTime : 1.5),
@@ -723,7 +735,7 @@ function PlayStateWrapper(game) {
 								this
 							);
 						});
-						
+
 						npcHands.tweenOut.onComplete.addOnce(function() {
 							npcHands.destroy();
 						});
@@ -734,8 +746,8 @@ function PlayStateWrapper(game) {
 					// 		 and make currNPC a group?
 
 					setNPCTween();
-					
-					
+
+
 					if (isRandom) {
 						currNPC.scale.setTo(3, 3);
 					} else {
