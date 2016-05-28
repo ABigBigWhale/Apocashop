@@ -283,8 +283,8 @@ function StockUI(game) {
         } else {
             loader = findCollision(sprite, allLoad);
         }
-        if ((loader != undefined && !(loader.loaded === undefined) && loader.loaded == null && sprite.loader == null) ||
-             (loader === undefined && sprite.loader != null && inbounds == false)) {
+        if ((loader !== undefined && !(loader.loaded === undefined) && loader.loaded === null && sprite.loader === null) ||
+             (loader === undefined && sprite.loader !== null && inbounds === false)) {
             if (loader === undefined)
                     loader = sprite.loader;
             sprite.position.copyFrom(loader.position);

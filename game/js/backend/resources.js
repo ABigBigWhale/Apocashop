@@ -865,7 +865,7 @@ var heroes = {
 		"1initialGive" : {
 			type : "dialog",
 			appearanceInfo : "artifact",
-			dialog : ["Hey, hold onto this orb for me. I'll pay you 50 gold if you hold onto it for 5 days.", "* The man gives you a black orb. It pulses with unnatural energy. *"],
+			dialog : ["I don't have much time. Hold onto this orb for me./@@I'll pay you 50 gold if you hold onto it for 5 days.", "~~Frantically, the man gives you a black orb~~", "~~It pulses with unnatural energy~~", "Be careful with it."],
 		},
 		"2shinyOffer" : {
 			type : "interact",
