@@ -26,12 +26,14 @@ function StockUI(game) {
         endDayButton = game.add.button(620, 538, 'ui_button_start', endDay, this, 1, 0, 2);
         reminder = game.add.text(627, 542 - endDayButton.height / 2, "Stock Items", 
                                     { font: "20px yoster_islandregular" , fill: "#CC0000"});
-        reminder.alpha = 0;
 
         ui_group.add(imgBackground); 
         ui_group.add(endDayButton);
-        ui_group.add(reminder);
-        
+        reminder.alpha = 0;
+        ui_group.fadeIn = game.add.tween(ui_group)
+            .to( {alpha: 1}, 500);
+        ui_group.fadeOut = game.add.tween(ui_group)
+            .to( {alpha: 0}, 500);
 
         game.eventManager.register(game.Events.UPDATE.ITEMS, updateItems);
         game.eventManager.register(game.Events.UPDATE.STOCKGOLD, function(gold) {
@@ -39,7 +41,8 @@ function StockUI(game) {
                 textCoins.setText(gold);
         });
         game.eventManager.register(game.Events.STOCK.INIT, updateItemUI);
-        ui_group.visible = false;
+        ui_group.alpha = 0;
+        ui_group.fadeOut.start();
     }
 
     function updateNewsUI(news) {
@@ -55,6 +58,7 @@ function StockUI(game) {
         initAllLoad(allLoad);
         textCoins = game.add.text(64, 520, "0",
                                           { font: "30px yoster_islandregular", fill: "#c67520"} );
+        ui_group.add(textCoins);
         textCoins.setText(gold);
         textCoins.anchor.setTo(0.5, 0);
     }
@@ -86,7 +90,8 @@ function StockUI(game) {
     }
 
     this.startDay = function(clues, func) {
-        ui_group.visible = true;
+        //ui_group.visible = true;
+        ui_group.fadeIn.start();
         game.world.bringToTop(ui_group);
         updateNewsUI(clues);
         callback = func;
@@ -98,7 +103,7 @@ function StockUI(game) {
             remindPlayer();
             return;
         }
-        ui_group.visible = false;
+        ui_group.fadeOut.start();
         for(var key in allBox) {
             allBox[key].priceText.visible = false;
         }

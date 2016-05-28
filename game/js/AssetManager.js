@@ -54,6 +54,7 @@ function AssetManager(game) {
 			'ui_dialog',
 			'ui_note',
 			'ui_note_big',
+			'ui_calendar',
 			'ui_table',
 			'ui_levelup',
 			'ui_table_background',
