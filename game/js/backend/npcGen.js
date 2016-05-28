@@ -63,15 +63,16 @@ function initNPCGen(game) {
 		var offers = [];
 
 		var min = itemData[item].min;
+		var fairPrice = Math.ceil((items[item].price + items[item].jPrice) / 2);
 		var max = itemData[item].max + 1;
-		var avg = Math.ceil((min + max) / 2);
-		var highAvg = Math.ceil((avg + max) / 2);
+		var avg = Math.floor((min + max) / 2);
+		var highAvg = Math.floor((avg + max) / 2);
 
 		if(rollDice(0.8)) {
-			offers.push(bellCurveIntInRange(min, avg));
+			offers.push(bellCurveIntInRange(min, fairPrice));
 		} else {
-			if(rollDice(0.8)) {
-				offers.push(bellCurveIntInRange(avg, highAvg));
+			if(rollDice(0.85)) {
+				offers.push(bellCurveIntInRange(fairPrice, highAvg));
 			} else {
 				offers.push(bellCurveIntInRange(highAvg, max));
 			}
