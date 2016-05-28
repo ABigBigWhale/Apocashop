@@ -9,8 +9,8 @@ function HeroManager(game) {
 
 	function init() {
 		heroCollections.randomGenHero = generateRandomHero();
-		//validHeroCollections = Object.keys(heroCollections);
-		validHeroCollections = ["vocabMan", "randomGenHero", "vocabMan", "randomGenHero", "vocabMan", "vocabMan", "stallingMan", "stutterMan", "rhymeAdvance"];
+		validHeroCollections = Object.keys(heroCollections);
+		//validHeroCollections = ["vocabMan", "randomGenHero", "vocabMan", "randomGenHero", "vocabMan", "vocabMan", "stallingMan", "stutterMan", "rhymeAdvance"];
 	}
 
 	this.insertHeroes = function(day, numFalse) {

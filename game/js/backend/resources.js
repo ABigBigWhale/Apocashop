@@ -306,7 +306,7 @@ var heroes = {
 		},
 		introZoran : {
 			type : "dialog",
-			appearanceInfo : "zoran",
+			appearanceInfo : "king_zoran",
 			dialog : [
 				"Hello humble shopkeeper. I am your glorious ruler, King Zoran.",
 				"I've heard good things about you and your shop./I have an opportunity for you.",
@@ -316,7 +316,7 @@ var heroes = {
 		},
 		endZoran : {
 			type : "dialog",
-			appearanceInfo : "zoran",
+			appearanceInfo : "king_zoran",
 			dialog : [
 				{
 					"gold_100" : "Well done, shopkeeper./You have proven yourself worthy.",
@@ -792,7 +792,7 @@ var heroes = {
 		"2offer" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "treasure",
+			appearanceInfo : "treasure_hunter",
 			offers : [-5],
 			offerText : ["Hey shopkeep, in my travels I found this treasure map./Want it? Five gold."],
 			success : "Hope it's worth it!@@/I mean, of course it's worth it!",
@@ -804,7 +804,7 @@ var heroes = {
 		"3friendlyOffer" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "treasure",
+			appearanceInfo : "treasure_hunter",
 			offers : [-10],
 			offerText : ["Hey shopkeep, good to see you again! How about another map? Ten gold this time."],
 			success : "Have fun, pal.",
@@ -817,7 +817,7 @@ var heroes = {
 		"3sadOffer" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "treasure",
+			appearanceInfo : "treasure_hunter",
 			offers : [-10],
 			offerText : ["Hey shopkeep, this time I have an even better map. Want it for ten gold?"],
 			success : "Have fun, pal.",
@@ -830,7 +830,7 @@ var heroes = {
 		"4dungeonOffer" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "treasure",
+			appearanceInfo : "treasure_hunter",
 			offers : [-15],
 			offerText : ["Howdy shopkeep, I'm going to explore a dungeon. Want to invest and split the keep? Give me fifteen gold."],
 			success : "Wish me luck, pal.",
@@ -843,7 +843,7 @@ var heroes = {
 		"4lastMap" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "treasure",
+			appearanceInfo : "treasure_hunter",
 			offers : [-15],
 			offerText : ["Hey shopkeep, I've got one last map for you. It'll be fifteen gold."],
 			success : "Happy travels, shopkeep.",
@@ -855,7 +855,7 @@ var heroes = {
 		},
 		"6goodbye" : {
 			type : "dialog",
-			appearanceInfo : "treasure",
+			appearanceInfo : "treasure_hunter",
 			dialog : ["Hey shopkeep, I escaped that dungeon by the skin of my teeth!", "As promised, here's the return on your investment. Spend it well, friend."],
 			appearConditions : ["treasure_hunting2"],
 			endMoney : 30
@@ -942,13 +942,13 @@ var heroes = {
 	uprising : {
 		"2intro" : {
 			type : "dialog",
-			appearanceInfo : "ezic",
+			appearanceInfo : "cloak",
 			dialog : ["We must rise up and topple those who would exploit us.", "If you are with us, accept my third offer tomorrow. It will be one gold.", "We are the night."],
 		},
 		"3return" : {
 			type : "interact",
 			item : "sword",
-			appearanceInfo : "ezic",
+			appearanceInfo : "cloak",
 			offers : [2, 3, 1],
 			offerText : ["Hello friend who I have never seen before. Two gold for a sword?", "How about three?", "Or one?"],
 			success : "We are the night.",
@@ -959,13 +959,13 @@ var heroes = {
 		},
 		"4policeIntro" : {
 			type : "dialog",
-			appearanceInfo : "police",
+			appearanceInfo : "guardian",
 			dialog : ["We've heard of some dangerous characters starting up a rebellion against the glorious King Zoran.", "If you hear anything, let me know. I will be back soon."],
 		},
 		"4rebelMoney" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "ezic",
+			appearanceInfo : "cloak",
 			offers : [-7],
 			offerText : ["Hello friend. The rebellion needs seven gold to continue freeing the people. Will you be one with us?"],
 			success : "We are the night.",
@@ -977,13 +977,13 @@ var heroes = {
 		},
 		"5rebelWarning" : {
 			type : "dialog",
-			appearanceInfo : "ezic",
+			appearanceInfo : "cloak",
 			dialog : ["Hello friend. Thank you for listening to us even if you didn't join.", "You should probably think about staying out of the town square today.", ". . . Just so you know. No reason at all, nothing to worry about./@@k thanx bye."],
 			appearConditions : ["uprising_citizenBegin"],
 		},
 		"5rebelJob" : {
 			type : "dialog",
-			appearanceInfo : "ezic",
+			appearanceInfo : "cloak",
 			dialog : ["Hello friend, I have your mission.", "A city official will be here soon to buy a bow for one gold.", "Stall him for five seconds before you reject him so we can kidna . . . talk to him."],
 			appearConditions : ["uprising_rebelJoined"],
 		},
@@ -1003,7 +1003,7 @@ var heroes = {
 		"5policeAsk" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "police",
+			appearanceInfo : "guardian",
 			offers : [0, 5],
 			offerText : ["Can you tell me anything about the rebels?", "What if I offer you five gold?"],
 			success : "Thank you, this will help us greatly.",
@@ -1014,21 +1014,21 @@ var heroes = {
 		},
 		"5stallThanks" : {
 			type : "dialog",
-			appearanceInfo : "ezic",
+			appearanceInfo : "cloak",
 			dialog : ["Hello friend, thank you for the help. Now we pay you."],
 			appearConditions : ["uprising_officialStalled"],
 			endMoney : 17
 		},
 		"6stallAsk" : {
 			type : "dialog",
-			appearanceInfo : "police",
+			appearanceInfo : "guardian",
 			dialog : ["Hello citizen, we've heard that one of the rebels will make contact with you today.", "Stall her for seven seconds when she's here, and we'll make it worth your while."],
 			appearConditions : ["uprising_informantHelper"],
 		},
 		"6rebelStall" : {
 			type : "interact",
 			item : "None",
-			appearanceInfo : "ezic",
+			appearanceInfo : "cloak",
 			offers : [0],
 			offerText : ["Hello friend, this is last time I come here. You are sure you will not join?"],
 			success : "Fantastic! We will see you soon.",
@@ -1040,7 +1040,7 @@ var heroes = {
 		},
 		"6policeBribe" : {
 			type : "dialog",
-			appearanceInfo : "police",
+			appearanceInfo : "guardian",
 			dialog : ["We know you are lying. You're lucky I'm only taking your gold and not your head."],
 			appearConditions : ["uprising_traitorFound"],
 			endMoney : -15
