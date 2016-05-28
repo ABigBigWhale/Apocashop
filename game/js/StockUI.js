@@ -41,6 +41,7 @@ function StockUI(game) {
                 textCoins.setText(gold);
         });
         game.eventManager.register(game.Events.STOCK.INIT, updateItemUI);
+        ui_group.alpha = 0;
         ui_group.fadeOut.start();
     }
 
