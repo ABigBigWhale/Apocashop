@@ -43,8 +43,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		game.stage.scale.pageAlignHorizontally = true;
 		game.stage.scale.pageAlignVeritcally = true;
-		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+		game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
+		window.addEventListener('resize', modifyAspectRatio);
+		//window.addEventListener('fullscreenchange', modifyAspectRatio);
+
+		modifyAspectRatio();
+
+	}
+
+	function modifyAspectRatio(event) {
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+		var aspect = 800/600;
+		if(width > height * aspect) {
+			// limit by height
+			document.getElementById("gameDiv").style.height = "100vh";
+			document.getElementById("gameDiv").style.width = height * aspect + "px";
+			document.getElementById("gameDiv").style.top = "";
+			document.getElementById("gameDiv").style.left = "50%";
+			document.getElementById("gameDiv").style.margin = "0 0 0 -" + height * aspect / 2 + "px"
+		} else {
+			// limit by width
+			document.getElementById("gameDiv").style.width = "100vw";
+			document.getElementById("gameDiv").style.height = width / aspect + "px";
+			document.getElementById("gameDiv").style.top = "50%";
+			document.getElementById("gameDiv").style.left = "";
+			document.getElementById("gameDiv").style.margin =  -width / aspect / 2 + "px" + " 0 0 0"
+		}
 	}
 
 });
