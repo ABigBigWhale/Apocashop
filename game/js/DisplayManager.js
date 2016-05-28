@@ -350,18 +350,17 @@ function DisplayManager(game) {
 		middleRect.drawRect(0, 0, w , h - cornerSize);
 		var middle = game.add.sprite(x + cornerSize/2, y + cornerSize/2);
 		middle.addChild(middleRect);
+
+		var middleFade = game.add.graphics(0, 0);
+		middleFade.beginFill(0x000000);
+		middleFade.drawRect(0, 0, w, h - cornerSize);
+		var midFade = game.add.sprite(x + cornerSize/2, y + cornerSize/2);
+		midFade.addChild(middleFade);
+		midFade.alphaset = 0;
+
+		game.depthGroups.dialogGroup.jeffBox = midFade;
 		dialog.add(middle);
-
-		/*		var blackScreen = game.add.graphics(0, 0);
-		blackScreen.beginFill(0x0, 1);
-		blackScreen.drawRect(0, 0, 800, 600);
-
-		blackScreenSprite.width = 800;
-		blackScreenSprite.height = 600;
-
-		blackScreenSprite.events.onInputDown.add(requestNext, this);
-
-		blackScreenSprite.addChild(blackScreen);*/
+		dialog.add(midFade);
 
 		dialog.x = x + w/2;
 		dialog.y = y + h/2;
@@ -370,6 +369,19 @@ function DisplayManager(game) {
 		dialog.alpha = 0;
 
 		printDebug('UI: put Jeff dialog at ' + x + ', ' + y + ' with width: ' + w + ' height: ' + h);
+	}
+
+	this.tintJeffBox = function(tint) {
+		var midFade = game.depthGroups.dialogGroup.jeffBox;
+		if (midFade === undefined)
+			return;
+		if (tint) {
+			midFade.alpha = 0.7;
+			midFade.alphaset = 0.7;
+		} else {
+			midFade.alpha = 0;
+			midFade.alphaset = 0;
+		}
 	}
 
 	this.putJeffDialog = function(x, y, w, h, doneCB) {
@@ -381,6 +393,7 @@ function DisplayManager(game) {
 			dialog.dialogIn.start();
 			dialog.dialogPop.start();
 		}
+		game.depthGroups.dialogGroup.jeffBox.alpha = game.depthGroups.dialogGroup.jeffBox.alphaset;
 	}
 
 	this.clearJeffDialog = function() {
@@ -438,14 +451,12 @@ function DisplayManager(game) {
 			fingerLeft.destroy();
 		}
 
-
 		bitmapDataReplaceColor(handsBmd, 190, 147, 125, 255,
 							   skinColor.r, skinColor.g, skinColor.b, 255,
 							   168, 198);
 		bitmapDataReplaceColor(handsBmd, 173, 122, 95, 255,
 							   0.85 * skinColor.r, 0.75 * skinColor.g, 0.65 * skinColor.b, 255,
 							   168, 198);
-
 		palmLeft.destroy();
 
 		return handsBmd;
