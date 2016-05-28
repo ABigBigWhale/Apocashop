@@ -23,8 +23,16 @@ function EndingScreen(game) {
 
         recapGroup.fadeIn = game.add.tween(recapGroup)
             .to( {alpha: 1}, 500);
+        recapGroup.realFadeOut = game.add.tween(recapGroup)
+        	.to({alpha : 0.9}, 500);
+        recapGroup.realFadeOut.onComplete.add(function() {
+        	recapGroup.fadeOut.start();
+        });
         recapGroup.fadeOut = game.add.tween(recapGroup)
             .to( {alpha: 0}, 500);
+        recapGroup.fadeOut.onComplete.add(function() {
+        	recapGroup.visible = false;
+        });
         
 		recapGroup.add(blackScreenSprite);
         recapGroup.add(moonStars);
@@ -65,7 +73,6 @@ function EndingScreen(game) {
 
 	game.eventManager.register(game.Events.WRAPUP.END, function() {
 		game.dialogManager.printWrapup("");
-		recapGroup.visible = false;
         recapGroup.fadeOut.start();
 	});
 

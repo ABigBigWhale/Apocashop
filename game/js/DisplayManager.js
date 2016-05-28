@@ -348,8 +348,20 @@ function DisplayManager(game) {
 		var middleRect = game.add.graphics(0, 0);
 		middleRect.beginFill(0xFFFFCA);
 		middleRect.drawRect(0, 0, w , h - cornerSize);
-		var middle = dialog.create(x + cornerSize/2, y + cornerSize/2);
+		var middle = game.add.sprite(x + cornerSize/2, y + cornerSize/2);
 		middle.addChild(middleRect);
+		dialog.add(middle);
+
+		/*		var blackScreen = game.add.graphics(0, 0);
+		blackScreen.beginFill(0x0, 1);
+		blackScreen.drawRect(0, 0, 800, 600);
+
+		blackScreenSprite.width = 800;
+		blackScreenSprite.height = 600;
+
+		blackScreenSprite.events.onInputDown.add(requestNext, this);
+
+		blackScreenSprite.addChild(blackScreen);*/
 
 		dialog.x = x + w/2;
 		dialog.y = y + h/2;
