@@ -128,7 +128,7 @@ function HeroManager(game) {
 			hero : "hero",
 			falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
 			clues : [
-				"The hero refuses to say the letters 's' or 'h'"
+				"The hero is the only customer to not say a single 's' or 'h'"
 			],
 			questions : {
 				alphabet : "Alphabet?",
@@ -151,7 +151,7 @@ function HeroManager(game) {
 			falseHeroes : ["falseHero1", "falseHero2"],
 			clues : [
 				"The hero will offer three gold.",
-				"The hero will only say the number five.",
+				"The hero refuses to say any number except five.",
 				"The hero enjoys word games."
 			],
 			questions : {

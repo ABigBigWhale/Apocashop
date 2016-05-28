@@ -119,7 +119,7 @@ function EndStateWrapper(game) {
 				else if (score <= 3.5) commentText = 'King Zoran sets you up with a shop in the capital.';
 				else if (score <= 3.9) commentText = 'King Zoran makes you an official advisor.';
 				else commentText = 'King Zoran makes you an official advisor.\n' + 
-					'Someday, you and Jeff may even rule this kingdom.';
+					'Someday, you and Jeff may even rule this\nkingdom.';
 				
 				endOfDemoText = game.add.text(
 					100, 200,

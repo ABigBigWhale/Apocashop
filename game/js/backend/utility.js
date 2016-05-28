@@ -170,12 +170,13 @@ function bitmapDataReplaceColor(bmd, r, g, b, a, newR, newG, newB, newA, w, h) {
 }
 
 function generateFingerString(num) {
-	num = Math.min(num, 10);
+	num = Math.min(num, 8);
 	var fingerArray = [];
 	for(var i = 0; i < num; i++) {
 		var index;
 		do {
-			index = randomIntInRange(0, 10);
+			index = randomIntInRange(1, 9);
+			index = (index > 4) ? index + 1 : index;
 		} while(fingerArray[index] || isObscene(fingerArray, index));
 		fingerArray[index] = true;
 	}
