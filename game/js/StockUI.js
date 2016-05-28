@@ -41,8 +41,9 @@ function StockUI(game) {
                 textCoins.setText(gold);
         });
         game.eventManager.register(game.Events.STOCK.INIT, updateItemUI);
-        ui_group.alpha = 0;
-        ui_group.fadeOut.start();
+        //ui_group.alpha = 0;
+        ui_group.visible = false;
+        //ui_group.fadeOut.start();
     }
 
     function updateNewsUI(news) {
@@ -90,8 +91,8 @@ function StockUI(game) {
     }
 
     this.startDay = function(clues, func) {
-        //ui_group.visible = true;
-        ui_group.fadeIn.start();
+        ui_group.visible = true;
+        //ui_group.fadeIn.start();
         game.world.bringToTop(ui_group);
         updateNewsUI(clues);
         callback = func;
@@ -103,7 +104,8 @@ function StockUI(game) {
             remindPlayer();
             return;
         }
-        ui_group.fadeOut.start();
+        ui_group.visible = false;
+        //ui_group.fadeOut.start();
         for(var key in allBox) {
             allBox[key].priceText.visible = false;
         }
