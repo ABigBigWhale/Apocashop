@@ -29,7 +29,7 @@ function StockUI(game) {
 
         ui_group.add(imgBackground); 
         ui_group.add(endDayButton);
-        
+        reminder.alpha = 0;
         ui_group.fadeIn = game.add.tween(ui_group)
             .to( {alpha: 1}, 500);
         ui_group.fadeOut = game.add.tween(ui_group)

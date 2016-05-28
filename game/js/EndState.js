@@ -63,7 +63,7 @@ function EndStateWrapper(game) {
 			hardBox = game.add.image(0, 0, 'endday_boxoutline');
 			softBox = game.add.image(0, 0, 'endday_boxoutline');
 			hardBox.x = restartHard.x - restartHard.width - 10;
-			softBox.x = restartSoft.x - restartSoft.width - 10;
+			softBox.x = restartSoft.x - restartSoft.width - 7;
 			hardBox.y = restartHard.y - restartHard.height - 15;
 			softBox.y = restartSoft.y - restartSoft.height - 15;
 
