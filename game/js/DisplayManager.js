@@ -391,6 +391,9 @@ function DisplayManager(game) {
 		bitmapDataReplaceColor(npcBmd, 190, 147, 125, 255,
 							   skinColor.r, skinColor.g, skinColor.b, 255,
 							   60, 70);
+		bitmapDataReplaceColor(npcBmd, 173, 122, 95, 255,
+							   0.85 * skinColor.r, 0.75 * skinColor.g, 0.65 * skinColor.b, 255,
+							   60, 70);
 
 		return npcBmd;
 	}
@@ -424,6 +427,9 @@ function DisplayManager(game) {
 		bitmapDataReplaceColor(handsBmd, 190, 147, 125, 255,
 							   skinColor.r, skinColor.g, skinColor.b, 255,
 							   168, 198);
+		bitmapDataReplaceColor(npcBmd, 173, 122, 95, 255,
+							   0.85 * skinColor.r, 0.75 * skinColor.g, 0.65 * skinColor.b, 255,
+							   60, 70);
 		palmLeft.destroy();
 
 		return handsBmd;
