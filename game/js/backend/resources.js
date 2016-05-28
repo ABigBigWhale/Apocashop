@@ -282,10 +282,32 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : 'jeff',
 			dialog : [
-				"Alright kiddo, time for another fun filled day. Let's do this.",
-				"Also, just so you know, sort of in beta, so no promises it won't break."
+				"Alright kiddo, time for another fun filled day. Let's do this."
 			]
-		}
+		},
+		genericJeff2 : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Hey kid, you ready for another day?",
+				"Well, if you aren't, then too bad. The sun waits for nobody."
+			]
+		},
+		genericJeff3 : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Let's do this thing, kid.",
+				"I have a feeling this is our lucky day."
+			]
+		},
+		genericJeff4 : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Kiddo, this is the first day of the rest of our lives. Let's make it count."
+			]
+		},
 	},
 	jeffPoolEnd : {
 		endJeff : {
@@ -293,6 +315,27 @@ var heroes = {
 			appearanceInfo : 'jeff',
 			dialog : [
 				"Hey kid, it's getting late. I think it's time to get some sleep."
+			]
+		},
+		endJeff : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Kiddo, I think it's time to close up shop. It's getting dark out."
+			]
+		},
+		endJeff : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Kid, I don't need sleep, but you do. It's time to pack up shop."
+			]
+		},
+		endJeff : {
+			type : 'dialog',
+			appearanceInfo : 'jeff',
+			dialog : [
+				"Not a bad day out there. Let's get some rest and start back up tomorrow morning."
 			]
 		}
 	},
@@ -308,9 +351,9 @@ var heroes = {
 			type : "dialog",
 			appearanceInfo : "king_zoran",
 			dialog : [
-				"Hello humble shopkeeper. I am your glorious ruler, King Zoran.",
-				"I've heard good things about you and your shop./I have an opportunity for you.",
-				"If you have 100 gold by the end of this day, I will make you the official royal shopkeeper, up in the castle.",
+				"Hello there, humble shopkeeper. I am your glorious ruler, King Zoran.",
+				"I've heard good things about you and your shop and I am here to see for myself what you are capable of.",
+				"Impress me, and I fill find work for you and your metal friend in the royal palace, but be warned, I am not easily impressed.",
 				"Good luck."
 			]
 		},
@@ -319,12 +362,14 @@ var heroes = {
 			appearanceInfo : "king_zoran",
 			dialog : [
 				{
-					"gold_100" : "Well done, shopkeeper./You have proven yourself worthy.",
+					"gold_100" : "Well done, shopkeeper./You have proven yourself worthy to stand at my side.",
+					"gold_50" : "I am mildly impressed, shopkeeper. I am sure we can find a place for you in the capital.",
+					"gold_20" : "That wasn't a bad effort, shopkeeper. ",
 					default : "I am disappointed, shopkeeper. I expected more."
 				},
 				{
-					"gold_100" : "Come with me, my friend. Let us go to the palace.",
-					"default" : "Feel free to restart the game and try again. I will be here."
+					"gold_20" : "Come, let us go to the palace. There is much to see there.",
+					"default" : "Feel free to restart the game and try again. I will be waiting."
 				}
 			]
 		}
@@ -341,14 +386,6 @@ var heroes = {
 			questions : {
 				color : "@@Gold!",
 				number : "@@Two!",
-				default : ". . ."
-			},
-			items : {
-				bow : "Bow!",
-				default : ". . ."
-			},
-			profiles : {
-				convict : "Bow get!",
 				default : ". . ."
 			},
 			sellConditions : ['soldHero'],
@@ -368,127 +405,292 @@ var heroes = {
 				number : "Four!",
 				default : "Huh?"
 			},
-			items : {
-				bow : "Nice!",
-				default : "Huh?"
-			},
-			profiles : {
-				convict : ". . .",
-				default : ". . ."
-			},
-			isFalseHero : true
-		},
-	},
-	stutterMan : {
-		hero : {
-			type : 'interact',
-			item : 'shield',
-			appearanceInfo : 'random',
-			offers : [4, 1],
-			offerText : ["I would like a brand new sssshiny sssshield. Four gold?",
-						"Comon good sssssir. How about one gold? Thatssss more than four!"],
-			success : "YESSSSSSSSSSSSSSS...",
-			fail : "Lookssss like I will just head to the pub with my gold ...",
-			questions : {
-				numbers : "Ummmmmm ... Maybe Ten and two fifthsssss?",
-				animal : "You ssssay it like they're niccccce. I aint afraid of no ssssnakesss. Exccccept on planesss ...",
-				default : ". . ."
-			},
-			items : {
-				shiled : "Sssssshiny!",
-				default : ". . ."
-			},
-			profiles : {
-				convict : "Poopoo fart I should not be here",
-				default : ". . ."
-			},
-			sellConditions : ['soldHero'],
-			refuseConditions : ['refusedHero'],
-			isHero : true
-		},
-		villain1 : {
-			type : 'interact',
-			item : 'shield',
-			appearanceInfo : 'random',
-			offers : [2],
-			offerText : "Whats it take to get a nice ssshiny sssshield? Two gold?",
-			success : "That was easy! HAHA! I am no hero!",
-			fail : "How did you know? I stuttered and everything ...",
-			questions : {
-				numbers : "Four of course! Everyone knowssss that!",
-				animal : "Snakes? .@.@.@ I mean sssssnakes are bad",
-				default : "Huh?"
-			},
-			items : {
-				shield : "That is what I want. Yessss",
-				default : "Huh?"
-			},
-			profiles : {
-				convict : ". . .",
-				default : ". . ."
-			},
 			isFalseHero : true
 		},
 		villain2 : {
 			type : 'interact',
-			item : 'shield',
+			item : 'bow',
 			appearanceInfo : 'random',
-			offers : [3, 4],
-			offerText : ["I know how to bash! Ssssshields are great for that. Three gold?", 
-						 "Okay, four gold. Four issss more than three!"],
-			success : "Snakes. @Planes. @Snow. @@Pepperoni. @I can say it all you fool!",
-			fail : "Maybe im not caught up for the acting business. I'm better at smashing ...",
+			offers : [1],
+			offerText : "One gold to get bow?",
+			success : "Thank you!",
+			fail : "Darn.",
 			questions : {
-				numbers : "Four. Like two lesss than sssix!",
-				animal : "I can ssssmash ssssnakesss with a sssshiled. Gimmie, gimmie!",
+				color : "Gold!",
+				number : "One!",
 				default : "Huh?"
-			},
-			items : {
-				shield : "That is what I want. Yessss",
-				default : "Huh?"
-			},
-			profiles : {
-				convict : ". . .",
-				default : ". . ."
 			},
 			isFalseHero : true
 		},
 		villain3 : {
 			type : 'interact',
-			item : 'shield',
+			item : 'bow',
 			appearanceInfo : 'random',
-			offers : [1],
-			offerText : "One gold for shield?",
-			success : "Why thank you. What a good deal for an honest, not sneaky, person like myself.",
-			fail : "I thought if I talked less you would believe me",
+			offers : [2],
+			offerText : "For two gold, bow get?",
+			success : "Get bow!",
+			fail : "No get bow . . .",
 			questions : {
-				numbers : "Ten. Like three lesss than sssix!",
-				animal : "Snakes. Yeah ...",
+				color : "Gold!",
+				number : "Two!",
 				default : "Huh?"
-			},
-			items : {
-				shield : "That is what I want.",
-				default : "Huh?"
-			},
-			profiles : {
-				convict : ". . .",
-				default : ". . ."
 			},
 			isFalseHero : true
-		}
+		},
 	},
-	rhymeAdvance : {
+	// stutterMan : {
+	// 	hero : {
+	// 		type : 'interact',
+	// 		item : 'shield',
+	// 		appearanceInfo : 'random',
+	// 		offers : [4, 1],
+	// 		offerText : ["I would like a brand new sssshiny sssshield. Four gold?",
+	// 					"Comon good sssssir. How about one gold? Thatssss more than four!"],
+	// 		success : "YESSSSSSSSSSSSSSS...",
+	// 		fail : "Lookssss like I will just head to the pub with my gold ...",
+	// 		questions : {
+	// 			numbers : "Ummmmmm ... Maybe Ten and two fifthsssss?",
+	// 			animal : "You ssssay it like they're niccccce. I aint afraid of no ssssnakesss. Exccccept on planesss ...",
+	// 			default : ". . ."
+	// 		},
+	// 		items : {
+	// 			shiled : "Sssssshiny!",
+	// 			default : ". . ."
+	// 		},
+	// 		profiles : {
+	// 			convict : "Poopoo fart I should not be here",
+	// 			default : ". . ."
+	// 		},
+	// 		sellConditions : ['soldHero'],
+	// 		refuseConditions : ['refusedHero'],
+	// 		isHero : true
+	// 	},
+	// 	villain1 : {
+	// 		type : 'interact',
+	// 		item : 'shield',
+	// 		appearanceInfo : 'random',
+	// 		offers : [2],
+	// 		offerText : "Whats it take to get a nice ssshiny sssshield? Two gold?",
+	// 		success : "That was easy! HAHA! I am no hero!",
+	// 		fail : "How did you know? I stuttered and everything ...",
+	// 		questions : {
+	// 			numbers : "Four of course! Everyone knowssss that!",
+	// 			animal : "Snakes? .@.@.@ I mean sssssnakes are bad",
+	// 			default : "Huh?"
+	// 		},
+	// 		items : {
+	// 			shield : "That is what I want. Yessss",
+	// 			default : "Huh?"
+	// 		},
+	// 		profiles : {
+	// 			convict : ". . .",
+	// 			default : ". . ."
+	// 		},
+	// 		isFalseHero : true
+	// 	},
+	// 	villain2 : {
+	// 		type : 'interact',
+	// 		item : 'shield',
+	// 		appearanceInfo : 'random',
+	// 		offers : [3, 4],
+	// 		offerText : ["I know how to bash! Ssssshields are great for that. Three gold?", 
+	// 					 "Okay, four gold. Four issss more than three!"],
+	// 		success : "Snakes. @Planes. @Snow. @@Pepperoni. @I can say it all you fool!",
+	// 		fail : "Maybe im not caught up for the acting business. I'm better at smashing ...",
+	// 		questions : {
+	// 			numbers : "Four. Like two lesss than sssix!",
+	// 			animal : "I can ssssmash ssssnakesss with a sssshiled. Gimmie, gimmie!",
+	// 			default : "Huh?"
+	// 		},
+	// 		items : {
+	// 			shield : "That is what I want. Yessss",
+	// 			default : "Huh?"
+	// 		},
+	// 		profiles : {
+	// 			convict : ". . .",
+	// 			default : ". . ."
+	// 		},
+	// 		isFalseHero : true
+	// 	},
+	// 	villain3 : {
+	// 		type : 'interact',
+	// 		item : 'shield',
+	// 		appearanceInfo : 'random',
+	// 		offers : [1],
+	// 		offerText : "One gold for shield?",
+	// 		success : "Why thank you. What a good deal for an honest, not sneaky, person like myself.",
+	// 		fail : "I thought if I talked less you would believe me",
+	// 		questions : {
+	// 			numbers : "Ten. Like three lesss than sssix!",
+	// 			animal : "Snakes. Yeah ...",
+	// 			default : "Huh?"
+	// 		},
+	// 		items : {
+	// 			shield : "That is what I want.",
+	// 			default : "Huh?"
+	// 		},
+	// 		profiles : {
+	// 			convict : ". . .",
+	// 			default : ". . ."
+	// 		},
+	// 		isFalseHero : true
+	// 	}
+	// },
+	// rhymeAdvance : {
+	// 	"hero" : {
+	// 		type : "interact",
+	// 		item : "shield",
+	// 		appearanceInfo : "random",
+	// 		offers : [2],
+	// 		offerText : ["You, friendly shopkeeper. Your heart is true? I need a shield for two./. . . gold."],
+	// 		success : "Thank you my friend, that gold I am happy to spend.",
+	// 		fail : "Very well friend, I hope this is not the end.",
+	// 		questions : {
+	// 			day : "Very normal, not too exciting.",
+	// 			color : "Orange brown",
+	// 			default : ". . ."
+	// 		},
+	// 		sellConditions : ["soldHero"],
+	// 		refuseConditions : ["refusedHero"],
+	// 		isHero : true
+	// 	},
+	// 	"falseHero1" : {
+	// 		type : "interact",
+	// 		item : "shield",
+	// 		appearanceInfo : "random",
+	// 		offers : [2],
+	// 		offerText : ["You, friendly shopkeeper. Your heart is true? I need a shield for the gold of two."],
+	// 		success : "Heh, thanks.",
+	// 		fail : "Fine.",
+	// 		questions : {
+	// 			day : "It was fine.",
+	// 			color : "Navy.",
+	// 			default : ". . ."
+	// 		},
+	// 		isFalseHero : true
+	// 	},
+	// 	"falseHero2" : {
+	// 		type : "interact",
+	// 		item : "shield",
+	// 		appearanceInfo : "random",
+	// 		offers : [3],
+	// 		offerText : ["Why shopkeeper, you seem a nice guy. A shield I need for three gold."],
+	// 		success : "Heh, thanks.",
+	// 		fail : "Fine.",
+	// 		questions : {
+	// 			day : "Nothing out of the ordinary.",
+	// 			color : "Chartreuse.",
+	// 			default : ". . ."
+	// 		},
+	// 		sellConditions : ["soldHero"],
+	// 		refuseConditions : ["refusedHero"],
+	// 		isFalseHero : true
+	// 	},
+	// 	"falseHero3" : {
+	// 		type : "interact",
+	// 		item : "shield",
+	// 		appearanceInfo : "random",
+	// 		offers : [3],
+	// 		offerText : ["You, shopkeeper. Your heart is true? . . . I need a shield for three gold."],
+	// 		success : "Heh, thanks.",
+	// 		fail : "Fine.",
+	// 		questions : {
+	// 			day : "Not too bad.",
+	// 			color : "Purple blue",
+	// 			default : ". . ."
+	// 		},
+	// 		sellConditions : ["soldHero"],
+	// 		refuseConditions : ["refusedHero"],
+	// 	}
+	// },
+	// stallingMan : {
+	// 	hero : {
+	// 		type : 'interact',
+	// 		item : 'sword',
+	// 		appearanceInfo : 'random',
+	// 		offers : [0],
+	// 		offerText : "I need a @@@pointy thing to @@@protect the town! @@@I have no @@@money can I @@@have for free?",
+	// 		success : "This supercallfraglisticous pointy @@@thing will do @@@wonderfully",
+	// 		fail : "I guess I'll @@@find another pointy @@@thing to fight @@@with!",
+	// 		questions : {
+	// 			sword : "What is that? @@@It's pointy, that @@@will do.",
+	// 			super : "... supercallilictousesness ... supercallfraglisticous? ... Thats my new @@@word!",
+	// 			default : ". . ."
+	// 		},
+	// 		items : {
+	// 			sword : "Oooooh pointy",
+	// 			default : ". . ."
+	// 		},
+	// 		profiles : {
+	// 			convict : "Poopoo fart I should not be here",
+	// 			default : ". . ."
+	// 		},
+	// 		sellConditions : ['soldHero'],
+	// 		refuseConditions : ['refusedHero'],
+	// 		isHero : true
+	// 	},
+	// 	villain1 : {
+	// 		type : 'interact',
+	// 		item : 'sword',
+	// 		appearanceInfo : 'random',
+	// 		offers : [0, 0],
+	// 		offerText : ["I'm the hero. @@@I'll take a free @@@sword, please.",
+	// 					 "Seriously though. I @@@am the hero. @@@free sword!"],
+	// 		success : "Sucka! I knew that would work.",
+	// 		fail : "Can't blame me for trying right?",
+	// 		questions : {
+	// 			sword : "That's what I @@@want!",
+	// 			super : "Supercalifragilisticexpialidocious. From the @@@movies!",
+	// 			default : "Huh?"
+	// 		},
+	// 		items : {
+	// 			sword : "That is what I want. Yessss",
+	// 			default : "Huh?"
+	// 		},
+	// 		profiles : {
+	// 			convict : ". . .",
+	// 			default : ". . ."
+	// 		},
+	// 		isFalseHero : true
+	// 	},
+	// 	villain2 : {
+	// 		type : 'interact',
+	// 		item : 'sword',
+	// 		appearanceInfo : 'random',
+	// 		offers : [0],
+	// 		offerText : "I'll take a pointy thing for free please",
+	// 		success : "I'll send a couple of my friends here to get free swords too!",
+	// 		fail : "I'll be off then ...",
+	// 		questions : {
+	// 			sword : "That is a pointy thing!",
+	// 			super : "I don't even know what you just said",
+	// 			default : "Huh?"
+	// 		},
+	// 		items : {
+	// 			shield : "That is what I want. Yessss",
+	// 			default : "Huh?"
+	// 		},
+	// 		profiles : {
+	// 			convict : ". . .",
+	// 			default : ". . ."
+	// 		},
+	// 		isFalseHero : true
+	// 	}
+	// },
+	fingers : {
 		"hero" : {
 			type : "interact",
 			item : "shield",
 			appearanceInfo : "random",
-			offers : [2],
-			offerText : ["You, friendly shopkeeper. Your heart is true? I need a shield for two./. . . gold."],
-			success : "Thank you my friend, that gold I am happy to spend.",
-			fail : "Very well friend, I hope this is not the end.",
+			isFingers : true,
+			fingerTime : 3000,
+			offers : [5],
+			offerText : ["Can I get a shield for this many gold?"],
+			success : "What a deal! Thumbs up, thank you.",
+			fail : "Thumbs down.",
 			questions : {
-				day : "Very normal, not too exciting.",
-				color : "Orange brown",
+				number : "I'm showing it to you right now.",
+				color : "Probably yellow?",
 				default : ". . ."
 			},
 			sellConditions : ["soldHero"],
@@ -499,13 +701,15 @@ var heroes = {
 			type : "interact",
 			item : "shield",
 			appearanceInfo : "random",
-			offers : [2],
-			offerText : ["You, friendly shopkeeper. Your heart is true? I need a shield for the gold of two."],
-			success : "Heh, thanks.",
-			fail : "Fine.",
+			isFingers : true,
+			fingerTime : 3000,
+			offers : [3],
+			offerText : ["I would like a shield for this many gold."],
+			success : "Thank you, three gold is such a steal!",
+			fail : "Bleh, fine.",
 			questions : {
-				day : "It was fine.",
-				color : "Navy.",
+				number : "I'd say three?",
+				color : "Probably yellow?",
 				default : ". . ."
 			},
 			isFalseHero : true
@@ -514,105 +718,145 @@ var heroes = {
 			type : "interact",
 			item : "shield",
 			appearanceInfo : "random",
-			offers : [3],
-			offerText : ["Why shopkeeper, you seem a nice guy. A shield I need for three gold."],
-			success : "Heh, thanks.",
-			fail : "Fine.",
+			isFingers : true,
+			fingerTime : 3000,
+			offers : [4],
+			offerText : ["Can I get a shield for this many gold?"],
+			success : "Hah, nobody sells shields for four gold.",
+			fail : "Fine, be that way.",
 			questions : {
-				day : "Nothing out of the ordinary.",
-				color : "Chartreuse.",
+				number : "I don't want to say.",
+				color : "Turquoise.",
 				default : ". . ."
 			},
-			sellConditions : ["soldHero"],
-			refuseConditions : ["refusedHero"],
 			isFalseHero : true
 		},
 		"falseHero3" : {
 			type : "interact",
 			item : "shield",
 			appearanceInfo : "random",
-			offers : [3],
-			offerText : ["You, shopkeeper. Your heart is true? . . . I need a shield for three gold."],
-			success : "Heh, thanks.",
-			fail : "Fine.",
+			isFingers : true,
+			fingerTime : 3000,
+			offers : [2],
+			offerText : ["Can I get a shield for two gold?"],
+			success : "Heh, what a steal. Thanks.",
+			fail : "Darn.",
 			questions : {
-				day : "Not too bad.",
-				color : "Purple blue",
+				number : ". . .",
+				color : "I'll go with a simple green.",
+				default : ". . ."
+			},
+			isFalseHero : true
+		}
+	},
+	noLetter : {
+		"hero" : {
+			type : "interact",
+			item : "bow",
+			appearanceInfo : "random",
+			offers : [1],
+			offerText : ["My friend, can I get a bow for one gold?"],
+			success : "I am in your debt",
+			fail : "Arg, very well.",
+			questions : {
+				alphabet : "abcdefgijklmnopqrtuvwxyz",
+				color : "I'm feeling green.",
 				default : ". . ."
 			},
 			sellConditions : ["soldHero"],
 			refuseConditions : ["refusedHero"],
-		}
-	},
-	stallingMan : {
-		hero : {
-			type : 'interact',
-			item : 'sword',
-			appearanceInfo : 'random',
-			offers : [0],
-			offerText : "I need a @@@pointy thing to @@@protect the town! @@@I have no @@@money can I @@@have for free?",
-			success : "This supercallfraglisticous pointy @@@thing will do @@@wonderfully",
-			fail : "I guess I'll @@@find another pointy @@@thing to fight @@@with!",
-			questions : {
-				sword : "What is that? @@@It's pointy, that @@@will do.",
-				super : "... supercallilictousesness ... supercallfraglisticous? ... Thats my new @@@word!",
-				default : ". . ."
-			},
-			items : {
-				sword : "Oooooh pointy",
-				default : ". . ."
-			},
-			profiles : {
-				convict : "Poopoo fart I should not be here",
-				default : ". . ."
-			},
-			sellConditions : ['soldHero'],
-			refuseConditions : ['refusedHero'],
 			isHero : true
 		},
-		villain1 : {
-			type : 'interact',
-			item : 'sword',
-			appearanceInfo : 'random',
-			offers : [0, 0],
-			offerText : ["I'm the hero. @@@I'll take a free @@@sword, please.",
-						 "Seriously though. I @@@am the hero. @@@free sword!"],
-			success : "Sucka! I knew that would work.",
-			fail : "Can't blame me for trying right?",
+		"falseHero1" : {
+			type : "interact",
+			item : "bow",
+			appearanceInfo : "random",
+			offers : [3],
+			offerText : ["My friend, can I get a bow for three gold?"],
+			success : "Heh, thanks.",
+			fail : "This is an outrage.",
 			questions : {
-				sword : "That's what I @@@want!",
-				super : "Supercalifragilisticexpialidocious. From the @@@movies!",
-				default : "Huh?"
-			},
-			items : {
-				sword : "That is what I want. Yessss",
-				default : "Huh?"
-			},
-			profiles : {
-				convict : ". . .",
+				alphabet : "abcdfghijklmnopqrtuvwxyz",
+				color : "Green.",
 				default : ". . ."
 			},
 			isFalseHero : true
 		},
-		villain2 : {
-			type : 'interact',
-			item : 'sword',
-			appearanceInfo : 'random',
-			offers : [0],
-			offerText : "I'll take a pointy thing for free please",
-			success : "I'll send a couple of my friends here to get free swords too!",
-			fail : "I'll be off then ...",
+		"falseHero2" : {
+			type : "interact",
+			item : "shield",
+			appearanceInfo : "random",
+			offers : [2],
+			offerText : ["Can I get a shield for two gold?"],
+			success : "Why thanks, friend.",
+			fail : "How dare you. This is wrong.",
 			questions : {
-				sword : "That is a pointy thing!",
-				super : "I don't even know what you just said",
-				default : "Huh?"
+				alphabet : "abcdefgijklmnopqrstuvwxyz",
+				color : "I'm thinking red.",
+				default : ". . ."
 			},
-			items : {
-				shield : "That is what I want. Yessss",
-				default : "Huh?"
+			isFalseHero : true
+		},
+		"falseHero3" : {
+			type : "interact",
+			item : "chicken",
+			appearanceInfo : "random",
+			offers : [1],
+			offerText : ["Could I please get a chicken for one gold?"],
+			success : "Ha, thank you, friend.",
+			fail : "This isn't the last you'll see of me.",
+			questions : {
+				alphabet : "abcdefghijklmnopstuvwxyz",
+				color : "I'm feeling blue.",
+				default : ". . ."
 			},
-			profiles : {
-				convict : ". . .",
+			isFalseHero : true
+		},
+	},
+	noNumber : {
+		"hero" : {
+			type : "interact",
+			item : "sword",
+			appearanceInfo : "random",
+			offers : [3],
+			offerText : ["Hello, can I get a sword for gold equaling the number of five letter words I've said?"],
+			success : "Why thank you, friend.",
+			fail : "I expected more, shopkeeper.",
+			questions : {
+				number : "The number of letters in this sentence.",
+				day : "Not bad, could be better.",
+				default : ". . ."
+			},
+			sellConditions : ["soldHero"],
+			refuseConditions : ["refusedHero"],
+			isHero : true
+		},
+		"falseHero1" : {
+			type : "interact",
+			item : "sword",
+			appearanceInfo : "random",
+			offers : [3],
+			offerText : ["Can I get a sword for gold equaling the number of five letter words I've said?"],
+			success : "That was two easy.",
+			fail : "Zero stars.",
+			questions : {
+				number : "Five",
+				day : "Alright, I guess.",
+				default : ". . ."
+			},
+			isFalseHero : true
+		},
+		"falseHero2" : {
+			type : "interact",
+			item : "sword",
+			appearanceInfo : "random",
+			offers : [3],
+			offerText : ["Hello, can I get one sword for gold equaling the number of five letter words I've said?"],
+			success : "Heh, thanks pal.",
+			fail : "You can't just give me one sword?",
+			questions : {
+				number : "I'm not sure.",
+				day : "I'd give it less than five stars.",
 				default : ". . ."
 			},
 			isFalseHero : true
@@ -626,11 +870,9 @@ var heroes = {
 			offers : [0],
 			offerText : "I need to hide here. He's after me./Please, @@he'll kill me if he finds me.",
 			success : "Thank you.",
-			fail : "Oh no.",
+			fail : "Oh dear.",
 			questions : {
-				day : "Very, @@very@ bad.",
-				color : "I don't know.",
-				default : "Please,@@ I don't have much time."
+				default : "Please, there's no time."
 			},
 			sellConditions : ["urchin_hidMan"],
 			refuseConditions : ["urchin_manRefused"]
@@ -647,9 +889,7 @@ var heroes = {
 			success : "Well, well street urchin. You're coming with me.",
 			fail : "Very well,@@ I hope you've been honest with me./@@@@For your sake.",
 			questions : {
-				day : "Busy.",
-				color : "Whatever will make you move faster.",
-				default : "Stop wasting my time."
+				default : "I'm asking the questions here."
 			},
 			appearConditions : ["urchin_hidMan"],
 			sellConditions : ["urchin_manDead"],
@@ -669,12 +909,16 @@ var heroes = {
 			appearanceInfo : heroLooks.scaredMan,
 			offers : [10],
 			offerText : [
-				"Thank you so much for hiding me. Would you accept this gift?"
+				"Thank you so much for hiding me. Would you accept this token of my appreciation?"
 			],
-			success : "Use it well friend. Be wary of the tracker.",
-			fail : ". . .",
+			success : "Use it well friend. Be wary of the bounty hunter, he may suspect you of hiding me.",
+			fail : ". . . I will return.",
 			questions : {
-			
+				number : "44.",
+				color : "The color of sky.",
+				alphabet : "I never learned it.",
+				day : "Much better than yesterday.",
+				default : ". . ."
 			},
 			appearConditions : ["urchin_manGrateful"],
 			sellConditions : ["urchin_acceptedGift"],
@@ -684,7 +928,7 @@ var heroes = {
 			type : "dialog",
 			appearanceInfo : "random",
 			dialog : [
-				"We know you sold out our brother to that man.",
+				"We know you sold our brother out to that bounty hunter.",
 				"Watch your back, coward."
 			],
 			appearConditions : ["urchin_familyAngry"],
@@ -693,14 +937,14 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.tracker,
-			offers : [-10],
+			offers : [0],
 			offerText : [
-				"Did you hide the dangerous man from me a few days ago?/@@I just want the truth."
+				"Did you lie to me when I was last here?/@@I demand to know the truth."
 			],
 			success : ". . . I'll be back.",
 			fail : ". . .",
 			questions : {
-				default : ". . ."
+				default : "Answer me. Now."
 			},
 			appearConditions : ["urchin_trackerSuspicious"],
 			sellConditions : ["urchin_trackerTruth"],
@@ -710,7 +954,7 @@ var heroes = {
 			type : "dialog",
 			appearanceInfo : heroLooks.scaredMan,
 			dialog : [
-				"I don't quite know what to make of you, shopkeeper.",
+				"I don't quite know what to make of you, but you seem like you may be a kind soul.",
 				"Tomorrow, I will be back, and will try to buy a sword for two gold.",
 				"If you remember my face, I would be grateful."
 			],
@@ -722,12 +966,12 @@ var heroes = {
 			appearanceInfo : heroLooks.tracker,
 			offers : [-7],
 			offerText : [
-				"By helping me capture that man, you've made dangerous enemies. I'll protect you for seven gold."
+				"The man you helped me capture has dangerous friends who are now your dangerous enemies./@I'll protect you for seven gold."
 			],
-			success : "Very good, I will return in the night.",
-			fail : "Very well. Good luck, you will need it.",
+			success : "Very good, I will return here tonight.",
+			fail : "Very well, good luck. You will need it.",
 			questions : {
-				default : ". . ."
+				default : "My patience is wearing thin."
 			},
 			appearConditions : ["urchin_familyAngry"],
 			sellConditions : ["urchin_trackerProtect"],
@@ -744,6 +988,10 @@ var heroes = {
 			success : "Well done, shopkeeper.",
 			fail : "Hrm . . .",
 			questions : {
+				number : "31",
+				color : "Green.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz",
+				day : "Not bad.",
 				default : ". . ."
 			},
 			appearConditions : ["urchin_manWary"],
@@ -755,7 +1003,7 @@ var heroes = {
 			appearanceInfo : heroLooks.tracker,
 			offers : [-10],
 			offerText : [
-				"I got to thinking, shopkeeper. If you lied to me about the man, I want my ten gold back."
+				"I've been thinking, shopkeeper. If you lied to me about the man, I want my ten gold back./Will you return it?"
 			],
 			success : "Good choice.",
 			fail : ". . .",
@@ -770,7 +1018,7 @@ var heroes = {
 			type : "dialog",
 			appearanceInfo : heroLooks.scaredMan,
 			dialog : [
-				"You seem like the good sort of person after all.",
+				"I am honored that you remember my face.",
 				"Please shopkeeper, accept this gift."
 			],
 			appearConditions : ["urchin_manProud"],
@@ -781,8 +1029,9 @@ var heroes = {
 			appearanceInfo : heroLooks.tracker,
 			dialog : [
 				". . .",
-				"* The Tracker punches you in the stomach and takes 15 gold from your register. *",
-				". . ."
+				"* The Tracker punches you in the stomach and takes 15 gold from your counter. *",
+				". . .",
+				"Be glad I'm taking your gold and not your life."
 			],
 			appearConditions : ["urchin_trackerVengeful"],
 			endMoney : -15
@@ -794,10 +1043,16 @@ var heroes = {
 			item : "None",
 			appearanceInfo : "treasure_hunter",
 			offers : [-5],
-			offerText : ["Hey shopkeep, in my travels I found this treasure map./Want it? Five gold."],
-			success : "Hope it's worth it!@@/I mean, of course it's worth it!",
+			offerText : ["Howdy shopkeep, in my many incredible adventures, I found this treasure map./Want it? Five gold."],
+			success : "Hope it's worth it!@@/I mean, why wouldn't it be?",
 			fail : "Your loss, shopkeep.",
-			questions : {default : ". . ."},
+			questions : {
+				number : "Lucky number seven.",
+				color : "Beige, but you know, the cool kind of beige.",
+				alphabet : "What is this, a math test?",
+				day : "Adventurey, like all of my days.",
+				default : ". . ."
+			},
 			sellConditions : ["treasure_bought"],
 			refuseConditions : ["treasure_refused"],
 		},
@@ -806,10 +1061,16 @@ var heroes = {
 			item : "None",
 			appearanceInfo : "treasure_hunter",
 			offers : [-10],
-			offerText : ["Hey shopkeep, good to see you again! How about another map? Ten gold this time."],
-			success : "Have fun, pal.",
-			fail : "We'll see if you change your mind tomorrow.",
-			questions : {default : ". . ."},
+			offerText : ["Hey shopkeep, always nice to see your face. How about another map? Ten gold this time."],
+			success : "Have fun with it, pal.",
+			fail : "Alright then, I'll still be back tomorrow. Haven't given up on you yet.",
+			questions : {
+				number : "Lucky number seven.",
+				color : "Beige, but you know, the cool kind of beige.",
+				alphabet : "What is this, a math test?",
+				day : "Adventurey, like all of my days.",
+				default : ". . ."
+			},
 			appearConditions : ["treasure_happy"],
 			sellConditions : ["treasure_bought"],
 			refuseConditions : ["treasure_refused"],
@@ -820,9 +1081,15 @@ var heroes = {
 			appearanceInfo : "treasure_hunter",
 			offers : [-10],
 			offerText : ["Hey shopkeep, this time I have an even better map. Want it for ten gold?"],
-			success : "Have fun, pal.",
-			fail : "We'll see if you change your mind tomorrow.",
-			questions : {default : ". . ."},
+			success : "Have fun with it, pal.",
+			fail : "Alright then, I'll still be back tomorrow. Haven't given up on you yet.",
+			questions : {
+				number : "Lucky number seven.",
+				color : "Beige, but you know, the cool kind of beige.",
+				alphabet : "What is this, a math test?",
+				day : "Adventurey, like all of my days.",
+				default : ". . ."
+			},
 			appearConditions : ["treasure_sad"],
 			sellConditions : ["treasure_bought"],
 			refuseConditions : ["treasure_refused"],
@@ -832,10 +1099,16 @@ var heroes = {
 			item : "None",
 			appearanceInfo : "treasure_hunter",
 			offers : [-15],
-			offerText : ["Howdy shopkeep, I'm going to explore a dungeon. Want to invest and split the keep? Give me fifteen gold."],
-			success : "Wish me luck, pal.",
-			fail : "Alright, I'll try to find the cash elsewhere.",
-			questions : {default : ". . ."},
+			offerText : ["Howdy shopkeep, I'm going to explore a dungeon tonight. Want to invest and split the keep? I'll need fifteen gold."],
+			success : "Wish me luck, pal. Not that I'll need it, of course.",
+			fail : "Alright, I'll find myself some other investor.",
+			questions : {
+				number : "Lucky number seven.",
+				color : "Beige, but you know, the cool kind of beige.",
+				alphabet : "What is this, a math test?",
+				day : "Adventurey, like all of my days.",
+				default : ". . ."
+			},
 			appearConditions : ["treasure_hunting"],
 			sellConditions : ["treasure_invested"],
 			refuseConditions : ["treasure_refused"],
@@ -845,10 +1118,16 @@ var heroes = {
 			item : "None",
 			appearanceInfo : "treasure_hunter",
 			offers : [-15],
-			offerText : ["Hey shopkeep, I've got one last map for you. It'll be fifteen gold."],
+			offerText : ["Hey shopkeep, I've got one last map for you that'll knock your socks off. It'll be fifteen gold."],
 			success : "Happy travels, shopkeep.",
 			fail : "Alrighty shopkeep, have it your way.",
-			questions : {default : ". . ."},
+			questions : {
+				number : "Lucky number seven.",
+				color : "Beige, but you know, the cool kind of beige.",
+				alphabet : "What is this, a math test?",
+				day : "Adventurey, like all of my days.",
+				default : ". . ."
+			},
 			appearConditions : ["treasure_sad"],
 			sellConditions : ["treasure_bought"],
 			refuseConditions : ["treasure_refused"],
@@ -856,7 +1135,11 @@ var heroes = {
 		"6goodbye" : {
 			type : "dialog",
 			appearanceInfo : "treasure_hunter",
-			dialog : ["Hey shopkeep, I escaped that dungeon by the skin of my teeth!", "As promised, here's the return on your investment. Spend it well, friend."],
+			dialog : [
+				"Hey shopkeep! As expected, I got through the dungeon with absolutely no problems at all.",
+				"Please ignore the scorch marks on my back, and the claw marks on my pack.",
+				"As promised, here's the return on your investment. Spend it well, pal."
+			],
 			appearConditions : ["treasure_hunting2"],
 			endMoney : 30
 		}
@@ -865,7 +1148,12 @@ var heroes = {
 		"1initialGive" : {
 			type : "dialog",
 			appearanceInfo : "artifact",
-			dialog : ["I don't have much time. Hold onto this orb for me./@@I'll pay you 50 gold if you hold onto it for 5 days.", "~~Frantically, the man gives you a black orb~~", "~~It pulses with unnatural energy~~", "Be careful with it."],
+			dialog : [
+				"I don't have much time. Hold onto this orb for me./@@I'll pay you 50 gold if you hold onto it for 5 days.",
+				"~~Frantically, the man gives you a black orb~~",
+				"~~It pulses with unnatural energy~~",
+				"Be careful with it."
+			],
 		},
 		"2shinyOffer" : {
 			type : "interact",
@@ -875,7 +1163,13 @@ var heroes = {
 			offerText : ["Ooh, that orb is beautiful. Think I could take it off your hands for ten gold?"],
 			success : "Thanks, appreciate it.",
 			fail : "Oh well, it was a long shot anyway.",
-			questions : {default : ". . ."},
+			questions : {
+				number : "Eighty eight.",
+				color : "Tealish green.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz",
+				day : "Shiny!",
+				default : ". . ."
+			},
 			sellConditions : ["artifact_soldOrb"],
 			refuseConditions : ["artifact_keptOrb"],
 		},
@@ -887,7 +1181,13 @@ var heroes = {
 			offerText : ["That orb has a fascinating color. Do you think I could buy it from you for 20 gold?"],
 			success : "Thank you, I cannot wait to study this.",
 			fail : "Well, darn.",
-			questions : {default : ". . ."},
+			questions : {
+				number : "Seventy two.",
+				color : "Whatever color that orb is.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz",
+				day : "Rather boring, until now that is.",
+				default : ". . ."
+			},
 			appearConditions : ["artifact_haveOrb2"],
 			sellConditions : ["artifact_soldOrb"],
 			refuseConditions : ["artifact_keptOrb"],
@@ -897,10 +1197,16 @@ var heroes = {
 			item : "None",
 			appearanceInfo : "random",
 			offers : [40],
-			offerText : ["Oh, my. That orb would look fantastic on my mantle. Would you part with it for 40 gold?"],
+			offerText : ["Oh my, that orb would look fantastic on my mantle. Would you part with it for 40 gold?"],
 			success : "Well isn't this my lucky day.",
 			fail : "Oh dearie me . . .",
-			questions : {default : ". . ."},
+			questions : {
+				number : "Ninety nine.",
+				color : "Green blue.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz",
+				day : "Smashing.",
+				default : ". . ."
+			},
 			appearConditions : ["artifact_haveOrb3"],
 			sellConditions : ["artifact_soldOrb"],
 			refuseConditions : ["artifact_keptOrb"],
@@ -913,7 +1219,9 @@ var heroes = {
 			offerText : ["With that orb, unlimited power could be mine! GIVE IT TO ME. Sixty gold."],
 			success : "AHAHAHAHAHAHA",
 			fail : ". . .",
-			questions : {default : ". . ."},
+			questions : {
+				default : "UNLIMITED POWER."
+			},
 			appearConditions : ["artifact_haveOrb4"],
 			sellConditions : ["artifact_soldOrb"],
 			refuseConditions : ["artifact_keptOrb"],
@@ -921,21 +1229,29 @@ var heroes = {
 		"6returnHappy" : {
 			type : "dialog",
 			appearanceInfo : "artifact",
-			dialog : ["Thank you for holding onto that for me, child."],
+			dialog : [
+				"Thank you for holding onto that for me, child.",
+				"Here is your payment, as promised."
+			],
 			appearConditions : ["haveOrb5"],
 			endMoney : 50
 		},
 		"6returnSad" : {
 			type : "dialog",
 			appearanceInfo : "artifact",
-			dialog : ["You didn't keep the orb? Curse you, child."],
+			dialog : [
+				"You didn't keep the orb? Curse you, child."
+			],
 			appearConditions : ["artifact_lostOrb"],
 		},
 
 		"6returnScared" : {
 			type : "dialog",
 			appearanceInfo : "artifact",
-			dialog : ["Oh dear child, you sold my orb to that lunatic?", "You are a fool."],
+			dialog : [
+				"Oh dear child, you sold my orb to that lunatic?",
+				"You truly are a fool."
+			],
 			appearConditions : ["artifact_villainOrb"],
 		}
 	},
@@ -943,34 +1259,59 @@ var heroes = {
 		"2intro" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
-			dialog : ["We must rise up and topple those who would exploit us.", "If you are with us, accept my third offer tomorrow. It will be one gold.", "We are the night."],
+			dialog : [
+				"For too long have we been taxed and trodden upon./We must rise up and topple those who would exploit us.",
+				"I shall return tomorrow in clever disguise. If you are with us, accept my third offer. It will be one gold.",
+				"We are the night."
+			],
 		},
 		"3return" : {
 			type : "interact",
 			item : "sword",
-			appearanceInfo : "cloak",
+			appearanceInfo : "cloak_stache",
 			offers : [2, 3, 1],
-			offerText : ["Hello friend who I have never seen before. Two gold for a sword?", "How about three?", "Or one?"],
+			offerText : [
+				"Hello friend who I have never seen before. Two gold for a sword?",
+				"How about three?",
+				"Or one?"
+			],
 			success : "We are the night.",
 			fail : ". . . very well.",
-			questions : {default : ". . ."},
+			questions : {
+				number : "Our official number is three.",
+				color : "Our official color is 'Mystery Cloak'.",
+				alphabet : "Our official alphabet is 'abcdefghijklmnopqrstuvwxyz'",
+				day : "Officially, my day has been standard to above standard.",
+				default : ". . ."
+			},
 			sellConditions : ["uprising_rebel"],
 			refuseConditions : ["uprising_citizen"],
 		},
 		"4policeIntro" : {
 			type : "dialog",
 			appearanceInfo : "guardian",
-			dialog : ["We've heard of some dangerous characters starting up a rebellion against the glorious King Zoran.", "If you hear anything, let me know. I will be back soon."],
+			dialog : [
+				"We've heard of some dangerous characters starting up a rebellion against the glorious King Zoran.",
+				"If you hear anything, you are required by law to report it. I will be back tomorrow."
+			],
 		},
 		"4rebelMoney" : {
 			type : "interact",
 			item : "None",
 			appearanceInfo : "cloak",
 			offers : [-7],
-			offerText : ["Hello friend. The rebellion needs seven gold to continue freeing the people. Will you be one with us?"],
+			offerText : [
+				"Hello again, my friend. The rebellion requires seven gold. Will you help us free the people?"
+			],
 			success : "We are the night.",
 			fail : ". . . very well.",
-			questions : {default : ". . ."},
+			questions : {
+				number : "Officially, our favorite number is currently seven.",
+				color : "Currently, our favorite color is 'Charcoal Cloak'.",
+				alphabet : "Officially, our alphabet is 'abcdefghijklmnopqrstuvwxyz'.",
+				day : "This day has been pleasant enough.",
+				default : ". . ."
+			},
 			appearConditions : ["uprising_rebelBegin"],
 			sellConditions : ["uprising_rebel"],
 			refuseConditions : ["uprising_citizen"],
@@ -978,13 +1319,22 @@ var heroes = {
 		"5rebelWarning" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
-			dialog : ["Hello friend. Thank you for listening to us even if you didn't join.", "You should probably think about staying out of the town square today.", ". . . Just so you know. No reason at all, nothing to worry about./@@k thanx bye."],
+			dialog : [
+				"Hello friend. Thank you for listening to us.",
+				"You should probably think about staying out of the town square today.",
+				". . . Not that we are doing anything there. No reason at all, nothing to worry about./@@@Bye."
+			],
 			appearConditions : ["uprising_citizenBegin"],
 		},
 		"5rebelJob" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
-			dialog : ["Hello friend, I have your mission.", "A city official will be here soon to buy a bow for one gold.", "Stall him for five seconds before you reject him so we can kidna . . . talk to him."],
+			dialog : [
+				"Hello friend, I have your first mission to help free our people.",
+				"A nasty city official will be here soon to buy a bow for one gold.",
+				"Stall him for five seconds before you reject him so we can kidnap . . .",
+				"so we can talk to him."
+			],
 			appearConditions : ["uprising_rebelJoined"],
 		},
 		"5official" : {
@@ -995,7 +1345,9 @@ var heroes = {
 			offerText : ["I am an official representative of the city, and I demand a bow for one gold."],
 			success : "You made the right choice",
 			fail : "Your king will hear of this.",
-			questions : {default : ". . ."},
+			questions : {
+				default : "Move faster, peasant."
+			},
 			stallTime : 4000,
 			appearConditions : ["uprising_rebelJoined"],
 			stallConditions : ["uprising_officialStalled"],
@@ -1005,10 +1357,15 @@ var heroes = {
 			item : "None",
 			appearanceInfo : "guardian",
 			offers : [0, 5],
-			offerText : ["Can you tell me anything about the rebels?", "What if I offer you five gold?"],
+			offerText : [
+				"Can you tell me anything about the rebels?",
+				"What if I offer you five gold? Not that I should have to pay you to help your king."
+			],
 			success : "Thank you, this will help us greatly.",
 			fail : "Very well, I hope you've been honest. We could make your life very difficult.",
-			questions : {default : ". . ."},
+			questions : {
+				default : "Please sir, just answer the question."
+			},
 			sellConditions : ["uprising_informant"],
 			refuseConditions : ["uprising_traitor"],
 		},
@@ -1022,7 +1379,10 @@ var heroes = {
 		"6stallAsk" : {
 			type : "dialog",
 			appearanceInfo : "guardian",
-			dialog : ["Hello citizen, we've heard that one of the rebels will make contact with you today.", "Stall her for seven seconds when she's here, and we'll make it worth your while."],
+			dialog : [
+				"Hello citizen, we've heard that one of the rebels will make contact with you today.",
+				"Stall her for seven seconds when she's here, and we'll make it worth your while."
+			],
 			appearConditions : ["uprising_informantHelper"],
 		},
 		"6rebelStall" : {
@@ -1033,7 +1393,13 @@ var heroes = {
 			offerText : ["Hello friend, this is last time I come here. You are sure you will not join?"],
 			success : "Fantastic! We will see you soon.",
 			fail : "All right, friend. I will see you around then.",
-			questions : {default : ". . ."},
+			questions : {
+				number : "My personal favorite number is eight.",
+				color : "Our official color of the day is 'Nighttime Black'.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz",
+				day : "Officially I am required to say that today was pleasant.",
+				default : ". . ."
+			},
 			stallTime : 6000,
 			appearConditions : ["uprising_informantHelper"],
 			stallConditions : ["uprising_informant"],

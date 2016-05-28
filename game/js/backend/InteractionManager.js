@@ -110,7 +110,9 @@ function InteractionManager(game) {
 				}
 				game.eventManager.notify(game.Events.INVENTORY.NOTSOLD, currentNPC.item, currentNPC.offers[offerIndex]);
 				game.eventManager.notify(game.Events.INTERACT.DIALOG, getDialog(currentNPC, "fail"))
-				game.eventManager.notify(game.Events.TIMER.JUMP, 1000);
+				if(!currentNPC.isFalseHero) {
+					game.eventManager.notify(game.Events.TIMER.JUMP, 1000);
+				}
 				currentNPC = false;
 			}
 		});
@@ -266,7 +268,9 @@ function InteractionManager(game) {
 
 		if(currentNPC.type === "interact") {
 			trackPotentialProfit(currentNPC);
-			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
+			var fingerString = currentNPC.isFingers ? generateFingerString(currentNPC.offers[0]) : false;
+			var fingerTime = currentNPC.isFingers ? currentNPC.fingerTime : false;
+			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, fingerString, fingerTime);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
 			game.dayTimer.pause();

@@ -88,6 +88,7 @@ function AssetManager(game) {
 		'hero': [
 			'hero_artifact',
 			'hero_cloak',
+			'hero_cloak_stache',
 			'hero_guardian',
 			'hero_king_zoran',
 			'hero_treasure_hunter'

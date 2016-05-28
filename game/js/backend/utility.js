@@ -169,6 +169,49 @@ function bitmapDataReplaceColor(bmd, r, g, b, a, newR, newG, newB, newA, w, h) {
 	bmd.ctx.putImageData(imgdata, 0, 0);
 }
 
+function generateFingerString(num) {
+	num = Math.min(num, 10);
+	var fingerArray = [];
+	for(var i = 0; i < num; i++) {
+		var index;
+		do {
+			index = randomIntInRange(0, 10);
+		} while(fingerArray[index] || isObscene(fingerArray, index));
+		fingerArray[index] = true;
+	}
+
+	var fingerString = "";
+	for(var i = 0; i < 10; i++) {
+		fingerString += (fingerArray[i]) ? "1" : "0";
+	}
+	return fingerString;
+}
+
+function isObscene(fingerArray, newIndex) {
+	if(newIndex === 2) {
+		return isObsceneHelper(fingerArray.slice(0, 5));
+	} else if(newIndex === 7) {
+		return isObsceneHelper(fingerArray.slice(5, 10));
+	} else {
+		return false;
+	}
+}
+
+function isObsceneHelper(singleHand) {
+	for(var i = 1; i < 5; i++) {
+		if(singleHand[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function randomIntInRange(min, max) {
+	var range = max-min;
+	var rand = Math.random() * range + min;
+	return Math.floor(rand);
+}
+
 var nullFunc = function() {};
 
 function iddqd() {

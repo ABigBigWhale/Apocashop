@@ -113,18 +113,18 @@ function EndStateWrapper(game) {
 				score = 4.0 * Math.min(1.0, score / topScore);
 				
 				var commentText = '';
-				if (score <= 1.8) commentText = 'I mean...Come on...';
-				else if (score <= 2.5) commentText = 'Awwwww...This is pretty sad...';
-				else if (score <= 3.0) commentText = 'I hope you have S/NS\'ed...';
-				else if (score <= 3.5) commentText = 'Still, probably won\'t make the Dean\'s List.';
-				else if (score <= 3.9) commentText = 'That\'ll look nice on the Grade Report.';
-				else commentText = 'Wow... [The ancient sales manager is surprised.]\n' + 
-					'[Sadly...\n he doesn\'t have any surprise for you...]';
+				if (score <= 1.8) commentText = "King Zoran sends you home, hoping you'll try again.";
+				else if (score <= 2.5) commentText = 'King Zoran sends you on our way with a hefty sack of gold.';
+				else if (score <= 3.0) commentText = 'King Zoran stops making you pay taxes.\nWell, some of your taxes.';
+				else if (score <= 3.5) commentText = 'King Zoran sets you up with a shop in the capital.';
+				else if (score <= 3.9) commentText = 'King Zoran makes you an official advisor.';
+				else commentText = 'King Zoran makes you an official advisor.\n' + 
+					'Someday, you and Jeff may even rule this kingdom.';
 				
 				endOfDemoText = game.add.text(
 					100, 200,
-					"THANK YOU!\nYou have reached the end of the demo.\n" + 
-					"The ancient sales manager gave you\n a rating of " + 
+					"You and the king arrive at the palace\n" + 
+					"King Zoran gives you an\n official rating of " + 
 					parseFloat(Math.round(score * 10) / 10).toFixed(1) + '/4.0\n\n' + 
 					commentText,
 					{

@@ -10,7 +10,7 @@ function HeroManager(game) {
 	function init() {
 		heroCollections.randomGenHero = generateRandomHero();
 		validHeroCollections = Object.keys(heroCollections);
-		//validHeroCollections = ["vocabMan", "randomGenHero", "vocabMan", "randomGenHero", "vocabMan", "vocabMan", "stallingMan", "stutterMan", "rhymeAdvance"];
+		//validHeroCollections = ["noLetter", "noLetter", "noLetter", "noLetter", "noLetter"];
 	}
 
 	this.insertHeroes = function(day, numFalse) {
@@ -72,7 +72,7 @@ function HeroManager(game) {
 	var heroCollections = {
 		vocabMan : {
 			hero : "hero",
-			falseHeroes : ["villain"],
+			falseHeroes : ["villain", "villain2", "villain3"],
 			clues : [
 				"The hero knows only four words."
 			],
@@ -96,105 +96,184 @@ function HeroManager(game) {
 				}
 			]
 		},
-		stutterMan : {
-			hero : "hero",
-			falseHeroes : ["villain1", "villain2", "villain3"],
-			clues : [
-				"The hero has a hard time with the \"s\" sound. Be patient, he might take a while to pronounce sssssnake",
-				"The hero does not know the difference between numbers"
-			],
-			questions : {
-				numbers : "Two plus two?",
-				animal : "Snakes?"
-			},
-			wrapup : [
-				{
-					conditions : ["soldHero"],
-					text : "Our hero slayed the enemies while screaming SSSSSnakessssss are not SSSSScary!\n" + 
-						   "He stopped by your store to give you a small tip of 1 gold. You helped him overcome his secret fear of snakes he didn't know he had ...",
-					gold : 1
-				},
-				{
-					conditions : ['soldHero'],
-					text : "Our hero couldn't stop hissing. Or shushing? Can't really tell ... Maybe someone forgot to reset him?"
-
-				},
-				{
-					conditions : ['soldHero'],
-					text : "When asked how many he had slain, our hero said \'Two plussssss two many! Ssssssso around 10.4 I would guesssssssss\'. He's not our brightest hero"
-				},
-				{
-					conditions : ["refusedHero"],
-					text : "Our hero was found in the local town pub talking about how he 'would have' saved the villiage if a 'ccccccertain ssssssssomeone' would have sold him a shield. The townspeople wept and a couple of them joined forces and trashed your shop. You spent 10 gold in repairs.",
-					gold : -10
-				}
-			]
-		},
-		stallingMan : {
-			hero : "hero",
-			falseHeroes : ["villain1", "villain2"],
-			clues : [
-				"The hero speaks in bursts of three words",
-				"The hero cannot pronounce 'supercalifragilistic\nexpialidocious'",
-				"Our hero does not know what a sword is. But he will want to buy one",
-				"Our hero has no money, he will ask for the sword for free"
-			],
-			questions : {
-				sword : "Sword?",
-				super : "Supercalifragilisticexpialidocious?"
-			},
-			wrapup : [
-				{
-					conditions : ["soldHero"],
-					text : "Our hero stormed into battle in a gallop and slayed the enemies with a quick 1,2,3 of the sword.\n" +
-						   "Now that he has some money, he stops by and thanks you by giving you 1 gold out of his overflowing gold bag.",	
-					gold : 1
-				},
-				{
-					conditions : ['soldHero'],
-					text : "Our ran to the front lines and drew his shiny new (free) sword. Everyone cowered in fear and fled. " +
-						   "Unfortunatley, our hero didn't make any money because of it. So he is still goldless :("
-
-				},
-				{
-					conditions : ['soldHero'],
-					text : "When interviewed, our hero could not stop talking about his supercallfraglisticous pointy thing that he used so well"
-				},
-				{
-					conditions : ["refusedHero"],
-					text : "Our hero thought that a stick on the ground would be suitible to fend off the enemies. It didn't work. " +
-						   "King Zoran took an extra 15 gold in taxes to repair the town after the ransacking.",
-					gold : -15
-				}
-			]
-		},
-		rhymeAdvance : {
+		fingers : {
 			hero : "hero",
 			falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
 			clues : [
-				"The first, seventh, and thirteenth word the hero says will rhyme."
+				"The hero will offer five gold for a shield.",
+				"The hero refuses to say numbers.",
+				"The hero likes to talk with their hands."
 			],
 			questions : {
-				day : "How was day?",
-				color : "Favorite Color?"
+				number : "Favorite number?",
+				color : "Favorite color?"
 			},
 			wrapup : [
 				{
 					conditions : ['soldHero'],
-					text : "Using their newly purchased shield to cower behind, the hero was able to confuse and defeat the monsters with their rhymes."
-				},
-				{
-					conditions : ['soldHero'],
-					text : "In appreciation, they return with some of the monster's keep.",
-					gold : 5
+					text : "Thanks to their shiny new shield, the hero was able to drive the threat from the town."
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "Without a shield, the hero was lost while trying to distract the monsters with their rhymes./@Your store is pillaged.",
+					text : "Without a shield to protect themselves, the hero was unable to stop the threat."
+				},
+				{
+					conditions : ['refusedHero'],
+					text : "They were also unable to warn the townspeople of how many monsters were coming, since there were more than ten./You are unprepared and your storefront is destroyed.",
 					gold : -12
 				}
 			]
-		}
+		},
+		noLetter : {
+			hero : "hero",
+			falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
+			clues : [
+				"The hero refuses to say the letters 's' or 'h'"
+			],
+			questions : {
+				alphabet : "Alphabet?",
+				color : "Favorite color?"
+			},
+			wrapup : [
+				{
+					conditions : ['soldHero'],
+					text : "Using their newly purchased bow, the hero drives the villains out of town./It turns out a sword, shield, or chicken would have worked better, but the hero was unable to ask for them.",
+				},
+				{
+					conditions : ['refusedHero'],
+					text : "Without access to a bow, the hero fell trying to defend the town from monsters. Your store is pillaged.",
+					gold : -12
+				}
+			]
+		},
+		noNumber : {
+			hero : "hero",
+			falseHeroes : ["falseHero1", "falseHero2"],
+			clues : [
+				"The hero will offer three gold.",
+				"The hero will only say the number five.",
+				"The hero enjoys word games."
+			],
+			questions : {
+				number : "Favorite number?",
+				day : "How was day?"
+			},
+			wrapup : [
+				{
+					conditions : ['soldHero'],
+					text : "Thanks to their new sword, the hero was able to repel the monsters from the town."
+				},
+				{
+					conditions : ['soldHero'],
+					text : "They come back, thank you for helping them, and offer you a gold for every 't' in this sentence.",
+					gold : 6
+				},
+				{
+					conditions : ['refusedHero'],
+					text : "Without a sword, the hero was no match for the evil that descended upon the town. Your shop is heavily damaged.",
+					gold : -12
+				}
+			]
+		},
+		// rhymeAdvance : {
+		// 	hero : "hero",
+		// 	falseHeroes : ["falseHero1", "falseHero2", "falseHero3"],
+		// 	clues : [
+		// 		"The first, seventh, and thirteenth word the hero says will rhyme."
+		// 	],
+		// 	questions : {
+		// 		day : "How was day?",
+		// 		color : "Favorite Color?"
+		// 	},
+		// 	wrapup : [
+		// 		{
+		// 			conditions : ['soldHero'],
+		// 			text : "Using their newly purchased shield to cower behind, the hero was able to confuse and defeat the monsters with their rhymes."
+		// 		},
+		// 		{
+		// 			conditions : ['soldHero'],
+		// 			text : "In appreciation, they return with some of the monster's keep.",
+		// 			gold : 5
+		// 		},
+		// 		{
+		// 			conditions : ['refusedHero'],
+		// 			text : "Without a shield, the hero was lost while trying to distract the monsters with their rhymes./@Your store is pillaged.",
+		// 			gold : -12
+		// 		}
+		// 	]
+		// },
+		// stallingMan : {
+		// 	hero : "hero",
+		// 	falseHeroes : ["villain1", "villain2"],
+		// 	clues : [
+		// 		"The hero speaks in bursts of three words",
+		// 		"The hero cannot pronounce 'supercalifragilistic\nexpialidocious'",
+		// 		"Our hero does not know what a sword is. But he will want to buy one",
+		// 		"Our hero has no money, he will ask for the sword for free"
+		// 	],
+		// 	questions : {
+		// 		sword : "Sword?",
+		// 		super : "Supercalifragilisticexpialidocious?"
+		// 	},
+		// 	wrapup : [
+		// 		{
+		// 			conditions : ["soldHero"],
+		// 			text : "Our hero stormed into battle in a gallop and slayed the enemies with a quick 1,2,3 of the sword.\n" +
+		// 				   "Now that he has some money, he stops by and thanks you by giving you 1 gold out of his overflowing gold bag.",	
+		// 			gold : 1
+		// 		},
+		// 		{
+		// 			conditions : ['soldHero'],
+		// 			text : "Our ran to the front lines and drew his shiny new (free) sword. Everyone cowered in fear and fled. " +
+		// 				   "Unfortunatley, our hero didn't make any money because of it. So he is still goldless :("
+
+		// 		},
+		// 		{
+		// 			conditions : ['soldHero'],
+		// 			text : "When interviewed, our hero could not stop talking about his supercallfraglisticous pointy thing that he used so well"
+		// 		},
+		// 		{
+		// 			conditions : ["refusedHero"],
+		// 			text : "Our hero thought that a stick on the ground would be suitible to fend off the enemies. It didn't work. " +
+		// 				   "King Zoran took an extra 15 gold in taxes to repair the town after the ransacking.",
+		// 			gold : -15
+		// 		}
+		// 	]
+		// },
+		// stutterMan : {
+		// 	hero : "hero",
+		// 	falseHeroes : ["villain1", "villain2", "villain3"],
+		// 	clues : [
+		// 		"The hero has a hard time with the \"s\" sound. Be patient, he might take a while to pronounce sssssnake",
+		// 		"The hero does not know the difference between numbers"
+		// 	],
+		// 	questions : {
+		// 		numbers : "Two plus two?",
+		// 		animal : "Snakes?"
+		// 	},
+		// 	wrapup : [
+		// 		{
+		// 			conditions : ["soldHero"],
+		// 			text : "Our hero slayed the enemies while screaming SSSSSnakessssss are not SSSSScary!\n" + 
+		// 				   "He stopped by your store to give you a small tip of 1 gold. You helped him overcome his secret fear of snakes he didn't know he had ...",
+		// 			gold : 1
+		// 		},
+		// 		{
+		// 			conditions : ['soldHero'],
+		// 			text : "Our hero couldn't stop hissing. Or shushing? Can't really tell ... Maybe someone forgot to reset him?"
+
+		// 		},
+		// 		{
+		// 			conditions : ['soldHero'],
+		// 			text : "When asked how many he had slain, our hero said \'Two plussssss two many! Ssssssso around 10.4 I would guesssssssss\'. He's not our brightest hero"
+		// 		},
+		// 		{
+		// 			conditions : ["refusedHero"],
+		// 			text : "Our hero was found in the local town pub talking about how he 'would have' saved the villiage if a 'ccccccertain ssssssssomeone' would have sold him a shield. The townspeople wept and a couple of them joined forces and trashed your shop. You spent 10 gold in repairs.",
+		// 			gold : -10
+		// 		}
+		// 	]
+		// },
 	};
 
 	init();

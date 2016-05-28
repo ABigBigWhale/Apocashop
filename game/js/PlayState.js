@@ -105,6 +105,8 @@ function PlayStateWrapper(game) {
 			var uiCalendarDay = game.add.text(223+26, 600-270+22, '0',  { font: "bold 32px Arial", fill: "#cfcece", boundsAlignH: "center", boundsAlignV: "middle" });
 			uiCalendarLayer.add(uiCalendarDay);
 
+			uiCalendarLayer.visible = false;
+
 			//------------------------- Notes & Clues ------------------------
 			var uiNoteLayer = game.add.group();
 			uiNoteLayer.y = 400;
@@ -701,6 +703,9 @@ function PlayStateWrapper(game) {
 						break;
 					case 'cloak':
 						appearanceInfo = 'hero_cloak';
+						break;
+					case 'cloak_stache':
+						appearanceInfo = 'hero_cloak_stache';
 						break;
 					case 'guardian':
 						appearanceInfo = 'hero_guardian';

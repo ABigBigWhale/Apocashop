@@ -368,6 +368,12 @@ function initNPCGen(game) {
 				"I guess I've never given that much thought...",
 				"What's it to you?"
 			],
+			alphabet : [
+				"abcdefghijklmnopqrstuvwxyz",
+				"abcefghijklmnpqrtuvwxyz",
+				"bcghjlmprstvxz . . . I think that's all of them?",
+				"abcdhiklmnopqrstuvwxyz"
+			]
 		}
 
 		generateQuestions = function(day) {
