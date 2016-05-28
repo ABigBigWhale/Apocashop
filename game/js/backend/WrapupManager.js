@@ -63,6 +63,7 @@ function WrapupManager(game) {
 	function endWrapup() {
 		if(isEndEnabled) {
 			isEndEnabled = false;
+			game.analytics.track("wrapup", "goldLost", goldDiff);
 			game.playerState.addsubGold(goldDiff);
 			goldDiff = 0;
 			messages = [];

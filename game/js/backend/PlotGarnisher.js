@@ -43,20 +43,22 @@ function PlotGarnisher(game) {
 	};
 
 	function insertCharacters(day, storyName, charArray, isOrdered) {
-		var sequence = day.sequence;
-		var validIndexes = getValidIndexes(sequence, charArray.length);
+		if(charArray) {
+			var sequence = day.sequence;
+			var validIndexes = getValidIndexes(sequence, charArray.length);
 
-		for(var i = 0; i < charArray.length; i++) {
-			var index;
-			if(isOrdered) {
-				var segmentLength = Math.floor(validIndexes.length / (charArray.length - i));
-				var validIndexSubset = validIndexes.slice(0, segmentLength);
-				index = randomElement(validIndexSubset);
-				validIndexes = validIndexes.slice(validIndexSubset.indexOf(index) + 1);
-			} else {
-				index = randomElement(validIndexes, true);
+			for(var i = 0; i < charArray.length; i++) {
+				var index;
+				if(isOrdered) {
+					var segmentLength = Math.floor(validIndexes.length / (charArray.length - i));
+					var validIndexSubset = validIndexes.slice(0, segmentLength);
+					index = randomElement(validIndexSubset);
+					validIndexes = validIndexes.slice(validIndexSubset.indexOf(index) + 1);
+				} else {
+					index = randomElement(validIndexes, true);
+				}
+				sequence[index] = generateHeroData(storyName, charArray[i]);
 			}
-			sequence[index] = generateHeroData(storyName, charArray[i]);
 		}
 	}
 
@@ -189,6 +191,26 @@ function PlotGarnisher(game) {
 				chars : ["6proudMan", "6vengefulTracker"],
 				isOrdered : false
 			},
+			7 : {
+				wrapup : [
+					{
+						conditions : ["urchin_trackerVengeful"],
+						text : "Some days, you still see the bounty hunter you angered."
+					},
+					{
+						conditions : ["urchin_trackerVengeful"],
+						text : "He leers at you, as if to say that you are next."
+					},
+					{
+						conditions : ["urchin_manProud"],
+						text : "Sometimes, you think you spot the mysterious man who asked for your help, but by the time you look closely, he vanishes."
+					},
+					{
+						conditions : ["urchin_familyAngry"],
+						text : "Some days, you're certain you feel the family of the man you betrayed watching you."
+					}
+				]
+			},
 			invalidOthers : ["treasure", "artifact"]
 		},
 		treasure : {
@@ -285,6 +307,22 @@ function PlotGarnisher(game) {
 			6 : {
 				chars : ["6goodbye"],
 				isOrdered : false
+			},
+			7 : {
+				wrapup : [
+					{
+						conditions : ["treasure_hunting2"],
+						text : "The treasure hunter, fresh off his recent success, has landed a job in the capital."
+					},
+					{
+						conditions : ["treasure_hunting2"],
+						text : "He always greets you with a wink and a smile."
+					},
+					{
+						conditions : ["treasure_happy"],
+						text : "Sometimes, you see the treasure hunter wandering the world. He always greets you with a wink."
+					}
+				]
 			},
 			invalidOthers : ["urchin", "artifact"]
 		},
@@ -386,6 +424,26 @@ function PlotGarnisher(game) {
 					}
 				]
 			},
+			7 : {
+				wrapup : [
+					{
+						conditions : ["artifact_haveOrb5"],
+						text : "You sometimes see the man who owns the mysterious orb wandering about with a hectic look in his eye."
+					},
+					{
+						conditions : ["artifact_soldOrb"],
+						text : "You sometimes see the man who owns the mysterious orb wandering about with a judging look in his eye."
+					},
+					{
+						conditions : ["artifact_villainOrb"],
+						text : "On some nights, there is an unnatural darkness, the color of the orb, to the north."
+					},
+					{
+						conditions : ["artifact_villainOrb"],
+						text : "You can't help but feel at least partially responsible."
+					}
+				]
+			},
 			invalidOthers : ["treasure", "urchin"]
 		},
 		uprising : {
@@ -440,6 +498,11 @@ function PlotGarnisher(game) {
 						chance : 0.5,
 						isLongTerm : true
 					},
+					uprising_friendOfRebel : {
+						components : ["uprising_traitor"],
+						chance : 1.0,
+						isLongTerm : true
+					},
 					uprising_informantHelper : {
 						components : ["uprising_informant"],
 						chance : 1.0,
@@ -475,6 +538,21 @@ function PlotGarnisher(game) {
 						conditions : ["uprising_informant"],
 						text : "However, later in the night, the police stop by to thank you for destroying the rebellion. They leave behind a generous tip.",
 						gold : 20
+					}
+				]
+			},
+			7 : {
+				wrapup : [
+					{
+						text : "The official story is that the rebellion has been crushed."
+					},
+					{
+						conditions : ["uprising_destroyedRebels"],
+						text : "However, every once in a while, you see cloaks with handlebar moustaches out of the corner of your eye."
+					},
+					{
+						conditions : ["uprising_friendOfRebel"],
+						text : "However, often you hear whispers of 'hello, friend' on the wind, and see cloaks with handlebar moustaches out of the corner of your eye."
 					}
 				]
 			},

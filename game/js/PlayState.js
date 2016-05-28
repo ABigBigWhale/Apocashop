@@ -204,7 +204,10 @@ function PlayStateWrapper(game) {
 
 			uiNote.inputEnabled = true;
 			uiNoteCurtain.inputEnabled = true;
-			uiNote.events.onInputDown.add(toggleNoteDisplay, this);
+			uiNote.events.onInputDown.add(function() {
+				toggleNoteDisplay();
+				game.analytics.track("note", "clicked")
+			}, this);
 			uiNoteCurtain.events.onInputDown.add(toggleNoteDisplay, this);
 
 			var textCoins = game.add.text(60, 540, "0", // TODO: hardcoded
