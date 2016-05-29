@@ -42,7 +42,7 @@ function InteractionManager(game) {
 		dayUpgrade = 1;
 		// When continue is pushed, send out a new NPC
 		game.eventManager.register(game.Events.INPUT.CONTINUE, function() {
-			if(currentNPC && currentNPC.type === 'interact') {
+			if(currentNPC && currentNPC.type === 'interact' && offerIndex < currentNPC.offers.length) {
 				pushOffer(currentNPC, offerIndex, true);
 			} else if(currentNPC && currentNPC.type === 'dialog' && (((typeof currentNPC.dialog === 'string') && dialogIndex == 0) || ((currentNPC.dialog instanceof Array) && dialogIndex < currentNPC.dialog.length))) {
 				pushDialog(currentNPC, dialogIndex);

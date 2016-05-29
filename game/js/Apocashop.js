@@ -1,6 +1,8 @@
 var gameConfig = {
 	DEBUG_MODE: true,
-	RESOLUTION: [800, 600]
+	RESOLUTION: [800, 600],
+	VERSION : "TESTING",
+	ISSCALED : true
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -41,14 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		game.state.start('state_load');
 
-		game.stage.scale.pageAlignHorizontally = true;
-		game.stage.scale.pageAlignVeritcally = true;
-		game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+		if(gameConfig.ISSCALED) {
+			game.stage.scale.pageAlignHorizontally = true;
+			game.stage.scale.pageAlignVeritcally = true;
+			game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 
-		window.addEventListener('resize', modifyAspectRatio);
-		//window.addEventListener('fullscreenchange', modifyAspectRatio);
+			window.addEventListener('resize', modifyAspectRatio);
+			//window.addEventListener('fullscreenchange', modifyAspectRatio);
 
-		modifyAspectRatio();
+			modifyAspectRatio();
+		}
 
 	}
 

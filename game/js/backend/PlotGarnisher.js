@@ -532,7 +532,7 @@ function PlotGarnisher(game) {
 				},
 				wrapup : [
 					{
-						text : "Even more instructions on how to join the rebellion are slipped under your door just before nightfall."
+						text : "Even more instructions on how to join the rebellion are slipped under your door just before nightfal, but they're too confusing to be of any use."
 					},
 					{
 						conditions : ["uprising_informant"],

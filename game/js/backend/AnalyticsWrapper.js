@@ -4,7 +4,7 @@ function AnalyticsWrapper() {
 
 	// Change this whenever we want to start collecting
 	// to a new data set
-	var VERSION_NUM = 'TESTING';
+	var VERSION_NUM = gameConfig.VERSION;
 
 	// The value argument isn't required, you can just
 	// not include it if it doesn't really apply.
