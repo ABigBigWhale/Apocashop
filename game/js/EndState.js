@@ -30,19 +30,19 @@ function EndStateWrapper(game) {
 			blackScreen.beginFill(0x0, 1);
 			blackScreen.drawRect(0, 0, 800, 600);
 
-			restartHard = game.add.text(800 - 100, 500, "Restart Game", {
-				font: '20px yoster_islandregular',
+			restartHard = game.add.text(400, 500, "Restart Game", {
+				font: '24px yoster_islandregular',
 				fill: '#FFFFFF',
 				align: 'right'
 			});
-			restartSoft = game.add.text(240, 500, "Restart Day", {
-				font: '20px yoster_islandregular',
+			restartSoft = game.add.text(400, 400, "Retry Day", {
+				font: '32px yoster_islandregular',
 				fill: '#FFFFFF',
 				align: 'left'
 			});
-			restartHard.anchor.setTo(1, 1);
+			restartHard.anchor.setTo(0.5, 0.5);
 			restartHard.inputEnabled = true;
-			restartSoft.anchor.setTo(1, 1);
+			restartSoft.anchor.setTo(0.5, 0.5);
 			restartSoft.inputEnabled = true;
 
 			restartSoft.events.onInputOver.add(function() {
@@ -62,12 +62,14 @@ function EndStateWrapper(game) {
 
 			hardBox = game.add.image(0, 0, 'endday_boxoutline');
 			hardBox.scale.setTo(1.5, 1.5);
+			hardBox.anchor.setTo(0.5, 0.5);
 			softBox = game.add.image(0, 0, 'endday_boxoutline');
 			softBox.scale.setTo(1.5, 1.5);
-			hardBox.x = restartHard.x - restartHard.width - (hardBox.width - restartHard.width) / 2;
-			softBox.x = restartSoft.x - restartSoft.width - (softBox.width - restartSoft.width) / 2;
-			hardBox.y = restartHard.y - restartHard.height / 2 - hardBox.height / 2;
-			softBox.y = restartSoft.y - restartSoft.height / 2- softBox.height / 2;
+			softBox.anchor.setTo(0.5, 0.5);
+			hardBox.x = restartHard.x;
+			softBox.x = restartSoft.x;
+			hardBox.y = restartHard.y;
+			softBox.y = restartSoft.y;
 
 			if (!gameWon) {
 				gameOverText = game.add.text(
@@ -81,8 +83,8 @@ function EndStateWrapper(game) {
 			} else {
 				restartSoft.kill();
 				softBox.kill();
-				restartHard.x = 400 - restartHard.width;
-				hardBox.x = restartHard.x - restartHard.width - (hardBox.width - restartHard.width) / 2;
+				// restartHard.x = 400 - restartHard.width;
+				// hardBox.x = restartHard.x - restartHard.width - (hardBox.width - restartHard.width) / 2;
 				var topScore = 100.0;
 				var score = game.playerState.getGold() * 1.0;
 				
