@@ -29,7 +29,7 @@ function initDayGenerator(game) {
 		}
 
 		if(!day.isPreset.hero) {
-			heroManager.insertHeroes(day, Math.ceil((num+1)/3));
+			heroManager.insertHeroes(day, Math.ceil(num/3));
 		}
 	
 		if(!day.isPreset.plot) {
@@ -42,9 +42,10 @@ function initDayGenerator(game) {
 	function generateItemData(day, crisis) {
 		for(var i = 0; i < crisis.items.length; i++) {
 			var item = crisis.items[i];
+			var averagePrice = Math.round(items[item].price + items[item].jPrice);
 			day.itemData[item] = {
-				min : Math.floor(items[item].price / 2),
-				max : Math.ceil(items[item].price * 2),
+				min : Math.floor(averagePrice / 2),
+				max : Math.ceil(averagePrice * 2),
 				priority : 100 / (i+1)
 			};
 		}
@@ -113,19 +114,6 @@ function initDayGenerator(game) {
 		function generateDemandFlavor(item) {
 			var flavor = randomElement(demandFlavor);
 			return flavor.replace('[ax]', addAn(item)).replace('[x]', item);
-		}
-
-		window.kylegen = function(items) {
-
-			var crisis = [];
-
-			crisis.push(generateThreatFlavor(randomElement(threats)));
-
-			for(var i = 0; i < NUM_ITEMS_SHOWN; i++) {
-				crisis.push(generateDemandFlavor(items[i]));
-			}
-
-			console.log("CRISIS: " + crisis);
 		}
 
 	})();
@@ -382,7 +370,7 @@ function initDayGenerator(game) {
 					text : "After giving a discount to the fake hero, you're getting a reputation around town. You might see some more people looking for hero discounts."
 				}
 			],
-			length : 60000
+			length : 40000
 		},
 		{
 			isPreset : {
@@ -451,7 +439,7 @@ function initDayGenerator(game) {
 					gold : -10
 				}
 			],
-			length : 60000
+			length : 40000
 		},
 		false,
 		false,

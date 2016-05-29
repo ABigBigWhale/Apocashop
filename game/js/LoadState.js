@@ -9,6 +9,11 @@ function LoadStateWrapper(game) {
                 fill: "#FFFFFF"
             });
 
+            game.add.text(200, 285, "Loading, please wait...", {
+                font: "30px Courier New",
+                fill: "#000000"
+            });
+
             game.stage.backgroundColor = "#92CD9A";
             game.input.mouse.capture = true;
             game.displayManager = new DisplayManager(game);
