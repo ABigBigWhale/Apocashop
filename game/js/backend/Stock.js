@@ -36,7 +36,7 @@ function Stock(game) {
 	}
 	function returnStock(item) {
 		if (items[item] === undefined) {
-			alert("Trying to remove an item that doesn't exist");
+			return;
 		}
 		playerItems = game.playerState.getItems();
 		var diff = ((Items[item] || playerItems[item]) - (playerItems[item] || 0)) || 0;
