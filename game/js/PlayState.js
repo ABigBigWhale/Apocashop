@@ -626,7 +626,7 @@ function PlayStateWrapper(game) {
 			game.eventManager.register(game.Events.UPDATE.ITEMS, function(items) {
 				for(var item in items) {
 					if (uiItemNums[item] != undefined) {
-						uiItemNums[item].setText(game.playerState.getItems()[item].toString());
+						uiItemNums[item].setText((game.playerState.getItems()[item] || 0).toString());
 					}
 				}
 			});

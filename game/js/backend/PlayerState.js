@@ -32,7 +32,6 @@ function PlayerState(game) {
 	this.resetStats = function() {
 		Stats = JSON.parse(JSON.stringify(SavedStats));
 		game.eventManager.notify(game.Events.UPDATE.GOLD, Stats.Gold);
-		//game.eventManager.notify(game.Events.STOCK.INIT, Stats.numSlots, Stats.Gold, Stats.AvailableItems, Stats.Items);
 		game.eventManager.notify(game.Events.UPDATE.ITEMS, Stats.Items);
 		game.eventManager.notify(game.Events.UPDATE.STOCKGOLD, Stats.Gold);
 	}
