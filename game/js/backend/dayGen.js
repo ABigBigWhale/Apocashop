@@ -42,7 +42,7 @@ function initDayGenerator(game) {
 	function generateItemData(day, crisis) {
 		for(var i = 0; i < crisis.items.length; i++) {
 			var item = crisis.items[i];
-			var averagePrice = Math.round(items[item].price + items[item].jPrice);
+			var averagePrice = Math.round((items[item].price + items[item].jPrice) / 2);
 			day.itemData[item] = {
 				min : Math.floor(averagePrice / 2),
 				max : Math.ceil(averagePrice * 2),
