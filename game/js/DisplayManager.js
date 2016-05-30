@@ -110,6 +110,9 @@ function DisplayManager(game) {
 		background.arriveTween = game.add.tween(background).to({
 			y:'-300'
 		}, 300, Phaser.Easing.Quadratic.None, true);
+		if(gameConfig.ISALBINO) {
+			game.add.text(310, 10, "Permission to be hosted by albinoblacksheep.com", { font: "18px yoster_islandregular", fill: Colors.PassiveMain} );
+		}
 	}
 
 	this.putTitleScreen = function() {

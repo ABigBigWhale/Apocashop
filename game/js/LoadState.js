@@ -3,16 +3,8 @@ function LoadStateWrapper(game) {
     this.loadState = {
 
         preload: function() {
-            // Makes sure the font is loaded before we initialize any of the actual text.
-            game.add.text(1000, 1000, "fix", {
-                font: "1px yoster_islandregular",
-                fill: "#FFFFFF"
-            });
 
-            game.add.text(200, 285, "Loading, please wait...", {
-                font: "30px Courier New",
-                fill: "#000000"
-            });
+            game.add.sprite(63, 258, 'loadingImage');
 
             game.stage.backgroundColor = "#92CD9A";
             game.input.mouse.capture = true;

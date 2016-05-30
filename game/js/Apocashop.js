@@ -2,7 +2,8 @@ var gameConfig = {
 	DEBUG_MODE: true,
 	RESOLUTION: [800, 600],
 	VERSION : "TESTING",
-	ISSCALED : true
+	ISSCALED : true,
+	ISALBINO : false
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -18,9 +19,20 @@ document.addEventListener('DOMContentLoaded', function() {
 		Phaser.AUTO, // Rendering context
 		'gameDiv', // DOM object to insert canvas
 		{
+			preload : preload,
 			create: create
 		}// Function references
 	);
+
+	function preload() {
+		game.load.image('loadingImage', 'assets/loading/loading.png');
+
+	    // Makes sure the font is loaded before we initialize any of the actual text.
+        game.add.text(1000, 1000, "fix", {
+            font: "1px yoster_islandregular",
+            fill: "#FFFFFF"
+        });
+	}
 
 	function create() {
 		if (gameConfig.DEBUG_MODE) {
