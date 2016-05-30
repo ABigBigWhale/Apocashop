@@ -20,6 +20,7 @@ function AssetManager(game) {
 
 	// Paths of asset files, without extensions
 	this.assets = {
+		
 		'gameplay': [
 			'gp_title',
 			'gp_clickstart',
@@ -110,6 +111,12 @@ function AssetManager(game) {
 			'mouth' : 11,
 			'hand' : 'npc_hand',
 		},
+		
+		'sounds' : {
+			// 'example' : 'example_2061365_sound_coin.ogg'
+			// 'arrayOfSound' : ['example1.ogg', 'ifOggNotSupportedUseThis.mp3']
+			'titleMusic' : 'mus/wintervillage.mp3'
+		}
 
 
 	};
@@ -143,6 +150,12 @@ function AssetManager(game) {
 						}
 					}
 
+				} else if (path == 'sounds') {
+					for (var id in this.assets[path]) {
+						var sndPath = 'assets/' + path + '/' + this.assets[path][id];
+						game.load.audio(id, sndPath);
+					}
+					
 				} else {
 					// Load other image files
 					for (var i = 0; i < this.assets[path].length; i++) {
