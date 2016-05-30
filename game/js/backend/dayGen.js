@@ -375,7 +375,7 @@ function initDayGenerator(game) {
 		{
 			isPreset : {
 				length : true,
-				items : true,
+				items : false,
 				tax : true,
 				jeff : true,
 				hero : false,
