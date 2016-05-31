@@ -13,44 +13,68 @@ function SoundManager(game, play) {
 			'titleMusic' : 'mus/wintervillage.mp3'
 		}*/
 	game.playSound = play;
+
+	game.Music = {
+		WIN : ['winending'],
+		GAMEOVER : ['gameover'],
+		TITLEMUS : ['titleMusic']
+	}
+
 	game.Sounds = {
 		COINS : ['coin1', 'coin2'],
 		BOOM : ['notify'],
 		NOTIFY : ['notify'],
 		POWERUP : ['powerup'],
 		TAP : ['tap'],
+		BLIP : ['blip'],
 		ACCEPT : ['accept'],
 		REJECT : ['reject'],
-		FART : ['fart'],
-		SWAG : ['swag'],
-		TITLEMUS : ['titleMusic']
+		FART : ['fart', 'fart2'],
+		SWAG : ['swag']
 	}
 
 	var currsound = null;
+	var currMusic = null;
 
+	this.playMusic = function(option) {
+		if (!game.playSound) 
+			return;
+		if(!isMusic(option)) {
+			alert("Trying to play music that is not music ...");
+			return;
+		}
+		this.stopMusic();
+		currMusic = game.add.audio(option[0], 0.3, true);
+		currMusic.volume = 0.1;
+		currMusic.onDecoded.add(function() { currMusic.fadeIn(500); }, this);
+		//currMusic.play();
+	}
 	this.playSound = function(option) {
 		if (!game.playSound) 
 			return;
-		this.stopSound();
-		var select = randomIntInRange(0, option.length - 1);
+		if(isMusic(option)) {
+			alert("Trying to play music as a sound ...");
+			return;
+		}
+		var select = randomIntInRange(0, option.length);
 		currsound = game.add.audio(option[select], 0.5);
-		/*if (isMusic(option))
-			currsound.fadeIn(500);
-		else*/
-			currsound.play();
+		currsound.play();
 
 	}
 
 	this.stopSound = function() {
 		if (currsound != null) {
-			if (isMusic([currsound.key])) 
-				currsound.fadeOut(500);
-			else
-				currsound.stop();
+			currsound.stop();
+		}
+	}
+
+	this.stopMusic = function() {
+		if (currMusic != null) {
+			currMusic.fadeOut(500);
 		}
 	}
 
 	function isMusic(option) {
-		return option[0] == 'titleMusic';
+		return option[0] == 'titleMusic' || option[0] == 'gameover' || option[0] == 'winending';
 	}
 }

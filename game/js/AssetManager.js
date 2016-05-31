@@ -118,13 +118,17 @@ function AssetManager(game) {
 			'coin1' : 'sfx/coin.wav', 
 			'coin2' : 'sfx/coin2.wav',
 			'boom' : 'sfx/boom.wav',
+			'blip' : 'sfx/blip.wav',
 			'notify' : 'sfx/notify.wav',
 			'powerup' : 'sfx/powerup.wav',
 			'tap' : 'sfx/tap.wav',
 			'accept' : 'sfx/UI/accept.mp3',
 			'reject' : 'sfx/UI/reject.mp3',
 			'fart' : 'sfx/Never/fart_1.wav',
+			'fart2' : 'sfx/Never/fart_2.wav',
 			'titleMusic' : 'mus/wintervillage.mp3',
+			'winending' : 'mus/gameover.wav',
+			'gameover' : 'mus/winending.wav',
 			'swag' : 'sfx/swag.wav'
 		}
 

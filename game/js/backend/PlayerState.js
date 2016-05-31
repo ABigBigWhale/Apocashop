@@ -107,7 +107,6 @@ function PlayerState(game) {
 	}
 
 	this.updateProfit = function(profit) {
-		game.soundManager.playSound(game.Sounds.COINS);
 		if(profit <= 0) {
 			return;
 		}

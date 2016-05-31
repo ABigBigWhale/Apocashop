@@ -72,6 +72,7 @@ function EndStateWrapper(game) {
 			softBox.y = restartSoft.y;
 
 			if (!gameWon) {
+				game.soundManager.playMusic(game.Musc.GAMEOVER);
 				gameOverText = game.add.text(
 					100, 200, 
 					"GAME OVER: You have gone broke", 
@@ -81,6 +82,7 @@ function EndStateWrapper(game) {
 					}
 				);
 			} else {
+				game.soundManager.playMusic(game.Music.WIN);
 				restartSoft.kill();
 				softBox.kill();
 				// restartHard.x = 400 - restartHard.width;
@@ -152,6 +154,7 @@ function EndStateWrapper(game) {
 
 			function restartLevel() {
 				game.analytics.track("game", "restartLevel");
+				game.soundManager.stopMusic();
 				killScreen();
 				game.conditionManager.revertToCheckpoint();
 				game.playerState.resetStats();
@@ -160,6 +163,7 @@ function EndStateWrapper(game) {
 			}
 
 			function restartGame() {
+				game.soundManager.stopMusic();
 				game.analytics.track("game", "restartGame");
 				killScreen();
 				game.reset.start();

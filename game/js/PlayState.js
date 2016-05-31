@@ -438,6 +438,7 @@ function PlayStateWrapper(game) {
 			}
 
 			function acceptUpgrade(sprite, pointer) {
+				game.soundManager.playSound(game.Sounds.BLIP);
 				game.eventManager.notify(game.Events.LEVEL.ACCEPT, sprite.key);
 				if (sprite.key.indexOf("shop") > 0) {
 					shop.kill();
@@ -564,6 +565,7 @@ function PlayStateWrapper(game) {
 			game.eventManager.register(game.Events.DAY.START, function(data) {
 				// Turn on cloud generation
 				game.soundManager.stopSound();
+				game.soundManager.stopMusic();
 				game.displayManager.toggleCloudGeneration(true);
 				game.displayManager.togglePedestGeneration(true);
 
@@ -642,6 +644,7 @@ function PlayStateWrapper(game) {
 			});
 
 			game.eventManager.register(game.Events.UPDATE.GOLD, function(gold) {
+				game.soundManager.playSound(game.Sounds.COINS);
 				textCoins.setText(gold);
 			});
 
