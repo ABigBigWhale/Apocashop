@@ -1,5 +1,6 @@
 var gameConfig = {
 	DEBUG_MODE: true,
+	MENDOZA : 12,
 	RESOLUTION: [800, 600],
 	VERSION : "TESTING",
 	ISSCALED : true,

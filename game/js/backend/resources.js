@@ -1411,6 +1411,18 @@ var heroes = {
 			appearConditions : ["uprising_traitorFound"],
 			endMoney : -15
 		}
+	},
+	timer : {
+		jeffNotify : {
+			type : "dialog",
+			appearanceInfo : "jeff",
+			dialog : [
+				"Hey kiddo, we should probably close up shop, but we've been moving a bit too slowly today.",
+				"Tomorrow, try getting people through here faster, and watch the sun to see how much time you have left.",
+				"For now, we'll just have to work a bit of overtime to catch up."
+			],
+			finishConditions : ["timer_slow"]
+		}
 	}
 };
 

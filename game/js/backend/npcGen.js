@@ -145,20 +145,16 @@ function initNPCGen(game) {
 			"Would you part with [x] for [y] gold?",
 			"Can I get [x]? [Y] gold.",
 			"Need [x]. [Y] gold?",
-			"I want [x] in exchange for [y] gold.",
-			"How about [y] gold for [x]?",
-			"I want [x] for [y] gold.",
-			"I will offer [y] gold for [x]",
-			"Let's say [y] gold for [x], how's that?"
+			"How about [y] gold for [x]?"
 		];
 
 		var preGreetings = [
 			"Hiya! ",
 			"Howdy! ",
-			"Greetings.",
-			"Hi.",
-			"Hola!",
-			"Aloha!",
+			"Greetings. ",
+			"Hi. ",
+			"Hola! ",
+			"Aloha! ",
 			"How's it going?/",
 			"Nice day out!/"
 		];
@@ -187,12 +183,11 @@ function initNPCGen(game) {
 			"Alright, alright. [X] gold?",
 			"How about [x] gold?",
 			"[X] gold is the best I can do.",
-			"Take [X] gold or I will walk away.",
-			"Hmm. [X] gold then?",
+			"[X] gold or I will walk away.",
+			"Hmm. How about [x] gold?",
 			"[X] gold. No more.",
 			"Fine. [X] gold then.",
-			"Alright, [X] gold then?",
-			"Well, [X] gold?",
+			"Alright, [x] gold then?",
 			"[X] gold. That's my final offer.",
 			"[X] gold is all I can offer.",
 			"[X] gold is all I can afford.",
@@ -451,14 +446,10 @@ function initNPCGen(game) {
 			"Do I look rich to you?",
 			"Welp, nevermind.",
 			"More? Unbelievable.",
-			"You are asking more than a tax collector.",
 			"Nope, too much.",
-			"So long, greedy shopkeeper.",
-			"Alright, no deal I guess.",
-			"There is no way I'm buying this.",
-			"No? Heh, good luck with that!",
-			"You're asking for too much!",
-			"Goodbye, then."
+			"No deal.",
+			"No way.",
+			"Heh, good luck with that."
 		]
 
 		generateLeave = function() {

@@ -19,6 +19,8 @@ function InteractionManager(game) {
 	// The current NPC we're interacting with
 	var currentNPC;
 
+	var interruptNPCs;
+
 	var npcStallTimer;
 
 	// The index of the offer the current NPC is currently giving
@@ -32,6 +34,7 @@ function InteractionManager(game) {
 	var dayUpgrade;
 
 	var potentialProfit;
+	var itemsStocked;
 	var itemsRequested;
 
 	this.getCurrentDay = function() {
@@ -39,6 +42,7 @@ function InteractionManager(game) {
 	}
 
 	function init() {
+		interruptNPCs = [];
 		dayUpgrade = 1;
 		// When continue is pushed, send out a new NPC
 		game.eventManager.register(game.Events.INPUT.CONTINUE, function() {
@@ -151,10 +155,11 @@ function InteractionManager(game) {
 		isEnd = false;
 		potentialProfit = 0;
 		itemsRequested = {};
+		stockedItems = game.playerState.getStockedItems();
 		dayIndex = index;
 		currentDay = day;
 		dayEndCallback = function() {
-			calculatePotentialProfit();
+			game.analytics.track("game", "potentialProfit", calculatePotentialProfit());
 			endCallback();
 		};
 		conditionManager.init(day.conditions);
@@ -167,6 +172,12 @@ function InteractionManager(game) {
 		game.dayTimer = new Timer(function() {
 			printDebug("DAY ENDING TIMER");
 			isEnd = true;
+			if(!checkDayOver()) {
+				game.analytics.track("mendoza", "fail" + dayIndex, potentialProfit);
+				addInterruptNPC(generateHeroData("timer", "jeffNotify"));
+			} else {
+				game.analytics.track("mendoza", "success" + dayIndex, potentialProfit);
+			}
 		}, day.length * dayUpgrade, function() {
 			game.eventManager.notify(game.Events.TIMER.PAUSE, 0x191919);
 			game.displayManager.imgSun.frame = 1;
@@ -177,6 +188,11 @@ function InteractionManager(game) {
 			game.displayManager.spawnGoldenCloud = true;
 		});
 		pushNPC();
+	}
+
+	function checkDayOver() {
+		console.log("PROFIT: " + calculatePotentialProfit());
+		return isEnd && calculatePotentialProfit() >= gameConfig.MENDOZA;
 	}
 
 	// Smudge NPC order using fuzz values and initialize the npc
@@ -213,13 +229,22 @@ function InteractionManager(game) {
 	// Returns the next planned NPC if we're at their index, a randomly
 	// generated NPC for this day, or false if the day has ended.
 	function getNextNPC() {
-		var npc = npcs[npcIndex];
+
+		var npc;
+
+		if(interruptNPCs.length > 0) {
+			npc = interruptNPCs.shift();
+		} else {
+			npc = npcs[npcIndex];
+			npcIndex++;
+		}
+
 		var storedHero = false;
 		if(npc) {
 			storedHero = npc.category ? heroes[npc.category][npc.hero] : heroes[npc.hero];
 		}
-		npcIndex++;
-		if(isEnd) {
+		
+		if(checkDayOver()) {
 			var max = Math.max.apply(this, Object.keys(npcs));
 			while(!npc || !npc.force) {
 				if(npcIndex > max) {
@@ -234,6 +259,7 @@ function InteractionManager(game) {
 				return npc.category ? heroes[npc.category][npc.hero] : heroes[npc.hero];
 			}
 		}
+
 		if(npc && storedHero) {
 			return storedHero;
 		} else if(npc && typeof npc.hero === 'object') {
@@ -294,6 +320,10 @@ function InteractionManager(game) {
 		}
 	}
 
+	function addInterruptNPC(npc) {
+		interruptNPCs.push(npc);
+	}
+
 	function trackPotentialProfit(npc) {
 		var maxOffer = Math.max.apply(this, npc.offers);
 
@@ -308,13 +338,13 @@ function InteractionManager(game) {
 	}
 
 	function calculatePotentialProfit() {
-		var stockedItems = game.playerState.getStockedItems();
+		var potentialProfitCalc = potentialProfit;
 		for(var item in stockedItems) {
 			if(itemsRequested[item]) {
-				potentialProfit += (Math.min(itemsRequested[item], stockedItems[item]) * (items[item].jPrice - items[item].price));
+				potentialProfitCalc += (Math.min(itemsRequested[item], stockedItems[item]) * (items[item].jPrice - items[item].price));
 			}
 		}
-		game.analytics.track("game", "potentialProfit", potentialProfit);
+		return potentialProfitCalc;
 	}
 
 	// Sends the next offer for the current NPC.
