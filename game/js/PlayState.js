@@ -262,7 +262,7 @@ function PlayStateWrapper(game) {
 				}
 			};
 			var uiButtonContinueCB = function() {
-				game.soundManager.playSound(game.Sounds.FART);
+				game.soundManager.playSound(game.Sounds.TAP);
 				if (game.dialog.main.isPrinting) {
 					game.dialogManager.jumpMain();
 				} else {
