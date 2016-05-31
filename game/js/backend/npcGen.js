@@ -144,12 +144,21 @@ function initNPCGen(game) {
 			"How's [y] gold for [x] sound?",
 			"Would you part with [x] for [y] gold?",
 			"Can I get [x]? [Y] gold.",
-			"Need [x]. [Y] gold?"
+			"Need [x]. [Y] gold?",
+			"I want [x] in exchange for [y] gold.",
+			"How about [y] gold for [x]?",
+			"I want [x] for [y] gold.",
+			"I will offer [y] gold for [x]",
+			"Let's say [y] gold for [x], how's that?"
 		];
 
 		var preGreetings = [
 			"Hiya! ",
 			"Howdy! ",
+			"Greetings.",
+			"Hi.",
+			"Hola!",
+			"Aloha!",
 			"How's it going?/",
 			"Nice day out!/"
 		];
@@ -177,7 +186,17 @@ function initNPCGen(game) {
 			"Fine, fine. [X] gold?",
 			"Alright, alright. [X] gold?",
 			"How about [x] gold?",
-			"[X] gold is the best I can do."
+			"[X] gold is the best I can do.",
+			"Take [X] gold or I will walk away.",
+			"Hmm. [X] gold then?",
+			"[X] gold. No more.",
+			"Fine. [X] gold then.",
+			"Alright, [X] gold then?",
+			"Well, [X] gold?",
+			"[X] gold. That's my final offer.",
+			"[X] gold is all I can offer.",
+			"[X] gold is all I can afford.",
+			"Okay then. [X] gold?"
 		];
 
 		generateHaggle = function(gold) {
@@ -402,12 +421,15 @@ function initNPCGen(game) {
 
 		var thanks = [
 			"Pleasure doing business.",
+			"Alright, thanks a lot.",
 			"Thanks! I needed this.",
 			"Thanks a bunch, friend.",
 			"Thank you!",
 			"Thanks, see ya!",
 			"Thanks.",
-			"You're the best, pal."	
+			"You're the best, pal."	,
+			"Thanks a bunch.",
+			"Yes! I needed this."
 		]
 
 		generateThanks = function() {
@@ -426,7 +448,17 @@ function initNPCGen(game) {
 			"There's no way I can afford more.",
 			"Terrible experience. Zero stars.",
 			"This is a disappointment.",
-			"Do I look rich to you?"
+			"Do I look rich to you?",
+			"Welp, nevermind.",
+			"More? Unbelievable.",
+			"You are asking more than a tax collector.",
+			"Nope, too much.",
+			"So long, greedy shopkeeper.",
+			"Alright, no deal I guess.",
+			"There is no way I'm buying this.",
+			"No? Heh, good luck with that!",
+			"You're asking for too much!",
+			"Goodbye, then."
 		]
 
 		generateLeave = function() {
