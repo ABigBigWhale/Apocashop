@@ -162,6 +162,7 @@ function DisplayManager(game) {
 
 	function starCloudClicked() {
 		this.cloud.inputEnabled = false;
+		game.soundManager.playSound(game.Sounds.SWAG);
 		var reward = randomIntInRange(5, 8);
 		printDebug("UI: star cloud clicked! Rewarding " + reward + " gold.");
 		game.analytics.track("cloud", "clicked");
@@ -321,6 +322,7 @@ function DisplayManager(game) {
 	}
 
 	function createJeffDialog(x, y, w, h) {
+		game.soundManager.playSound(game.Sounds.NOTIFY);
 		var dialog = game.add.group();
 		game.depthGroups.dialogGroup.add(dialog);
 		createDialogTweens(dialog);

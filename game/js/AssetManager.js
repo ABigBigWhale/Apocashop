@@ -115,7 +115,17 @@ function AssetManager(game) {
 		'sounds' : {
 			// 'example' : 'example_2061365_sound_coin.ogg'
 			// 'arrayOfSound' : ['example1.ogg', 'ifOggNotSupportedUseThis.mp3']
-			'titleMusic' : 'mus/wintervillage.mp3'
+			'coin1' : 'sfx/coin.wav', 
+			'coin2' : 'sfx/coin2.wav',
+			'boom' : 'sfx/boom.wav',
+			'notify' : 'sfx/notify.wav',
+			'powerup' : 'sfx/powerup.wav',
+			'tap' : 'sfx/tap.wav',
+			'accept' : 'sfx/UI/accept.mp3',
+			'reject' : 'sfx/UI/reject.mp3',
+			'fart' : 'sfx/Never/fart_1.wav',
+			'titleMusic' : 'mus/wintervillage.mp3',
+			'swag' : 'sfx/swag.wav'
 		}
 
 

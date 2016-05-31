@@ -179,6 +179,7 @@ function PlayStateWrapper(game) {
 				var uiNoteTween;
 
 				if (uiNoteDisplayShown) { // Out
+					game.soundManager.playSound(game.Sounds.TAP);
 					uiNoteDisplayTween = game.add.tween(uiNoteLayer.position)
 						.to({
 						y: 400
@@ -205,6 +206,7 @@ function PlayStateWrapper(game) {
 			uiNote.inputEnabled = true;
 			uiNoteCurtain.inputEnabled = true;
 			uiNote.events.onInputDown.add(function() {
+				game.soundManager.playSound(game.Sounds.TAP);
 				toggleNoteDisplay();
 				game.analytics.track("note", "clicked")
 			}, this);
@@ -243,19 +245,24 @@ function PlayStateWrapper(game) {
 
 			var uiButtonAcceptCB = function() {
 				if (game.dialog.main.isPrinting) {
+					game.soundManager.playSound(game.Sounds.TAP);
 					game.dialogManager.jumpMain();
 				} else {
+					game.soundManager.playSound(game.Sounds.ACCEPT);
 					game.eventManager.notify(game.Events.INPUT.YES);
 				}
 			};
 			var uiButtonRejectCB = function() {
 				if (game.dialog.main.isPrinting) {
+					game.soundManager.playSound(game.Sounds.TAP);
 					game.dialogManager.jumpMain();
 				} else {
+					game.soundManager.playSound(game.Sounds.REJECT);
 					game.eventManager.notify(game.Events.INPUT.NO);
 				}
 			};
 			var uiButtonContinueCB = function() {
+				game.soundManager.playSound(game.Sounds.FART);
 				if (game.dialog.main.isPrinting) {
 					game.dialogManager.jumpMain();
 				} else {
@@ -263,6 +270,7 @@ function PlayStateWrapper(game) {
 				}
 			};
 			var uiButtonQuestionCB = function() {
+				game.soundManager.playSound(game.Sounds.TAP);
 				if (uiButtonQuestion.alpha != 1) {
 					uiButtonQuestion.fadeIn.stop();
 					uiButtonQuestion.alpha = 1;
@@ -450,6 +458,7 @@ function PlayStateWrapper(game) {
 			function toggleUpgrades(isEnabled) {
 				toggleButtons(!isEnabled);
 				if (isEnabled) {
+					game.soundManager.playSound(game.Sounds.POWERUP);
 					makeFireworks();
 					upgradeGroup = game.add.group();
 					createUpgrades(upgradeGroup, upgradeSequence);
@@ -554,6 +563,7 @@ function PlayStateWrapper(game) {
 
 			game.eventManager.register(game.Events.DAY.START, function(data) {
 				// Turn on cloud generation
+				game.soundManager.stopSound();
 				game.displayManager.toggleCloudGeneration(true);
 				game.displayManager.togglePedestGeneration(true);
 
