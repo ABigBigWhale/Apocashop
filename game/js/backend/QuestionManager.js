@@ -52,6 +52,7 @@ function QuestionManager(game) {
 			}, this);
 			option.events.onInputDown.add(function() {
 				printDebug('QUESTION SELECTED: ' + question);
+				game.soundManager.playSound(game.Sounds.TAP);
 				game.eventManager.notify(game.Events.INPUT.QUESTION, question);
 				self.hideQuestions();
 			}, this);

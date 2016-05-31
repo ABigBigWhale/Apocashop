@@ -321,6 +321,7 @@ function DisplayManager(game) {
 	}
 
 	function createJeffDialog(x, y, w, h) {
+		game.soundManager.playSound(game.Sounds.NOTIFY);
 		var dialog = game.add.group();
 		game.depthGroups.dialogGroup.add(dialog);
 		createDialogTweens(dialog);
