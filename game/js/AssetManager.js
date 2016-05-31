@@ -124,7 +124,8 @@ function AssetManager(game) {
 			'accept' : 'sfx/UI/accept.mp3',
 			'reject' : 'sfx/UI/reject.mp3',
 			'fart' : 'sfx/Never/fart_1.wav',
-			'titleMusic' : 'mus/wintervillage.mp3'
+			'titleMusic' : 'mus/wintervillage.mp3',
+			'swag' : 'sfx/swag.wav'
 		}
 
 

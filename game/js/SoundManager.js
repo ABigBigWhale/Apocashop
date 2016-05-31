@@ -22,6 +22,7 @@ function SoundManager(game, play) {
 		ACCEPT : ['accept'],
 		REJECT : ['reject'],
 		FART : ['fart'],
+		SWAG : ['swag'],
 		TITLEMUS : ['titleMusic']
 	}
 

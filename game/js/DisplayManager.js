@@ -162,6 +162,7 @@ function DisplayManager(game) {
 
 	function starCloudClicked() {
 		this.cloud.inputEnabled = false;
+		game.soundManager.playSound(game.Sounds.SWAG);
 		var reward = randomIntInRange(5, 8);
 		printDebug("UI: star cloud clicked! Rewarding " + reward + " gold.");
 		game.analytics.track("cloud", "clicked");
