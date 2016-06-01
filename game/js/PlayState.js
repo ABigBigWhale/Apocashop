@@ -361,8 +361,10 @@ function PlayStateWrapper(game) {
 					game.clockUI[i].tint = tintVal;
 				}
 			}
+			var tinted = 0xFFFFFF;
 
 			function tintAll(tintVal) {
+				tinted = tintVal;
 				game.displayManager.tintClouds(tintVal);
 				if (tintVal == 0xFFFFFF) {
 					game.displayManager.tintJeffBox(false);
@@ -778,6 +780,7 @@ function PlayStateWrapper(game) {
 					}
 
 					currNPC = uiAvatarLayer.create(20, 360, npcAssetId);
+					currNPC.tint = tinted;
 
 					if (handsInfo && handsInfo.substring() && handsInfo.length == 10) {
 						// If we are generating fingers
