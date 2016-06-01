@@ -221,6 +221,7 @@ function DisplayManager(game) {
 	}
 
 	function starCloudClicked() {
+		game.kongregate.submit('CloudClicker', 1);
 		this.cloud.inputEnabled = false;
 		game.soundManager.playSound(game.Sounds.SWAG);
 		var reward = randomIntInRange(5, 8);

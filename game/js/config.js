@@ -8,7 +8,8 @@ var gameConfig = {
 	RESOLUTION: [800, 600],
 	VERSION : "TESTING",
 	ISSCALED : true,
-	ISALBINO : false
+	ISALBINO : false,
+	ISKONGREGATE : false
 };
 
 switch(SETUP) {
@@ -26,6 +27,7 @@ switch(SETUP) {
 		gameConfig.DEBUG_MODE = false;
 		gameConfig.VERSION = "0.3-kg";
 		gameConfig.ISSCALED = false;
+		gameConfig.ISKONGREGATE = true;
 		break;
 	case "OMGTEST":
 		gameConfig.DEBUG_MODE = false;

@@ -75,12 +75,14 @@ function Stock(game) {
 
 	function removeItems(item, amount) {
 		if (items[item] === undefined) {
+			game.soundManager.playSound(game.Sounds.TAP);
 			return;
 		} else if (Items[item] === undefined) {
+			game.soundManager.playSound(game.Sounds.TAP);
 			return;
 		} else if (Items[item] < amount) {
+			game.soundManager.playSound(game.Sounds.TAP);
 			return;
-			Items[item] = 0;
 		} else if (Items[item] - amount < (game.playerState.getItems()[item] || 0)) {
 			game.soundManager.playSound(game.Sounds.TAP);
 			Items[item] = (game.playerState.getItems()[item] || 0);
