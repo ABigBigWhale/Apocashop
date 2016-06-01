@@ -703,6 +703,7 @@ function PlayStateWrapper(game) {
 				// body part images.
 				/** NOTE: The size of the avatar frame is 168x198 **/
 				game.dialog.main.freeze(true);
+				game.dialogManager.newMainSound();
 				game.questionManager.hideQuestions();
 				toggleButtons(false);
 

@@ -8,8 +8,8 @@ function SoundManager(game, isEnabled) {
 	var isMusicEnabled = isEnabled;
 	var isSoundEnabled = isEnabled;
 
-	this.soundVolume = 0.28;
-	this.musicVolume = 0.12;
+	this.soundVolume = 0.34;
+	this.musicVolume = 0.10;
 
 	game.Music = {
 		WIN : 'winending',
@@ -28,7 +28,12 @@ function SoundManager(game, isEnabled) {
 		ACCEPT : generateSoundData('accept'),
 		REJECT : generateSoundData('reject'),
 		FART : [generateSoundData('fart'), generateSoundData('fart2')],
-		SWAG : generateSoundData('swag')
+		SWAG : generateSoundData('swag'),
+		TEXTMED : [generateSoundData('textmeda'), generateSoundData('textmedb'), generateSoundData('textmedc'), generateSoundData('textmedd'), generateSoundData('textmede'), generateSoundData('textmedf'), generateSoundData('textmedg')],
+		TEXTHIGH : [generateSoundData('texthigha'), generateSoundData('texthighb'), generateSoundData('texthighc'), generateSoundData('texthighd'), generateSoundData('texthighe'), generateSoundData('texthighf'), generateSoundData('texthighg')],
+		TEXTMELODY : [generateSoundData('textmelodya'), generateSoundData('textmelodyb'), generateSoundData('textmelodyc'), generateSoundData('textmelodyd'), generateSoundData('textmelodye'), generateSoundData('textmelodyf'), generateSoundData('textmelodyg')],
+		TEXTMURPHY : [generateSoundData('textmurphya'), generateSoundData('textmurphyb'), generateSoundData('textmurphyc'), generateSoundData('textmurphyd'), generateSoundData('textmurphye'), generateSoundData('textmurphyf'), generateSoundData('textmurphyg')],
+		TEXTSTITCH : [generateSoundData('textstitcha'), generateSoundData('textstitchb'), generateSoundData('textstitchc'), generateSoundData('textstitchd'), generateSoundData('textstitche'), generateSoundData('textstitchf'), generateSoundData('textstitchg')]
 	}
 
 	this.playMusic = function(songInfo, fadeDuration, isCrossfade) {

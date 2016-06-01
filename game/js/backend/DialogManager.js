@@ -51,6 +51,12 @@ function DialogManager(game) {
 		printMessage(game.dialog.wrapup.box, brokenMessage, 10, 100, false, game.dialog.wrapup, doneCB);
 	};
 
+	var mainSound = game.Sounds.TEXTHIGH;
+
+	this.newMainSound = function(sound) {
+		mainSound = randomElement([game.Sounds.TEXTMED, game.Sounds.TEXTHIGH, game.Sounds.TEXTMELODY, game.Sounds.TEXTMURPHY, game.Sounds.TEXTSTITCH]);
+	}
+
 	// Prints the message to the main text box.
 	this.printMain = function(message, isAlreadyRead, doneCBStub) {
 		doneCBStub = doneCBStub || function() {};
@@ -66,7 +72,7 @@ function DialogManager(game) {
 			if(isAlreadyRead) {
 				printMessage(game.dialog.main.box, brokenMessage, 0, 0, false, game.dialog.main, doneCBStub);
 			} else {
-				printMessage(game.dialog.main.box, brokenMessage, 15, 150, false, game.dialog.main, doneCB);
+				printMessage(game.dialog.main.box, brokenMessage, 15, 150, mainSound, game.dialog.main, doneCB);
 			}
 			game.dialog.main.unfreezeCallback = false;
 		};
@@ -149,7 +155,7 @@ function DialogManager(game) {
 
 		box.text = '';
 
-		var printLetter = function(message, index) {
+		var printLetter = function(message, index, isSound) {
 			if(index < message.length) {
 				var timeoutLength;
 
@@ -163,6 +169,9 @@ function DialogManager(game) {
 					timeoutLength = pauseDelay;
 				} else {
 					box.text = box.text + message[index];
+					if(letterSound && isSound) {
+						game.soundManager.playSound(letterSound);
+					}
 					if(message[index] == ',' || message[index] == '.' || message[index] == '?') {
 						timeoutLength = pauseDelay;
 					} else {
@@ -170,14 +179,14 @@ function DialogManager(game) {
 					}
 				}
 				boxObj.timeout = setTimeout(function() {
-					printLetter(message, index + 1);
+					printLetter(message, index + 1, !isSound);
 				}, timeoutLength);
 			} else {
 				onFinish();
 			}
 		}
 
-		printLetter(message, 0);
+		printLetter(message, 0, true);
 	}
 
 }
