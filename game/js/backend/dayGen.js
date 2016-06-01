@@ -421,7 +421,7 @@ function initDayGenerator(game) {
 				}
 			},
 			conditions : {
-				dogAppear : {
+				dog_have : {
 					components : ["gotDog"],
 					events : ["Events.DOG.APPEAR"],
 					chance : 1.0,
