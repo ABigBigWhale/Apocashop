@@ -26,6 +26,8 @@ function beginGame(game) {
 	var currentDayIndex = 5;
 	var currentDay = getDay(currentDayIndex);
 
+	var isLost = false;
+
 	game.timesFailed = 0;
 	game.timesWon = 0;
 
@@ -35,9 +37,11 @@ function beginGame(game) {
 	
 	game.analytics.set("dimension1", currentDayIndex);
 	game.analytics.track('day', 'begin' + currentDayIndex, game.playerState.getGold());
+	game.kongregate.submit('DayReached', currentDayIndex);
 
 	game.eventManager.register(game.Events.UPDATE.GOLD, function(amount) {
 		if (amount < 0) {
+			isLost = true;
 			game.timesFailed++;
 			game.analytics.set("dimension4", game.timesFailed);
 			game.analytics.track('game', 'fail', currentDayIndex);
@@ -47,6 +51,7 @@ function beginGame(game) {
 	});
 
 	var beginStocking = function() {
+		isLost = false;
 		game.soundManager.stopMusic(500);
 		game.stockUI.startDay(currentDay.clues.crisis, function() {
 			beginSales(currentDay);
@@ -57,6 +62,7 @@ function beginGame(game) {
 		// For some reason, this event doesn't take in wrapupManager's callback
 		// sometimes. Throwing it here as well for safety.
 		// Hey, when you have a one month dev cycle, this is what happens.
+		isLost = false;
 		if(currentDayIndex === 0) {
 			game.soundManager.stopMusic(100);
 		}
@@ -70,19 +76,22 @@ function beginGame(game) {
 	var beginWrapup = function() {
 		game.wrapupManager.startDay(currentDay, function() {
 			game.eventManager.notify(game.Events.WRAPUP.END);
-			currentDayIndex++;
-			game.analytics.set("dimension1", currentDayIndex);
-			game.analytics.track('day', 'begin' + currentDayIndex, game.playerState.getGold());
-			if (currentDayIndex <= 7) {
-				if(game.playerState.getGold() >= 0) {
-					currentDay = getDay(currentDayIndex);
-					beginStocking();
+			if(!isLost) {
+				currentDayIndex++;
+				game.analytics.set("dimension1", currentDayIndex);
+				game.analytics.track('day', 'begin' + currentDayIndex, game.playerState.getGold());
+				game.kongregate.submit('DayReached', currentDayIndex);
+				if (currentDayIndex <= 7) {
+					if(game.playerState.getGold() >= 0) {
+						currentDay = getDay(currentDayIndex);
+						beginStocking();
+					}
+				} else {
+					game.timesWon++;
+					game.analytics.set("dimension4", game.timesWon);
+					game.endStateWrapper.setGameResult(true);
+					game.endState.endState();
 				}
-			} else {
-				game.timesWon++;
-				game.analytics.set("dimension4", game.timesWon);
-				game.endStateWrapper.setGameResult(true);
-				game.endState.endState();
 			}
 		});
 	};

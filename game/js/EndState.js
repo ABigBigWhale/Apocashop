@@ -114,6 +114,7 @@ function EndStateWrapper(game) {
 				}
 
 				game.analytics.track("game", "won", score);
+				game.kongregate.submit('Highscore', Math.floor(score));
 				
 				score = 4.0 * Math.min(1.0, score / topScore);
 				

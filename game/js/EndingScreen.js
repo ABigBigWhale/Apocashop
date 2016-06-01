@@ -108,7 +108,6 @@ function EndingScreen(game) {
 		blackScreenSprite.events.onInputDown.add(trackFutileClick, this);
 		game.dialogManager.printWrapup("");
 		
-		game.playerState.addsubGold(32);
 		prevGold = game.playerState.getGold();
 		resetCoins();
 		
@@ -161,7 +160,6 @@ function EndingScreen(game) {
 			}, this);
 			tmr.start();
 
-			//coinStack.tweenHit.start();
 			blackScreenSprite.events.onInputDown.removeAll();
 			blackScreenSprite.events.onInputDown.add(requestNext, this);
 		});

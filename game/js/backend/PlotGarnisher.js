@@ -149,12 +149,12 @@ function PlotGarnisher(game) {
 				conditions : {
 					urchin_trackerMad : {
 						components : ["urchin_trackerTruth"],
-						chance : 0.8,
+						chance : 0.6,
 						isLongTerm : true
 					},
 					urchin_trackerVengeful : {
 						components : ["urchin_trackerLied"],
-						chance : 0.4,
+						chance : 0.25,
 						isLongTerm : true
 					}
 				},
@@ -176,11 +176,13 @@ function PlotGarnisher(game) {
 				conditions : {
 					urchin_trackerVengeful : {
 						components : ["urchin_trackerRefused"],
+						kong : ["Urchin_Angered"],
 						chance : 0.6,
 						isLongTerm : true
 					},
 					urchin_manProud : {
 						components : ["urchin_manSold"],
+						kong : ["Urchin_Helped"],
 						chance : 1.0,
 						isLongTerm : true
 					}
@@ -223,6 +225,12 @@ function PlotGarnisher(game) {
 						chance : 1.0,
 						isLongTerm : true
 					},
+					treasure_trackHelper : {
+						components : ["treasure_bought"],
+						kong : ["Treasure_Seeker"],
+						chance : 1.0,
+						isLongTerm : false
+					},
 					treasure_sad : {
 						components : ["treasure_refused"],
 						chance : 1.0,
@@ -255,6 +263,12 @@ function PlotGarnisher(game) {
 						chance : 1.0,
 						isLongTerm : true
 					},
+					treasure_trackHelper : {
+						components : ["treasure_bought"],
+						kong : ["Treasure_Seeker"],
+						chance : 1.0,
+						isLongTerm : false
+					},
 					treasure_sad : {
 						components : ["treasure_refused"],
 						chance : 1.0,
@@ -283,10 +297,17 @@ function PlotGarnisher(game) {
 				conditions : {
 					treasure_hunting2 : {
 						components : ["treasure_bought", "treasure_hunting"],
+						kong : ["Treasure_All"],
 						chance : 1.0,
 						isLongTerm : true
 					},
-					treasure_good : {
+					treasure_trackHelper : {
+						components : ["treasure_bought"],
+						kong : ["Treasure_Seeker"],
+						chance : 1.0,
+						isLongTerm : false
+					},
+					treasure_good2 : {
 						components : ["treasure_bought"],
 						chance : 0.75,
 						isLongTerm : false
@@ -298,7 +319,7 @@ function PlotGarnisher(game) {
 						text : "At nightfall, you set out to follow this last treasure map, but you can't seem to find anything."
 					},
 					{
-						conditions : ["treasure_good"],
+						conditions : ["treasure_good2"],
 						text : "That is, until you spot a stack of 20 gold!",
 						gold : 20
 					}
@@ -390,11 +411,13 @@ function PlotGarnisher(game) {
 				conditions : {
 					artifact_haveOrb5 : {
 						components : ["artifact_keptOrb"],
+						kong : ["Artifact_Kept"],
 						chance : 1.0,
 						isLongTerm : true
 					},
 					artifact_villainOrb : {
 						components : ["artifact_soldOrb"],
+						kong : ["Artifact_Villain"],
 						chance : 1.0,
 						isLongTerm : true
 					}
@@ -526,13 +549,24 @@ function PlotGarnisher(game) {
 				conditions : {
 					uprising_destroyedRebels : {
 						components : ['uprising_informant'],
+						kong : ["Rebellion_Informant"],
+						chance : 1.0,
+						isLongTerm : true
+					},
+					uprising_rebelsJoined : {
+						components : ['uprising_acceptedRebel', '!uprising_informant'],
+						kong : ["Rebellion_Joined"],
 						chance : 1.0,
 						isLongTerm : true
 					}
 				},
 				wrapup : [
 					{
-						text : "Even more instructions on how to join the rebellion are slipped under your door just before nightfal, but they're too confusing to be of any use."
+						text : "Even more instructions on how to join the rebellion are slipped under your door just before nightfall"
+					},
+					{
+						conditions : ["!uprising_rebelsJoined"],
+						text : "But they're too confusing and poorly written to be of any use."
 					},
 					{
 						conditions : ["uprising_informant"],
@@ -547,12 +581,16 @@ function PlotGarnisher(game) {
 						text : "The official story is that the rebellion has been crushed."
 					},
 					{
-						conditions : ["uprising_destroyedRebels"],
+						conditions : ["!uprising_destroyedRebels"],
 						text : "However, every once in a while, you see cloaks with handlebar moustaches out of the corner of your eye."
 					},
 					{
 						conditions : ["uprising_friendOfRebel"],
 						text : "However, often you hear whispers of 'hello, friend' on the wind, and see cloaks with handlebar moustaches out of the corner of your eye."
+					},
+					{
+						conditions : ["uprising_rebelsJoined"],
+						text : "Some days, you are one of them. You are the night."
 					}
 				]
 			},

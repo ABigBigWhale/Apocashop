@@ -1,5 +1,7 @@
 function ConditionManager(game) {
 
+	var self = this;
+
 	// Conditions that persist between days
 	var persistentConditions = [];
 
@@ -41,12 +43,10 @@ function ConditionManager(game) {
 	this.get = function(condition) {
 		if(condition instanceof Array) {
 			for(var i = 0; i < condition.length; i++) {
+				var isNegated = condition[i].charAt(0) === '!';
+				var thisCondition = isNegated ? condition[i].substring(1) : condition[i];
 				var isCondition = conditions.indexOf(condition[i]) > -1;
-				// var isStateCondition = game.playerState.conditions.indexOf(condition[i]) > -1;
-				// if(!isCondition && !isStateCondition) {
-				// 	return false;
-				// }
-				if(!isCondition) {
+				if(isCondition === isNegated) {
 					return false;
 				}
 			}
@@ -56,10 +56,10 @@ function ConditionManager(game) {
 				var gold = parseInt(condition.substring(5))
 				return gold <= game.playerState.getGold();
 			}
+			var isNegated = condition.charAt(0) === '!';
+			condition = isNegated ? condition.substring(1) : condition;
 			var isCondition = conditions.indexOf(condition) > -1;
-			// var isStateCondition = game.playerState.conditions.indexOf(condition) > -1;
-			// return isCondition || isStateCondition;
-			return isCondition;
+			return isCondition !== isNegated;
 		}
 	};
 
@@ -68,13 +68,18 @@ function ConditionManager(game) {
 	// trips the condition. Deletes the compound condition from consideration regardless.
 	function handleCompound(name) {
 		var compound = compoundConditions[name];
-		if(checkCompound(compound)) {
+		if(self.get(compound.components)) {
 			if(rollDice(compound.chance)) {
 				printDebug("SETTING COMPOUND CONDITION: " + name);
 				conditions.push(name);
 				if(compound.events) {
 					for(var i = 0; i < compound.events.length; i++) {
 						game.eventManager.notifyByName(compound.events[i]);
+					}
+				}
+				if(compound.kong) {
+					for(var i = 0; i < compound.kong.length; i++) {
+						game.kongregate.submit(compound.kong[i], 1);
 					}
 				}
 				if(compound.isLongTerm) {
@@ -86,23 +91,6 @@ function ConditionManager(game) {
 			}
 			delete compoundConditions[name];
 		}
-	}
-
-	// Helper for handleCompound. Checks if the compound condition has
-	// been tripped.
-	function checkCompound(compound) {
-		var components = compound.components;
-		for(var i = 0; i < components.length; i++) {
-			var isCondition = conditions.indexOf(components[i]) > -1;
-			// var isStateCondition = conditions.indexOf(components[i]) > -1;
-			// if(!isCondition && !isStateCondition) {
-			// 	return false;
-			// }
-			if(!isCondition) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 }

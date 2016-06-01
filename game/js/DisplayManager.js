@@ -123,13 +123,15 @@ function DisplayManager(game) {
 	};
 	
 	this.soundControlClickCB = function() {
-		if (game.soundManager.getMusicVolume() > 0) {
+		if (game.soundManager.musicEnabled()) {
 			this.soundControl.frame = 0;
-			game.soundManager.changeMusicVolume(0.0);
+			//game.soundManager.changeMusicVolume(0.0);
+			game.soundManager.toggleMusic(false);
 			game.soundManager.toggleSound(false);
 		} else {
 			this.soundControl.frame = 1;
-			game.soundManager.changeMusicVolume(0.10);
+			//game.soundManager.changeMusicVolume(0.10);
+			game.soundManager.toggleMusic(true);
 			game.soundManager.toggleSound(true);
 		}
 		printDebug("UI: sound toggle clicked!");
@@ -219,6 +221,7 @@ function DisplayManager(game) {
 	}
 
 	function starCloudClicked() {
+		game.kongregate.submit('CloudClicker', 1);
 		this.cloud.inputEnabled = false;
 		game.soundManager.playSound(game.Sounds.SWAG);
 		var reward = randomIntInRange(5, 8);
