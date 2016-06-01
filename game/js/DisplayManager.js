@@ -149,6 +149,7 @@ function DisplayManager(game) {
 											this.soundControlClickCB,
 											this,
 											null, null, null);
+		game.depthGroups.uiGroup.add(this.soundControl);
 
 		this.soundControl.anchor.setTo(1, 0);
 		this.soundControl.alpha = 0.2;
