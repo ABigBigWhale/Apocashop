@@ -123,16 +123,16 @@ function DisplayManager(game) {
 	};
 	
 	this.soundControlClickCB = function() {
-		if (game.soundManager.musicEnabled()) {
+		if (game.soundManager.getMusicVolume() > 0) {
 			this.soundControl.frame = 0;
-			game.soundManager.toggleMusic(false);
+			game.soundManager.changeMusicVolume(0.0);
 			game.soundManager.toggleSound(false);
 		} else {
 			this.soundControl.frame = 1;
-			game.soundManager.toggleMusic(true);
+			game.soundManager.changeMusicVolume(0.10);
 			game.soundManager.toggleSound(true);
 		}
-		printDebug("UI: sound toggle clicked! soundEnabled = " + game.soundManager.musicEnabled());
+		printDebug("UI: sound toggle clicked!");
 	}
 	
 	this.soundControlHoverCB = function() {
