@@ -82,7 +82,7 @@ function EndStateWrapper(game) {
 					}
 				);
 			} else {
-				game.soundManager.playMusic(game.Music.WIN);
+				//game.soundManager.playMusic(game.Music.WIN);
 				restartSoft.kill();
 				softBox.kill();
 				// restartHard.x = 400 - restartHard.width;
@@ -117,8 +117,8 @@ function EndStateWrapper(game) {
 				score = 4.0 * Math.min(1.0, score / topScore);
 				
 				var commentText = '';
-				if (score <= 1.8) commentText = "King Zoran sends you home, hoping you'll try again.";
-				else if (score <= 2.5) commentText = 'King Zoran sends you on our way with a hefty sack of gold.';
+				if (score <= 1.8) commentText = "King Zoran sends you home,\nhoping you'll try again.";
+				else if (score <= 2.5) commentText = 'King Zoran sends you on our way\nwith a hefty sack of gold.';
 				else if (score <= 3.0) commentText = 'King Zoran stops making you pay taxes.\nWell, some of your taxes.';
 				else if (score <= 3.5) commentText = 'King Zoran sets you up with a shop in the capital.';
 				else if (score <= 3.9) commentText = 'King Zoran makes you an official advisor.';
@@ -127,8 +127,8 @@ function EndStateWrapper(game) {
 				
 				endOfDemoText = game.add.text(
 					100, 200,
-					"You and the king arrive at the palace\n" + 
-					"King Zoran gives you an\n official rating of " + 
+					"You arrive at the palace.\n" + 
+					"King Zoran gives you an\nofficial rating of " + 
 					parseFloat(Math.round(score * 10) / 10).toFixed(1) + '/4.0\n\n' + 
 					commentText,
 					{

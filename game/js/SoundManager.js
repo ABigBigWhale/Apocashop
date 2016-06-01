@@ -15,7 +15,9 @@ function SoundManager(game, isEnabled) {
 		WIN : 'winending',
 		GAMEOVER : 'gameover',
 		TITLEMUS : 'titleMusic',
-		LV0 : 'lv0music'
+		ZORAN : 'zoranmusic',
+		LV0 : 'lv0music',
+		LV7 : 'lv7music'
 	}
 
 	game.Sounds = {
@@ -36,27 +38,28 @@ function SoundManager(game, isEnabled) {
 		TEXTSTITCH : [generateSoundData('textstitcha'), generateSoundData('textstitchb'), generateSoundData('textstitchc'), generateSoundData('textstitchd'), generateSoundData('textstitche'), generateSoundData('textstitchf'), generateSoundData('textstitchg')]
 	}
 
-	this.playMusic = function(songInfo, fadeDuration, isCrossfade) {
+	this.playMusic = function(songInfo, fadeDuration, prevFade) {
 
 		if (!isMusicEnabled) {
 			return;
 		}
 
 		fadeDuration = fadeDuration || 0;
+		prevFade = prevFade || prevFade;
 
 		var song = songInfo instanceof Array ? randomElement(songInfo) : songInfo;
 		song = generateMusicData(song);
 
-		if(isCrossfade) {
-			self.stopMusic(fadeDuration);
-		} else {
-			self.stopMusic(0);
-		}
+		self.stopMusic(prevFade);
 		
 		currMusic = song;
 		currMusic.onDecoded.add(function() {
 			if(currMusic === song) {
-				currMusic.volume = 0;
+				if(fadeDuration > 0) {
+					currMusic.volume = 0;
+				} else {
+					currMusic.volume = musicVolume;
+				}
 				currMusic.play();
 				currMusic.fadeTo(fadeDuration, musicVolume);
 			}

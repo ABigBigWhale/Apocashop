@@ -832,6 +832,12 @@ function PlayStateWrapper(game) {
 						}
 						toggleButtons(true);
 						game.dialog.main.freeze(false);
+						if(appearSong && appearSong !== "KILLMUSIC") {
+							var song = game.Music[appearSong];
+							if(song) {
+								game.soundManager.playMusic(song);
+							}
+						}
 					})
 					currNPCIn.start();
 				}
@@ -843,6 +849,11 @@ function PlayStateWrapper(game) {
 					}
 					currNPCOut.start();
 					currNPCOut.onComplete.addOnce(showNPC);
+					currNPCOut.onComplete.addOnce(function() {
+						if(appearSong) {
+							game.soundManager.stopMusic(200);
+						}
+					});
 					// This is a bit of an ugly hack, sorry. - Kyle
 					if(uiNoteDisplayShown && !isBeginningDayToggle) {
 						toggleNoteDisplay();

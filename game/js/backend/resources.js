@@ -45,6 +45,7 @@ var heroes = {
 			type : "dialog",
 			appearanceInfo : "jeff",
 			voice : "MED",
+			appearSong : "LV0",
 			dialog : [
 				"Hey kiddo, I'm Jeff the Magic Anvil!@@/Just accept it. We don't have time for questions.",
 				"It looks like you've got five swords there to sell./The going rate for those is five gold a piece.",
@@ -370,6 +371,9 @@ var heroes = {
 		introZoran : {
 			type : "dialog",
 			appearanceInfo : "king_zoran",
+			appearSong : "ZORAN",
+			voice : "MURPHY",
+			leaveSong : "LV7",
 			dialog : [
 				"Hello there, humble shopkeeper. I am your glorious ruler, King Zoran.",
 				"I've heard good things about you and your shop and I am here to see for myself what you are capable of.",
@@ -380,6 +384,8 @@ var heroes = {
 		endZoran : {
 			type : "dialog",
 			appearanceInfo : "king_zoran",
+			appearSong : "ZORAN",
+			voice : "MURPHY",
 			dialog : [
 				{
 					"gold_100" : "Well done, shopkeeper./You have proven yourself worthy to stand at my side.",

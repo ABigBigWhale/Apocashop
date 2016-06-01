@@ -19,7 +19,7 @@ function InteractionManager(game) {
 	// The current NPC we're interacting with
 	var currentNPC;
 
-	var npcAppearSong;
+	var npcLeaveSong;
 
 	var interruptNPCs;
 
@@ -48,7 +48,7 @@ function InteractionManager(game) {
 	function init() {
 		interruptNPCs = [];
 		dayUpgrade = 1;
-		npcAppearSong = false;
+		npcLeaveSong = false;
 		// When continue is pushed, send out a new NPC
 		game.eventManager.register(game.Events.INPUT.CONTINUE, function() {
 			if(currentNPC && currentNPC.type === 'interact' && offerIndex < currentNPC.offers.length) {
@@ -152,12 +152,6 @@ function InteractionManager(game) {
 		});
 	}
 
-	function playNPCSong(song) {
-		if(song) {
-			game.soundManager.playMusic(song, 500, true)
-		}
-	}
-
 	// Begin the day, set the day timer, and send our first NPC.
 	this.startDay = function(day, index, endCallback) {
 		if(game.dayTimer) {
@@ -207,7 +201,7 @@ function InteractionManager(game) {
 
 	function checkDayOver() {
 		console.log("PROFIT: " + calculatePotentialProfit());
-		return isEnd && (calculatePotentialProfit() >= gameConfig.MENDOZA || npcIndex - overtimeStartIndex > gameConfig.EXTRACAP);
+		return isEnd && (calculatePotentialProfit() >= gameConfig.MENDOZA || npcIndex - overtimeStartIndex > gameConfig.EXTRACAP || dayIndex > 6);
 	}
 
 	// Smudge NPC order using fuzz values and initialize the npc
@@ -311,18 +305,26 @@ function InteractionManager(game) {
 			trackPotentialProfit(currentNPC);
 			var fingerString = currentNPC.isFingers ? generateFingerString(currentNPC.offers[0]) : false;
 			var fingerTime = currentNPC.isFingers ? currentNPC.fingerTime : false;
-			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice, npcAppearSong, fingerString, fingerTime);
+			var song = currentNPC.appearSong || npcLeaveSong;
+			if(song === "CURRENTLEVEL") {
+				song = "LV" + dayIndex;
+			}
+			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice, song, fingerString, fingerTime);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
 			game.dayTimer.pause();
-			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice, npcAppearSong);
+			var song = currentNPC.appearSong || npcLeaveSong;
+			if(song === "CURRENTLEVEL") {
+				song = "LV" + dayIndex;
+			}
+			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice, song);
 			pushDialog(currentNPC, dialogIndex);
 			dialogIndex++;
 		} else {
 			return;
 		}
 
-		npcAppearSong = currentNPC.song;
+		npcLeaveSong = currentNPC.leaveSong;
 
 		if(currentNPC.stallTime) {
 			npcStallTimer = setTimeout(function() {

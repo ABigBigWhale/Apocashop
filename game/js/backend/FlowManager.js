@@ -47,7 +47,7 @@ function beginGame(game) {
 	});
 
 	var beginStocking = function() {
-		game.soundManager.stopMusic();
+		game.soundManager.stopMusic(500);
 		game.stockUI.startDay(currentDay.clues.crisis, function() {
 			beginSales(currentDay);
 		});
@@ -58,7 +58,7 @@ function beginGame(game) {
 		// sometimes. Throwing it here as well for safety.
 		// Hey, when you have a one month dev cycle, this is what happens.
 		if(currentDayIndex === 0) {
-			game.soundManager.playMusic(game.Music.LV0, 500, true);
+			game.soundManager.stopMusic(100);
 		}
 		game.eventManager.notify(game.Events.WRAPUP.END);
 		game.interactionManager.startDay(currentDay, currentDayIndex, function() {
