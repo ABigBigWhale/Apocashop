@@ -1,4 +1,5 @@
 function initBackend(game) {
+	loadAPI(function() {});
 	game.reset = new ResetHelper();
 	game.conditionManager = new ConditionManager(game);
 	game.eventManager = new EventManager(game);
