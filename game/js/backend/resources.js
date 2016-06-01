@@ -1434,6 +1434,7 @@ var heroes = {
 			},
 			stallTime : 6000,
 			appearConditions : ["uprising_informantHelper"],
+			sellConditions : ["uprising_acceptedRebel"],
 			stallConditions : ["uprising_informant"],
 		},
 		"6policeBribe" : {

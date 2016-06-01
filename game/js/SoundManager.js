@@ -20,7 +20,10 @@ function SoundManager(game, isEnabled, doneCB) {
 		LV0 : 'lv0music',
 		LV1 : 'lv1music',
 		LV2 : 'lv2music',
+		LV3 : 'lv0music',
 		LV4 : 'lv4music',
+		LV5 : 'lv1music',
+		LV6 : 'lv2music',
 		LV7 : 'lv7music'
 	}
 

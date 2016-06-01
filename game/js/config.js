@@ -25,6 +25,10 @@ switch(SETUP) {
 	case "KONGREGATE":
 		gameConfig.DEBUG_MODE = false;
 		gameConfig.VERSION = "0.3-kg";
-		gameConfig.
+		gameConfig.ISSCALED = false;
+		break;
+	case "OMGTEST":
+		gameConfig.DEBUG_MODE = false;
+		gameConfig.VERSION = "OMGTEST";
 		break;
 }
