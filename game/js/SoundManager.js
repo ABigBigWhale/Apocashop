@@ -13,7 +13,7 @@ function SoundManager(game, isEnabled) {
 
 	game.Music = {
 		WIN : 'winending',
-		GAMEOVER : 'gameover',
+		// GAMEOVER : 'gameover',
 		TITLEMUS : 'titleMusic',
 		ZORAN : 'zoranmusic',
 		LV0 : 'lv0music',
@@ -31,6 +31,7 @@ function SoundManager(game, isEnabled) {
 		REJECT : generateSoundData('reject'),
 		FART : [generateSoundData('fart'), generateSoundData('fart2')],
 		SWAG : generateSoundData('swag'),
+		GAMEOVER : generateSoundData('gameover'),
 		TEXTMED : [generateSoundData('textmeda'), generateSoundData('textmedb'), generateSoundData('textmedc'), generateSoundData('textmedd'), generateSoundData('textmede'), generateSoundData('textmedf'), generateSoundData('textmedg')],
 		TEXTHIGH : [generateSoundData('texthigha'), generateSoundData('texthighb'), generateSoundData('texthighc'), generateSoundData('texthighd'), generateSoundData('texthighe'), generateSoundData('texthighf'), generateSoundData('texthighg')],
 		TEXTMELODY : [generateSoundData('textmelodya'), generateSoundData('textmelodyb'), generateSoundData('textmelodyc'), generateSoundData('textmelodyd'), generateSoundData('textmelodye'), generateSoundData('textmelodyf'), generateSoundData('textmelodyg')],

@@ -72,7 +72,8 @@ function EndStateWrapper(game) {
 			softBox.y = restartSoft.y;
 
 			if (!gameWon) {
-				game.soundManager.playMusic(game.Musc.GAMEOVER);
+				game.soundManager.stopMusic(200);
+				game.soundManager.playSound(game.Sounds.GAMEOVER);
 				gameOverText = game.add.text(
 					100, 200, 
 					"GAME OVER: You have gone broke", 

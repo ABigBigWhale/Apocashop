@@ -45,7 +45,7 @@ var heroes = {
 			type : "dialog",
 			appearanceInfo : "jeff",
 			voice : "MED",
-			appearSong : "LV0",
+			appearSong : "CURRENTLEVEL",
 			dialog : [
 				"Hey kiddo, I'm Jeff the Magic Anvil!@@/Just accept it. We don't have time for questions.",
 				"It looks like you've got five swords there to sell./The going rate for those is five gold a piece.",
@@ -141,6 +141,7 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : "jeff",
 			voice : "MED",
+			appearSong : "CURRENTLEVEL",
 			dialog : [
 				"Alright kiddo, time for another exciting day of shopkeeping.",
 				"Don't forget to check out your notebook. While you were resting your weak organic body, I was doing some research.",
@@ -218,6 +219,7 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : "jeff",
 			voice : "MED",
+			appearSong : "CURRENTLEVEL",
 			dialog : [
 				"Alright kiddo, third day's the charm. Let's do this.",
 				"Remember, if you're not sure if someone's the hero, you might want to question them or look at them closely."
@@ -294,6 +296,7 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : "jeff",
 			voice : "MED",
+			appearSong : "CURRENTLEVEL",
 			dialog : [
 				"Alright kiddo, time for another fun filled day. Let's do this."
 			]
@@ -302,6 +305,7 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : "jeff",
 			voice : "MED",
+			appearSong : "CURRENTLEVEL",
 			dialog : [
 				"Hey kid, you ready for another day?",
 				"Well, if you aren't, then too bad. The sun waits for nobody."
@@ -311,6 +315,7 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : "jeff",
 			voice : "MED",
+			appearSong : "CURRENTLEVEL",
 			dialog : [
 				"Let's do this thing, kid.",
 				"I have a feeling this is our lucky day."
@@ -320,6 +325,7 @@ var heroes = {
 			type : 'dialog',
 			appearanceInfo : "jeff",
 			voice : "MED",
+			appearSong : "CURRENTLEVEL",
 			dialog : [
 				"Kiddo, this is the first day of the rest of our lives. Let's make it count."
 			]

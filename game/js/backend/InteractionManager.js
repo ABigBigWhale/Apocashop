@@ -306,7 +306,7 @@ function InteractionManager(game) {
 			var fingerString = currentNPC.isFingers ? generateFingerString(currentNPC.offers[0]) : false;
 			var fingerTime = currentNPC.isFingers ? currentNPC.fingerTime : false;
 			var song = currentNPC.appearSong || npcLeaveSong;
-			if(song === "CURRENTLEVEL") {
+			if(song === "CURRENTLEVEL" && dayIndex < 7) {
 				song = "LV" + dayIndex;
 			}
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice, song, fingerString, fingerTime);
@@ -314,7 +314,7 @@ function InteractionManager(game) {
 		} else if(currentNPC.type === "dialog") {
 			game.dayTimer.pause();
 			var song = currentNPC.appearSong || npcLeaveSong;
-			if(song === "CURRENTLEVEL") {
+			if(song === "CURRENTLEVEL" && dayIndex < 7) {
 				song = "LV" + dayIndex;
 			}
 			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice, song);
