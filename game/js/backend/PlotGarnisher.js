@@ -176,7 +176,7 @@ function PlotGarnisher(game) {
 				conditions : {
 					urchin_trackerVengeful : {
 						components : ["urchin_trackerRefused"],
-						kong : ["Urching_Angered"],
+						kong : ["Urchin_Angered"],
 						chance : 0.6,
 						isLongTerm : true
 					},
@@ -537,7 +537,7 @@ function PlotGarnisher(game) {
 					},
 					uprising_rebelsJoined : {
 						components : ['uprising_acceptedRebel', '!uprising_informant'],
-						kong : ["Rebellion)Joined"],
+						kong : ["Rebellion_Joined"],
 						chance : 1.0,
 						isLongTerm : true
 					}
