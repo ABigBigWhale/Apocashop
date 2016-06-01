@@ -17,7 +17,9 @@ function LoadStateWrapper(game) {
         },
 
         create: function() {
-            game.state.start('state_start');
+            game.soundManager = new SoundManager(game, gameConfig.SOUNDENABLED, function() {
+                game.state.start('state_start');
+            });
         }
     };
 }

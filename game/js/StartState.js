@@ -1,12 +1,6 @@
 function StartStateWrapper(game) {
 
 	this.startState = {
-		preload : function() {
-			if(!game.soundManager) {
-				game.soundManager = new SoundManager(game, gameConfig.SOUNDENABLED);
-			}
-		},
-
 		create: function() {
 			game.displayManager.putLoadingBackground();
 			game.displayManager.prepareStage();
