@@ -44,6 +44,7 @@ var heroes = {
 		"introJeff" : {
 			type : "dialog",
 			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Hey kiddo, I'm Jeff the Magic Anvil!@@/Just accept it. We don't have time for questions.",
 				"It looks like you've got five swords there to sell./The going rate for those is five gold a piece.",
@@ -53,6 +54,7 @@ var heroes = {
 		"messUpJeff" : {
 			type : "dialog",
 			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Kid, you might want to keep a closer eye on what they're offering.",
 				"Remember, those swords cost you five gold each."
@@ -85,6 +87,7 @@ var heroes = {
 			type : "interact",
 			item : "sword",
 			appearanceInfo : "random",
+			voice : "MURPHY",
 			offers : [10],
 			offerText : "Give me a sword and you can have ten gold instead of a mouth full of teeth.",
 			success : "Heh, thanks.",
@@ -106,6 +109,7 @@ var heroes = {
 		chickenJeff : {
 			type : "dialog",
 			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Oh, I forgot to mention. I can make you anything that the people want and you don't have, for a price.",
 				"YOUR@ S@O@U@L@@/But for you kid, I'll also accept gold pieces.",
@@ -119,6 +123,7 @@ var heroes = {
 		endOfTutorialJeff : {
 			type : 'dialog',
 			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Nicely done, kid. We're still in business!/. . . Against all odds.",
 				{
@@ -133,7 +138,8 @@ var heroes = {
 	"dayTwo" : {
 		introJeff : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Alright kiddo, time for another exciting day of shopkeeping.",
 				"Don't forget to check out your notebook. While you were resting your weak organic body, I was doing some research.",
@@ -192,7 +198,8 @@ var heroes = {
 		},
 		endJeff : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				{
 					soldHero : "Nice work, kid. Glad you read my instructions.",
@@ -208,7 +215,8 @@ var heroes = {
 	dayThree : {
 		introJeff : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Alright kiddo, third day's the charm. Let's do this.",
 				"Remember, if you're not sure if someone's the hero, you might want to question them or look at them closely."
@@ -216,7 +224,8 @@ var heroes = {
 		},
 		endJeff : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				{
 					soldHero : "Nice work, kid. Let's get some sleep.",
@@ -233,7 +242,8 @@ var heroes = {
 		},
 		jeffDog : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Oh my gosh, can we keep it, can we keep it?",
 				"Please please please please please please please please please."
@@ -261,7 +271,8 @@ var heroes = {
 		},
 		jeffHappy : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				{
 					gotDog : "YES, this is the best day. Dogs are one of the few things I can't create.",
@@ -280,14 +291,16 @@ var heroes = {
 	jeffPoolStart : {
 		genericJeff : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Alright kiddo, time for another fun filled day. Let's do this."
 			]
 		},
 		genericJeff2 : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Hey kid, you ready for another day?",
 				"Well, if you aren't, then too bad. The sun waits for nobody."
@@ -295,7 +308,8 @@ var heroes = {
 		},
 		genericJeff3 : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Let's do this thing, kid.",
 				"I have a feeling this is our lucky day."
@@ -303,7 +317,8 @@ var heroes = {
 		},
 		genericJeff4 : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Kiddo, this is the first day of the rest of our lives. Let's make it count."
 			]
@@ -312,28 +327,32 @@ var heroes = {
 	jeffPoolEnd : {
 		endJeff : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Hey kid, it's getting late. I think it's time to get some sleep."
 			]
 		},
 		endJeff : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Kiddo, I think it's time to close up shop. It's getting dark out."
 			]
 		},
 		endJeff : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Kid, I don't need sleep, but you do. It's time to pack up shop."
 			]
 		},
 		endJeff : {
 			type : 'dialog',
-			appearanceInfo : 'jeff',
+			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Not a bad day out there. Let's get some rest and start back up tomorrow morning."
 			]
@@ -343,6 +362,7 @@ var heroes = {
 		introJeff : {
 			type : "dialog",
 			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Hey kiddo, time for another beautiful day./Doesn't something about today seem diff~~"
 			]
@@ -1416,6 +1436,7 @@ var heroes = {
 		jeffNotify : {
 			type : "dialog",
 			appearanceInfo : "jeff",
+			voice : "MED",
 			dialog : [
 				"Hey kiddo, we should probably close up shop, but we've been moving a bit too slowly today.",
 				"Tomorrow, try getting people through here faster, and watch the sun to see how much time you have left.",

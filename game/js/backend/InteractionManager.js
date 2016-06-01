@@ -302,11 +302,11 @@ function InteractionManager(game) {
 			trackPotentialProfit(currentNPC);
 			var fingerString = currentNPC.isFingers ? generateFingerString(currentNPC.offers[0]) : false;
 			var fingerTime = currentNPC.isFingers ? currentNPC.fingerTime : false;
-			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, fingerString, fingerTime);
+			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice, fingerString, fingerTime);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
 			game.dayTimer.pause();
-			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo);
+			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice);
 			pushDialog(currentNPC, dialogIndex);
 			dialogIndex++;
 		} else {

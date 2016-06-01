@@ -53,8 +53,12 @@ function DialogManager(game) {
 
 	var mainSound = game.Sounds.TEXTHIGH;
 
-	this.newMainSound = function(sound) {
-		mainSound = randomElement([game.Sounds.TEXTMED, game.Sounds.TEXTHIGH, game.Sounds.TEXTMELODY, game.Sounds.TEXTMURPHY, game.Sounds.TEXTSTITCH]);
+	this.setMainSound = function(sound) {
+		if(sound) {
+			mainSound = game.Sounds["TEXT" + sound];
+		} else {
+			mainSound = randomElement([game.Sounds.TEXTMED, game.Sounds.TEXTHIGH, game.Sounds.TEXTMELODY, game.Sounds.TEXTMURPHY, game.Sounds.TEXTSTITCH]);
+		}
 	}
 
 	// Prints the message to the main text box.
