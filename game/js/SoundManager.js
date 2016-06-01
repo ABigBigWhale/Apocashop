@@ -9,7 +9,7 @@ function SoundManager(game, isEnabled) {
 	var isSoundEnabled = isEnabled;
 
 	this.soundVolume = 0.07;
-	this.musicVolume = 0.05;
+	this.musicVolume = 0.03;
 
 	game.Music = {
 		WIN : 'winending',
