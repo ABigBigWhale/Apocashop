@@ -98,6 +98,7 @@ function StockUI(game) {
         // hack so that reminder does not fade in with rest of ui_group
         reminder.visible = false;
         ui_group.fadeIn.start();
+        game.soundManager.playMusic(game.Music.STOCK, 500);
         reminder.alpha = 0;
         reminder.visible = true;
         game.world.bringToTop(ui_group);
@@ -111,6 +112,7 @@ function StockUI(game) {
             remindPlayer();
             return;
         }
+        game.soundManager.stopMusic(500);
         game.soundManager.playSound(game.Sounds.BLIP);
         for(var key in allBox) {
             allBox[key].priceText.visible = false;

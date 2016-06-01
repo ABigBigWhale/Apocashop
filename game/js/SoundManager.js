@@ -14,9 +14,12 @@ function SoundManager(game, isEnabled) {
 	game.Music = {
 		WIN : 'winending',
 		// GAMEOVER : 'gameover',
+		STOCK : 'stockmusic',
 		TITLEMUS : 'titleMusic',
 		ZORAN : 'zoranmusic',
 		LV0 : 'lv0music',
+		LV1 : 'lv1music',
+		LV2 : 'lv2music',
 		LV7 : 'lv7music'
 	}
 
