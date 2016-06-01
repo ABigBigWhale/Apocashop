@@ -132,6 +132,7 @@ function AssetManager(game) {
 			'lv0music' : 'mus/wecandoit.mp3',
 			'lv1music' : 'mus/Review/cheerup.mp3', 
 			'lv2music' : 'mus/Review/8bit.mp3', 
+			'lv4music' : 'mus/ninja.mp3',
 			'lv7music' : 'mus/darksanctum.mp3',
 			'zoranmusic' : 'mus/royalentrance.mp3',
 			'stockmusic' : 'mus/Review/whatanicesurprise.mp3', 

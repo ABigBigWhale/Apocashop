@@ -20,6 +20,7 @@ function SoundManager(game, isEnabled) {
 		LV0 : 'lv0music',
 		LV1 : 'lv1music',
 		LV2 : 'lv2music',
+		LV4 : 'lv4music',
 		LV7 : 'lv7music'
 	}
 
@@ -88,7 +89,9 @@ function SoundManager(game, isEnabled) {
 	this.toggleMusic = function(isEnabled) {
 		isMusicEnabled = isEnabled;
 		if(!isEnabled) {
-			self.stopMusic();
+			currMusic.fadeTo(100, 0);
+		} else if(currMusic) {
+			currMusic.fadeTo(100, musicVolume);
 		}
 	}
 	
