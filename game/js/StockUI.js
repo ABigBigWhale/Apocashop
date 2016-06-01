@@ -265,7 +265,6 @@ function StockUI(game) {
 
     function decreaseItem(minus, pointer) {
         if (minus.loader != null && minus.loader.loaded != null) {
-            game.soundManager.playSound(game.Sounds.COINS);
             var currCount = minus.loader.loaded.num;
             game.eventManager.notify(game.Events.STOCK.REMOVE, minus.loader.loaded.itemType, 1);
             minus.loader.num.text = minus.loader.loaded.num;
@@ -276,7 +275,6 @@ function StockUI(game) {
 
     function increaseItem(plus, pointer) {  
         if (plus.loader != null && plus.loader.loaded != null) {
-            game.soundManager.playSound(game.Sounds.ACCEPT);
             game.eventManager.notify(game.Events.STOCK.ADD, plus.loader.loaded.itemType, 1);
             plus.loader.num.text = plus.loader.loaded.num;
         }
@@ -321,7 +319,7 @@ function StockUI(game) {
             sprite.loader = null;
             game.world.bringToTop(sprite.itemborder);
             coinDrop(sprite.num - sprite.orignum);
-            game.soundManager.playSound(game.Sounds.COINS);
+            game.soundManager.playSound(game.Sounds.REJECT);
             game.eventManager.notify(game.Events.STOCK.OUTSTOCK, sprite.itemType);
             coinDrop()
             deHoverOnItem(sprite, pointer);
