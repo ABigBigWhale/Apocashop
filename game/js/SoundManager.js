@@ -8,8 +8,8 @@ function SoundManager(game, isEnabled) {
 	var isMusicEnabled = isEnabled;
 	var isSoundEnabled = isEnabled;
 
-	this.soundVolume = 0.34;
-	this.musicVolume = 0.10;
+	var soundVolume = 0.34;
+	var musicVolume = 0.10;
 
 	game.Music = {
 		WIN : 'winending',
@@ -58,7 +58,7 @@ function SoundManager(game, isEnabled) {
 			if(currMusic === song) {
 				currMusic.volume = 0;
 				currMusic.play();
-				currMusic.fadeTo(fadeDuration, self.musicVolume);
+				currMusic.fadeTo(fadeDuration, musicVolume);
 			}
 		}, this);
 
@@ -82,6 +82,17 @@ function SoundManager(game, isEnabled) {
 		isMusicEnabled = isEnabled;
 		if(!isEnabled) {
 			self.stopMusic();
+		}
+	}
+
+	this.getMusicVolume = function() {
+		return musicVolume;
+	}
+
+	this.changeMusicVolume = function(newVolume) {
+		musicVolume = newVolume;
+		if(currMusic) {
+			currMusic.volume = newVolume;
 		}
 	}
 
@@ -112,12 +123,23 @@ function SoundManager(game, isEnabled) {
 		}
 	}
 
+	this.getSoundVolume = function() {
+		return soundVolume;
+	}
+
+	this.changeSoundVolume = function(newVolume) {
+		soundVolume = newVolume;
+		if(currSound) {
+			currSound.volume = newVolume;
+		}
+	}
+
 	function generateMusicData(name) {
 		return game.add.audio(name, 0, true);
 	}
 
 	function generateSoundData(name) {
-		return game.add.audio(name, self.soundVolume);
+		return game.add.audio(name, soundVolume);
 	}
 
 }
