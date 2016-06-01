@@ -8,8 +8,8 @@ function SoundManager(game, isEnabled) {
 	var isMusicEnabled = isEnabled;
 	var isSoundEnabled = isEnabled;
 
-	this.soundVolume = 0.07;
-	this.musicVolume = 0.03;
+	this.soundVolume = 0.28;
+	this.musicVolume = 0.12;
 
 	game.Music = {
 		WIN : 'winending',
@@ -53,7 +53,7 @@ function SoundManager(game, isEnabled) {
 			if(currMusic === song) {
 				currMusic.volume = 0;
 				currMusic.play();
-				currMusic.fadeTo(fadeDuration, 0.05);
+				currMusic.fadeTo(fadeDuration, self.musicVolume);
 			}
 		}, this);
 
