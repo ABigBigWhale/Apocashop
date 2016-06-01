@@ -8,7 +8,7 @@ function SoundManager(game, isEnabled) {
 	var isMusicEnabled = isEnabled;
 	var isSoundEnabled = isEnabled;
 
-	var soundVolume = 0.34;
+	var soundVolume = 0.28;
 	var musicVolume = 0.10;
 
 	game.Music = {
@@ -96,13 +96,17 @@ function SoundManager(game, isEnabled) {
 		}
 	}
 
-	this.playSound = function(soundInfo) {
+	this.playSound = function(soundInfo, volume) {
 
 		if (!isSoundEnabled) {
 			return;
 		}
 
 		var sound = soundInfo instanceof Array ? randomElement(soundInfo) : soundInfo;
+
+		if(volume) {
+			sound.volume = volume;
+		}
 
 		currSound = sound;
 		currSound.play();
