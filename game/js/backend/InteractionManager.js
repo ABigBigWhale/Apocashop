@@ -180,6 +180,7 @@ function InteractionManager(game) {
 			if(!checkDayOver()) {
 				game.analytics.track("mendoza", "fail" + dayIndex, potentialProfit);
 				addInterruptNPC(generateHeroData("timer", "jeffNotify"));
+				startOvertime();
 			} else {
 				game.analytics.track("mendoza", "success" + dayIndex, potentialProfit);
 			}

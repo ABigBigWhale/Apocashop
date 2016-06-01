@@ -1,14 +1,3 @@
-var gameConfig = {
-	DEBUG_MODE: true,
-	SOUNDENABLED : true,
-	MENDOZA : 12,
-	EXTRACAP : 7,
-	RESOLUTION: [800, 600],
-	VERSION : "TESTING",
-	ISSCALED : true,
-	ISALBINO : false
-};
-
 document.addEventListener('DOMContentLoaded', function() {
 	
 	// Prevents right clicks on the game window
@@ -35,6 +24,16 @@ document.addEventListener('DOMContentLoaded', function() {
             font: "1px yoster_islandregular",
             fill: "#FFFFFF"
         });
+
+        // These are here so they'll be decoded first and won't have to wait in line.
+        // They're six tiny wav files, so this doesn't add much to loading times.
+        game.load.audio('textmeda', 'assets/sounds/sfx/text/med/a.wav');
+        game.load.audio('textmedb', 'assets/sounds/sfx/text/med/b.wav');
+        game.load.audio('textmedc', 'assets/sounds/sfx/text/med/c.wav');
+        game.load.audio('textmedd', 'assets/sounds/sfx/text/med/d.wav');
+        game.load.audio('textmede', 'assets/sounds/sfx/text/med/e.wav');
+        game.load.audio('textmedf', 'assets/sounds/sfx/text/med/f.wav');
+        game.load.audio('textmedg', 'assets/sounds/sfx/text/med/g.wav');
 	}
 
 	function create() {
