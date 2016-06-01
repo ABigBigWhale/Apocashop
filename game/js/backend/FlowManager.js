@@ -23,7 +23,7 @@ function initBackend(game) {
 
 function beginGame(game) {
 
-	var currentDayIndex = 5;
+	var currentDayIndex = 0;
 	var currentDay = getDay(currentDayIndex);
 
 	var isLost = false;
