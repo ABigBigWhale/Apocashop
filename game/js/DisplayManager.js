@@ -25,6 +25,9 @@ function DisplayManager(game) {
 	var shop;
 	var jeff, jeffShadow;
 
+	//----------- UI components ----------------------
+	var soundControl;
+
 	function setPositionLowerMiddle(shop, player) {
 		shop.position.copyFrom(player);
 		shop.position.y += player.height - shop.height / 2;
@@ -42,6 +45,21 @@ function DisplayManager(game) {
 		tint = tintVal;
 
 	}
+
+	this.prepareGroups = function() {
+		game.depthGroups = {
+			titleGroup: game.add.group(),
+			envGroup: game.add.group(),
+			dialogGroup: game.add.group(),
+			shopGroup: game.add.group(),
+			pedestGroup: game.add.group(),
+			noteGroup : game.add.group(),
+			questionGroup : game.add.group(),
+			uiGroup: game.add.group(),
+			frontGroup: game.add.group()
+		};
+	}
+
 	this.putEnvironment = function() {
 		this.imgBackgroundSky = game.add.group();
 		this.imgBackgroundSky.dawn = game.add.image(0, 0, 'gp_background_sky_dawn');
@@ -103,6 +121,45 @@ function DisplayManager(game) {
 		}, 2000, Phaser.Easing.Quadratic.None, true, 0, 1000, true);
 
 	};
+	
+	this.soundControlClickCB = function() {
+		if (game.soundManager.musicEnabled()) {
+			this.soundControl.frame = 0;
+			game.soundManager.toggleMusic(false);
+			game.soundManager.toggleSound(false);
+		} else {
+			this.soundControl.frame = 1;
+			game.soundManager.toggleMusic(true);
+			game.soundManager.toggleSound(true);
+		}
+		printDebug("UI: sound toggle clicked! soundEnabled = " + game.soundManager.musicEnabled());
+	}
+	
+	this.soundControlHoverCB = function() {
+		this.soundControl.tweenHover.start();
+	}
+	
+	this.soundControlOutCB = function() {
+		this.soundControl.tweenOut.start();
+	}
+
+	this.putUIComponents = function() {
+		this.soundControl = game.add.button(gameConfig.RESOLUTION[0] - 8, 8,
+											'ui_sound',
+											this.soundControlClickCB,
+											this,
+											null, null, null);
+
+		this.soundControl.anchor.setTo(1, 0);
+		this.soundControl.alpha = 0.2;
+		this.soundControl.frame = 1;
+		
+		this.soundControl.tweenHover = game.add.tween(this.soundControl).to( {alpha : 1}, 200, 'Linear');
+		this.soundControl.tweenOut = game.add.tween(this.soundControl).to( {alpha : 0.2}, 400, 'Linear');
+		
+		this.soundControl.events.onInputOver.add(this.soundControlHoverCB, this);
+		this.soundControl.events.onInputOut.add(this.soundControlOutCB, this);
+	}
 
 
 	this.putLoadingBackground = function() {

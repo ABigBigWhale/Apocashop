@@ -88,6 +88,10 @@ function SoundManager(game, isEnabled) {
 			self.stopMusic();
 		}
 	}
+	
+	this.musicEnabled = function() {
+		return isMusicEnabled;
+	}
 
 	this.getMusicVolume = function() {
 		return musicVolume;
@@ -129,6 +133,10 @@ function SoundManager(game, isEnabled) {
 		if(!isEnabled) {
 			self.stopSound();
 		}
+	}
+	
+	this.soundEnabled = function() {
+		return isSoundEnabled;
 	}
 
 	this.getSoundVolume = function() {

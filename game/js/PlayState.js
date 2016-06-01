@@ -21,6 +21,7 @@ function PlayStateWrapper(game) {
 			};
 
 			game.displayManager.putEnvironment();
+			game.displayManager.putUIComponents();
 
 			/*
 			var hands = game.displayManager.generateNPCHands('01100', '11001');

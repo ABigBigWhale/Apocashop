@@ -15,7 +15,8 @@ function AssetManager(game) {
 		'button_accept' : [63, 22],
 		'button_reject' : [63, 22],
 		'button_question' : [63, 22],
-		'gp_sun' : [96, 96]
+		'gp_sun' : [96, 96],
+		'ui_sound' : [48, 48]
 	};
 
 	// Paths of asset files, without extensions
@@ -69,6 +70,7 @@ function AssetManager(game) {
 			'ui_button_add', 
 			'ui_button_sub', 
 			'ui_button_item_border',
+			'ui_sound',
 			'shop_rock',
 			'shop_wooden',
 			'shop_wooden_plus',
