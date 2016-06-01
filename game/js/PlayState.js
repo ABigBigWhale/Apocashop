@@ -698,7 +698,7 @@ function PlayStateWrapper(game) {
 			});
 
 			game.eventManager.register(game.Events.INTERACT.NEW, 
-									   function(appearanceInfo, voice, handsInfo, handsTime) {
+									   function(appearanceInfo, voice, appearSong, handsInfo, handsTime) {
 				// This function returns a BitmapData generated with the given indices of 
 				// body part images.
 				/** NOTE: The size of the avatar frame is 168x198 **/

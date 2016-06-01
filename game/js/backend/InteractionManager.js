@@ -19,6 +19,8 @@ function InteractionManager(game) {
 	// The current NPC we're interacting with
 	var currentNPC;
 
+	var npcAppearSong;
+
 	var interruptNPCs;
 
 	var npcStallTimer;
@@ -46,6 +48,7 @@ function InteractionManager(game) {
 	function init() {
 		interruptNPCs = [];
 		dayUpgrade = 1;
+		npcAppearSong = false;
 		// When continue is pushed, send out a new NPC
 		game.eventManager.register(game.Events.INPUT.CONTINUE, function() {
 			if(currentNPC && currentNPC.type === 'interact' && offerIndex < currentNPC.offers.length) {
@@ -147,6 +150,12 @@ function InteractionManager(game) {
 				game.dayTimer.pause();
 			}
 		});
+	}
+
+	function playNPCSong(song) {
+		if(song) {
+			game.soundManager.playMusic(song, 500, true)
+		}
 	}
 
 	// Begin the day, set the day timer, and send our first NPC.
@@ -302,16 +311,18 @@ function InteractionManager(game) {
 			trackPotentialProfit(currentNPC);
 			var fingerString = currentNPC.isFingers ? generateFingerString(currentNPC.offers[0]) : false;
 			var fingerTime = currentNPC.isFingers ? currentNPC.fingerTime : false;
-			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice, fingerString, fingerTime);
+			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice, npcAppearSong, fingerString, fingerTime);
 			pushOffer(currentNPC, offerIndex);
 		} else if(currentNPC.type === "dialog") {
 			game.dayTimer.pause();
-			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice);
+			game.eventManager.notify(game.Events.INTERACT.NEW, currentNPC.appearanceInfo, currentNPC.voice, npcAppearSong);
 			pushDialog(currentNPC, dialogIndex);
 			dialogIndex++;
 		} else {
 			return;
 		}
+
+		npcAppearSong = currentNPC.song;
 
 		if(currentNPC.stallTime) {
 			npcStallTimer = setTimeout(function() {

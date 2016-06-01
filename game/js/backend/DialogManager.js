@@ -174,7 +174,7 @@ function DialogManager(game) {
 				} else {
 					box.text = box.text + message[index];
 					if(letterSound && isSound) {
-						game.soundManager.playSound(letterSound, 0.18);
+						game.soundManager.playSound(letterSound, 0.22);
 					}
 					if(message[index] == ',' || message[index] == '.' || message[index] == '?') {
 						timeoutLength = pauseDelay;
