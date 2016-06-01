@@ -225,6 +225,12 @@ function PlotGarnisher(game) {
 						chance : 1.0,
 						isLongTerm : true
 					},
+					treasure_trackHelper : {
+						components : ["treasure_bought"],
+						kong : ["Treasure_Seeker"],
+						chance : 1.0,
+						isLongTerm : false
+					},
 					treasure_sad : {
 						components : ["treasure_refused"],
 						chance : 1.0,
@@ -257,6 +263,12 @@ function PlotGarnisher(game) {
 						chance : 1.0,
 						isLongTerm : true
 					},
+					treasure_trackHelper : {
+						components : ["treasure_bought"],
+						kong : ["Treasure_Seeker"],
+						chance : 1.0,
+						isLongTerm : false
+					},
 					treasure_sad : {
 						components : ["treasure_refused"],
 						chance : 1.0,
@@ -285,9 +297,15 @@ function PlotGarnisher(game) {
 				conditions : {
 					treasure_hunting2 : {
 						components : ["treasure_bought", "treasure_hunting"],
-						kong : ["Treasure"],
+						kong : ["Treasure_All"],
 						chance : 1.0,
 						isLongTerm : true
+					},
+					treasure_trackHelper : {
+						components : ["treasure_bought"],
+						kong : ["Treasure_Seeker"],
+						chance : 1.0,
+						isLongTerm : false
 					},
 					treasure_good2 : {
 						components : ["treasure_bought"],
