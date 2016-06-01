@@ -1,6 +1,7 @@
 #!/bin/bash
 # uglifies and zips apocashop code
 
+rm apocashop.zip
 mkdir ./temp
 mkdir ./temp/int
 mkdir ./temp/int/js
@@ -17,5 +18,7 @@ cp ./helpers/phaser.min.js temp/int/js/phaser.min.js
 cp ../game/main.css temp/int/main.css
 cp -r ../game/assets temp/int/assets
 
-zip -r  apocashop.zip temp/int
+cd temp/int
+zip -r  ../../apocashop.zip .
+cd ../..
 rm -r temp
