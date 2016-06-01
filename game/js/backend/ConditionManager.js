@@ -77,6 +77,11 @@ function ConditionManager(game) {
 						game.eventManager.notifyByName(compound.events[i]);
 					}
 				}
+				if(compound.kong) {
+					for(var i = 0; i < compound.kong.length; i++) {
+						game.kongregate.submit(compound.kong[i], 1);
+					}
+				}
 				if(compound.isLongTerm) {
 					printDebug("SETTING LONGTERM CONDITION: " + name);
 					persistentConditions.push(name);

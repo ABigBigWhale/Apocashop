@@ -176,11 +176,13 @@ function PlotGarnisher(game) {
 				conditions : {
 					urchin_trackerVengeful : {
 						components : ["urchin_trackerRefused"],
+						kong : ["Urching_Angered"],
 						chance : 0.6,
 						isLongTerm : true
 					},
 					urchin_manProud : {
 						components : ["urchin_manSold"],
+						kong : ["Urchin_Helped"],
 						chance : 1.0,
 						isLongTerm : true
 					}
@@ -283,10 +285,11 @@ function PlotGarnisher(game) {
 				conditions : {
 					treasure_hunting2 : {
 						components : ["treasure_bought", "treasure_hunting"],
+						kong : ["Treasure"],
 						chance : 1.0,
 						isLongTerm : true
 					},
-					treasure_good : {
+					treasure_good2 : {
 						components : ["treasure_bought"],
 						chance : 0.75,
 						isLongTerm : false
@@ -298,7 +301,7 @@ function PlotGarnisher(game) {
 						text : "At nightfall, you set out to follow this last treasure map, but you can't seem to find anything."
 					},
 					{
-						conditions : ["treasure_good"],
+						conditions : ["treasure_good2"],
 						text : "That is, until you spot a stack of 20 gold!",
 						gold : 20
 					}
@@ -390,11 +393,13 @@ function PlotGarnisher(game) {
 				conditions : {
 					artifact_haveOrb5 : {
 						components : ["artifact_keptOrb"],
+						kong : ["Artifact_Kept"],
 						chance : 1.0,
 						isLongTerm : true
 					},
 					artifact_villainOrb : {
 						components : ["artifact_soldOrb"],
+						kong : ["Artifact_Villain"],
 						chance : 1.0,
 						isLongTerm : true
 					}
@@ -526,11 +531,13 @@ function PlotGarnisher(game) {
 				conditions : {
 					uprising_destroyedRebels : {
 						components : ['uprising_informant'],
+						kong : ["Rebellion_Informant"],
 						chance : 1.0,
 						isLongTerm : true
 					},
 					uprising_rebelsJoined : {
 						components : ['uprising_acceptedRebel', '!uprising_informant'],
+						kong : ["Rebellion)Joined"],
 						chance : 1.0,
 						isLongTerm : true
 					}
