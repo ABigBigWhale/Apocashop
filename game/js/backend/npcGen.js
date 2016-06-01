@@ -156,7 +156,8 @@ function initNPCGen(game) {
 			"Hola! ",
 			"Aloha! ",
 			"How's it going?/",
-			"Nice day out!/"
+			"Nice day out!/",
+			"Good day./"
 		];
 
 		generateGreeting = function(item, gold) {
@@ -191,7 +192,10 @@ function initNPCGen(game) {
 			"[X] gold. That's my final offer.",
 			"[X] gold is all I can offer.",
 			"[X] gold is all I can afford.",
-			"Okay then. [X] gold?"
+			"Okay then. [X] gold?",
+			"Hmm. [X] gold?",
+			"Take [X] gold or I'll leave.",
+			"I see. [X] gold then?"
 		];
 
 		generateHaggle = function(gold) {
@@ -336,10 +340,16 @@ function initNPCGen(game) {
 				"Not bad.",
 				"Eh.",
 				"Meh.",
+				"It's alright.",
+				"Good, thanks.",
+				"Doing well.",
+				"Can't complain.",
 				"Pretty alright.",
 				"What's it to you?",
 				"Why do you care?",
-				"Boring."
+				"Boring.",
+				"Wet",
+				"Let's just get to the business."
 			],
 			news : [
 				"I don't get out much.",
@@ -359,6 +369,7 @@ function initNPCGen(game) {
 				"Sky color.",
 				"Ground color.",
 				"The color of apples.",
+				"Green.",
 				"Goldenrod.",
 				"Pewter.",
 				"Cerulean.",
@@ -366,7 +377,15 @@ function initNPCGen(game) {
 				"Viridian.",
 				"Vermillion.",
 				"Cinnibar.",
-				"Saffron."
+				"Saffron.",
+				"Pink, I guess.",
+				"Teal, no doubt.",
+				"Purple and gold. Arf!",
+				"Grey!",
+				"The color of snow.",
+				"White. I like white.",
+				"Orchid.",
+				"Kha-kha-kha-khaki!"
 			],
 			number : [
 				"Seven.",
@@ -379,9 +398,11 @@ function initNPCGen(game) {
 				"Ninety three.",
 				"Sixty two.",
 				"One hundred.",
+				"Seven point two. Don't ask why.",
 				"What a strange question.",
 				"I guess I've never given that much thought...",
-				"What's it to you?"
+				"What's it to you?",
+				"Let's just get to the business."
 			],
 			alphabet : [
 				"abcdefghijklmnopqrstuvwxyz",
@@ -424,7 +445,13 @@ function initNPCGen(game) {
 			"Thanks.",
 			"You're the best, pal."	,
 			"Thanks a bunch.",
-			"Yes! I needed this."
+			"Yes! I needed this.",
+			"Good.",
+			"Thanks a lot.",
+			"You have my gratitude.",
+			"Thanks, pal.",
+			"Deal.",
+
 		]
 
 		generateThanks = function() {
@@ -449,7 +476,11 @@ function initNPCGen(game) {
 			"Nope, too much.",
 			"No deal.",
 			"No way.",
-			"Heh, good luck with that."
+			"Heh, good luck with that.",
+			"Are you even trying to sell it?",
+			"Guess I'm not buying that.",
+			"Nope, can't afford that.",
+			"Fine. I'll just look for other shops."
 		]
 
 		generateLeave = function() {

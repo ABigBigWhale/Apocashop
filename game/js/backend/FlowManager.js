@@ -23,7 +23,7 @@ function initBackend(game) {
 
 function beginGame(game) {
 
-	var currentDayIndex = 0;
+	var currentDayIndex = 5;
 	var currentDay = getDay(currentDayIndex);
 
 	game.timesFailed = 0;
@@ -88,6 +88,7 @@ function beginGame(game) {
 	};
 
 	if(debugGame) {
+		window.forceWrapup = beginWrapup;
 		window.forceStock = beginStocking;
 	}
 

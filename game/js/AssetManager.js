@@ -61,6 +61,8 @@ function AssetManager(game) {
 			'ui_levelup',
 			'ui_table_background',
 			'ui_clock',
+			'ui_coinstack_frame',
+			'ui_coin_frame',
 			'ui_funnel', 'ui_funnel_sand_top', 'ui_funnel_sand_buttom',
 			'ui_hands_background',
 			'ui_button_accept', 
@@ -120,6 +122,7 @@ function AssetManager(game) {
 			// 'arrayOfSound' : ['example1.ogg', 'ifOggNotSupportedUseThis.mp3']
 			'coin1' : 'sfx/coin.wav', 
 			'coin2' : 'sfx/coin2.wav',
+			'out' : 'sfx/goldLost.wav',
 			'boom' : 'sfx/boom.wav',
 			'blip' : 'sfx/blip.wav',
 			'notify' : 'sfx/notify.wav',
