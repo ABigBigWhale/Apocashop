@@ -37,6 +37,8 @@ function InteractionManager(game) {
 	var itemsStocked;
 	var itemsRequested;
 
+	var overtimeStartIndex;
+
 	this.getCurrentDay = function() {
 		return dayIndex;
 	}
@@ -190,9 +192,13 @@ function InteractionManager(game) {
 		pushNPC();
 	}
 
+	function startOvertime() {
+		overtimeStartIndex = npcIndex;
+	}
+
 	function checkDayOver() {
 		console.log("PROFIT: " + calculatePotentialProfit());
-		return isEnd && calculatePotentialProfit() >= gameConfig.MENDOZA;
+		return isEnd && (calculatePotentialProfit() >= gameConfig.MENDOZA || npcIndex - overtimeStartIndex > gameConfig.EXTRACAP);
 	}
 
 	// Smudge NPC order using fuzz values and initialize the npc

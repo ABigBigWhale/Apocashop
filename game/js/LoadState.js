@@ -10,7 +10,6 @@ function LoadStateWrapper(game) {
 
             game.displayManager = new DisplayManager(game);
             game.assetManager = new AssetManager(game);
-            game.soundManager = new SoundManager(game, true);
             game.reset = new ResetHelper();
             game.displayManager.prepareStage();
             game.assetManager.load();
@@ -18,6 +17,7 @@ function LoadStateWrapper(game) {
         },
 
         create: function() {
+            game.soundManager = new SoundManager(game, true);
             game.state.start('state_start');
         }
     };

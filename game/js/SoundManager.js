@@ -1,80 +1,118 @@
-function SoundManager(game, play) {
-	/*'sounds' : {
-			// 'example' : 'example_2061365_sound_coin.ogg'
-			// 'arrayOfSound' : ['example1.ogg', 'ifOggNotSupportedUseThis.mp3']
-			'coins' : ['sfx/coin.wav', 'sfx/coin2.wav'],
-			'boom' : 'sfx/boom.wav',
-			'notify' : 'sfx/notify.wav',
-			'powerup' : 'sfx/powerup.wav',
-			'tap' : 'sfx/tap.wav',
-			'accept' : 'sfx/UI/accept.mp3',
-			'reject' : 'sfx/UI/reject.mp3',
-			'fart' : 'sfx/Never/fart_1.wav',
-			'titleMusic' : 'mus/wintervillage.mp3'
-		}*/
-	game.playSound = play;
+function SoundManager(game, isEnabled) {
+
+	var self = this;
+
+	var currSound = false;
+	var currMusic = false;
+
+	var isMusicEnabled = isEnabled;
+	var isSoundEnabled = isEnabled;
+
+	this.soundVolume = 0.07;
+	this.musicVolume = 0.05;
 
 	game.Music = {
-		WIN : ['winending'],
-		GAMEOVER : ['gameover'],
-		TITLEMUS : ['titleMusic']
+		WIN : 'winending',
+		GAMEOVER : 'gameover',
+		TITLEMUS : 'titleMusic',
+		LV0 : 'lv0music'
 	}
 
 	game.Sounds = {
-		COINS : ['coin1', 'coin2'],
-		BOOM : ['notify'],
-		NOTIFY : ['notify'],
-		POWERUP : ['powerup'],
-		TAP : ['tap'],
-		BLIP : ['blip'],
-		ACCEPT : ['accept'],
-		REJECT : ['reject'],
-		FART : ['fart', 'fart2'],
-		SWAG : ['swag']
+		COINS : [generateSoundData('coin1'), generateSoundData('coin2')],
+		BOOM : generateSoundData('notify'),
+		NOTIFY : generateSoundData('notify'),
+		POWERUP : generateSoundData('powerup'),
+		TAP : generateSoundData('tap'),
+		BLIP : generateSoundData('blip'),
+		ACCEPT : generateSoundData('accept'),
+		REJECT : generateSoundData('reject'),
+		FART : [generateSoundData('fart'), generateSoundData('fart2')],
+		SWAG : generateSoundData('swag')
 	}
 
-	var currsound = null;
-	var currMusic = null;
+	this.playMusic = function(songInfo, fadeDuration, isCrossfade) {
 
-	this.playMusic = function(option) {
-		if (!game.playSound) 
-			return;
-		if(!isMusic(option)) {
-			alert("Trying to play music that is not music ...");
+		if (!isMusicEnabled) {
 			return;
 		}
-		this.stopMusic();
-		currMusic = game.add.audio(option[0], 0.3, true);
-		currMusic.volume = 0.1;
-		currMusic.onDecoded.add(function() { currMusic.fadeIn(500); }, this);
-		//currMusic.play();
+
+		fadeDuration = fadeDuration || 0;
+
+		var song = songInfo instanceof Array ? randomElement(songInfo) : songInfo;
+		song = generateMusicData(song);
+
+		if(isCrossfade) {
+			self.stopMusic(fadeDuration);
+		} else {
+			self.stopMusic(0);
+		}
+		
+		currMusic = song;
+		currMusic.onDecoded.add(function() {
+			if(currMusic === song) {
+				currMusic.volume = 0;
+				currMusic.play();
+				currMusic.fadeTo(fadeDuration, 0.05);
+			}
+		}, this);
+
 	}
-	this.playSound = function(option) {
-		if (!game.playSound) 
-			return;
-		if(isMusic(option)) {
-			alert("Trying to play music as a sound ...");
+
+	this.stopMusic = function(fadeDuration) {
+		fadeDuration = fadeDuration || 0;
+		if (currMusic) {
+			var fadingMusic = currMusic;
+			currMusic = false;
+			fadingMusic.fadeOut(fadeDuration);
+			setTimeout(function() {
+				if(currMusic !== fadingMusic) {
+					fadingMusic.stop();
+				}
+			}, fadeDuration + 50);
+		}
+	}
+
+	this.toggleMusic = function(isEnabled) {
+		isMusicEnabled = isEnabled;
+		if(!isEnabled) {
+			self.stopMusic();
+		}
+	}
+
+	this.playSound = function(soundInfo) {
+
+		if (!isSoundEnabled) {
 			return;
 		}
-		var select = randomIntInRange(0, option.length);
-		currsound = game.add.audio(option[select], 0.5);
-		currsound.play();
+
+		var sound = soundInfo instanceof Array ? randomElement(soundInfo) : soundInfo;
+
+		currSound = sound;
+		currSound.play();
 
 	}
 
 	this.stopSound = function() {
-		if (currsound != null) {
-			currsound.stop();
+		if (currSound) {
+			currSound.stop();
+		}
+		currSound = false;
+	}
+
+	this.toggleSound = function(isEnabled) {
+		isSoundEnabled = isEnabled;
+		if(!isEnabled) {
+			self.stopSound();
 		}
 	}
 
-	this.stopMusic = function() {
-		if (currMusic != null) {
-			currMusic.fadeOut(500);
-		}
+	function generateMusicData(name) {
+		return game.add.audio(name, 0, true);
 	}
 
-	function isMusic(option) {
-		return option[0] == 'titleMusic' || option[0] == 'gameover' || option[0] == 'winending';
+	function generateSoundData(name) {
+		return game.add.audio(name, self.soundVolume);
 	}
+
 }

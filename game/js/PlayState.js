@@ -565,7 +565,7 @@ function PlayStateWrapper(game) {
 			game.eventManager.register(game.Events.DAY.START, function(data) {
 				// Turn on cloud generation
 				game.soundManager.stopSound();
-				game.soundManager.stopMusic();
+				//game.soundManager.stopMusic();
 				game.displayManager.toggleCloudGeneration(true);
 				game.displayManager.togglePedestGeneration(true);
 

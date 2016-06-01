@@ -47,6 +47,7 @@ function beginGame(game) {
 	});
 
 	var beginStocking = function() {
+		game.soundManager.stopMusic();
 		game.stockUI.startDay(currentDay.clues.crisis, function() {
 			beginSales(currentDay);
 		});
@@ -56,6 +57,9 @@ function beginGame(game) {
 		// For some reason, this event doesn't take in wrapupManager's callback
 		// sometimes. Throwing it here as well for safety.
 		// Hey, when you have a one month dev cycle, this is what happens.
+		if(currentDayIndex === 0) {
+			game.soundManager.playMusic(game.Music.LV0, 500, true);
+		}
 		game.eventManager.notify(game.Events.WRAPUP.END);
 		game.interactionManager.startDay(currentDay, currentDayIndex, function() {
 			game.eventManager.notify(game.Events.DAY.END);

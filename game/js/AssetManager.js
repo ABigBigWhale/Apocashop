@@ -127,6 +127,7 @@ function AssetManager(game) {
 			'fart' : 'sfx/Never/fart_1.wav',
 			'fart2' : 'sfx/Never/fart_2.wav',
 			'titleMusic' : 'mus/wintervillage.mp3',
+			'lv0music' : 'mus/wecandoit.mp3',
 			'winending' : 'mus/gameover.wav',
 			'gameover' : 'mus/winending.wav',
 			'swag' : 'sfx/swag.wav'
