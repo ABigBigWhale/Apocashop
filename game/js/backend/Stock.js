@@ -59,8 +59,11 @@ function Stock(game) {
 		if (items[item] === undefined) {
 			return;
 		} else if ((items[item].price * amount + totalGold) <= game.playerState.getGold()) {
+			game.soundManager.playSound(game.Sounds.ACCEPT);
 			Items[item] = (Items[item] || 0) + amount;
 			totalGold += items[item].price * amount;
+		} else {
+			game.soundManager.playSound(game.Sounds.TAP);
 		}
 		game.eventManager.notify(game.Events.UPDATE.ITEMS, Items);
 		game.eventManager.notify(game.Events.UPDATE.STOCKGOLD, game.playerState.getGold() - totalGold);
@@ -79,8 +82,10 @@ function Stock(game) {
 			return;
 			Items[item] = 0;
 		} else if (Items[item] - amount < (game.playerState.getItems()[item] || 0)) {
+			game.soundManager.playSound(game.Sounds.TAP);
 			Items[item] = (game.playerState.getItems()[item] || 0);
 		} else {
+			game.soundManager.playSound(game.Sounds.REJECT);
 			Items[item] = Items[item] - amount;
 			totalGold -= items[item].price * amount;
 		}
