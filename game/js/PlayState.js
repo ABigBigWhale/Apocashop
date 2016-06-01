@@ -202,7 +202,7 @@ function PlayStateWrapper(game) {
 			}, this);
 			uiNoteCurtain.events.onInputDown.add(toggleNoteDisplay, this);
 
-			var textCoins = game.add.text(60, 540, "0", // TODO: hardcoded
+			var textCoins = game.add.text(70, 540, "0", // TODO: hardcoded
 										  {
 				font: "30px yoster_islandregular",
 				fill: "#ebc36f"
@@ -216,9 +216,16 @@ function PlayStateWrapper(game) {
 					if (tmr.count < Math.abs(diff)) {
 						textCoins.setText(parseInt(textCoins.text) + (diff > 0 ? 1 : -1));
 						tmr.count++;
+						
+						if (tmr.twinkle) { tmr.twinkle.destroy(); }
+						tmr.twinkle = game.depthGroups.uiGroup.create(70 + Math.random() * 20, 540 + Math.random() * textCoins.width, 'ui_twinkle');
+						var scale = 1.5  + Math.random() * 4;
+						tmr.twinkle.scale.setTo(scale, scale);
+						
 					} else {
 						tmr.stop();
 						tmr.destroy();
+						if (tmr.twinkle) { tmr.twinkle.destroy(); }
 					} 
 
 					printDebug("UI: coin text now: " + textCoins);

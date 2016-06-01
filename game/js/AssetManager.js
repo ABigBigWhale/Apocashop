@@ -71,6 +71,7 @@ function AssetManager(game) {
 			'ui_button_sub', 
 			'ui_button_item_border',
 			'ui_sound',
+			'ui_twinkle',
 			'shop_rock',
 			'shop_wooden',
 			'shop_wooden_plus',
