@@ -1,14 +1,3 @@
-var gameConfig = {
-	DEBUG_MODE: true,
-	SOUNDENABLED : true,
-	MENDOZA : 12,
-	EXTRACAP : 7,
-	RESOLUTION: [800, 600],
-	VERSION : "TESTING",
-	ISSCALED : true,
-	ISALBINO : false
-};
-
 document.addEventListener('DOMContentLoaded', function() {
 	
 	// Prevents right clicks on the game window

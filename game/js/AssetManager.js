@@ -137,7 +137,7 @@ function AssetManager(game) {
 			'lv7music' : 'mus/darksanctum.mp3',
 			'zoranmusic' : 'mus/royalentrance.mp3',
 			'stockmusic' : 'mus/Review/whatanicesurprise.mp3', 
-			'winending' : 'mus/winending.mp3',
+			// 'winending' : 'mus/winending.mp3',
 			'gameover' : 'mus/gameover.mp3',
 			'swag' : 'sfx/swag.wav',
 			// 'textmeda' : 'sfx/text/med/a.wav',
