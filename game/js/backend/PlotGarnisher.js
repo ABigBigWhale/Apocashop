@@ -149,12 +149,12 @@ function PlotGarnisher(game) {
 				conditions : {
 					urchin_trackerMad : {
 						components : ["urchin_trackerTruth"],
-						chance : 0.8,
+						chance : 0.6,
 						isLongTerm : true
 					},
 					urchin_trackerVengeful : {
 						components : ["urchin_trackerLied"],
-						chance : 0.4,
+						chance : 0.25,
 						isLongTerm : true
 					}
 				},
@@ -528,6 +528,11 @@ function PlotGarnisher(game) {
 						components : ['uprising_informant'],
 						chance : 1.0,
 						isLongTerm : true
+					},
+					uprising_rebelsJoined : {
+						components : ['uprising_acceptedRebel', '!uprising_informant'],
+						chance : 1.0,
+						isLongTerm : true
 					}
 				},
 				wrapup : [
@@ -547,12 +552,16 @@ function PlotGarnisher(game) {
 						text : "The official story is that the rebellion has been crushed."
 					},
 					{
-						conditions : ["uprising_destroyedRebels"],
+						conditions : ["!uprising_destroyedRebels"],
 						text : "However, every once in a while, you see cloaks with handlebar moustaches out of the corner of your eye."
 					},
 					{
 						conditions : ["uprising_friendOfRebel"],
 						text : "However, often you hear whispers of 'hello, friend' on the wind, and see cloaks with handlebar moustaches out of the corner of your eye."
+					},
+					{
+						conditions : ["uprising_rebelsJoined"],
+						text : "Some days, you are one of them. You are the night."
 					}
 				]
 			},
