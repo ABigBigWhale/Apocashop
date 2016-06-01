@@ -8,18 +8,7 @@ function PlayStateWrapper(game) {
 		create: function() {
 			Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
 
-			game.depthGroups = {
-				titleGroup: game.add.group(),
-				envGroup: game.add.group(),
-				dialogGroup: game.add.group(),
-				shopGroup: game.add.group(),
-				pedestGroup: game.add.group(),
-				noteGroup : game.add.group(),
-				questionGroup : game.add.group(),
-				uiGroup: game.add.group(),
-				frontGroup: game.add.group()
-			};
-
+			game.displayManager.prepareGroups();
 			game.displayManager.putEnvironment();
 			game.displayManager.putUIComponents();
 
@@ -97,12 +86,12 @@ function PlayStateWrapper(game) {
 			uiFunnelSandTop.visible = false;
 			uiFunnelSandButtom.visible = false;
 			uiFunnel.visible = false;
-			
+
 			//------------------------- Calendar ------------------------
 			var uiCalendarLayer = game.add.group();
 			game.depthGroups.uiGroup.add(uiCalendarLayer);
 			uiCalendarLayer.create(223, 600-270, 'ui_calendar');
-			
+
 			var uiCalendarDay = game.add.text(223+26, 600-270+22, '0',  { font: "bold 32px Arial", fill: "#cfcece", boundsAlignH: "center", boundsAlignV: "middle" });
 			uiCalendarLayer.add(uiCalendarDay);
 
@@ -218,6 +207,24 @@ function PlayStateWrapper(game) {
 				font: "30px yoster_islandregular",
 				fill: "#ebc36f"
 			});
+
+			textCoins.setAmount = function(newAmount) {
+				var diff = newAmount - parseInt(textCoins.text);
+				var tmr = game.time.create(true);
+				tmr.count = 0;
+				tmr.loop(100, function() { 
+					if (tmr.count < Math.abs(diff)) {
+						textCoins.setText(parseInt(textCoins.text) + (diff > 0 ? 1 : -1));
+						tmr.count++;
+					} else {
+						tmr.stop();
+						tmr.destroy();
+					} 
+
+					printDebug("UI: coin text now: " + textCoins);
+				}, this);
+				tmr.start();
+			}
 
 			game.depthGroups.uiGroup.add(textCoins);
 
@@ -646,7 +653,7 @@ function PlayStateWrapper(game) {
 
 			game.eventManager.register(game.Events.UPDATE.GOLD, function(gold) {
 				game.soundManager.playSound(game.Sounds.COINS);
-				textCoins.setText(gold);
+				textCoins.setAmount(gold);
 			});
 
 			game.eventManager.register(game.Events.INTERACT.DIALOG, function(dialog) {
@@ -786,7 +793,7 @@ function PlayStateWrapper(game) {
 
 						npcHands.tweenIn = game.add.tween(npcHands).to( {y: 390}, 500);
 						npcHands.tweenOut = game.add.tween(npcHands).to( {y: 600}, 300);
-						
+
 						npcHands.tweenVisible = game.add.tween(npcHandsBg).to( {alpha: 1}, 500);
 						npcHands.tweenInvisible = game.add.tween(npcHandsBg).to( {alpha: 0}, 250);
 
