@@ -147,7 +147,8 @@ var heroes = {
 			dialog : [
 				"Alright kiddo, time for another exciting day of shopkeeping.",
 				"Don't forget to check out your notebook. While you were resting your weak organic body, I was doing some research.",
-				"I read about a hero who was destined to save this town. You'd better make sure they get what they need."
+				"I read about a hero who was destined to save this town. You'd better make sure they get what they need.",
+				"Don't worry, the timer isn't running yet, so you can study up for as long as you need."
 			]
 		},
 		rhymeMan : {
@@ -282,7 +283,7 @@ var heroes = {
 			voice : "MED",
 			dialog : [
 				{
-					gotDog : "YES, this is the best day. I will name her 'Dog'.",
+					gotDog : "YES, this is the best day./I will name her 'Dog'.",
 					default : "This is the worst day ever."
 				},
 				{
@@ -1313,7 +1314,7 @@ var heroes = {
 			voice : "STITCH",
 			dialog : [
 				"For too long have we been taxed and trodden upon./We must rise up and topple those who would exploit us.",
-				"I shall return tomorrow in clever disguise. If you are with us, accept my third offer. It will be one gold.",
+				"I shall return tomorrow in clever disguise. If you are with us, accept my third offer.",
 				"We are the night."
 			],
 		},
@@ -1322,11 +1323,11 @@ var heroes = {
 			item : "sword",
 			appearanceInfo : "cloak_stache",
 			voice : "STITCH",
-			offers : [2, 3, 1],
+			offers : [2, 3, 6],
 			offerText : [
 				"Hello friend who I have never seen before. Two gold for a sword?",
 				"How about three?",
-				"Or one?"
+				"Or six?"
 			],
 			success : "We are the night.",
 			fail : ". . . very well.",
@@ -1489,6 +1490,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.sportsRecruiter,
+			voice : "MELODY",
 			offers : [0],
 			offerText : [
 				"We're starting a dogs only Sportsball team./Will you bring your dog to our tryouts tonight?",
@@ -1509,6 +1511,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.sportsRecruiter,
+			voice : "MELODY",
 			offers : [0],
 			offerText : [
 				"Dog was the star player at tryouts./Will you bring her to the big game tonight?",
@@ -1529,6 +1532,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.sportsRecruiter,
+			voice : "MELODY",
 			offers : [0],
 			offerText : [
 				"The dog Sportsball championship is tonight./Will you pitch in seven gold for the entry fee?",
@@ -1582,9 +1586,10 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.theaterRecruiter,
+			voice : "MELODY",
 			offers : [0],
 			offerText : [
-				"I'm casting the town's next play./Would you bring your dog in to audition tonight?",
+				"I'm casting the town play./Would you bring your dog in to audition tonight?",
 			],
 			success : "Fantastic! I can already tell that she'll pop on stage.",
 			fail : "Ah well, we'll keep searching.",
@@ -1601,9 +1606,10 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.theaterRecruiter,
+			voice : "MELODY",
 			offers : [0],
 			offerText : [
-				"Dog absolutely nailed her audition./Would you bring her to the theater tonight for the show?",
+				"Dog absolutely nailed her audition./Would you bring her to the play tonight?",
 			],
 			success : "I cannot wait. She has the heart of a star!",
 			fail : "This is a disappointment.",
@@ -1621,9 +1627,10 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.theaterRecruiter,
+			voice : "MELODY",
 			offers : [0],
 			offerText : [
-				"We want to make Dog the lead actress of the play!/Would you invest seven gold to save the production?",
+				"We want Dog for our next play, but we need money./Would you invest seven gold to save the production?",
 			],
 			success : "It shall be a splendid performance!",
 			fail : "We'll try to make due without it.",
@@ -1658,7 +1665,7 @@ var heroes = {
 			type : "dialog",
 			appearanceInfo : "jeff",
 			dialog : [
-				". . . I'll just pretend I didn't hear that."
+				". . . I vote we just pretend we didn't hear that and move on."
 			],
 			appearConditions : ["theater_leadattempted"]
 		}

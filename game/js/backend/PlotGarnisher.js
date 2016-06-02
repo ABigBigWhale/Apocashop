@@ -571,7 +571,7 @@ function PlotGarnisher(game) {
 						chance : 1.0,
 						isLongTerm : true
 					},
-					uprising_rebelsJoined : {
+					uprising_rebelJoined : {
 						components : ['uprising_acceptedRebel'],
 						kong : ["Rebellion_Joined"],
 						chance : 1.0,
@@ -583,7 +583,7 @@ function PlotGarnisher(game) {
 						text : "Even more instructions on how to join the rebellion are slipped under your door just before nightfall"
 					},
 					{
-						conditions : ["!uprising_rebelsJoined"],
+						conditions : ["!uprising_rebelJoined"],
 						text : "But they're too confusing and poorly written to be of any use."
 					},
 					{
@@ -599,7 +599,7 @@ function PlotGarnisher(game) {
 						text : "The official story is that the rebellion has been crushed."
 					},
 					{
-						conditions : ["!uprising_destroyedRebels, !uprising_friendOfRebel"],
+						conditions : ["!uprising_destroyedRebels", "!uprising_friendOfRebel"],
 						text : "However, every once in a while, you see cloaks with handlebar moustaches out of the corner of your eye."
 					},
 					{
@@ -607,7 +607,7 @@ function PlotGarnisher(game) {
 						text : "However, often you hear whispers of 'hello, friend' on the wind, and see cloaks with handlebar moustaches out of the corner of your eye."
 					},
 					{
-						conditions : ["uprising_rebelsJoined"],
+						conditions : ["uprising_rebelJoined"],
 						text : "Some days, you are one of them. You are the night."
 					}
 				]
@@ -696,7 +696,7 @@ function PlotGarnisher(game) {
 				wrapup : [
 					{
 						conditions : ["sportsball_championattempted"],
-						text : "Dog is often mobbed by her legions of Sportsball fans. She doesn't let the fame get to her head.//Most of the time."
+						text : "Dog is often mobbed by her legions of Sportsball fans. She doesn't let the fame get to her head.//@@@@Most of the time."
 					},
 					{
 						conditions : ["!sportsball_championattempted"],
@@ -779,7 +779,7 @@ function PlotGarnisher(game) {
 				wrapup : [
 					{
 						conditions : ["theater_leadattempted"],
-						text : "Dog is often mobbed by her legions of admirers. She doesn't let the fame get to her head.//Most of the time."
+						text : "Dog is often mobbed by her legions of admirers. She doesn't let the fame get to her head.//@@@@Most of the time."
 					},
 					{
 						conditions : ["theater_performed", "!theater_leadattempted"],

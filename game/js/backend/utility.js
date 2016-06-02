@@ -215,14 +215,15 @@ function randomIntInRange(min, max) {
 
 var nullFunc = function() {};
 
-function iddqd() {
+function iddqd(amount) {
 	gameConfig.MENDOZA = 0;
 	debugGame.eventManager.register(debugGame.Events.DAY.START, function() {
 		setTimeout(function() {
 			debugGame.dayTimer.jumpForward(90000)
 		}, 5000);
 	});
-	debugGame.playerState.addsubGold(500);
+	amount = amount || 500;
+	debugGame.playerState.addsubGold(amount);
 	debugGame.eventManager.notify(debugGame.Events.UPDATE.GOLD, debugGame.playerState.getGold());
 	debugGame.dayTimer.jumpForward(90000);
 }

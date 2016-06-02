@@ -141,8 +141,8 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ["refusedHero"],
-					text : "You spend 18 gold to repair it.",
-					gold : -18
+					text : "You spend 12 gold to repair it.",
+					gold : -12
 				}
 			]
 		},
@@ -193,7 +193,7 @@ function HeroManager(game) {
 				{
 					conditions : ['refusedHero'],
 					text : "They were also unable to warn of how many were coming, since there were more than ten.//You are unprepared and your storefront is destroyed.",
-					gold : -18
+					gold : -12
 				}
 			]
 		},
@@ -234,6 +234,7 @@ function HeroManager(game) {
 				{
 					conditions : ['soldHero'],
 					text : "Using their newly purchased bow, the hero drives the mushrooms and their odor out of the town.",
+					gold : 10
 				},
 				{
 					conditions : ['soldHero'],
@@ -242,7 +243,7 @@ function HeroManager(game) {
 				{
 					conditions : ['refusedHero'],
 					text : "Without access to a bow, the hero succumbed to the odor of the mushrooms.//You spend money thoroughly cleaning your store.",
-					gold : -18
+					gold : -10
 				}
 			]
 		},
@@ -288,13 +289,13 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ['soldHero'],
-					text : "They come back, thank you for helping them, and offer you a gold for every 't' in this sentence.",
-					gold : 6
+					text : "They come back, thank you for helping them, and offer you two gold for every 't' in this sentence.",
+					gold : 14
 				},
 				{
 					conditions : ['refusedHero'],
 					text : "Without a sword, the hero was no match for the hordes of orcs.//Your shop is heavily damaged.",
-					gold : -18
+					gold : -8
 				}
 			]
 		},

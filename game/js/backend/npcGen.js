@@ -379,7 +379,7 @@ function initNPCGen(game) {
 				"Purple and gold.",
 				"Grey!",
 				"The color of snow.",
-				"White. I like white.",
+				"White.",
 				"Orchid.",
 				"Khaki!"
 			],

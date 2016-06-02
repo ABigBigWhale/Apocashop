@@ -210,7 +210,7 @@ function PlayStateWrapper(game) {
 			textCoins.setAmount = function(newAmount) {
 				var diff = newAmount - parseInt(textCoins.text);
 				var tmr = game.time.create(true);
-				if(Math.abs(diff) > 20) {
+				if(Math.abs(diff) > 20 || game.currentScreen === "STOCKING") {
 					textCoins.setText(newAmount);
 					var twinkle = game.depthGroups.uiGroup.create(70 + Math.random() * 20, 540 + Math.random() * textCoins.width, 'ui_twinkle');
 					var scale = 1.5  + Math.random() * 4;
@@ -699,7 +699,12 @@ function PlayStateWrapper(game) {
 				}, 100, Phaser.Easing.Quadratic.None, false, 0, 1000, true);
 				uiNote.fadeIn.start();
 				uiNote.shake.start();
+				uiNote.visible = false;
 				uiNote.dragIn.start();
+				uiNote.dragIn.onComplete.addOnce(function() {
+					uiNote.visible = true;
+					toggleNoteDisplay();
+				});
 				game.tutorial.questionVisible = true;
 				uiButtonQuestion.fadeIn.start();
 				uiButtonQuestion.dragIn.start();

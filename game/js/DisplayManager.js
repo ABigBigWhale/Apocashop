@@ -1,5 +1,7 @@
 function DisplayManager(game) {
 
+	var self = this;
+
 	//----------- Objects in title screen ------------
 	var title;
 	var titleStartText;
@@ -155,11 +157,11 @@ function DisplayManager(game) {
 		game.depthGroups.frontGroup.add(this.coins);
 
 		this.soundControl.anchor.setTo(1, 0);
-		this.soundControl.alpha = 0.2;
+		this.soundControl.alpha = 0.5;
 		this.soundControl.frame = 1;
 
 		this.soundControl.tweenHover = game.add.tween(this.soundControl).to( {alpha : 1}, 200, 'Linear');
-		this.soundControl.tweenOut = game.add.tween(this.soundControl).to( {alpha : 0.2}, 400, 'Linear');
+		this.soundControl.tweenOut = game.add.tween(this.soundControl).to( {alpha : 0.5}, 400, 'Linear');
 
 		this.soundControl.events.onInputOver.add(this.soundControlHoverCB, this);
 		this.soundControl.events.onInputOut.add(this.soundControlOutCB, this);
@@ -211,21 +213,37 @@ function DisplayManager(game) {
 			addCoin(i);
 		}
 	}
+	
+	var surplusCoins = 0;
+	var MAX_DISPLAYED_GOLD = 120;
 
 	function addCoin(index, coins) {
 		printDebug("UI: adding coins at index: " + index);
 
-		var pos = {x: 30, y: gameConfig.RESOLUTION[1] - 34 - 4*index};
-		if (index >= 9 && index < 16) {
-			pos.x = 42;
-			pos.y = gameConfig.RESOLUTION[1] - 24 - 4 * (index - 9);
-		} else if (index >= 16) {
-			pos.x = 20;
-			pos.y = gameConfig.RESOLUTION[1] - 22 - 4 * (index - 16);
+		if(self.coins && self.coins.length > 60) {
+			surplusCoins++;
+		} else {
+			var pos = {x: 30, y: gameConfig.RESOLUTION[1] - 34 - 4*index};
+			if (index >= 9 && index < 16) {
+				pos.x = 42;
+				pos.y = gameConfig.RESOLUTION[1] - 24 - 4 * (index - 9);
+			} else if (index >= 16) {
+				pos.x = 20;
+				pos.y = gameConfig.RESOLUTION[1] - 22 - 4 * (index - 16);
+			}
+			var coin = game.add.image(pos.x, pos.y, 'ui_coin');
+			coin.anchor.setTo(0, 1);
+			coins.add(coin);
 		}
-		var coin = game.add.image(pos.x, pos.y, 'ui_coin');
-		coin.anchor.setTo(0, 1);
-		coins.add(coin);
+	}
+
+	function removeCoin() {
+		if(surplusCoins > 0) {
+			surplusCoins--;
+		} else {
+			var removedCoin = self.coins.removeChildAt(self.coins.length - 1);
+			removedCoin.destroy();
+		}
 	}
 
 	this.updateCoins = function() {
@@ -241,10 +259,19 @@ function DisplayManager(game) {
 			this.coins.tweenHit.start();
 		} 
 
-		if(coinDiff > 20) {
+		if(diff > 20 || (diff > 0 && game.currentScreen === "STOCKING")) {
 			for(var i = 0; i < coinDiff; i++) {
 				addCoin(this.coins.length - 1, this.coins);
 			}
+			this.prevGold = currGold;
+			return;
+		}
+
+		if((diff < -20 || (diff < 0 && game.currentScreen === "STOCKING")) && this.coins.length + surplusCoins >= coinDiff) {
+			for(var i = 0; i < coinDiff; i++) {
+				removeCoin();
+			}
+			this.prevGold = currGold;
 			return;
 		}
 
@@ -253,7 +280,7 @@ function DisplayManager(game) {
 		tmr.loop(50, function(){
 			if (tmr.count < coinDiff) {
 				tmr.count++;
-				if (diff > 0 && game.currentScreen == "SALES") {
+				if (diff > 0 && game.currentScreen === "SALES") {
 					game.soundManager.playSound(game.Sounds.COINS[1]);
 				}
 				if (diff > 0 && this.prevGold >= 0) {
@@ -261,12 +288,11 @@ function DisplayManager(game) {
 				}
 
 				if (diff < 0 && this.coins.length > 0) {
-					if (game.currentScreen == "SALES") {
+					if (game.currentScreen === "SALES") {
 						game.soundManager.playSound(game.Sounds.REJECT);
 					}
-					var removedCoin = this.coins.removeChildAt(this.coins.length - 1);
-					removedCoin.destroy();
-				} else if (diff < 0 && game.currentScreen == "SALES") {
+					removeCoin();
+				} else if (diff < 0 && game.currentScreen === "SALES") {
 					game.soundManager.playSound(game.Sounds.COINLOST);
 				}
 			} else {
@@ -419,7 +445,16 @@ function DisplayManager(game) {
 		this.cloudDur = randomIntInRange(40000, 80000);
 	}
 
+	var MAX_PEDESTRIANS = 10;
+	var numPedestrians = 0;
+
 	this.putPedestrian = function() {
+		if(numPedestrians > MAX_PEDESTRIANS) {
+			return;
+		}
+
+		numPedestrians++;
+
 		this.randomPedestAttr();
 
 		var pedestAsset = 'gp_passerby';
@@ -446,13 +481,14 @@ function DisplayManager(game) {
 
 
 		pedestrian.moveTween.onComplete.add(function() { 
+			numPedestrians--;
 			pedestrian.destroy();
 		});
 
 		pedestrian.walkTween.start();
 		pedestrian.moveTween.start();
 
-		if (this.pedestGenerationOn) {
+		if (this.pedestGenerationOn()) {
 			this.pedestTimer.add(
 				Phaser.Timer.SECOND * this.pedestIntv,
 				this.putPedestrian, 

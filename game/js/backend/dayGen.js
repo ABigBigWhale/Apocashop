@@ -268,6 +268,7 @@ function initDayGenerator(game) {
 			clues : {
 				hero : [
 					"My cousin is rather rude.",
+					"My cousin will offer ten gold.",
 					"My cousin's favorite color is 'Mac and Cheese'"
 				],
 				crisis : [""]
@@ -278,8 +279,8 @@ function initDayGenerator(game) {
 			},
 			wrapup : [
 				{
-					text : "You're forced by King Zoran to pay 10 gold in taxes.",
-					gold : -10
+					text : "You're forced by King Zoran to pay five gold in taxes.",
+					gold : -5
 				},
 				{
 					conditions : ["soldCousin"],
@@ -353,8 +354,11 @@ function initDayGenerator(game) {
 			},
 			wrapup : [
 				{
-					text : "You're forced by King Zoran to pay 10 gold in taxes.",
-					gold : -10
+					text : "You're forced by King Zoran to pay five gold in taxes.",
+					gold : -5
+				},
+				{
+					text : "You are warned that tomorrow, he will expect ten."
 				},
 				{
 					conditions : ["soldHero"],
