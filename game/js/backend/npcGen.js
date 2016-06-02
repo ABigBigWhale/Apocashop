@@ -475,10 +475,10 @@ function initNPCGen(game) {
 			"No deal.",
 			"No way.",
 			"Heh, good luck with that.",
-			"Are you even trying to sell it?",
-			"Guess I'm not buying that.",
+			// "Are you even trying to sell it?",
+			// "Guess I'm not buying that.",
 			"Nope, can't afford that.",
-			"Fine. I'll just look for other shops."
+			// "Fine. I'll just look for other shops."
 		]
 
 		generateLeave = function() {
@@ -486,6 +486,6 @@ function initNPCGen(game) {
 			return angrys[index];
 		};
 
-	})();
+	})();g
 
 }
