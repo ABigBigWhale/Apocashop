@@ -598,7 +598,7 @@ function PlotGarnisher(game) {
 						text : "The official story is that the rebellion has been crushed."
 					},
 					{
-						conditions : ["!uprising_destroyedRebels"],
+						conditions : ["!uprising_destroyedRebels, !uprising_friendOfRebel"],
 						text : "However, every once in a while, you see cloaks with handlebar moustaches out of the corner of your eye."
 					},
 					{
@@ -695,7 +695,7 @@ function PlotGarnisher(game) {
 				wrapup : [
 					{
 						conditions : ["sportsball_championattempted"],
-						text : "Every once in a while, Dog is still mobbed by her legions of Sportsball fans. She doesn't let the fame get to her head./Most of the time."
+						text : "Dog is often mobbed by her legions of Sportsball fans. She doesn't let the fame get to her head.//Most of the time."
 					},
 					{
 						conditions : ["!sportsball_championattempted"],

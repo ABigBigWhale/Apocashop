@@ -2,9 +2,9 @@ function WrapupManager(game) {
 
 	var messageIndex = 0;
 	var messages = [];
+	var messageGold = [];
 
 	var goldDiff = 0;
-	this.eventGold = [];
 
 	var endCallback;
 
@@ -33,8 +33,9 @@ function WrapupManager(game) {
 
 			if(event.gold) {
 				goldDiff += event.gold;
-				this.eventGold.push(event.gold);
-				printDebug("PUSHING: " + event.gold);
+				messageGold.push(event.gold);
+			} else {
+				messageGold.push(0);
 			}
 
 			var text = (event.text instanceof Array) ? event.text : [event.text];
@@ -58,7 +59,7 @@ function WrapupManager(game) {
 			game.eventManager.remove(game.Events.WRAPUP.NEXT, sendNext);
 			endWrapup();
 		} else {
-			game.eventManager.notify(game.Events.WRAPUP.MESSAGE, messages[messageIndex]);
+			game.eventManager.notify(game.Events.WRAPUP.MESSAGE, messages[messageIndex], messageGold[messageIndex]);
 			messageIndex++;
 		}
 	}
@@ -67,9 +68,11 @@ function WrapupManager(game) {
 		if(isEndEnabled) {
 			isEndEnabled = false;
 			game.analytics.track("wrapup", "goldLost", goldDiff);
+			game.kongregate.submit('MaxDayProfit', goldDiff);
 			game.playerState.addsubGold(goldDiff);
 			goldDiff = 0;
 			messages = [];
+			messageGold = [];
 			messageIndex = 0;
 			game.eventManager.notify(game.Events.UPDATE.GOLD, game.playerState.getGold());
 			endCallback();
