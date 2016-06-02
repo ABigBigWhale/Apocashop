@@ -1533,7 +1533,7 @@ var heroes = {
 			item : "None",
 			appearanceInfo : heroLooks.sportsRecruiter,
 			voice : "MELODY",
-			offers : [0],
+			offers : [-7],
 			offerText : [
 				"The dog Sportsball championship is tonight./Will you pitch in seven gold for the entry fee?",
 			],
@@ -1628,7 +1628,7 @@ var heroes = {
 			item : "None",
 			appearanceInfo : heroLooks.theaterRecruiter,
 			voice : "MELODY",
-			offers : [0],
+			offers : [-7],
 			offerText : [
 				"We want Dog for our next play, but we need money./Would you invest seven gold to save the production?",
 			],

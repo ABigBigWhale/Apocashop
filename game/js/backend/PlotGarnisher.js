@@ -608,7 +608,7 @@ function PlotGarnisher(game) {
 					},
 					{
 						conditions : ["uprising_rebelJoined"],
-						text : "Some days, you are one of them. You are the night."
+						text : "Some days, you are one of them.//@@You are the night."
 					}
 				]
 			},
