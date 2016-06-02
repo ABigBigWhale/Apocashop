@@ -216,11 +216,12 @@ function AssetManager(game) {
 					}
 
 				} else if (path == 'sounds') {
-					for (var id in this.assets[path]) {
-						var sndPath = 'assets/' + path + '/' + this.assets[path][id];
-						game.load.audio(id, sndPath);
+					if(gameConfig.SOUNDENABLED) {
+						for (var id in this.assets[path]) {
+							var sndPath = 'assets/' + path + '/' + this.assets[path][id];
+							game.load.audio(id, sndPath);
+						}
 					}
-					
 				} else {
 					// Load other image files
 					for (var i = 0; i < this.assets[path].length; i++) {

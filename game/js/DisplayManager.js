@@ -155,6 +155,10 @@ function DisplayManager(game) {
 		this.prevGold = 0;
 		this.coins = game.add.group();
 
+		if(!gameConfig.SOUNDENABLED) {
+			this.soundControl.visible = false;
+		}
+
 		game.depthGroups.uiGroup.add(this.soundControl);
 		game.depthGroups.frontGroup.add(this.coins);
 
@@ -283,7 +287,7 @@ function DisplayManager(game) {
 			if (tmr.count < coinDiff) {
 				tmr.count++;
 				if (diff > 0 && game.currentScreen === "SALES") {
-					game.soundManager.playSound(game.Sounds.COINS[1]);
+					game.soundManager.playSound(game.Sounds.COINS2);
 				}
 				if (diff > 0 && this.prevGold >= 0) {
 					addCoin(this.coins.length - 1, this.coins);

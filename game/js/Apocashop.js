@@ -25,15 +25,17 @@ document.addEventListener('DOMContentLoaded', function() {
             fill: "#FFFFFF"
         });
 
-        // These are here so they'll be decoded first and won't have to wait in line.
-        // They're six tiny wav files, so this doesn't add much to loading times.
-        game.load.audio('textmeda', 'assets/sounds/sfx/text/med/a.wav');
-        game.load.audio('textmedb', 'assets/sounds/sfx/text/med/b.wav');
-        game.load.audio('textmedc', 'assets/sounds/sfx/text/med/c.wav');
-        game.load.audio('textmedd', 'assets/sounds/sfx/text/med/d.wav');
-        game.load.audio('textmede', 'assets/sounds/sfx/text/med/e.wav');
-        game.load.audio('textmedf', 'assets/sounds/sfx/text/med/f.wav');
-        game.load.audio('textmedg', 'assets/sounds/sfx/text/med/g.wav');
+        if(gameConfig.SOUNDENABLED) {
+        	// These are here so they'll be decoded first and won't have to wait in line.
+	        // They're six tiny wav files, so this doesn't add much to loading times.
+	        game.load.audio('textmeda', 'assets/sounds/sfx/text/med/a.wav');
+	        game.load.audio('textmedb', 'assets/sounds/sfx/text/med/b.wav');
+	        game.load.audio('textmedc', 'assets/sounds/sfx/text/med/c.wav');
+	        game.load.audio('textmedd', 'assets/sounds/sfx/text/med/d.wav');
+	        game.load.audio('textmede', 'assets/sounds/sfx/text/med/e.wav');
+	        game.load.audio('textmedf', 'assets/sounds/sfx/text/med/f.wav');
+	        game.load.audio('textmedg', 'assets/sounds/sfx/text/med/g.wav');
+        }
 	}
 
 	function create() {

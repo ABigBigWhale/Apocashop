@@ -29,34 +29,39 @@ function SoundManager(game, isEnabled, doneCB) {
 
 	game.Sounds = {};
 
-	var necessarySounds = [generateSoundData('textmeda'), generateSoundData('textmedb'), generateSoundData('textmedc'), generateSoundData('textmedd'), generateSoundData('textmede'), generateSoundData('textmedf'), generateSoundData('textmedg')];
+	if(gameConfig.SOUNDENABLED) {
+		var necessarySounds = [generateSoundData('textmeda'), generateSoundData('textmedb'), generateSoundData('textmedc'), generateSoundData('textmedd'), generateSoundData('textmede'), generateSoundData('textmedf'), generateSoundData('textmedg')];
 
-	game.sound.setDecodedCallback(necessarySounds, function() {
+		game.sound.setDecodedCallback(necessarySounds, function() {
 
+			doneCB();
+
+			game.Sounds = {
+				COINS1 : generateSoundData('coin1'),
+				COINS2 : generateSoundData('coin2'),
+				COINLOST : generateSoundData('out'),
+				BOOM : generateSoundData('notify'),
+				NOTIFY : generateSoundData('notify'),
+				POWERUP : generateSoundData('powerup'),
+				TAP : generateSoundData('tap'),
+				BLIP : generateSoundData('blip'),
+				ACCEPT : generateSoundData('accept'),
+				REJECT : generateSoundData('reject'),
+				// FART : [generateSoundData('fart'), generateSoundData('fart2')],
+				SWAG : generateSoundData('swag'),
+				GAMEOVER : generateSoundData('gameover'),
+				TEXTMED : necessarySounds,
+				TEXTHIGH : [generateSoundData('texthigha'), generateSoundData('texthighb'), generateSoundData('texthighc'), generateSoundData('texthighd'), generateSoundData('texthighe'), generateSoundData('texthighf'), generateSoundData('texthighg')],
+				TEXTMELODY : [generateSoundData('textmelodya'), generateSoundData('textmelodyb'), generateSoundData('textmelodyc'), generateSoundData('textmelodyd'), generateSoundData('textmelodye'), generateSoundData('textmelodyf'), generateSoundData('textmelodyg')],
+				TEXTMURPHY : [generateSoundData('textmurphya'), generateSoundData('textmurphyb'), generateSoundData('textmurphyc'), generateSoundData('textmurphyd'), generateSoundData('textmurphye'), generateSoundData('textmurphyf'), generateSoundData('textmurphyg')],
+				TEXTSTITCH : [generateSoundData('textstitcha'), generateSoundData('textstitchb'), generateSoundData('textstitchc'), generateSoundData('textstitchd'), generateSoundData('textstitche'), generateSoundData('textstitchf'), generateSoundData('textstitchg')],
+				TEXTDOG : [generateSoundData('textdoga'), generateSoundData('textdogb'), generateSoundData('textdogc')]
+			}
+
+		}, this);
+	} else {
 		doneCB();
-
-		game.Sounds = {
-			COINS : [generateSoundData('coin1'), generateSoundData('coin2')],
-			COINLOST : generateSoundData('out'),
-			BOOM : generateSoundData('notify'),
-			NOTIFY : generateSoundData('notify'),
-			POWERUP : generateSoundData('powerup'),
-			TAP : generateSoundData('tap'),
-			BLIP : generateSoundData('blip'),
-			ACCEPT : generateSoundData('accept'),
-			REJECT : generateSoundData('reject'),
-			FART : [generateSoundData('fart'), generateSoundData('fart2')],
-			SWAG : generateSoundData('swag'),
-			GAMEOVER : generateSoundData('gameover'),
-			TEXTMED : necessarySounds,
-			TEXTHIGH : [generateSoundData('texthigha'), generateSoundData('texthighb'), generateSoundData('texthighc'), generateSoundData('texthighd'), generateSoundData('texthighe'), generateSoundData('texthighf'), generateSoundData('texthighg')],
-			TEXTMELODY : [generateSoundData('textmelodya'), generateSoundData('textmelodyb'), generateSoundData('textmelodyc'), generateSoundData('textmelodyd'), generateSoundData('textmelodye'), generateSoundData('textmelodyf'), generateSoundData('textmelodyg')],
-			TEXTMURPHY : [generateSoundData('textmurphya'), generateSoundData('textmurphyb'), generateSoundData('textmurphyc'), generateSoundData('textmurphyd'), generateSoundData('textmurphye'), generateSoundData('textmurphyf'), generateSoundData('textmurphyg')],
-			TEXTSTITCH : [generateSoundData('textstitcha'), generateSoundData('textstitchb'), generateSoundData('textstitchc'), generateSoundData('textstitchd'), generateSoundData('textstitche'), generateSoundData('textstitchf'), generateSoundData('textstitchg')],
-			TEXTDOG : [generateSoundData('textdoga'), generateSoundData('textdogb'), generateSoundData('textdogc')]
-		}
-
-	}, this);
+	}
 
 	this.playMusic = function(songInfo, fadeDuration, prevFade) {
 
