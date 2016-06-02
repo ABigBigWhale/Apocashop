@@ -27,6 +27,7 @@ function DisplayManager(game) {
 
 	//----------- UI components ----------------------
 	var soundControl;
+	var coins, prevGold;
 
 	function setPositionLowerMiddle(shop, player) {
 		shop.position.copyFrom(player);
@@ -121,7 +122,46 @@ function DisplayManager(game) {
 		}, 2000, Phaser.Easing.Quadratic.None, true, 0, 1000, true);
 
 	};
-	
+
+	this.putUIComponents = function() {
+		this.soundControl = game.add.button(gameConfig.RESOLUTION[0] - 8, 8,
+											'ui_sound',
+											this.soundControlClickCB,
+											this,
+											null, null, null);
+		this.prevGold = 0;
+		this.coins = game.add.group();
+
+		game.depthGroups.uiGroup.add(this.soundControl);
+		game.depthGroups.frontGroup.add(this.coins);
+
+		this.soundControl.anchor.setTo(1, 0);
+		this.soundControl.alpha = 0.2;
+		this.soundControl.frame = 1;
+
+		this.soundControl.tweenHover = game.add.tween(this.soundControl).to( {alpha : 1}, 200, 'Linear');
+		this.soundControl.tweenOut = game.add.tween(this.soundControl).to( {alpha : 0.2}, 400, 'Linear');
+
+		this.soundControl.events.onInputOver.add(this.soundControlHoverCB, this);
+		this.soundControl.events.onInputOut.add(this.soundControlOutCB, this);
+
+		this.coins.tweenHit = game.add.tween(this.coins).to({
+			x: this.coins.x + 10
+		}, 30)
+			.to({
+			x: this.coins.x - 10,
+			y: this.coins.y
+		}, 60)
+			.to({
+			x: this.coins.x + 10,
+			y: this.coins.y
+		}, 60)
+			.to({
+			x: this.coins.x,
+			y: this.coins.y
+		}, 30);
+	}
+
 	this.soundControlClickCB = function() {
 		if (game.soundManager.musicEnabled()) {
 			this.soundControl.frame = 0;
@@ -136,34 +176,79 @@ function DisplayManager(game) {
 		}
 		printDebug("UI: sound toggle clicked!");
 	}
-	
+
 	this.soundControlHoverCB = function() {
 		this.soundControl.tweenHover.start();
 	}
-	
+
 	this.soundControlOutCB = function() {
 		this.soundControl.tweenOut.start();
 	}
 
-	this.putUIComponents = function() {
-		this.soundControl = game.add.button(gameConfig.RESOLUTION[0] - 8, 8,
-											'ui_sound',
-											this.soundControlClickCB,
-											this,
-											null, null, null);
-		game.depthGroups.uiGroup.add(this.soundControl);
-
-		this.soundControl.anchor.setTo(1, 0);
-		this.soundControl.alpha = 0.2;
-		this.soundControl.frame = 1;
-		
-		this.soundControl.tweenHover = game.add.tween(this.soundControl).to( {alpha : 1}, 200, 'Linear');
-		this.soundControl.tweenOut = game.add.tween(this.soundControl).to( {alpha : 0.2}, 400, 'Linear');
-		
-		this.soundControl.events.onInputOver.add(this.soundControlHoverCB, this);
-		this.soundControl.events.onInputOut.add(this.soundControlOutCB, this);
+	function resetCoins() {
+		coins.removeAll();
+		prevGold = game.playerState.getGold();
+		for (var i = 0; i < prevGold / 2; i++) {
+			addCoin(i);
+		}
 	}
 
+	function addCoin(index, coins) {
+		printDebug("UI: adding coins at index: " + index);
+		
+		var pos = {x: 30, y: gameConfig.RESOLUTION[1] - 34 - 4*index};
+		if (index >= 9 && index < 16) {
+			pos.x = 42;
+			pos.y = gameConfig.RESOLUTION[1] - 24 - 4 * (index - 9);
+		} else if (index >= 16) {
+			pos.x = 20;
+			pos.y = gameConfig.RESOLUTION[1] - 22 - 4 * (index - 16);
+		}
+		var coin = game.add.image(pos.x, pos.y, 'ui_coin');
+		coin.anchor.setTo(0, 1);
+		coins.add(coin);
+	}
+
+	this.updateCoins = function() {
+		var currGold = game.playerState.getGold();
+		var diff = currGold - this.prevGold;
+		var coinDiff = Math.round(Math.abs(diff / 2));
+		
+		printDebug("UI: coins changed! Diff: " + coinDiff);
+		printDebug("UI: coins changed! Curr: " + currGold);
+		printDebug("UI: coins changed! Prev: " + this.prevGold);
+
+		if (currGold < prevGold) {
+			this.coins.tweenHit.start();
+		} 
+
+		var tmr = game.time.create(true);
+		tmr.count = 0;
+		tmr.loop(100, function(){
+			if (tmr.count < coinDiff) {
+				tmr.count++;
+				if (diff > 0) {
+					game.soundManager.playSound(game.Sounds.COINS[1]);
+				}
+				if (diff > 0 && this.prevGold >= 0) {
+					addCoin(this.coins.length - 1, this.coins);
+				}
+
+				if (diff < 0 && this.coins.length > 0) {
+					game.soundManager.playSound(game.Sounds.REJECT);
+					var removedCoin = this.coins.removeChildAt(this.coins.length - 1);
+					removedCoin.destroy();
+				} else if (diff < 0) {
+					game.soundManager.playSound(game.Sounds.COINLOST);
+				}
+			} else {
+				this.prevGold = currGold;
+				tmr.stop();
+				tmr.destroy();
+			}
+		}, this);
+		tmr.start();
+	}
 
 	this.putLoadingBackground = function() {
 		var background = game.add.image(0, 500, 'gp_background');

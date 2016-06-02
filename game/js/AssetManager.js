@@ -58,6 +58,7 @@ function AssetManager(game) {
 			'ui_note_big',
 			'ui_calendar',
 			'ui_table',
+			'ui_table_nogold',
 			'ui_levelup',
 			'ui_table_background',
 			'ui_clock',
@@ -84,7 +85,6 @@ function AssetManager(game) {
 			'upgrade_itemslot',
 			'upgrade_time',
 			'ui_coin',
-			'ui_coins',
 			'ui_coinstack',
 			'ui_button_start',
 			'right_textbox',
@@ -122,7 +122,7 @@ function AssetManager(game) {
 			// 'arrayOfSound' : ['example1.ogg', 'ifOggNotSupportedUseThis.mp3']
 			'coin1' : 'sfx/coin.wav', 
 			'coin2' : 'sfx/coin2.wav',
-			'out' : 'sfx/goldLost.wav',
+			'out' : 'sfx/goldLost.wav',	// https://freesound.org/people/n_audioman/sounds/273578/
 			'boom' : 'sfx/boom.wav',
 			'blip' : 'sfx/blip.wav',
 			'notify' : 'sfx/notify.wav',

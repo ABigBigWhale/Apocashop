@@ -151,7 +151,7 @@ function PlayStateWrapper(game) {
 
 			var uiDialog = uiDialogLayer.create(800, 600, 'ui_dialog');
 			var uiDeskBg = uiDeskBgLayer.create(0, 600, 'ui_table_background');
-			var uiDesk = uiDeskLayer.create(0, 600, 'ui_table');
+			var uiDesk = uiDeskLayer.create(0, 600, 'ui_table_nogold');
 			uiDialog.anchor.setTo(1, 1);
 			uiDesk.anchor.setTo(0, 1);
 			uiDeskBg.anchor.setTo(0, 1);
@@ -661,8 +661,8 @@ function PlayStateWrapper(game) {
 			});
 
 			game.eventManager.register(game.Events.UPDATE.GOLD, function(gold) {
-				game.soundManager.playSound(game.Sounds.COINS);
 				textCoins.setAmount(gold);
+				game.displayManager.updateCoins();
 			});
 
 			game.eventManager.register(game.Events.INTERACT.DIALOG, function(dialog) {

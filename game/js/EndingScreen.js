@@ -73,12 +73,12 @@ function EndingScreen(game) {
 	}
 
 	function addCoin(index) {
-		var pos = {x: 30, y: gameConfig.RESOLUTION[1] - 34 - 4*index};
+		var pos = {x: 50, y: gameConfig.RESOLUTION[1] - 34 - 4*index};
 		if (index >= 9 && index < 16) {
-			pos.x = 42;
+			pos.x = 62;
 			pos.y = gameConfig.RESOLUTION[1] - 24 - 4 * (index - 9);
 		} else if (index >= 16) {
-			pos.x = 20;
+			pos.x = 40;
 			pos.y = gameConfig.RESOLUTION[1] - 22 - 4 * (index - 16);
 		}
 		var coin = game.add.image(pos.x, pos.y, 'ui_coin_frame');
@@ -108,6 +108,7 @@ function EndingScreen(game) {
 		blackScreenSprite.events.onInputDown.add(trackFutileClick, this);
 		game.dialogManager.printWrapup("");
 		
+		//game.playerState.addsubGold(41);
 		prevGold = game.playerState.getGold();
 		resetCoins();
 		
@@ -155,8 +156,8 @@ function EndingScreen(game) {
 				} else {
 					tmr.stop();
 					tmr.destroy();
+					prevGold = currGold;
 				}
-				prevGold += diff > 0 ? 1 : -1;
 			}, this);
 			tmr.start();
 
