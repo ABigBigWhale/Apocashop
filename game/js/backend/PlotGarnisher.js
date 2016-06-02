@@ -3,7 +3,7 @@ function PlotGarnisher(game) {
 
 	var NUM_ELEMENTS = 2;
 	var NUM_DOG_ELEMENTS = 1;
-	var LAST_AVAILABLE_INDEX = 30;
+	var LAST_AVAILABLE_INDEX = 20;
 
 	var storyElements;
 
@@ -82,7 +82,7 @@ function PlotGarnisher(game) {
 
 	function getValidIndexes(sequence, minNum) {
 		var validIndexes = [];
-		for(var i = 0; validIndexes.length < (minNum * 2) && i < LAST_AVAILABLE_INDEX; i++) {
+		for(var i = 0; validIndexes.length < minNum || i < LAST_AVAILABLE_INDEX; i++) {
 			if(!sequence[i]) {
 				validIndexes.push(i);
 			}

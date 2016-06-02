@@ -29,6 +29,12 @@ switch(SETUP) {
 		gameConfig.ISSCALED = false;
 		gameConfig.ISKONGREGATE = true;
 		break;
+	case "ALBINO":
+		gameConfig.DEBUG_MODE = false;
+		gameConfig.VERSION = "0.4-ab";
+		gameConfig.ISSCALED = true;
+		gameConfig.ISALBINO = true;
+		break;
 	case "OMGTEST":
 		gameConfig.DEBUG_MODE = false;
 		gameConfig.VERSION = "OMGTEST";
