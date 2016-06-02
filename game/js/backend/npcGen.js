@@ -194,8 +194,6 @@ function initNPCGen(game) {
 			"[X] gold is all I can afford.",
 			"Okay then. [X] gold?",
 			"Hmm. [X] gold?",
-			"Take [X] gold or I'll leave.",
-			"I see. [X] gold then?"
 		];
 
 		generateHaggle = function(gold) {
