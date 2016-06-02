@@ -25,7 +25,7 @@ function beginGame(game) {
 
 	game.currentScreen = "";
 
-	var currentDayIndex = 1;
+	var currentDayIndex = 0;
 	var currentDay = getDay(currentDayIndex);
 
 	var isLost = false;
