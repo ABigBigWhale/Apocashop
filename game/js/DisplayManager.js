@@ -227,7 +227,7 @@ function DisplayManager(game) {
 		tmr.loop(100, function(){
 			if (tmr.count < coinDiff) {
 				tmr.count++;
-				if (diff > 0) {
+				if (diff > 0 && game.currentScreen == "SALES") {
 					game.soundManager.playSound(game.Sounds.COINS[1]);
 				}
 				if (diff > 0 && this.prevGold >= 0) {
@@ -235,10 +235,12 @@ function DisplayManager(game) {
 				}
 
 				if (diff < 0 && this.coins.length > 0) {
-					game.soundManager.playSound(game.Sounds.REJECT);
+					if (game.currentScreen == "SALES") {
+						game.soundManager.playSound(game.Sounds.REJECT);
+					}
 					var removedCoin = this.coins.removeChildAt(this.coins.length - 1);
 					removedCoin.destroy();
-				} else if (diff < 0) {
+				} else if (diff < 0 && game.currentScreen == "SALES") {
 					game.soundManager.playSound(game.Sounds.COINLOST);
 				}
 			} else {
