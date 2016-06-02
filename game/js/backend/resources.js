@@ -37,7 +37,8 @@ var heroLooks = {
 	tutorialWoman : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1,skin|(259.58,198.19,158.71)",
 	scaredMan : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2,skin|(259.58,198.19,158.71)",
 	tracker : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6,skin|(259.58,198.19,158.71)",
-	sportsRecruiter : "face|1,misc|5,body|4,hair|4,eye|4,nose|9,mouth|4,skin|(99.37,64.61,49.27)"
+	sportsRecruiter : "face|1,misc|5,body|4,hair|4,eye|4,nose|9,mouth|4,skin|(99.37,64.61,49.27)",
+	theaterRecruiter : "face|2,misc|7,body|6,hair|11,eye|2,nose|10,mouth|5,skin|(171.87,125.06,98.80)"
 };
 
 var heroes = {
@@ -1576,8 +1577,91 @@ var heroes = {
 			appearConditions : ["sportsball_championattempted"]
 		}
 	},
-	dogplay : {
-
+	theater : {
+		"3intro" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : heroLooks.theaterRecruiter,
+			offers : [0],
+			offerText : [
+				"I'm casting the town's next play./Would you bring your dog in to audition tonight?",
+			],
+			success : "Fantastic! I can already tell that she'll pop on stage.",
+			fail : "Ah well, we'll keep searching.",
+			questions : {
+				number : "Zero.",
+				color : "Rose Red.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz.",
+				day : "Depends on your answer.",
+				default : ". . ."
+			},
+			sellConditions : ["theater_accepted"]
+		},
+		"4recruiter" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : heroLooks.theaterRecruiter,
+			offers : [0],
+			offerText : [
+				"Dog absolutely nailed her audition./Would you bring her to the theater tonight for the show?",
+			],
+			success : "I cannot wait. She has the heart of a star!",
+			fail : "This is a disappointment.",
+			questions : {
+				number : "Sixty.",
+				color : "Rose Violet.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz.",
+				day : "Pretty good!",
+				default : ". . ."
+			},
+			appearConditions : ["theater_triedout"],
+			sellConditions : ["theater_performing"]
+		},
+		"5recruiter" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : heroLooks.theaterRecruiter,
+			offers : [0],
+			offerText : [
+				"We want to make Dog the lead actress of the play!/Would you invest seven gold to save the production?",
+			],
+			success : "It shall be a splendid performance!",
+			fail : "We'll try to make due without it.",
+			questions : {
+				number : "Seven.",
+				color : "Blue.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz.",
+				day : "Depends on whether we get the money!",
+				default : ". . ."
+			},
+			appearConditions : ["theater_performed"],
+			sellConditions : ["theater_leadrole"]
+		},
+		"6fan" : {
+			type : "dialog",
+			appearanceInfo : "random",
+			dialog : [
+				"Oh my, are you THE Dog from the play last night?/Can I get your autograph?"
+			],
+			appearConditions : ["theater_leadattempted"]
+		},
+		"6dogspeaks" : {
+			type : "dialog",
+			appearanceInfo : "dog",
+			dialog : [
+				"Of course, always happy to meet a fan!",
+				"Erm, I mean *Arf!*"
+			],
+			appearConditions : ["theater_leadattempted"]
+		},
+		"6jeffshock" : {
+			type : "dialog",
+			appearanceInfo : "jeff",
+			dialog : [
+				". . . I'll just pretend I didn't hear that."
+			],
+			appearConditions : ["theater_leadattempted"]
+		}
 	}
 };
 

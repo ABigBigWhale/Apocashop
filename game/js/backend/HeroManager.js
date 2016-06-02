@@ -192,7 +192,7 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "They were also unable to warn of how many were coming, since there were more than ten./@You are unprepared and your storefront is destroyed.",
+					text : "They were also unable to warn of how many were coming, since there were more than ten.//You are unprepared and your storefront is destroyed.",
 					gold : -18
 				}
 			]
@@ -241,7 +241,7 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "Without access to a bow, the hero succumbed to the odor of the mushrooms./You spend money thoroughly cleaning your store.",
+					text : "Without access to a bow, the hero succumbed to the odor of the mushrooms.//You spend money thoroughly cleaning your store.",
 					gold : -18
 				}
 			]
@@ -293,7 +293,7 @@ function HeroManager(game) {
 				},
 				{
 					conditions : ['refusedHero'],
-					text : "Without a sword, the hero was no match for the hordes of orcs. Your shop is heavily damaged.",
+					text : "Without a sword, the hero was no match for the hordes of orcs.//Your shop is heavily damaged.",
 					gold : -18
 				}
 			]

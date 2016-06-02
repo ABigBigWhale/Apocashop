@@ -26,6 +26,7 @@ function PlotGarnisher(game) {
 			dogStoryArrayTemp = dogStoryArrayTemp.filter(function(element) {
 				return element !== story && stories[story].invalidOthers.indexOf(element) < 0;
 			});
+			printDebug("STORY: " + story);
 			storyElements.push(story);
 		}
 	}
@@ -107,7 +108,7 @@ function PlotGarnisher(game) {
 
 	var storyArray = ["uprising", "urchin", "treasure", "artifact"];
 
-	var dogStoryArray = ["sportsball"];
+	var dogStoryArray = ["sportsball", "theater"];
 	
 	var stories = {
 		urchin : {
@@ -370,7 +371,7 @@ function PlotGarnisher(game) {
 				isOrdered : false,
 				wrapup : [
 					{
-						text : "Looking at the orb makes your innards feel strange./@@@@You cover it with a blanket."
+						text : "Looking at the orb makes your innards feel strange.//@@@You cover it with a blanket."
 					}
 				]
 			},
@@ -702,7 +703,91 @@ function PlotGarnisher(game) {
 						text : "The Sportsball recruiter is still trying to get Dog to play."
 					}
 				]
-			}
+			},
+			invalidOthers : []
+		},
+		theater : {
+			3 : {
+				chars : ["3intro"],
+				isOrdered : false,
+				conditions : {
+					theater_triedout : {
+						components : ["theater_accepted"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
+				wrapup : [
+					{
+						conditions : ["theater_accepted"],
+						text : "You take Dog to her audition. As far as you could tell, she crushes it."
+					}
+				]
+			},
+			4 : {
+				chars : ["4recruiter"],
+				isOrdered : false,
+				conditions : {
+					theater_performed : {
+						components : ["theater_performing"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
+				wrapup : [
+					{
+						conditions : ["theater_performing"],
+						text : "You take Dog to her play. She gives a heartwrenching performance as 'Background Dog Number Three'."
+					},
+					{
+						conditions : ["theater_performing"],
+						text : "Dog gets ten gold for the show, but five goes missing when you're not looking.",
+						gold : 5
+					},
+				]
+			},
+			5 : {
+				chars : ["5recruiter"],
+				isOrdered : false,
+				conditions : {
+					theater_leadattempted : {
+						components : ["theater_leadrole"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
+				wrapup : [
+					{
+						conditions : ["theater_leadattempted"],
+						text : "You take Dog to her big performance. Nobody in the audience cries longer or claps harder than you and Jeff."
+					},
+					{
+						conditions : ["!theater_leadattempted"],
+						text : "Unfortunately, without the money they needed, Dog's performance was cancelled."
+					},
+					{
+						conditions : ["theater_leadattempted"],
+						text : "As an investor, you share in the ticket sales and make a healthy profit.",
+						gold : 15
+					}
+				]
+			},
+			6 : {
+				interruptChars : ["6fan", "6dogspeaks", "6jeffshock"]
+			},
+			7 : {
+				wrapup : [
+					{
+						conditions : ["theater_leadattempted"],
+						text : "Dog is often mobbed by her legions of admirers. She doesn't let the fame get to her head.//Most of the time."
+					},
+					{
+						conditions : ["theater_performed", "!theater_leadattempted"],
+						text : "The local theater troupe is still trying to recruit Dog and her natural acting talent."
+					}
+				]
+			},
+			invalidOthers : []
 		}
 	};
 
