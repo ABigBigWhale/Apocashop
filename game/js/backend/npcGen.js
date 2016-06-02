@@ -478,6 +478,6 @@ function initNPCGen(game) {
 			return angrys[index];
 		};
 
-	})();g
+	})();
 
 }
