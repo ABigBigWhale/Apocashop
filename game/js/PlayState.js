@@ -723,6 +723,7 @@ function PlayStateWrapper(game) {
 
 			game.eventManager.register(game.Events.DOG.APPEAR, function() {
 				game.kongregate.submit('Dog', 1);
+				game.analytics.track('dog', 'got');
 				game.displayManager.dog.visible = true;
 			});
 
