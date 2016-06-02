@@ -21,7 +21,7 @@ switch(SETUP) {
 	case "OMNITHON":
 		gameConfig.DEBUG_MODE = false;
 		gameConfig.SOUNDENABLED = false;
-		gameConfig.VERSION = "TESTPOTATO2";
+		gameConfig.VERSION = "0.3-om";
 		break;
 	case "KONGREGATE":
 		gameConfig.DEBUG_MODE = false;

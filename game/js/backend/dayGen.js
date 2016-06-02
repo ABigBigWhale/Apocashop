@@ -132,9 +132,9 @@ function initDayGenerator(game) {
 			var taxes = Math.ceil((1 + index) / 4) * 10;
 			var nextTax = Math.ceil((2 + index) / 4) * 10;
 			day.wrapup.push(generateMessage("You are forced by King Zoran to pay " + taxes + " gold in taxes.", -taxes));
-            if (Math.random() < 0.15) {
-                day.wrapup.push(generateMessage("The king is in a bad mood today. He requires an extra " + Math.round(taxes/2) + " gold in taxes.", Math.round(-taxes/2)));
-            }
+            // if (Math.random() < 0.15) {
+            //     day.wrapup.push(generateMessage("The king is in a bad mood today. He requires an extra " + Math.round(taxes/2) + " gold in taxes.", Math.round(-taxes/2)));
+            // }
 			if(taxes !== nextTax) {
 				day.wrapup.push(generateMessage("You are warned that tomorrow, Zoran will want " + nextTax + " gold.", 0));
 			}
@@ -288,7 +288,7 @@ function initDayGenerator(game) {
 				{
 					conditions : ["soldCousin"],
 					text : "Your store is robbed in the night. The robber leaves a note on Mac and Cheese colored paper.",
-					gold : -14
+					gold : -10
 				}
 			],
 			length : 40000
@@ -363,26 +363,22 @@ function initDayGenerator(game) {
 				{
 					text : "You are informed that tomorrow, the king will raise the tax to ten gold."
 				},
-                {
-                    text : "On your way home, you found a pile of 100 gold!",
-                    gold : 100
-                },
-                {
-                    text : "...But sadly, it was counterfeit. You sold them as trash for 2 gold.",
-                    gold : -98
-                },
+                // {
+                //     text : "On your way home, you found a pile of 100 gold!",
+                //     gold : 100
+                // },
+                // {
+                //     text : "...But sadly, it was counterfeit. You sold them as trash for 2 gold.",
+                //     gold : -98
+                // },
 				{
 					conditions : ["soldHero"],
 					text : "Thanks to the sword you sold to the hero, goblins are driven from the town."
 				},
 				{
 					conditions : ["refusedHero"],
-					text : "Unfortunately, the hero did not have a sword and the town was overrun by goblins. Your store was pillaged in the night.",
-					gold : -28
-				},
-				{
-					conditions : ["soldFalse"],
-					text : "After giving a discount to the fake hero, you're getting a reputation around town. You might see some more people looking for hero discounts."
+					text : "Unfortunately, the hero did not have a sword and the town was overrun by goblins.//Your store was pillaged in the night.",
+					gold : -7
 				}
 			],
 			length : 40000
@@ -491,8 +487,11 @@ function initDayGenerator(game) {
 				}
 			},
 			clues : {
-				hero : ["The hero wears a grey hat with a feather, and he stands on the streetside all day to make sure the heroes of the town are properly equipped."],
-				crisis : ["It is a surprisingly peaceful day."]
+				hero : [
+					"The hero wears a grey hat with a feather",
+					"The hero owns an item shop.",
+					"The hero makes sure the townspeople are properly equipped."],
+				crisis : []
 			},
 			questions : {},
 			wrapup : [],
