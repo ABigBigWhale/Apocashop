@@ -899,6 +899,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.scaredMan,
+			voice : "HIGH",
 			offers : [0],
 			offerText : "I need to hide here. He's after me./Please, @@he'll kill me if he finds me.",
 			success : "Thank you.",
@@ -913,6 +914,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			offers : [10, 15],
 			offerText : [
 				"A very dangerous man is loose and I need to find him./I'll pay you ten gold for any information.",
@@ -930,6 +932,7 @@ var heroes = {
 		"1trackerWarn" : {
 			type : "dialog",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			dialog : [
 				"A very dangerous man is loose and I need to find him./If you see anyone suspicious, do not trust them."
 			],
@@ -939,6 +942,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.scaredMan,
+			voice : "HIGH",
 			offers : [10],
 			offerText : [
 				"Thank you so much for hiding me. Would you accept this token of my appreciation?"
@@ -969,6 +973,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			offers : [0],
 			offerText : [
 				"Did you lie to me when I was last here?/@@I demand to know the truth."
@@ -985,6 +990,7 @@ var heroes = {
 		"4waryMan" : {
 			type : "dialog",
 			appearanceInfo : heroLooks.scaredMan,
+			voice : "HIGH",
 			dialog : [
 				"I don't quite know what to make of you, but you seem like you may be a kind soul.",
 				"Tomorrow, I will be back, and will try to buy a sword for two gold.",
@@ -996,6 +1002,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			offers : [-7],
 			offerText : [
 				"The man you helped me capture has dangerous friends who are now your dangerous enemies./@I'll protect you for seven gold."
@@ -1013,6 +1020,7 @@ var heroes = {
 			type : "interact",
 			item : "sword",
 			appearanceInfo : heroLooks.scaredMan,
+			voice : "HIGH",
 			offers : [2],
 			offerText : [
 				"Hiya! Can I get a sword for two gold?"
@@ -1033,6 +1041,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			offers : [-10],
 			offerText : [
 				"I've been thinking, shopkeeper. If you lied to me about the man, I want my ten gold back./Will you return it?"
@@ -1049,6 +1058,7 @@ var heroes = {
 		"6proudMan" : {
 			type : "dialog",
 			appearanceInfo : heroLooks.scaredMan,
+			voice : "HIGH",
 			dialog : [
 				"I am honored that you remember my face.",
 				"Please shopkeeper, accept this gift."
@@ -1059,6 +1069,7 @@ var heroes = {
 		"6vengefulTracker" : {
 			type : "dialog",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			dialog : [
 				". . .",
 				"* The Tracker punches you in the stomach and takes 15 gold from your counter. *",
@@ -1291,6 +1302,7 @@ var heroes = {
 		"2intro" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			dialog : [
 				"For too long have we been taxed and trodden upon./We must rise up and topple those who would exploit us.",
 				"I shall return tomorrow in clever disguise. If you are with us, accept my third offer. It will be one gold.",
@@ -1301,6 +1313,7 @@ var heroes = {
 			type : "interact",
 			item : "sword",
 			appearanceInfo : "cloak_stache",
+			voice : "STITCH",
 			offers : [2, 3, 1],
 			offerText : [
 				"Hello friend who I have never seen before. Two gold for a sword?",
@@ -1331,6 +1344,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			offers : [-7],
 			offerText : [
 				"Hello again, my friend. The rebellion requires seven gold. Will you help us free the people?"
@@ -1351,6 +1365,7 @@ var heroes = {
 		"5rebelWarning" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			dialog : [
 				"Hello friend. Thank you for listening to us.",
 				"You should probably think about staying out of the town square today.",
@@ -1361,6 +1376,7 @@ var heroes = {
 		"5rebelJob" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			dialog : [
 				"Hello friend, I have your first mission to help free our people.",
 				"A nasty city official will be here soon to buy a bow for one gold.",
@@ -1404,6 +1420,7 @@ var heroes = {
 		"5stallThanks" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			dialog : ["Hello friend, thank you for the help. Now we pay you."],
 			appearConditions : ["uprising_officialStalled"],
 			endMoney : 17
@@ -1421,6 +1438,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			offers : [0],
 			offerText : ["Hello friend, this is last time I come here. You are sure you will not join?"],
 			success : "Fantastic! We will see you soon.",
