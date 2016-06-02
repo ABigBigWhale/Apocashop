@@ -18,6 +18,11 @@ cp ./helpers/phaser.min.js temp/int/js/phaser.min.js
 cp ../game/main.css temp/int/main.css
 cp -r ../game/assets temp/int/assets
 
+if [ "$3" == "nomusic" ]
+	then
+		rm -r temp/int/assets/sounds
+fi
+
 cd temp/int
 zip -r  ../../apocashop.zip .
 cd ../..

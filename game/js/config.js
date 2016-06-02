@@ -20,8 +20,8 @@ switch(SETUP) {
 		break;
 	case "OMNITHON":
 		gameConfig.DEBUG_MODE = false;
-		gameConfig.VERSION = "0.3-om";
-		gameConfig.ISSCALED = false;
+		gameConfig.SOUNDENABLED = false;
+		gameConfig.VERSION = "TESTPOTATO2";
 		break;
 	case "KONGREGATE":
 		gameConfig.DEBUG_MODE = false;
