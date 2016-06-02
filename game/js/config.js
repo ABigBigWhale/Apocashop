@@ -15,17 +15,17 @@ var gameConfig = {
 switch(SETUP) {
 	case "NEWGROUNDS":
 		gameConfig.DEBUG_MODE = false;
-		gameConfig.VERSION = "0.3-ng";
+		gameConfig.VERSION = "0.4-ng";
 		gameConfig.ISSCALED = false;
 		break;
 	case "OMNITHON":
 		gameConfig.DEBUG_MODE = false;
 		gameConfig.SOUNDENABLED = false;
-		gameConfig.VERSION = "0.3-om";
+		gameConfig.VERSION = "0.4-om";
 		break;
 	case "KONGREGATE":
 		gameConfig.DEBUG_MODE = false;
-		gameConfig.VERSION = "0.3-kg";
+		gameConfig.VERSION = "0.4-kg";
 		gameConfig.ISSCALED = false;
 		gameConfig.ISKONGREGATE = true;
 		break;
