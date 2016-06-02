@@ -100,6 +100,8 @@ function DisplayManager(game) {
 		game.depthGroups.pedestGroup.add(this.pedests);
 
 		this.imgSun.anchor.setTo(0.5, 0.5);
+		this.imgSun.blinking = false;
+		this.imgSun.animations.add("blink", [0, 2], 2, true);
 
 		this.shop.smoothed = false;
 		this.shop.alpha = 0;
@@ -336,7 +338,14 @@ function DisplayManager(game) {
 	};
 
 	this.updateSunPosition = function(dayPercent) {
-		this.imgSun.position.x = gameConfig.RESOLUTION[0] * (dayPercent - 0.05);
+/*		if (dayPercent <= 1 && !this.imgSun.blinking) {
+			this.imgSun.animations.play('blink', 0.5, true);
+			this.imgSun.blinking = true;
+		} else if (this.imgSun.blinking) {
+			this.imgSun.animations.stop('blink');
+			this.imgSun.blinking = false;
+		}*/
+		this.imgSun.position.x = gameConfig.RESOLUTION[0] * 1.05 * (dayPercent - 0.05);
 		this.imgSun.position.y = gameConfig.RESOLUTION[1] / 3 - 
 			Math.sin((1-dayPercent) * Math.PI) * (gameConfig.RESOLUTION[1] / 6);
 	}
