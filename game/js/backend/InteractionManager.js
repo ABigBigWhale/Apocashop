@@ -202,7 +202,6 @@ function InteractionManager(game) {
 	}
 
 	function checkDayOver() {
-		console.log("PROFIT: " + calculatePotentialProfit());
 		var isProfitGood = calculatePotentialProfit() >= gameConfig.MENDOZA;
 		var isMaxedPityNPCs = npcIndex - overtimeStartIndex > gameConfig.EXTRACAP;
 		var isNoInterrupt = interruptNPCs.length === 0;

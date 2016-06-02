@@ -37,6 +37,7 @@ var heroLooks = {
 	tutorialWoman : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1,skin|(259.58,198.19,158.71)",
 	scaredMan : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2,skin|(259.58,198.19,158.71)",
 	tracker : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6,skin|(259.58,198.19,158.71)",
+	sportsRecruiter : "face|1,misc|5,body|4,hair|4,eye|4,nose|9,mouth|4,skin|(99.37,64.61,49.27)"
 };
 
 var heroes = {
@@ -280,8 +281,12 @@ var heroes = {
 			voice : "MED",
 			dialog : [
 				{
-					gotDog : "YES, this is the best day. Dogs are one of the few things I can't create.",
+					gotDog : "YES, this is the best day. I will name her 'Dog'.",
 					default : "This is the worst day ever."
+				},
+				{
+					gotDog : "Dogs are one of the few things I can't create.",
+					default : ". . ."
 				},
 				{
 					gotDog : "Well, I can,@@@ but I can only make dead ones.",
@@ -1477,6 +1482,102 @@ var heroes = {
 			],
 			finishConditions : ["timer_slow"]
 		}
+	},
+	sportsball : {
+		"3intro" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : heroLooks.sportsRecruiter,
+			offers : [0],
+			offerText : [
+				"We're starting a dogs only Sportsball team./Will you bring your dog to our tryouts tonight?",
+			],
+			success : "Thanks, she'll be a great fit for the team!",
+			fail : "What a shame, she would have been a great fit for the team.",
+			questions : {
+				number : "One.",
+				color : "Purple.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz.",
+				day : "Depends on your answer.",
+				default : ". . ."
+			},
+			appearConditions : ["dog_have"],
+			sellConditions : ["sportsball_accepted"]
+		},
+		"4recruiter" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : heroLooks.sportsRecruiter,
+			offers : [0],
+			offerText : [
+				"Dog was the star player at tryouts./Will you bring her to the big game tonight?",
+			],
+			success : "Get excited, it's going to be a great game!",
+			fail : "We'll try to get through the game without her.",
+			questions : {
+				number : "Two.",
+				color : "Purple.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz.",
+				day : "Not bad!",
+				default : ". . ."
+			},
+			appearConditions : ["sportsball_triedout"],
+			sellConditions : ["sportsball_accepted"]
+		},
+		"5recruiter" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : heroLooks.sportsRecruiter,
+			offers : [0],
+			offerText : [
+				"The dog Sportsball championship is tonight./Will you pitch in seven gold for the entry fee?",
+			],
+			success : "Don't worry, you'll make your money back and more.",
+			fail : "I guess the girls won't be playing today.",
+			questions : {
+				number : "Three.",
+				color : "Purple.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz.",
+				day : "Pretty good!",
+				default : ". . ."
+			},
+			appearConditions : ["sportsball_atgame"],
+			sellConditions : ["sportsball_accepted"]
+		},
+		"6jeffintro" : {
+			type : "dialog",
+			appearanceInfo : "jeff",
+			voice : "MED",
+			dialog : [
+				{
+					sportsball_championshipwon : "Also, I'm really proud of you, Dog. That was an amazing victory!",
+					default : "Also, I'm really proud of you, Dog. Even if you didn't win.",
+				}
+			],
+			appearConditions : ["sportsball_championattempted"]
+		},
+		"6dogspeaks" : {
+			type : "dialog",
+			appearanceInfo : "dog",
+			voice : "DOG",
+			dialog : [
+				"Thanks, Jeff!",
+				"Erm, I mean *Arf!*"
+			],
+			appearConditions : ["sportsball_championattempted"]
+		},
+		"6jeffshock" : {
+			type : "dialog",
+			appearanceInfo : "jeff",
+			voice : "MED",
+			dialog : [
+				". . . I'll just pretend I didn't hear that."
+			],
+			appearConditions : ["sportsball_championattempted"]
+		}
+	},
+	dogplay : {
+
 	}
 };
 

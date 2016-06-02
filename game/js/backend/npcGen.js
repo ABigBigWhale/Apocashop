@@ -184,7 +184,7 @@ function initNPCGen(game) {
 			"Alright, alright. [X] gold?",
 			"How about [x] gold?",
 			"[X] gold is the best I can do.",
-			"[X] gold or I will walk away.",
+			"[X] gold or I walk away.",
 			"Hmm. How about [x] gold?",
 			"[X] gold. No more.",
 			"Fine. [X] gold then.",

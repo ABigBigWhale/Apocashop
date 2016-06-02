@@ -23,6 +23,8 @@ function initBackend(game) {
 
 function beginGame(game) {
 
+	game.currentScreen = "";
+
 	var currentDayIndex = 0;
 	var currentDay = getDay(currentDayIndex);
 
@@ -51,6 +53,7 @@ function beginGame(game) {
 	});
 
 	var beginStocking = function() {
+		game.currentScreen = "STOCKING";
 		isLost = false;
 		game.soundManager.stopMusic(500);
 		game.stockUI.startDay(currentDay.clues.crisis, function() {
@@ -62,6 +65,7 @@ function beginGame(game) {
 		// For some reason, this event doesn't take in wrapupManager's callback
 		// sometimes. Throwing it here as well for safety.
 		// Hey, when you have a one month dev cycle, this is what happens.
+		game.currentScreen = "SALES";
 		isLost = false;
 		if(currentDayIndex === 0) {
 			game.soundManager.stopMusic(100);
@@ -75,6 +79,7 @@ function beginGame(game) {
 
 	var beginWrapup = function() {
 		game.wrapupManager.startDay(currentDay, function() {
+			game.currentScreen = "WRAPUP";
 			game.eventManager.notify(game.Events.WRAPUP.END);
 			if(!isLost) {
 				currentDayIndex++;
