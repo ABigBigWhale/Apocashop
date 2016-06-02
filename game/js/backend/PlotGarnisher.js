@@ -82,7 +82,7 @@ function PlotGarnisher(game) {
 
 	function getValidIndexes(sequence, minNum) {
 		var validIndexes = [];
-		for(var i = 0; validIndexes.length < minNum || i < LAST_AVAILABLE_INDEX; i++) {
+		for(var i = 4; validIndexes.length < minNum || i < LAST_AVAILABLE_INDEX; i++) {
 			if(!sequence[i]) {
 				validIndexes.push(i);
 			}
