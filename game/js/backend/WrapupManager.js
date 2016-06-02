@@ -68,6 +68,7 @@ function WrapupManager(game) {
 		if(isEndEnabled) {
 			isEndEnabled = false;
 			game.analytics.track("wrapup", "goldLost", goldDiff);
+			game.kongregate.submit('MaxDayProfit', goldDiff);
 			game.playerState.addsubGold(goldDiff);
 			goldDiff = 0;
 			messages = [];
