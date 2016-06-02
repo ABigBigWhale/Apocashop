@@ -239,6 +239,7 @@ var heroes = {
 		startDog : {
 			type : 'dialog',
 			appearanceInfo : 'dog',
+			voice : "DOG",
 			dialog : [
 				"*Arf!* @*Arf!*"
 			]
@@ -256,6 +257,7 @@ var heroes = {
 			type : 'interact',
 			item : 'chicken',
 			appearanceInfo : 'dog',
+			voice : "DOG",
 			offers : [0],
 			offerText : "*Arf!*@@/(It looks like the dog will want a free chicken in exchange for staying.)",
 			success : "*Arf!*",

@@ -177,7 +177,10 @@ function AssetManager(game) {
 			'textstitchd' : 'sfx/text/stitch/d.wav',
 			'textstitche' : 'sfx/text/stitch/e.wav',
 			'textstitchf' : 'sfx/text/stitch/f.wav',
-			'textstitchg' : 'sfx/text/stitch/g.wav'
+			'textstitchg' : 'sfx/text/stitch/g.wav',
+			'textdoga' : 'sfx/text/dog/a.wav',
+			'textdogb' : 'sfx/text/dog/b.wav',
+			'textdogc' : 'sfx/text/dog/c.wav'
 		}
 
 
