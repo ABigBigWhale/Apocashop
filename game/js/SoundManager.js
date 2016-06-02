@@ -37,6 +37,7 @@ function SoundManager(game, isEnabled, doneCB) {
 
 		game.Sounds = {
 			COINS : [generateSoundData('coin1'), generateSoundData('coin2')],
+			COINLOST : generateSoundData('out'),
 			BOOM : generateSoundData('notify'),
 			NOTIFY : generateSoundData('notify'),
 			POWERUP : generateSoundData('powerup'),

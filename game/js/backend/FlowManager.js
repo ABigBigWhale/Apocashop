@@ -97,6 +97,7 @@ function beginGame(game) {
 	};
 
 	if(debugGame) {
+		window.forceWrapup = beginWrapup;
 		window.forceStock = beginStocking;
 	}
 

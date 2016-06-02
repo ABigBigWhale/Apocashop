@@ -20,7 +20,6 @@ function PlayStateWrapper(game) {
 			*/
 
 			var shop = game.displayManager.shop;	// TODO: temporary work-around
-
 			///////////////////////////// UI elems ///////////////////////////
 
 			//-------------------------- Item slots --------------------------
@@ -707,7 +706,7 @@ function PlayStateWrapper(game) {
 			});
 
 			game.eventManager.register(game.Events.DOG.APPEAR, function() {
-				game.kongregate.stats.submit('Dog', 1);
+				game.kongregate.submit('Dog', 1);
 				game.displayManager.dog.visible = true;
 			});
 

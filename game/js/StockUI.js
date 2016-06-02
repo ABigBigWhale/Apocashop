@@ -212,6 +212,9 @@ function StockUI(game) {
             boxes[key].price = items[key].price;
             boxes[key].priceText = game.add.text(boxes[key].position.x, boxes[key].position.y + boxes[key].height + 5, "Price: " + boxes[key].price,
                                                  { font: "18px yoster_islandregular", fill: '#d3af7a' });
+            boxes[key].xtext = game.add.text(boxes[key].position.x + boxes[key].width, boxes[key].position.y + boxes[key].height + 5, "x",
+                                                 { font: "14px yoster_islandregular", fill: '#CC0000' });
+            boxes[key].xtext.visible = false;
             boxes[key].priceText.visible = false;
             boxes[key].tinted = game.add.image(boxes[key].position.x, boxes[key].position.y, boxes[key].key);
             boxes[key].tinted.scale.setTo(2, 2);
@@ -310,6 +313,9 @@ function StockUI(game) {
             sprite.position.y += 4;
             sprite.loaded = true;
             sprite.loader = loader;
+            sprite.xtext.x = sprite.position.x + sprite.width - 8;
+            sprite.xtext.y = sprite.position.y - 3;
+            sprite.xtext.visible = true;
             hoverOnItem(sprite, null);
             loader.num.text = sprite.num + "";
             loader.loaded = sprite;
@@ -317,6 +323,7 @@ function StockUI(game) {
             sprite.position.copyFrom(sprite.originalPosition);
             sprite.loaded = false;
             sprite.loader = null;
+            sprite.xtext.visible = false;
             game.world.bringToTop(sprite.itemborder);
             coinDrop(sprite.num - sprite.orignum);
             game.soundManager.playSound(game.Sounds.REJECT);

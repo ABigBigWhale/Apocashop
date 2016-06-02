@@ -4,6 +4,7 @@ function WrapupManager(game) {
 	var messages = [];
 
 	var goldDiff = 0;
+	this.eventGold = [];
 
 	var endCallback;
 
@@ -32,6 +33,8 @@ function WrapupManager(game) {
 
 			if(event.gold) {
 				goldDiff += event.gold;
+				this.eventGold.push(event.gold);
+				printDebug("PUSHING: " + event.gold);
 			}
 
 			var text = (event.text instanceof Array) ? event.text : [event.text];
