@@ -3,8 +3,13 @@ function LoadStateWrapper(game) {
     this.loadState = {
         preload: function() {
             //game.kongregate = kongregateAPI.getAPI();
-            game.add.sprite(63, 258, 'loadingImage');
+            var imgLoading = game.add.sprite(63, 258, 'loadingImage');
+            imgLoading.alpha = 0.25;
+            var tween = game.add.tween(imgLoading).to( { alpha: 1 }, 500, "Linear", true, 0, -1);
 
+            //  And this tells it to yoyo, i.e. fade back to zero again before repeating.
+            tween.yoyo(true, 500);
+            
             game.stage.backgroundColor = "#92CD9A";
             game.input.mouse.capture = true;
 
