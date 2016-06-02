@@ -175,6 +175,7 @@ function InteractionManager(game) {
 		});
 		npcIndex = 0;
 		initNPCs(day);
+		
 		game.dayTimer = new Timer(function() {
 			printDebug("DAY ENDING TIMER");
 			isEnd = true;
@@ -188,6 +189,7 @@ function InteractionManager(game) {
 		}, day.length * dayUpgrade, function() {
 			game.eventManager.notify(game.Events.TIMER.PAUSE, 0x191919);
 			game.displayManager.imgSun.frame = 1;
+			game.displayManager.imgSun.blinking = false;
 			game.displayManager.spawnGoldenCloud = false;
 		}, function() {
 			game.eventManager.notify(game.Events.TIMER.RESUME, 0xFFFFFF);
