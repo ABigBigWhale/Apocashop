@@ -646,12 +646,12 @@ function PlayStateWrapper(game) {
 					var itemTweenScale = game.add.tween(itemDupl.scale).to({
 						x: 8,
 						y: 8
-					}, 550, Phaser.Easing.Linear.None, true);
+					}, 700, Phaser.Easing.Linear.None, true);
 					var itemTween = game.add.tween(itemDupl).to({
 						x: 50,
 						y: 450,
 						alpha: 0
-					}, 550, Phaser.Easing.Quadratic.Out, true);
+					}, 700, Phaser.Easing.Quadratic.Out, true);
 
 					itemTween.onComplete.add(function() {
 						itemDupl.destroy();

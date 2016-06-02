@@ -78,7 +78,7 @@ function DisplayManager(game) {
 		this.dog = game.add.sprite(440, 300, 'gp_dog_small');
 		this.dog.visible = false;
 		this.shop = game.add.sprite(0, 0, 'shop_rock');
-		this.jeff = game.add.sprite(this.shopKeeper.x + 35, 277, 'gp_jeff_noshadow');
+		this.jeff = game.add.sprite(this.shopKeeper.x + 56, 282, 'gp_jeff_noshadow');
 		this.jeffShadow = game.add.sprite(this.shopKeeper.x + 43, 
 										  this.shopKeeper.y + this.shopKeeper.height - 7, 'gp_jeff_shadow');
 
@@ -112,9 +112,28 @@ function DisplayManager(game) {
 		this.dog.anim = this.dog.animations.add('doge');
 		this.dog.animations.play('doge', 3, true);
 
+		this.jeff.anchor.setTo(0.5, 0.5);
 		this.jeff.floating = game.add.tween(this.jeff).to({
 			y: 260
 		}, 2000, Phaser.Easing.Quadratic.None, true, 0, 1000, true);
+		this.jeff.tweenRotate = game.add.tween(this.jeff).to({
+			angle: 1440
+		}, 1000, Phaser.Easing.Linear.None);
+		this.jeff.itemMaking = false;
+		this.jeff.tweenBounce = game.add.tween(this.jeff).to({
+			y: this.jeff.y - 10
+		}, 300, Phaser.Easing.Quadratic.In).to({
+			Y: this.jeff.y
+		}, 400, Phaser.Easing.Quadratic.out);
+		this.jeff.tweenRotate.onComplete.add(function() {
+			game.displayManager.jeff.tweenBounce.start();
+		});
+		this.jeff.tweenBounce.onComplete.add(function() {
+			if (game.displayManager.jeff.itemMaking) {
+				game.displayManager.jeff.floating.resume();
+				game.displayManager.jeff.itemMaking = false;
+			}
+		});
 
 		this.jeffShadow.alpha = 0.6;
 		this.jeffShadow.fadeIn = game.add.tween(this.jeffShadow).to({
@@ -195,7 +214,7 @@ function DisplayManager(game) {
 
 	function addCoin(index, coins) {
 		printDebug("UI: adding coins at index: " + index);
-		
+
 		var pos = {x: 30, y: gameConfig.RESOLUTION[1] - 34 - 4*index};
 		if (index >= 9 && index < 16) {
 			pos.x = 42;
@@ -213,7 +232,7 @@ function DisplayManager(game) {
 		var currGold = game.playerState.getGold();
 		var diff = currGold - this.prevGold;
 		var coinDiff = Math.round(Math.abs(diff / 2));
-		
+
 		printDebug("UI: coins changed! Diff: " + coinDiff);
 		printDebug("UI: coins changed! Curr: " + currGold);
 		printDebug("UI: coins changed! Prev: " + this.prevGold);
@@ -284,7 +303,7 @@ function DisplayManager(game) {
 	};
 
 	this.updateSunPosition = function(dayPercent) {
-		this.imgSun.position.x = gameConfig.RESOLUTION[0] * dayPercent;
+		this.imgSun.position.x = gameConfig.RESOLUTION[0] * (dayPercent - 0.05);
 		this.imgSun.position.y = gameConfig.RESOLUTION[1] / 3 - 
 			Math.sin((1-dayPercent) * Math.PI) * (gameConfig.RESOLUTION[1] / 6);
 	}
@@ -613,6 +632,10 @@ function DisplayManager(game) {
 		palmLeft.destroy();
 
 		return handsBmd;
+	}
+
+	this.generateItemDrop = function() {
+
 	}
 
 }

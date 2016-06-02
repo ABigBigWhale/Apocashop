@@ -17,6 +17,9 @@ function Jeff(game) {
 	function jeffHappy() {
 		game.dialogManager.printJeff(generateYes(promptedItem));
 		stopJeff();
+		game.displayManager.jeff.floating.pause();
+		game.displayManager.jeff.itemMaking = true;
+		game.displayManager.jeff.tweenRotate.start();
 	}
 
 	function jeffSad() {
