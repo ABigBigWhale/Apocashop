@@ -163,6 +163,7 @@ function InteractionManager(game) {
 		stockedItems = game.playerState.getStockedItems();
 		dayIndex = index;
 		currentDay = day;
+		interruptNPCs = day.interruptNPCs || [];
 		dayEndCallback = function() {
 			game.analytics.track("game", "potentialProfit", calculatePotentialProfit());
 			endCallback();
@@ -201,8 +202,11 @@ function InteractionManager(game) {
 	}
 
 	function checkDayOver() {
-		console.log("PROFIT: " + calculatePotentialProfit());
-		return isEnd && (calculatePotentialProfit() >= gameConfig.MENDOZA || npcIndex - overtimeStartIndex > gameConfig.EXTRACAP || dayIndex > 6);
+		var isProfitGood = calculatePotentialProfit() >= gameConfig.MENDOZA;
+		var isMaxedPityNPCs = npcIndex - overtimeStartIndex > gameConfig.EXTRACAP;
+		var isNoInterrupt = interruptNPCs.length === 0;
+		var isLastLevel = dayIndex > 6
+		return isEnd && (isProfitGood || (isMaxedPityNPCs && isNoInterrupt) || isLastLevel);
 	}
 
 	// Smudge NPC order using fuzz values and initialize the npc
@@ -242,7 +246,7 @@ function InteractionManager(game) {
 
 		var npc;
 
-		if(interruptNPCs.length > 0) {
+		if(npcIndex > 0 && interruptNPCs.length > 0) {
 			npc = interruptNPCs.shift();
 		} else {
 			npc = npcs[npcIndex];

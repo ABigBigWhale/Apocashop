@@ -116,6 +116,7 @@ function PlayerState(game) {
 			game.eventManager.notify(game.Events.LEVEL.LEVELUP, Stats.Level + 1);
 			Stats.EXP = profit %= (Stats.Level * 10);
 			Stats.Level++;
+			game.kongregate.submit('Max_Level', Stats.Level);
 		}
 		game.eventManager.notify(game.Events.LEVEL.EXPUP, Stats.EXP / (Stats.Level * 10.0));
 	}

@@ -37,6 +37,7 @@ var heroLooks = {
 	tutorialWoman : "face|2,body|2,hair|2,eye|5,nose|11,mouth|3,misc|1,skin|(259.58,198.19,158.71)",
 	scaredMan : "face|5,misc|6,body|3,hair|2,eye|2,nose|8,mouth|2,skin|(259.58,198.19,158.71)",
 	tracker : "face|1,misc|6,body|5,hair|8,eye|3,nose|11,mouth|6,skin|(259.58,198.19,158.71)",
+	sportsRecruiter : "face|1,misc|5,body|4,hair|4,eye|4,nose|9,mouth|4,skin|(99.37,64.61,49.27)"
 };
 
 var heroes = {
@@ -239,6 +240,7 @@ var heroes = {
 		startDog : {
 			type : 'dialog',
 			appearanceInfo : 'dog',
+			voice : "DOG",
 			dialog : [
 				"*Arf!* @*Arf!*"
 			]
@@ -256,6 +258,7 @@ var heroes = {
 			type : 'interact',
 			item : 'chicken',
 			appearanceInfo : 'dog',
+			voice : "DOG",
 			offers : [0],
 			offerText : "*Arf!*@@/(It looks like the dog will want a free chicken in exchange for staying.)",
 			success : "*Arf!*",
@@ -278,8 +281,12 @@ var heroes = {
 			voice : "MED",
 			dialog : [
 				{
-					gotDog : "YES, this is the best day. Dogs are one of the few things I can't create.",
+					gotDog : "YES, this is the best day. I will name her 'Dog'.",
 					default : "This is the worst day ever."
+				},
+				{
+					gotDog : "Dogs are one of the few things I can't create.",
+					default : ". . ."
 				},
 				{
 					gotDog : "Well, I can,@@@ but I can only make dead ones.",
@@ -899,6 +906,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.scaredMan,
+			voice : "HIGH",
 			offers : [0],
 			offerText : "I need to hide here. He's after me./Please, @@he'll kill me if he finds me.",
 			success : "Thank you.",
@@ -913,6 +921,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			offers : [10, 15],
 			offerText : [
 				"A very dangerous man is loose and I need to find him./I'll pay you ten gold for any information.",
@@ -930,6 +939,7 @@ var heroes = {
 		"1trackerWarn" : {
 			type : "dialog",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			dialog : [
 				"A very dangerous man is loose and I need to find him./If you see anyone suspicious, do not trust them."
 			],
@@ -939,6 +949,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.scaredMan,
+			voice : "HIGH",
 			offers : [10],
 			offerText : [
 				"Thank you so much for hiding me. Would you accept this token of my appreciation?"
@@ -969,6 +980,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			offers : [0],
 			offerText : [
 				"Did you lie to me when I was last here?/@@I demand to know the truth."
@@ -985,6 +997,7 @@ var heroes = {
 		"4waryMan" : {
 			type : "dialog",
 			appearanceInfo : heroLooks.scaredMan,
+			voice : "HIGH",
 			dialog : [
 				"I don't quite know what to make of you, but you seem like you may be a kind soul.",
 				"Tomorrow, I will be back, and will try to buy a sword for two gold.",
@@ -996,6 +1009,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			offers : [-7],
 			offerText : [
 				"The man you helped me capture has dangerous friends who are now your dangerous enemies./@I'll protect you for seven gold."
@@ -1013,6 +1027,7 @@ var heroes = {
 			type : "interact",
 			item : "sword",
 			appearanceInfo : heroLooks.scaredMan,
+			voice : "HIGH",
 			offers : [2],
 			offerText : [
 				"Hiya! Can I get a sword for two gold?"
@@ -1033,6 +1048,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			offers : [-10],
 			offerText : [
 				"I've been thinking, shopkeeper. If you lied to me about the man, I want my ten gold back./Will you return it?"
@@ -1049,6 +1065,7 @@ var heroes = {
 		"6proudMan" : {
 			type : "dialog",
 			appearanceInfo : heroLooks.scaredMan,
+			voice : "HIGH",
 			dialog : [
 				"I am honored that you remember my face.",
 				"Please shopkeeper, accept this gift."
@@ -1059,6 +1076,7 @@ var heroes = {
 		"6vengefulTracker" : {
 			type : "dialog",
 			appearanceInfo : heroLooks.tracker,
+			voice : "MURPHY",
 			dialog : [
 				". . .",
 				"* The Tracker punches you in the stomach and takes 15 gold from your counter. *",
@@ -1291,6 +1309,7 @@ var heroes = {
 		"2intro" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			dialog : [
 				"For too long have we been taxed and trodden upon./We must rise up and topple those who would exploit us.",
 				"I shall return tomorrow in clever disguise. If you are with us, accept my third offer. It will be one gold.",
@@ -1301,6 +1320,7 @@ var heroes = {
 			type : "interact",
 			item : "sword",
 			appearanceInfo : "cloak_stache",
+			voice : "STITCH",
 			offers : [2, 3, 1],
 			offerText : [
 				"Hello friend who I have never seen before. Two gold for a sword?",
@@ -1331,6 +1351,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			offers : [-7],
 			offerText : [
 				"Hello again, my friend. The rebellion requires seven gold. Will you help us free the people?"
@@ -1351,6 +1372,7 @@ var heroes = {
 		"5rebelWarning" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			dialog : [
 				"Hello friend. Thank you for listening to us.",
 				"You should probably think about staying out of the town square today.",
@@ -1361,6 +1383,7 @@ var heroes = {
 		"5rebelJob" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			dialog : [
 				"Hello friend, I have your first mission to help free our people.",
 				"A nasty city official will be here soon to buy a bow for one gold.",
@@ -1404,6 +1427,7 @@ var heroes = {
 		"5stallThanks" : {
 			type : "dialog",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			dialog : ["Hello friend, thank you for the help. Now we pay you."],
 			appearConditions : ["uprising_officialStalled"],
 			endMoney : 17
@@ -1421,6 +1445,7 @@ var heroes = {
 			type : "interact",
 			item : "None",
 			appearanceInfo : "cloak",
+			voice : "STITCH",
 			offers : [0],
 			offerText : ["Hello friend, this is last time I come here. You are sure you will not join?"],
 			success : "Fantastic! We will see you soon.",
@@ -1457,6 +1482,102 @@ var heroes = {
 			],
 			finishConditions : ["timer_slow"]
 		}
+	},
+	sportsball : {
+		"3intro" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : heroLooks.sportsRecruiter,
+			offers : [0],
+			offerText : [
+				"We're starting a dogs only Sportsball team./Will you bring your dog to our tryouts tonight?",
+			],
+			success : "Thanks, she'll be a great fit for the team!",
+			fail : "What a shame, she would have been a great fit for the team.",
+			questions : {
+				number : "One.",
+				color : "Purple.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz.",
+				day : "Depends on your answer.",
+				default : ". . ."
+			},
+			appearConditions : ["dog_have"],
+			sellConditions : ["sportsball_accepted"]
+		},
+		"4recruiter" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : heroLooks.sportsRecruiter,
+			offers : [0],
+			offerText : [
+				"Dog was the star player at tryouts./Will you bring her to the big game tonight?",
+			],
+			success : "Get excited, it's going to be a great game!",
+			fail : "We'll try to get through the game without her.",
+			questions : {
+				number : "Two.",
+				color : "Purple.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz.",
+				day : "Not bad!",
+				default : ". . ."
+			},
+			appearConditions : ["sportsball_triedout"],
+			sellConditions : ["sportsball_accepted"]
+		},
+		"5recruiter" : {
+			type : "interact",
+			item : "None",
+			appearanceInfo : heroLooks.sportsRecruiter,
+			offers : [0],
+			offerText : [
+				"The dog Sportsball championship is tonight./Will you pitch in seven gold for the entry fee?",
+			],
+			success : "Don't worry, you'll make your money back and more.",
+			fail : "I guess the girls won't be playing today.",
+			questions : {
+				number : "Three.",
+				color : "Purple.",
+				alphabet : "abcdefghijklmnopqrstuvwxyz.",
+				day : "Pretty good!",
+				default : ". . ."
+			},
+			appearConditions : ["sportsball_atgame"],
+			sellConditions : ["sportsball_accepted"]
+		},
+		"6jeffintro" : {
+			type : "dialog",
+			appearanceInfo : "jeff",
+			voice : "MED",
+			dialog : [
+				{
+					sportsball_championshipwon : "Also, I'm really proud of you, Dog. That was an amazing victory!",
+					default : "Also, I'm really proud of you, Dog. Even if you didn't win.",
+				}
+			],
+			appearConditions : ["sportsball_championattempted"]
+		},
+		"6dogspeaks" : {
+			type : "dialog",
+			appearanceInfo : "dog",
+			voice : "DOG",
+			dialog : [
+				"Thanks, Jeff!",
+				"Erm, I mean *Arf!*"
+			],
+			appearConditions : ["sportsball_championattempted"]
+		},
+		"6jeffshock" : {
+			type : "dialog",
+			appearanceInfo : "jeff",
+			voice : "MED",
+			dialog : [
+				". . . I'll just pretend I didn't hear that."
+			],
+			appearConditions : ["sportsball_championattempted"]
+		}
+	},
+	dogplay : {
+
 	}
 };
 

@@ -20,7 +20,6 @@ function PlayStateWrapper(game) {
 			*/
 
 			var shop = game.displayManager.shop;	// TODO: temporary work-around
-
 			///////////////////////////// UI elems ///////////////////////////
 
 			//-------------------------- Item slots --------------------------
@@ -211,26 +210,36 @@ function PlayStateWrapper(game) {
 			textCoins.setAmount = function(newAmount) {
 				var diff = newAmount - parseInt(textCoins.text);
 				var tmr = game.time.create(true);
-				tmr.count = 0;
-				tmr.loop(100, function() { 
-					if (tmr.count < Math.abs(diff)) {
-						textCoins.setText(parseInt(textCoins.text) + (diff > 0 ? 1 : -1));
-						tmr.count++;
-						
-						if (tmr.twinkle) { tmr.twinkle.destroy(); }
-						tmr.twinkle = game.depthGroups.uiGroup.create(70 + Math.random() * 20, 540 + Math.random() * textCoins.width, 'ui_twinkle');
-						var scale = 1.5  + Math.random() * 4;
-						tmr.twinkle.scale.setTo(scale, scale);
-						
-					} else {
-						tmr.stop();
-						tmr.destroy();
-						if (tmr.twinkle) { tmr.twinkle.destroy(); }
-					} 
+				if(Math.abs(diff) > 20) {
+					textCoins.setText(newAmount);
+					var twinkle = game.depthGroups.uiGroup.create(70 + Math.random() * 20, 540 + Math.random() * textCoins.width, 'ui_twinkle');
+					var scale = 1.5  + Math.random() * 4;
+					twinkle.scale.setTo(scale, scale);
+					setTimeout(function() {
+						twinkle.destroy();
+					}, 50);
+				} else {
+					tmr.count = 0;
+					tmr.loop(50, function() { 
+						if (tmr.count < Math.abs(diff)) {
+							textCoins.setText(parseInt(textCoins.text) + (diff > 0 ? 1 : -1));
+							tmr.count++;
+							
+							if (tmr.twinkle) { tmr.twinkle.destroy(); }
+							tmr.twinkle = game.depthGroups.uiGroup.create(70 + Math.random() * 20, 540 + Math.random() * textCoins.width, 'ui_twinkle');
+							var scale = 1.5  + Math.random() * 4;
+							tmr.twinkle.scale.setTo(scale, scale);
+							
+						} else {
+							tmr.stop();
+							tmr.destroy();
+							if (tmr.twinkle) { tmr.twinkle.destroy(); }
+						} 
 
-					printDebug("UI: coin text now: " + textCoins);
-				}, this);
-				tmr.start();
+						printDebug("UI: coin text now: " + textCoins);
+					}, this);
+					tmr.start();
+				}
 			}
 
 			game.depthGroups.uiGroup.add(textCoins);
@@ -707,7 +716,7 @@ function PlayStateWrapper(game) {
 			});
 
 			game.eventManager.register(game.Events.DOG.APPEAR, function() {
-				game.kongregate.stats.submit('Dog', 1);
+				game.kongregate.submit('Dog', 1);
 				game.displayManager.dog.visible = true;
 			});
 

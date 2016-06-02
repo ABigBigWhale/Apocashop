@@ -128,6 +128,7 @@ function EndingScreen(game) {
 			printDebug("EventGold: " + game.wrapupManager.eventGold);
 			var currGold = prevGold + game.wrapupManager.eventGold.pop();
 			var diff = currGold - prevGold;
+			game.kongregate.submit('MaxDayProfit', diff);
 			var coinDiff = Math.round(Math.abs(diff / 2));
 
 			if (currGold < prevGold) {

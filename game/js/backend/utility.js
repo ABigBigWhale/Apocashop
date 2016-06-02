@@ -216,6 +216,7 @@ function randomIntInRange(min, max) {
 var nullFunc = function() {};
 
 function iddqd() {
+	gameConfig.MENDOZA = 0;
 	debugGame.eventManager.register(debugGame.Events.DAY.START, function() {
 		setTimeout(function() {
 			debugGame.dayTimer.jumpForward(90000)

@@ -24,6 +24,7 @@ function EndStateWrapper(game) {
 	};
 
 	this.endState = function() {
+			game.currentScreen = "ENDSCREEN";
 			// TODO: temporary
 			game.stage.backgroundColor = '#000000';
 			blackScreen = game.add.graphics(0, 0);

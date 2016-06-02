@@ -52,7 +52,8 @@ function SoundManager(game, isEnabled, doneCB) {
 			TEXTHIGH : [generateSoundData('texthigha'), generateSoundData('texthighb'), generateSoundData('texthighc'), generateSoundData('texthighd'), generateSoundData('texthighe'), generateSoundData('texthighf'), generateSoundData('texthighg')],
 			TEXTMELODY : [generateSoundData('textmelodya'), generateSoundData('textmelodyb'), generateSoundData('textmelodyc'), generateSoundData('textmelodyd'), generateSoundData('textmelodye'), generateSoundData('textmelodyf'), generateSoundData('textmelodyg')],
 			TEXTMURPHY : [generateSoundData('textmurphya'), generateSoundData('textmurphyb'), generateSoundData('textmurphyc'), generateSoundData('textmurphyd'), generateSoundData('textmurphye'), generateSoundData('textmurphyf'), generateSoundData('textmurphyg')],
-			TEXTSTITCH : [generateSoundData('textstitcha'), generateSoundData('textstitchb'), generateSoundData('textstitchc'), generateSoundData('textstitchd'), generateSoundData('textstitche'), generateSoundData('textstitchf'), generateSoundData('textstitchg')]
+			TEXTSTITCH : [generateSoundData('textstitcha'), generateSoundData('textstitchb'), generateSoundData('textstitchc'), generateSoundData('textstitchd'), generateSoundData('textstitche'), generateSoundData('textstitchf'), generateSoundData('textstitchg')],
+			TEXTDOG : [generateSoundData('textdoga'), generateSoundData('textdogb'), generateSoundData('textdogc')]
 		}
 
 	}, this);

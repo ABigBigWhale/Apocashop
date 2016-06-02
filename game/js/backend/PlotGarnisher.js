@@ -2,7 +2,7 @@
 function PlotGarnisher(game) {
 
 	var NUM_ELEMENTS = 2;
-	var NUM_DOG_ELEMENTS = 0;
+	var NUM_DOG_ELEMENTS = 1;
 	var LAST_AVAILABLE_INDEX = 30;
 
 	var storyElements;
@@ -36,6 +36,7 @@ function PlotGarnisher(game) {
 			var dayStory = story[index];
 			if(dayStory) {
 				insertCharacters(day, storyElements[i], dayStory.chars, dayStory.isOrdered);
+				insertInterruptCharacters(day, storyElements[i], dayStory.interruptChars);
 				insertConditions(day, dayStory.conditions);
 				insertWrapup(day, dayStory.wrapup);
 			}
@@ -58,6 +59,22 @@ function PlotGarnisher(game) {
 					index = randomElement(validIndexes, true);
 				}
 				sequence[index] = generateHeroData(storyName, charArray[i]);
+			}
+		}
+	}
+
+	function insertInterruptCharacters(day, storyName, charArray) {
+		if(charArray) {
+			var interruptNPCs = [];
+			for(var i = 0; i < charArray.length; i++) {
+				interruptNPCs.push(generateHeroData(storyName, charArray[i]));
+			}
+
+			var oldInterruptNPCs = day.interruptNPCs;
+			if(oldInterruptNPCs) {
+				day.interruptNPCs = oldInterruptNPCs.concat(interruptNPCs);
+			} else {
+				day.interruptNPCs = interruptNPCs;
 			}
 		}
 	}
@@ -90,7 +107,7 @@ function PlotGarnisher(game) {
 
 	var storyArray = ["uprising", "urchin", "treasure", "artifact"];
 
-	var dogStoryArray = [];
+	var dogStoryArray = ["sportsball"];
 	
 	var stories = {
 		urchin : {
@@ -554,7 +571,7 @@ function PlotGarnisher(game) {
 						isLongTerm : true
 					},
 					uprising_rebelsJoined : {
-						components : ['uprising_acceptedRebel', '!uprising_informant'],
+						components : ['uprising_acceptedRebel'],
 						kong : ["Rebellion_Joined"],
 						chance : 1.0,
 						isLongTerm : true
@@ -595,6 +612,97 @@ function PlotGarnisher(game) {
 				]
 			},
 			invalidOthers : []
+		},
+		sportsball : {
+			3 : {
+				chars : ["3intro"],
+				isOrdered : false,
+				conditions : {
+					sportsball_triedout : {
+						components : ["sportsball_accepted"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
+				wrapup : [
+					{
+						conditions : ["sportsball_accepted"],
+						text : "You take Dog to the Sportsball tryouts. You're no expert, but it looks like she does pretty well!"
+					}
+				]
+			},
+			4 : {
+				chars : ["4recruiter"],
+				isOrdered : false,
+				conditions : {
+					sportsball_atgame : {
+						components : ["sportsball_accepted"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
+				wrapup : [
+					{
+						conditions : ["sportsball_accepted"],
+						text : "You take Dog to the big game. She scores three field goals, two runs, and four baskets in an impressive victory!"
+					},
+					{
+						conditions : ["sportsball_accepted"],
+						text : "Dog gets ten gold for helping, but five goes missing when you're not looking.",
+						gold : 5
+					},
+					{
+						conditions : ["!sportsball_accepted"],
+						text : "You hear from people around town that the Sportsball team lost pretty badly."
+					}
+				]
+			},
+			5 : {
+				chars : ["5recruiter"],
+				isOrdered : false,
+				conditions : {
+					sportsball_championattempted : {
+						components : ["sportsball_accepted"],
+						chance : 1.0,
+						isLongTerm : true
+					},
+					sportsball_championshipwon : {
+						components : ["sportsball_accepted"],
+						chance : 0.75,
+						isLongTerm : true
+					}
+				},
+				wrapup : [
+					{
+						conditions : ["sportsball_atgame"],
+						text : "You go to the Sportsball championship. Jeff has drawn a large and somewhat embarassing banner rooting Dog on."
+					},
+					{
+						conditions : ["!sportsball_championshipwon"],
+						text : "Sadly, the other team wins in the final seconds. Dog is disappointed."
+					},
+					{
+						conditions : ["sportsball_championshipwon"],
+						text : "In the final moments, Dog scores five points to win the game! You share in the prize money.",
+						gold : 15
+					}
+				]
+			},
+			6 : {
+				interruptChars : ["6jeffintro", "6dogspeaks", "6jeffshock"]
+			},
+			7 : {
+				wrapup : [
+					{
+						conditions : ["sportsball_championattempted"],
+						text : "Every once in a while, Dog is still mobbed by her legions of Sportsball fans. She doesn't let the fame get to her head./Most of the time."
+					},
+					{
+						conditions : ["!sportsball_championattempted"],
+						text : "The Sportsball recruiter is still trying to get Dog to play."
+					}
+				]
+			}
 		}
 	};
 
