@@ -80,6 +80,8 @@ function StockUI(game) {
     function killGroup() {
         for(var key in allBox) {
             allBox[key].tinted.kill();
+            allBox[key].xtext.visible = false;
+            allBox[key]. priceText.visible = false;
             allBox[key].itemborder.kill();
             allBox[key].kill();
         }
