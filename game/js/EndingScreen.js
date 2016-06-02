@@ -152,6 +152,7 @@ function EndingScreen(game) {
 					} else if (diff < 0) {
 						game.soundManager.playSound(game.Sounds.COINLOST);
 					}
+                    prevGold += diff > 0 ? 1 : -1;
 				} else {
 					tmr.stop();
 					tmr.destroy();
