@@ -241,9 +241,16 @@ function DisplayManager(game) {
 			this.coins.tweenHit.start();
 		} 
 
+		if(coinDiff > 20) {
+			for(var i = 0; i < coinDiff; i++) {
+				addCoin(this.coins.length - 1, this.coins);
+			}
+			return;
+		}
+
 		var tmr = game.time.create(true);
 		tmr.count = 0;
-		tmr.loop(100, function(){
+		tmr.loop(50, function(){
 			if (tmr.count < coinDiff) {
 				tmr.count++;
 				if (diff > 0 && game.currentScreen == "SALES") {

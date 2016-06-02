@@ -676,6 +676,7 @@ function PlayStateWrapper(game) {
 
 			game.eventManager.register(game.Events.INTERACT.DIALOG, function(dialog) {
 				switchButtons(false);
+				game.dayTimer.pause();
 				//toggleButtons(false);
 				game.dialog.main.isPrinting = true;
 				game.dialogManager.printMain(dialog, false, function() {
