@@ -36,6 +36,7 @@ function PlotGarnisher(game) {
 			var dayStory = story[index];
 			if(dayStory) {
 				insertCharacters(day, storyElements[i], dayStory.chars, dayStory.isOrdered);
+				insertInterruptCharacters(day, storyElements[i], dayStory.interruptChars);
 				insertConditions(day, dayStory.conditions);
 				insertWrapup(day, dayStory.wrapup);
 			}
@@ -58,6 +59,22 @@ function PlotGarnisher(game) {
 					index = randomElement(validIndexes, true);
 				}
 				sequence[index] = generateHeroData(storyName, charArray[i]);
+			}
+		}
+	}
+
+	function insertInterruptCharacters(day, storyName, charArray) {
+		if(charArray) {
+			var interruptNPCs = [];
+			for(var i = 0; i < charArray.length; i++) {
+				interruptNPCs.push(generateHeroData(storyName, charArray[i]));
+			}
+
+			var oldInterruptNPCs = day.interruptNPCs;
+			if(oldInterruptNPCs) {
+				day.interruptNPCs = oldInterruptNPCs.concat(interruptNPCs);
+			} else {
+				day.interruptNPCs = interruptNPCs;
 			}
 		}
 	}

@@ -194,8 +194,6 @@ function initNPCGen(game) {
 			"[X] gold is all I can afford.",
 			"Okay then. [X] gold?",
 			"Hmm. [X] gold?",
-			"Take [X] gold or I'll leave.",
-			"I see. [X] gold then?"
 		];
 
 		generateHaggle = function(gold) {
@@ -348,8 +346,7 @@ function initNPCGen(game) {
 				"What's it to you?",
 				"Why do you care?",
 				"Boring.",
-				"Wet",
-				"Let's just get to the business."
+				"Wet"
 			],
 			news : [
 				"I don't get out much.",
@@ -364,7 +361,6 @@ function initNPCGen(game) {
 				"Red.",
 				"Blue?",
 				"Chartreuse. @@@Don't you dare judge me.",
-				"0x@8B@A8@70",
 				"Purple.",
 				"Sky color.",
 				"Ground color.",
@@ -380,12 +376,12 @@ function initNPCGen(game) {
 				"Saffron.",
 				"Pink, I guess.",
 				"Teal, no doubt.",
-				"Purple and gold. Arf!",
+				"Purple and gold.",
 				"Grey!",
 				"The color of snow.",
 				"White. I like white.",
 				"Orchid.",
-				"Kha-kha-kha-khaki!"
+				"Khaki!"
 			],
 			number : [
 				"Seven.",
@@ -399,10 +395,6 @@ function initNPCGen(game) {
 				"Sixty two.",
 				"One hundred.",
 				"Seven point two. Don't ask why.",
-				"What a strange question.",
-				"I guess I've never given that much thought...",
-				"What's it to you?",
-				"Let's just get to the business."
 			],
 			alphabet : [
 				"abcdefghijklmnopqrstuvwxyz",
@@ -448,10 +440,8 @@ function initNPCGen(game) {
 			"Yes! I needed this.",
 			"Good.",
 			"Thanks a lot.",
-			"You have my gratitude.",
 			"Thanks, pal.",
 			"Deal.",
-
 		]
 
 		generateThanks = function() {
@@ -477,10 +467,10 @@ function initNPCGen(game) {
 			"No deal.",
 			"No way.",
 			"Heh, good luck with that.",
-			"Are you even trying to sell it?",
-			"Guess I'm not buying that.",
+			// "Are you even trying to sell it?",
+			// "Guess I'm not buying that.",
 			"Nope, can't afford that.",
-			"Fine. I'll just look for other shops."
+			// "Fine. I'll just look for other shops."
 		]
 
 		generateLeave = function() {
@@ -488,6 +478,6 @@ function initNPCGen(game) {
 			return angrys[index];
 		};
 
-	})();
+	})();g
 
 }
