@@ -123,10 +123,9 @@ function EndingScreen(game) {
 		recapGroup.fadeOut.start();
 	});
 
-	game.eventManager.register(game.Events.WRAPUP.MESSAGE, function(message) {
+	game.eventManager.register(game.Events.WRAPUP.MESSAGE, function(message, goldAmount) {
 		game.dialogManager.printWrapup(message, function() {
-			printDebug("EventGold: " + game.wrapupManager.eventGold);
-			var currGold = prevGold + game.wrapupManager.eventGold.pop();
+			var currGold = prevGold + goldAmount;
 			var diff = currGold - prevGold;
 			game.kongregate.submit('MaxDayProfit', diff);
 			var coinDiff = Math.round(Math.abs(diff / 2));
