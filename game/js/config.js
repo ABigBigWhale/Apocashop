@@ -1,4 +1,4 @@
-var SETUP = "DEBUG";
+var SETUP = "KONGREGATE";
 
 var gameConfig = {
 	DEBUG_MODE: true,
