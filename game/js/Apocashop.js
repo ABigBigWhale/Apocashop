@@ -45,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			window.debugGame = false;
 		}
 
+		game.stage.disableVisibilityChange = true;
+
 		game.loadStateWrapper = new LoadStateWrapper(game);
 		game.startStateWrapper = new StartStateWrapper(game);
 		game.playStateWrapper = new PlayStateWrapper(game);
