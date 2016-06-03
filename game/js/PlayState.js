@@ -415,6 +415,11 @@ function PlayStateWrapper(game) {
 				game.depthGroups.shopGroup.setAll('tint', tintVal);
 				game.depthGroups.questionGroup.setAll('tint', tintVal);
 				game.depthGroups.uiGroup.setAll('tint', tintVal);
+                game.depthGroups.frontGroup.setAll('tint', tintVal);
+                for(var i = 0; i < game.depthGroups.frontGroup.children.length; i++) {
+					if (game.depthGroups.frontGroup.children[i].children != undefined)
+						game.depthGroups.frontGroup.children[i].setAll('tint', tintVal);
+				}
 				uiDeskBgLayer.setAll('tint', tintVal);
 				uiAvatarLayer.setAll('tint', tintVal);
 				uiDeskLayer.setAll('tint', tintVal);
