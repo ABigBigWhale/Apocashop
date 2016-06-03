@@ -1,4 +1,5 @@
-var SETUP = "KONGREGATE";
+// DO NOT CHANGE ME OR THE BUILD SCRIPT WILL BREAK
+var SETUP = "DEBUG";
 
 var gameConfig = {
 	DEBUG_MODE: true,
