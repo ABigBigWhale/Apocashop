@@ -253,7 +253,15 @@ function DisplayManager(game) {
 	}
 
 	this.updateCoins = function() {
-		var currGold = game.playerState.getGold();
+		var realCurrGold = game.playerState.getGold();
+		var isLostMoney = realCurrGold - this.prevGold < 0;
+
+		if(isLostMoney && this.prevGold <= 0) {
+			game.soundManager.playSound(game.Sounds.COINLOST);
+			return;
+		}
+
+		var currGold = Math.max(realCurrGold, 0);
 		var diff = currGold - this.prevGold;
 		var coinDiff = Math.round(Math.abs(diff / 2));
 
