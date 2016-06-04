@@ -1279,14 +1279,21 @@ var heroes = {
 			refuseConditions : ["artifact_keptOrb"],
 		},
 		"6returnHappy" : {
-			type : "dialog",
+			type : "interact",
+			item : "None",
 			appearanceInfo : "artifact",
-			dialog : [
-				"Thank you for holding onto that for me, child.",
-				"Here is your payment, as promised."
+			offers : [50],
+			offerText : [
+				"May I get my orb back, child? For our promised price."
 			],
-			appearConditions : ["haveOrb5"],
-			endMoney : 50
+			success : "Thank you, child.",
+			fail : "Curse you, child.",
+			questions : {
+				default : "Please child, the orb . . ."
+			},
+			appearConditions : ["artifact_haveOrb5"],
+			sellConditions : ["artifact_goodOrb"],
+			refuseConditions : ["artifact_keptOrb"]
 		},
 		"6returnSad" : {
 			type : "dialog",
@@ -1600,6 +1607,7 @@ var heroes = {
 				day : "Depends on your answer.",
 				default : ". . ."
 			},
+			appearConditions : ["dog_have"],
 			sellConditions : ["theater_accepted"]
 		},
 		"4recruiter" : {

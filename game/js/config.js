@@ -16,28 +16,33 @@ var gameConfig = {
 switch(SETUP) {
 	case "NEWGROUNDS":
 		gameConfig.DEBUG_MODE = false;
-		gameConfig.VERSION = "0.4-ng";
+		gameConfig.VERSION = "0.5-ng";
 		gameConfig.ISSCALED = false;
 		break;
 	case "OMNITHON":
 		gameConfig.DEBUG_MODE = false;
 		gameConfig.SOUNDENABLED = false;
-		gameConfig.VERSION = "0.4-om";
+		gameConfig.VERSION = "0.5-om";
 		break;
 	case "KONGREGATE":
 		gameConfig.DEBUG_MODE = false;
-		gameConfig.VERSION = "0.4-kg";
+		gameConfig.VERSION = "0.5-kg";
 		gameConfig.ISSCALED = false;
 		gameConfig.ISKONGREGATE = true;
 		break;
 	case "ALBINO":
 		gameConfig.DEBUG_MODE = false;
-		gameConfig.VERSION = "0.4-ab";
+		gameConfig.VERSION = "0.5-ab";
 		gameConfig.ISSCALED = true;
 		gameConfig.ISALBINO = true;
 		break;
 	case "OMGTEST":
 		gameConfig.DEBUG_MODE = false;
 		gameConfig.VERSION = "OMGTEST";
+		break;
+	case "HAO":
+		gameConfig.DEBUG_MODE = false;
+		gameConfig.VERSION = "HAO";
+		gameConfig.isScaled = true;
 		break;
 }

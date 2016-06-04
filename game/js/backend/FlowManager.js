@@ -28,8 +28,6 @@ function beginGame(game) {
 	var currentDayIndex = 0;
 	var currentDay = getDay(currentDayIndex);
 
-	var isLost = false;
-
 	game.timesFailed = 0;
 	game.timesWon = 0;
 
@@ -41,20 +39,8 @@ function beginGame(game) {
 	game.analytics.track('day', 'begin' + currentDayIndex, game.playerState.getGold());
 	game.kongregate.submit('DayReached', currentDayIndex);
 
-	game.eventManager.register(game.Events.UPDATE.GOLD, function(amount) {
-		if (amount < 0) {
-			isLost = true;
-			game.timesFailed++;
-			game.analytics.set("dimension4", game.timesFailed);
-			game.analytics.track('game', 'fail', currentDayIndex);
-			game.endStateWrapper.setGameResult(false);
-			game.endState.endState();
-		}
-	});
-
 	var beginStocking = function() {
 		game.currentScreen = "STOCKING";
-		isLost = false;
 		game.soundManager.stopMusic(500);
 		game.stockUI.startDay(currentDay.clues.crisis, function() {
 			beginSales(currentDay);
@@ -66,7 +52,6 @@ function beginGame(game) {
 		// sometimes. Throwing it here as well for safety.
 		// Hey, when you have a one month dev cycle, this is what happens.
 		game.currentScreen = "SALES";
-		isLost = false;
 		if(currentDayIndex === 0) {
 			game.soundManager.stopMusic(100);
 		}
@@ -81,7 +66,13 @@ function beginGame(game) {
 		game.wrapupManager.startDay(currentDay, function() {
 			game.currentScreen = "WRAPUP";
 			game.eventManager.notify(game.Events.WRAPUP.END);
-			if(!isLost) {
+			if (game.playerState.getGold() < 0) {
+				game.timesFailed++;
+				game.analytics.set("dimension4", game.timesFailed);
+				game.analytics.track('game', 'fail', currentDayIndex);
+				game.endStateWrapper.setGameResult(false);
+				game.endState.endState();
+			} else {
 				currentDayIndex++;
 				game.analytics.set("dimension1", currentDayIndex);
 				game.analytics.track('day', 'begin' + currentDayIndex, game.playerState.getGold());

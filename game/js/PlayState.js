@@ -212,7 +212,7 @@ function PlayStateWrapper(game) {
 				var diff = newAmount - parseInt(textCoins.text);
 				var tmr = game.time.create(true);
 				if(Math.abs(diff) > 20 || game.currentScreen === "STOCKING") {
-					textCoins.setText(newAmount);
+					setTextCoinsText(newAmount);
 					var twinkle = game.depthGroups.uiGroup.create(70 + Math.random() * 20, 540 + Math.random() * textCoins.width, 'ui_twinkle');
 					var scale = 1.5  + Math.random() * 4;
 					twinkle.scale.setTo(scale, scale);
@@ -223,7 +223,7 @@ function PlayStateWrapper(game) {
 					tmr.count = 0;
 					tmr.loop(50, function() { 
 						if (tmr.count < Math.abs(diff)) {
-							textCoins.setText(parseInt(textCoins.text) + (diff > 0 ? 1 : -1));
+							setTextCoinsText(parseInt(textCoins.text) + (diff > 0 ? 1 : -1));
 							tmr.count++;
 
 							if (tmr.twinkle) { tmr.twinkle.destroy(); }
@@ -241,6 +241,17 @@ function PlayStateWrapper(game) {
 					}, this);
 					tmr.start();
 				}
+			}
+
+			var setTextCoinsText = function(amount) {
+				var fontStorage = textCoins.style;
+				if(parseInt(amount) >= 0) {
+					fontStorage.fill = "#ebc36f";
+				} else {
+					fontStorage.fill = "#DC143C";
+				}
+				textCoins.setStyle(fontStorage);
+				textCoins.setText(amount);
 			}
 
 			game.depthGroups.uiGroup.add(textCoins);

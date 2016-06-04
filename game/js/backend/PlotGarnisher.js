@@ -444,13 +444,25 @@ function PlotGarnisher(game) {
 			6 : {
 				chars : ["6returnHappy", "6returnSad", "6returnScared"],
 				isOrdered : false,
+				conditions : {
+					artifact_goodOrbEnd : {
+						components : ["artifact_goodOrb"],
+						chance : 1.0,
+						isLongTerm : true
+					},
+					artifact_keptOrbBad : {
+						components : ["artifact_keptOrb"],
+						chance : 1.0,
+						isLongTerm : true
+					}
+				},
 				wrapup : [
 					{
-						conditions : ["haveOrb5"],
+						conditions : ["artifact_goodOrb"],
 						text : "As the sun sets, you feel a wave of the orb's energy and see a beam of light pierce the sky in the north."
 					},
 					{
-						conditions : ["haveOrb5"],
+						conditions : ["artifact_goodOrb"],
 						text : "The slightly charred keeper of the orb stops by your home, and gives his thanks along with 20 more gold.",
 						gold : 20
 					},
@@ -468,7 +480,7 @@ function PlotGarnisher(game) {
 			7 : {
 				wrapup : [
 					{
-						conditions : ["artifact_haveOrb5"],
+						conditions : ["artifact_goodOrbEnd"],
 						text : "You sometimes see the man who owns the mysterious orb wandering about with a hectic look in his eye."
 					},
 					{
@@ -482,6 +494,10 @@ function PlotGarnisher(game) {
 					{
 						conditions : ["artifact_villainOrb"],
 						text : "You can't help but feel at least partially responsible."
+					},
+					{
+						conditions : ["artifact_keptOrbBad"],
+						text : "The mysterious orb still sits on your mantleplace.//You've tried to get rid of it, but it always finds its way back to you . . ."
 					}
 				]
 			},
