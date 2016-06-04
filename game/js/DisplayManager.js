@@ -31,6 +31,9 @@ function DisplayManager(game) {
 	var soundControl;
 	var coins, prevGold;
 
+	//----------- Shade rect -------------------------
+	var screenShade;
+
 	function setPositionLowerMiddle(shop, player) {
 		shop.position.copyFrom(player);
 		shop.position.y += player.height - shop.height / 2;
@@ -59,7 +62,8 @@ function DisplayManager(game) {
 			noteGroup : game.add.group(),
 			questionGroup : game.add.group(),
 			uiGroup: game.add.group(),
-			frontGroup: game.add.group()
+			frontGroup: game.add.group(),
+			shadeGroup: game.add.group(),
 		};
 	}
 
@@ -219,7 +223,7 @@ function DisplayManager(game) {
 			addCoin(i);
 		}
 	}
-	
+
 	var surplusCoins = 0;
 	var MAX_DISPLAYED_GOLD = 120;
 
@@ -350,7 +354,7 @@ function DisplayManager(game) {
 	};
 
 	this.updateSunPosition = function(dayPercent) {
-/*		if (dayPercent <= 1 && !this.imgSun.blinking) {
+		/*		if (dayPercent <= 1 && !this.imgSun.blinking) {
 			this.imgSun.animations.play('blink', 0.5, true);
 			this.imgSun.blinking = true;
 		} else if (this.imgSun.blinking) {
@@ -605,6 +609,28 @@ function DisplayManager(game) {
 		dialog.alpha = 0;
 
 		printDebug('UI: put Jeff dialog at ' + x + ', ' + y + ' with width: ' + w + ' height: ' + h);
+	}
+
+	this.putScreenShade = function(color, alpha) {
+		if (this.screenShade) {
+			this.screenShade.destroy();
+		}
+		var graphics = game.add.graphics(0, 0);
+		graphics.beginFill(color);
+		graphics.drawRect(0, 0, gameConfig.RESOLUTION[0], gameConfig.RESOLUTION[1]);
+		graphics.endFill();
+
+		this.screenShade = game.depthGroups.shadeGroup.create(0, 0);
+		this.screenShade.addChild(graphics);
+		this.screenShade.alpha = alpha;
+
+		this.screenShade.inputEnabled = false;
+		this.screenShade.visible = false;
+	}
+
+	this.toggleScreenShade = function(shadeOn) {
+		this.screenShade.visible = shadeOn;
+		this.screenShade.inputEnabled = shadeOn;
 	}
 
 	this.tintJeffBox = function(tint) {

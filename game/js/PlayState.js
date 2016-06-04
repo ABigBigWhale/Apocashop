@@ -11,6 +11,7 @@ function PlayStateWrapper(game) {
 			game.displayManager.prepareGroups();
 			game.displayManager.putEnvironment();
 			game.displayManager.putUIComponents();
+			game.displayManager.putScreenShade(0x292929, 0.75);
 
 			/*
 			var hands = game.displayManager.generateNPCHands('01100', '11001');
@@ -224,12 +225,12 @@ function PlayStateWrapper(game) {
 						if (tmr.count < Math.abs(diff)) {
 							setTextCoinsText(parseInt(textCoins.text) + (diff > 0 ? 1 : -1));
 							tmr.count++;
-							
+
 							if (tmr.twinkle) { tmr.twinkle.destroy(); }
 							tmr.twinkle = game.depthGroups.uiGroup.create(70 + Math.random() * 20, 540 + Math.random() * textCoins.width, 'ui_twinkle');
 							var scale = 1.5  + Math.random() * 4;
 							tmr.twinkle.scale.setTo(scale, scale);
-							
+
 						} else {
 							tmr.stop();
 							tmr.destroy();
@@ -378,7 +379,7 @@ function PlayStateWrapper(game) {
 				fireworks.start(true, 4000, null, 50);
 			}
 
-			function tintBackground(tintVal) {
+			/*function tintBackground(tintVal) {
 				game.displayManager.tintClouds(tintVal);
 				game.depthGroups.envGroup.setAll('tint', tintVal);
 			}
@@ -424,7 +425,7 @@ function PlayStateWrapper(game) {
 				uiAvatarLayer.setAll('tint', tintVal);
 				uiDeskLayer.setAll('tint', tintVal);
 				uiDialogLayer.setAll('tint', tintVal);
-			}
+			}*/
 
 			// --------------------------- Upgrades -----------------------
 			//TODO: make this create based off of upgrades taken from stock.nextUpgrades
@@ -501,14 +502,16 @@ function PlayStateWrapper(game) {
 			function toggleUpgrades(isEnabled) {
 				toggleButtons(!isEnabled);
 				if (isEnabled) {
+					game.displayManager.toggleScreenShade(true);
 					game.soundManager.playSound(game.Sounds.POWERUP);
 					makeFireworks();
 					upgradeGroup = game.add.group();
 					createUpgrades(upgradeGroup, upgradeSequence);
-					tintAll(0x191919);
+					//tintAll(0x191919);
 					game.dayTimer.pause();
 				} else {
-					tintAll(0xFFFFFF);
+					game.displayManager.toggleScreenShade(false);
+					//tintAll(0xFFFFFF);
 					game.dayTimer.resume();
 					upgradeGroup.visible = false;
 					upgradeGroup.callAll('kill');
@@ -624,8 +627,8 @@ function PlayStateWrapper(game) {
 					isBeginningDayToggle = true;
 				}
 			});
-			game.eventManager.register(game.Events.TIMER.PAUSE, tintClock);
-			game.eventManager.register(game.Events.TIMER.RESUME, tintClock);
+			//game.eventManager.register(game.Events.TIMER.PAUSE, tintClock);
+			//game.eventManager.register(game.Events.TIMER.RESUME, tintClock);
 
 			function formatClues(clues) {
 				var retString = "";
@@ -820,7 +823,7 @@ function PlayStateWrapper(game) {
 					}
 
 					currNPC = uiAvatarLayer.create(20, 360, npcAssetId);
-					currNPC.tint = tinted;
+					//currNPC.tint = tinted;
 
 					if (handsInfo && handsInfo.substring() && handsInfo.length == 10) {
 						// If we are generating fingers
