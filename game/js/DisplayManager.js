@@ -450,6 +450,10 @@ function DisplayManager(game) {
 		}
 	}
 
+	this.toggleGoldenClouds = function(isOn) {
+		spawnGoldenCloud = isOn;
+	};
+
 	this.toggleCloudGeneration = function(cloudGen) {
 		this.cloudGenOn = cloudGen;
 		if (cloudGen) {

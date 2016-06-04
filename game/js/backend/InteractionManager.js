@@ -178,6 +178,7 @@ function InteractionManager(game) {
 		
 		game.dayTimer = new Timer(function() {
 			printDebug("DAY ENDING TIMER");
+			game.displayManager.toggleGoldenClouds(false);
 			isEnd = true;
 			if(!checkDayOver()) {
 				game.analytics.track("mendoza", "fail" + dayIndex, potentialProfit);
@@ -188,11 +189,13 @@ function InteractionManager(game) {
 			}
 		}, day.length * dayUpgrade, function() {
 			game.eventManager.notify(game.Events.TIMER.PAUSE, 0x191919);
+			game.displayManager.toggleGoldenClouds(false);
 			game.displayManager.imgSun.frame = 1;
 			game.displayManager.imgSun.blinking = false;
 			game.displayManager.spawnGoldenCloud = false;
 		}, function() {
 			game.eventManager.notify(game.Events.TIMER.RESUME, 0xFFFFFF);
+			game.displayManager.toggleGoldenClouds(true);
 			game.displayManager.imgSun.frame = 0;
 			game.displayManager.spawnGoldenCloud = true;
 		});

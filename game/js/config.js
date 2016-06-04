@@ -40,4 +40,9 @@ switch(SETUP) {
 		gameConfig.DEBUG_MODE = false;
 		gameConfig.VERSION = "OMGTEST";
 		break;
+	case "HAO":
+		gameConfig.DEBUG_MODE = false;
+		gameConfig.VERSION = "HAO";
+		gameConfig.isScaled = true;
+		break;
 }
