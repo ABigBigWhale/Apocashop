@@ -104,12 +104,12 @@ function Stock(game) {
 			var currItems = game.playerState.getItems();
 			var currStocked = game.playerState.getStockedItems();
 			if (currItems[item] === undefined || currItems[item] <= 0 || currStocked[item] === undefined) {
-				game.analytics.track("SOLD", "jeff_" + item, price); 
+				//game.analytics.track("SOLD", "jeff_" + item, price); 
 				price -= items[item].jPrice;
 				profit -= items[item].jPrice;
 				game.eventManager.notify(game.Events.TIMER.JUMP, 3000);
 			} else {
-				game.analytics.track("SOLD", "stock_" + item, price); 
+				//game.analytics.track("SOLD", "stock_" + item, price); 
 				profit -= items[item].price;
 			}
 			game.playerState.decrementItem(item);

@@ -36,7 +36,7 @@ function AnalyticsWrapper() {
 	this.set = function(metric, val) {
 		printDebug("Tracking dimension: " + metric + ", " + val);
 		ga('set', metric, val);
-		ga('send', 'pageview');
+		ga('send', 'screenview');
 	};
 
 	this.setRunID = function() {

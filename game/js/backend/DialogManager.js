@@ -66,7 +66,7 @@ function DialogManager(game) {
 		doneCBStub = doneCBStub || function() {};
 		var doneCB = function() {
 			doneCBStub();
-			game.analytics.track("text", "noSkipText");
+			//game.analytics.track("text", "noSkipText");
 		};
 		clearTimeout(game.dialog.main.timeout);
 		var brokenMessage = formatMessage(game.dialog.main.box, game.dialog.main.ghost, 383, 5, 30, message);
@@ -88,7 +88,7 @@ function DialogManager(game) {
 	};
 
 	this.jumpMain = function() {
-		game.analytics.track("text", "skipText");
+		//game.analytics.track("text", "skipText");
 		var splitMessage = game.dialog.main.message.split("@").join("").split(/\/|\|/);
 		clearTimeout(game.dialog.main.timeout);
 		game.dialog.main.box.text = splitMessage.join("\n");

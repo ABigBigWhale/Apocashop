@@ -198,7 +198,7 @@ function PlayStateWrapper(game) {
 			uiNote.events.onInputDown.add(function() {
 				game.soundManager.playSound(game.Sounds.TAP);
 				toggleNoteDisplay();
-				game.analytics.track("note", "clicked")
+				//game.analytics.track("note", "clicked")
 			}, this);
 			uiNoteCurtain.events.onInputDown.add(toggleNoteDisplay, this);
 
@@ -312,7 +312,7 @@ function PlayStateWrapper(game) {
 					uiButtonQuestion.alpha = 1;
 				}
 				// TODO: 
-				game.analytics.track("question", "toggled");
+				//game.analytics.track("question", "toggled");
 				game.questionManager.toggleQuestions();
 			};
 

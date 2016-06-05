@@ -88,7 +88,7 @@ function EndingScreen(game) {
 
 	function requestNext() {
 		if(isReading) {
-			game.analytics.track("text", "wrapupNoSkip");
+			//game.analytics.track("text", "wrapupNoSkip");
 		}
 		blackScreenSprite.events.onInputDown.removeAll();
 		isReading = true;
@@ -98,7 +98,7 @@ function EndingScreen(game) {
 
 	function trackFutileClick() {
 		if(isReading) {
-			game.analytics.track("text", "wrapupSkipAttempt");
+			//game.analytics.track("text", "wrapupSkipAttempt");
 		}
 		isReading = false;
 	}
