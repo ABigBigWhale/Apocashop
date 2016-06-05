@@ -103,7 +103,7 @@ function PlayerState(game) {
 		for(var i = 1; i < Stats.StockedItems.length; i++) {
 			stocked_string += "_" + Stats.StockedItems[i]
 		}
-		game.analytics.track("STOCK.COMMIT", stocked_string, Stats.numSlots);
+		//game.analytics.track("STOCK.COMMIT", stocked_string, Stats.numSlots);
 	}
 
 	this.updateProfit = function(profit) {
