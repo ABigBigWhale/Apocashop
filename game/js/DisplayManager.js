@@ -427,7 +427,7 @@ function DisplayManager(game) {
 		var cloudAsset = 'gp_cloud';
 		if (randomIntInRange(1, 14) == 2 && spawnGoldenCloud) {   // Generate special clouds
 			cloudAsset = 'gp_cloud_star';
-			this.cloudDur = 4800;
+			this.cloudDur = randomIntInRange(3000, 4200);
 		}
 		var cloud = this.clouds.create(-58, this.cloudY, cloudAsset);
 		cloud.tint = tint;
