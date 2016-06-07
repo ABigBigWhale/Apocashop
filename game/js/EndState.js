@@ -123,7 +123,7 @@ function EndStateWrapper(game) {
 				if (score <= 1.8) commentText = "King Zoran sends you home,\nhoping you'll try again.";
 				else if (score <= 2.5) commentText = 'King Zoran sends you on our way\nwith a hefty sack of gold.';
 				else if (score <= 3.0) commentText = 'King Zoran stops making you pay taxes.\nWell, some of your taxes.';
-				else if (score <= 3.5) commentText = 'King Zoran sets you up with a shop in the capital.';
+				else if (score <= 3.5) commentText = 'King Zoran sets you up with a shop in the \ncapital.';
 				else if (score <= 3.9) commentText = 'King Zoran makes you an official advisor.';
 				else commentText = 'King Zoran makes you an official advisor.\n' + 
 					'Someday, you and Jeff may even rule this\nkingdom.';
