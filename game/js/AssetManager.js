@@ -16,7 +16,9 @@ function AssetManager(game) {
 		'button_reject' : [63, 22],
 		'button_question' : [63, 22],
 		'gp_sun' : [96, 96],
-		'ui_sound' : [48, 48]
+		'ui_sound' : [48, 48],
+		'ui_stock_increase' : [38, 28],
+		'ui_stock_decrease' : [38, 28],
 	};
 
 	// Paths of asset files, without extensions
@@ -51,7 +53,7 @@ function AssetManager(game) {
 
 		'ui': [
 			'endday_boxoutline',
-			'ui_itemslot', 
+			'ui_itemslot', 'ui_itemslot_locked',  
 			'ui_jeff_dialog_corner', 'ui_jeff_dialog_tip', 'ui_jeff_dialog_border',
 			'ui_dialog',
 			'ui_note',
@@ -63,7 +65,7 @@ function AssetManager(game) {
 			'ui_table_background',
 			'ui_clock',
 			'ui_coinstack_frame',
-			'ui_coin_frame',
+			'ui_coin_frame', 'ui_coin_flat',
 			'ui_funnel', 'ui_funnel_sand_top', 'ui_funnel_sand_buttom',
 			'ui_hands_background',
 			'ui_button_accept', 
@@ -75,6 +77,8 @@ function AssetManager(game) {
 			'ui_button_item_border',
 			'ui_sound',
 			'ui_twinkle',
+			'ui_stock_increase',
+			'ui_stock_decrease',
 			'shop_rock',
 			'shop_wooden',
 			'shop_wooden_plus',
