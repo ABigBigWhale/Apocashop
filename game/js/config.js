@@ -46,3 +46,7 @@ switch(SETUP) {
 		gameConfig.isScaled = true;
 		break;
 }
+
+if (navigator && (navigator.appName == 'Microsoft Internet Explorer' ||  !!(navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/rv 11/)))) {
+	gameConfig.SOUNDENABLED = false
+}
